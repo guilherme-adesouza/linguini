@@ -1,2 +1,2 @@
 # linguini
-System for food services ofr class Integrator Project
+System for food services for class Integrator Project
