@@ -7,6 +7,7 @@ package view;
 
 import java.awt.Color;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.border.Border;
 
 /**
@@ -52,6 +53,7 @@ public class Home extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
 
@@ -176,6 +178,15 @@ public class Home extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu4.setText("Caixa");
+
+        jMenuItem1.setText("Abrir e Fechar Caixa");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem1);
+
         jMenuBar1.add(jMenu4);
 
         jMenu3.setText("Financeiro");
@@ -213,9 +224,21 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_labAbrirFecharCaixaMouseExited
 
     private void labAbrirFecharCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labAbrirFecharCaixaMouseClicked
-        jdFluxo fluxo = new jdFluxo();
-        fluxo.setVisible(true);
+        JFrame frame = new JFrame();
+        jdCaixa caixa = new jdCaixa(frame, true);
+        caixa.setLocationRelativeTo(caixa);
+        //cf.setBounds(0, 0, screenSize.width, screenSize.height);
+        caixa.setVisible(true);
     }//GEN-LAST:event_labAbrirFecharCaixaMouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        JFrame frame = new JFrame();
+        jdCaixa caixa = new jdCaixa(frame, true);
+        caixa.setLocationRelativeTo(caixa);
+        //cf.setBounds(0, 0, screenSize.width, screenSize.height);
+        caixa.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,6 +287,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
