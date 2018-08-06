@@ -5,6 +5,10 @@
  */
 package view;
 
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+
 /**
  *
  * @author VitinNote
@@ -17,7 +21,7 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-        
+
     }
 
     /**
@@ -30,7 +34,7 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        labAbrirFecharCaixa = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -56,7 +60,19 @@ public class Home extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-fluxo-de-caixa-48.png"))); // NOI18N
+        labAbrirFecharCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-fluxo-de-caixa-48.png"))); // NOI18N
+        labAbrirFecharCaixa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        labAbrirFecharCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labAbrirFecharCaixaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labAbrirFecharCaixaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labAbrirFecharCaixaMouseExited(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-comprar-48.png"))); // NOI18N
 
@@ -81,10 +97,10 @@ public class Home extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labAbrirFecharCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -102,7 +118,7 @@ public class Home extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labAbrirFecharCaixa)
                 .addGap(2, 2, 2)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -123,7 +139,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addContainerGap())
         );
@@ -188,6 +204,19 @@ public class Home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void labAbrirFecharCaixaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labAbrirFecharCaixaMouseEntered
+        labAbrirFecharCaixa.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+    }//GEN-LAST:event_labAbrirFecharCaixaMouseEntered
+
+    private void labAbrirFecharCaixaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labAbrirFecharCaixaMouseExited
+        labAbrirFecharCaixa.setBorder(BorderFactory.createLineBorder(Color.decode("#cccccc")));
+    }//GEN-LAST:event_labAbrirFecharCaixaMouseExited
+
+    private void labAbrirFecharCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labAbrirFecharCaixaMouseClicked
+        jdFluxo fluxo = new jdFluxo();
+        fluxo.setVisible(true);
+    }//GEN-LAST:event_labAbrirFecharCaixaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -216,12 +245,10 @@ public class Home extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -241,5 +268,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JLabel labAbrirFecharCaixa;
     // End of variables declaration//GEN-END:variables
 }
