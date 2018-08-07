@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/08/2018 21:12:35 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.ItemPedido" table="item_pedido" schema="public" optimistic-lock="version">
+        <composite-id name="id" class="model.ItemPedidoId">
+            <key-property name="pedidoId" type="int">
+                <column name="pedido_id" />
+            </key-property>
+            <key-property name="produtoId" type="int">
+                <column name="produto_id" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="pedido" class="model.Pedido" update="false" insert="false" fetch="select">
+            <column name="pedido_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="produto" class="model.Produto" update="false" insert="false" fetch="select">
+            <column name="produto_id" not-null="true" />
+        </many-to-one>
+        <property name="valor" type="big_decimal">
+            <column name="valor" precision="10" not-null="true" />
+        </property>
+        <property name="quantidade" type="int">
+            <column name="quantidade" not-null="true" />
+        </property>
+        <property name="desconto" type="big_decimal">
+            <column name="desconto" precision="10" />
+        </property>
+    </class>
+</hibernate-mapping>

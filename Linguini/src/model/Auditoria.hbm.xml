@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/08/2018 21:12:35 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Auditoria" table="auditoria" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="usuario" class="model.Usuario" fetch="select">
+            <column name="usuario_id" not-null="true" />
+        </many-to-one>
+        <property name="ip" type="string">
+            <column name="ip" length="50" not-null="true" />
+        </property>
+        <property name="sql" type="string">
+            <column name="sql" not-null="true" />
+        </property>
+        <property name="dataHora" type="timestamp">
+            <column name="data_hora" length="29" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

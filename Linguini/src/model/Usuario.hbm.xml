@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/08/2018 21:12:35 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Usuario" table="usuario" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="grupo" class="model.Grupo" fetch="select">
+            <column name="grupo_id" not-null="true" />
+        </many-to-one>
+        <property name="nome" type="string">
+            <column name="nome" length="150" not-null="true" />
+        </property>
+        <property name="senha" type="string">
+            <column name="senha" length="150" not-null="true" />
+        </property>
+        <property name="situacao" type="boolean">
+            <column name="situacao" not-null="true" />
+        </property>
+        <set name="auditorias" table="auditoria" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="usuario_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Auditoria" />
+        </set>
+        <set name="pedidosForCaixaId" table="pedido" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="caixa_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Pedido" />
+        </set>
+        <set name="pedidosForAtendenteId" table="pedido" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="atendente_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Pedido" />
+        </set>
+        <set name="funcionarios" table="funcionario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="usuario_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Funcionario" />
+        </set>
+    </class>
+</hibernate-mapping>

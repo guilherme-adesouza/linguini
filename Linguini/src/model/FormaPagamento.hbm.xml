@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/08/2018 21:12:35 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.FormaPagamento" table="forma_pagamento" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="descricao" type="string">
+            <column name="descricao" length="150" not-null="true" />
+        </property>
+        <property name="prazo" type="int">
+            <column name="prazo" not-null="true" />
+        </property>
+        <set name="contasRecebers" table="contas_receber" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="forma_pagamento_id" not-null="true" />
+            </key>
+            <one-to-many class="model.ContasReceber" />
+        </set>
+    </class>
+</hibernate-mapping>

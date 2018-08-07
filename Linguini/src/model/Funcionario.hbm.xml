@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/08/2018 21:12:35 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Funcionario" table="funcionario" schema="public" optimistic-lock="version">
+        <id name="pessoaId" type="int">
+            <column name="pessoa_id" />
+            <generator class="foreign">
+                <param name="property">pessoa</param>
+            </generator>
+        </id>
+        <one-to-one name="pessoa" class="model.Pessoa" constrained="true"></one-to-one>
+        <many-to-one name="usuario" class="model.Usuario" fetch="select">
+            <column name="usuario_id" not-null="true" />
+        </many-to-one>
+        <property name="cpf" type="string">
+            <column name="cpf" length="45" not-null="true" />
+        </property>
+        <property name="salario" type="big_decimal">
+            <column name="salario" precision="10" />
+        </property>
+    </class>
+</hibernate-mapping>

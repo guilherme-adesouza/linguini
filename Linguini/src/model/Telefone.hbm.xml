@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/08/2018 21:12:35 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Telefone" table="telefone" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="telefone" type="string">
+            <column name="telefone" length="45" not-null="true" />
+        </property>
+        <property name="descricao" type="string">
+            <column name="descricao" length="150" />
+        </property>
+        <property name="situacao" type="boolean">
+            <column name="situacao" not-null="true" />
+        </property>
+        <set name="pessoas" table="pessoa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="telefone_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Pessoa" />
+        </set>
+    </class>
+</hibernate-mapping>

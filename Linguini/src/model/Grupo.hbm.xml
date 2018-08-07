@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/08/2018 21:12:35 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Grupo" table="grupo" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="descricao" type="string">
+            <column name="descricao" length="60" not-null="true" />
+        </property>
+        <property name="moduloFinanceiro" type="boolean">
+            <column name="modulo_financeiro" not-null="true" />
+        </property>
+        <property name="moduloGestao" type="boolean">
+            <column name="modulo_gestao" not-null="true" />
+        </property>
+        <property name="moduloCaixa" type="boolean">
+            <column name="modulo_caixa" not-null="true" />
+        </property>
+        <property name="moduloCozinha" type="boolean">
+            <column name="modulo_cozinha" not-null="true" />
+        </property>
+        <property name="moduloAtendente" type="boolean">
+            <column name="modulo_atendente" not-null="true" />
+        </property>
+        <property name="moduloAdmin" type="boolean">
+            <column name="modulo_admin" not-null="true" />
+        </property>
+        <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="grupo_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Usuario" />
+        </set>
+    </class>
+</hibernate-mapping>
