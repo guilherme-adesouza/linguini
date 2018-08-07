@@ -103,8 +103,6 @@ public class jfLogin extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(51, 102, 255));
         jButton2.setText("LOGIN");
-        jButton2.setBorder(null);
-        jButton2.setBorderPainted(false);
         jButton2.setOpaque(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,6 +113,7 @@ public class jfLogin extends javax.swing.JFrame {
         jButton1.setText("CANCELAR");
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
+        jButton1.setOpaque(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
