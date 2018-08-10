@@ -53,7 +53,7 @@ Contributor(s):
     <mapping resource="model/Funcionario.hbm.xml"/>
     <mapping resource="model/Telefone.hbm.xml"/>
     <mapping resource="model/Grupo.hbm.xml"/>
-    <mapping resource="model/Cidade.hbm.xml"/>
+    <mapping class="model.Cidade" file="" jar="" package="" resource="model/Cidade.hbm.xml"/>
     <mapping resource="model/Produto.hbm.xml"/>
     <mapping resource="model/FormaPagamento.hbm.xml"/>
     <mapping resource="model/Classificacao.hbm.xml"/>
