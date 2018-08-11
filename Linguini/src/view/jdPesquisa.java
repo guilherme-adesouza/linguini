@@ -5,7 +5,7 @@
  */
 package view;
 
-
+import controller.CidadeControl;
 
 /**
  *
@@ -13,14 +13,12 @@ package view;
  */
 public class jdPesquisa extends javax.swing.JDialog {
 
-   
-
     /**
      * Creates new form jdCidade
      */
     public jdPesquisa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-
+       
         initComponents();
     }
 
@@ -156,7 +154,7 @@ public class jdPesquisa extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**
