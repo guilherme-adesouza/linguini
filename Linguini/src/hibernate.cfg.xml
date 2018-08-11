@@ -58,7 +58,7 @@ Contributor(s):
     <mapping resource="model/FormaPagamento.hbm.xml"/>
     <mapping resource="model/Classificacao.hbm.xml"/>
     <mapping resource="model/Fornecedor.hbm.xml"/>
-    <mapping resource="model/Pessoa.hbm.xml"/>
+    <mapping class="model.Pessoa" file="" jar="" package="" resource="model/Pessoa.hbm.xml"/>
     <mapping resource="model/Cozinha.hbm.xml"/>
     <mapping resource="model/Entrada.hbm.xml"/>
     <mapping resource="model/Auditoria.hbm.xml"/>
