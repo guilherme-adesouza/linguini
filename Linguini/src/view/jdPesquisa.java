@@ -5,17 +5,22 @@
  */
 package view;
 
+
+
 /**
  *
  * @author vitorolavo
  */
 public class jdPesquisa extends javax.swing.JDialog {
 
+   
+
     /**
      * Creates new form jdCidade
      */
     public jdPesquisa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+
         initComponents();
     }
 
@@ -84,6 +89,11 @@ public class jdPesquisa extends javax.swing.JDialog {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -144,6 +154,10 @@ public class jdPesquisa extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
