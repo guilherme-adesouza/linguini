@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Cidade;
-import model.dao.CidadeDao;
+import dao.CidadeDao;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 /**

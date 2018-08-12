@@ -1,4 +1,4 @@
-package model.dao;
+package dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
