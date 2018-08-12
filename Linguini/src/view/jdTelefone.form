@@ -227,7 +227,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="tfdNomeCliente" min="-2" pref="270" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="tfdTelefone" min="-2" pref="270" max="-2" attributes="0"/>
+                              <Component id="ftfTelefone" min="-2" pref="202" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -237,7 +237,7 @@
                           <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="48" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -254,7 +254,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfdTelefone" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="ftfTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -302,11 +302,6 @@
             <Property name="text" type="java.lang.String" value="Telefone *"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfdTelefone">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfdTelefoneActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
             <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o"/>
@@ -315,6 +310,11 @@
         <Component class="javax.swing.JTextField" name="tfdDescricao">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfdDescricaoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="ftfTelefone">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ftfTelefoneActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

@@ -8,11 +8,7 @@ package view;
 import controller.TelefoneControl;
 import javax.swing.JOptionPane;
 import model.Pessoa;
-import model.Telefone;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import persistence.HibernateUtil;
+import utils.Formatacao;
 
 /**
  *
@@ -27,8 +23,10 @@ public class jdTelefone extends javax.swing.JDialog {
      */
     public jdTelefone(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        telefoneControl = new TelefoneControl();
+        this.telefoneControl = new TelefoneControl();
         initComponents();
+        
+        Formatacao.formatarTelefone(this.ftfTelefone);
     }
     
     //construtor para criação diretamente pela tela de Pessoa
@@ -50,8 +48,7 @@ public class jdTelefone extends javax.swing.JDialog {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -68,20 +65,18 @@ public class jdTelefone extends javax.swing.JDialog {
         tfdNomeCliente = new javax.swing.JTextField();
         lblNome = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        tfdTelefone = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         tfdDescricao = new javax.swing.JTextField();
+        ftfTelefone = new javax.swing.JFormattedTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
-            new String []
-            {
+            new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
@@ -97,10 +92,8 @@ public class jdTelefone extends javax.swing.JDialog {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-mais-48.png"))); // NOI18N
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
@@ -109,10 +102,8 @@ public class jdTelefone extends javax.swing.JDialog {
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-selecionado-48.png"))); // NOI18N
         jButton3.setBorderPainted(false);
         jButton3.setContentAreaFilled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
@@ -122,10 +113,8 @@ public class jdTelefone extends javax.swing.JDialog {
         jButton4.setBorderPainted(false);
         jButton4.setContentAreaFilled(false);
         jButton4.setEnabled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
@@ -134,10 +123,8 @@ public class jdTelefone extends javax.swing.JDialog {
         btnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-importar-48.png"))); // NOI18N
         btnFechar.setBorderPainted(false);
         btnFechar.setContentAreaFilled(false);
-        btnFechar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFecharActionPerformed(evt);
             }
         });
@@ -146,10 +133,8 @@ public class jdTelefone extends javax.swing.JDialog {
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-pesquisar-48.png"))); // NOI18N
         btnPesquisar.setBorderPainted(false);
         btnPesquisar.setContentAreaFilled(false);
-        btnPesquisar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarActionPerformed(evt);
             }
         });
@@ -191,10 +176,8 @@ public class jdTelefone extends javax.swing.JDialog {
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeDigitado.id}"), txtCodigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        txtCodigo.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodigoActionPerformed(evt);
             }
         });
@@ -202,10 +185,8 @@ public class jdTelefone extends javax.swing.JDialog {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeDigitado.nome}"), tfdNomeCliente, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        tfdNomeCliente.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        tfdNomeCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfdNomeClienteActionPerformed(evt);
             }
         });
@@ -214,21 +195,17 @@ public class jdTelefone extends javax.swing.JDialog {
 
         jLabel8.setText("Telefone *");
 
-        tfdTelefone.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                tfdTelefoneActionPerformed(evt);
+        jLabel9.setText("Descrição");
+
+        tfdDescricao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfdDescricaoActionPerformed(evt);
             }
         });
 
-        jLabel9.setText("Descrição");
-
-        tfdDescricao.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                tfdDescricaoActionPerformed(evt);
+        ftfTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ftfTelefoneActionPerformed(evt);
             }
         });
 
@@ -255,13 +232,13 @@ public class jdTelefone extends javax.swing.JDialog {
                                 .addComponent(lblNome)
                                 .addGap(18, 18, 18)
                                 .addComponent(tfdNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tfdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(ftfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfdDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(164, 164, 164)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,7 +252,7 @@ public class jdTelefone extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(tfdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ftfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -342,19 +319,19 @@ public class jdTelefone extends javax.swing.JDialog {
         //telefoneControl.pesquisar();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void tfdTelefoneActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_tfdTelefoneActionPerformed
-    {//GEN-HEADEREND:event_tfdTelefoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdTelefoneActionPerformed
-
     private void tfdDescricaoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_tfdDescricaoActionPerformed
     {//GEN-HEADEREND:event_tfdDescricaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfdDescricaoActionPerformed
 
+    private void ftfTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftfTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ftfTelefoneActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnPesquisar;
+    private javax.swing.JFormattedTextField ftfTelefone;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -368,7 +345,6 @@ public class jdTelefone extends javax.swing.JDialog {
     private javax.swing.JLabel lblNome;
     private javax.swing.JTextField tfdDescricao;
     private javax.swing.JTextField tfdNomeCliente;
-    private javax.swing.JTextField tfdTelefone;
     private javax.swing.JTextField txtCodigo;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
