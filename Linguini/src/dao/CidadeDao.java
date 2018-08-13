@@ -70,6 +70,7 @@ public class CidadeDao{
             if (cidade.getNome() != null && !cidade.getNome().equals("")) {
                 q.append(" and c.nome like :nome");
             }
+            q.append(" order by nome");
             org.hibernate.Query sql = sessao.createQuery(q.toString());
             if (cidade.getId() != null) {
                 sql.setParameter("id", cidade.getId());
