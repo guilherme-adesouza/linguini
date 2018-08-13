@@ -84,11 +84,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnNovo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="56" max="32767" attributes="0"/>
-                  <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnExcluir" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                   <Component id="btnPesquisar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
@@ -104,9 +104,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnPesquisar" min="-2" pref="44" max="-2" attributes="0"/>
                       <Component id="btnFechar" min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="btnNovo" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="btnSalvar" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="btnExcluir" min="-2" pref="44" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -114,7 +114,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="btnNovo">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="66" red="33" type="rgb"/>
@@ -126,25 +126,25 @@
             <Property name="opaque" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btnSalvar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="66" red="33" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/view/img/icons8-selecionado-48.png"/>
+              <Image iconType="3" name="/view/img/icons8-salvar-48_1.png"/>
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="opaque" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="btnExcluir">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="66" red="33" type="rgb"/>
@@ -156,7 +156,7 @@
             <Property name="opaque" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnFechar">
@@ -217,8 +217,8 @@
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane2" alignment="0" min="-2" pref="470" max="-2" attributes="0"/>
-                      <Component id="txtNomeCidade2" min="-2" pref="344" max="-2" attributes="0"/>
-                      <Component id="txtNomeCidade1" min="-2" pref="91" max="-2" attributes="0"/>
+                      <Component id="txtNomeCidade" min="-2" pref="344" max="-2" attributes="0"/>
+                      <Component id="txtCódigo" min="-2" pref="91" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -230,16 +230,16 @@
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtNomeCidade1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCódigo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtNomeCidade2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNomeCidade" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="83" max="-2" attributes="0"/>
-                  <EmptySpace pref="32" max="32767" attributes="0"/>
+                  <EmptySpace pref="34" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -250,27 +250,27 @@
             <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNomeCidade1">
+        <Component class="javax.swing.JTextField" name="txtC&#xf3;digo">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
           <BindingProperties>
-            <BindingProperty name="text" source="Form" sourcePath="${cidadeControl.cidadeDigitado.id}" target="txtNomeCidade1" targetPath="text" updateStrategy="0" immediately="false">
+            <BindingProperty name="text" source="Form" sourcePath="${cidadeControl.cidadeDigitado.id}" target="txtC&#xf3;digo" targetPath="text" updateStrategy="0" immediately="false">
               <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
             </BindingProperty>
           </BindingProperties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeCidade1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtC&#xf3;digoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNomeCidade2">
+        <Component class="javax.swing.JTextField" name="txtNomeCidade">
           <BindingProperties>
-            <BindingProperty name="text" source="Form" sourcePath="${cidadeControl.cidadeDigitado.nome}" target="txtNomeCidade2" targetPath="text" updateStrategy="0" immediately="false">
+            <BindingProperty name="text" source="Form" sourcePath="${cidadeControl.cidadeDigitado.nome}" target="txtNomeCidade" targetPath="text" updateStrategy="0" immediately="false">
               <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
             </BindingProperty>
           </BindingProperties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeCidade2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeCidadeActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
@@ -285,15 +285,10 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable2">
+            <Component class="javax.swing.JTable" name="tblCidades">
               <Properties>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -311,21 +306,19 @@
                 </Property>
               </Properties>
               <BindingProperties>
-                <BindingProperty name="elements" source="Form" sourcePath="${cidadeControl.cidadeTabela}" target="jTable2" targetPath="elements" updateStrategy="0" immediately="true">
+                <BindingProperty name="elements" source="Form" sourcePath="${cidadeControl.cidadeTabela}" target="tblCidades" targetPath="elements" updateStrategy="0" immediately="true">
                   <Subbinding sourcePath="${id}">
                     <BindingParameter name="NAME" value="C&#xf3;digo"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
                   <Subbinding sourcePath="${nome}">
                     <BindingParameter name="NAME" value="Nome"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                  </Subbinding>
-                  <Subbinding sourcePath="${situacao}">
-                    <BindingParameter name="NAME" value="Situa&#xe7;&#xe3;o"/>
-                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Boolean.class"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
                 </BindingProperty>
-                <BindingProperty name="selectedElement" source="Form" sourcePath="${cidadeControl.cidadeSelecionado}" target="jTable2" targetPath="selectedElement" updateStrategy="0" immediately="false">
+                <BindingProperty name="selectedElement" source="Form" sourcePath="${cidadeControl.cidadeSelecionado}" target="tblCidades" targetPath="selectedElement" updateStrategy="0" immediately="false">
                   <BindingParameter name="IGNORE_ADJUSTING" value="N"/>
                 </BindingProperty>
               </BindingProperties>

@@ -8,7 +8,9 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Cidade;
 import dao.CidadeDao;
+import javax.swing.JTable;
 import org.jdesktop.observablecollections.ObservableCollections;
+import utils.ValidacaoException;
 
 /**
  *
@@ -16,7 +18,7 @@ import org.jdesktop.observablecollections.ObservableCollections;
  */
 public class CidadeControl {
 
-  private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+    private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     private Cidade cidadeDigitado;
     private Cidade cidadeSelecionado;
     private List<Cidade> cidadeTabela;
@@ -28,6 +30,7 @@ public class CidadeControl {
         novo();
         //atenção ao usar em telas separas
         pesquisar();
+        
     }
 
     public void novo() {
@@ -40,14 +43,16 @@ public class CidadeControl {
         cidadeTabela.addAll(cidadeDao.pesquisar(cidadeDigitado));
     }
 
-    public void salvar() {
+    public void salvar() throws ValidacaoException {
+        cidadeDigitado.validar();
         cidadeDao.salvarAtualizar(cidadeDigitado);
+       
         novo();
         pesquisar();
     }
 
     public void excluir() {
-        cidadeDao.excluir(cidadeDigitado);
+        cidadeDao.excluirD(cidadeDigitado);
         novo();
         pesquisar();
     }
@@ -90,36 +95,10 @@ public class CidadeControl {
     public void removePropertyChangeListener(PropertyChangeListener e) {
         propertyChangeSupport.removePropertyChangeListener(e);
     }
-    class MyTableModel extends AbstractTableModel {
-	String[] column = {"Name", "Email" };
-	ArrayList<Cidade> data = new ArrayList<Cidade>();	
-	@Override
-	public int getColumnCount() {
-		return column.length;
-	}
-	@Override
-	public int getRowCount() {
-		return data.size();
-	}
-	public String getColumnName(int columnIndex) {
-		return column[columnIndex];
-	}
-	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		Cidade user = data.get(rowIndex);
-		if(columnIndex == 0)
-			return user.getId();		
-		else if(columnIndex == 1) 
-			return user.getNome();
-		else 
-			return null;		
-	}
-	public void addRow(Cidade user) {
-		data.add( user );
-	}
-	public Cidade getRow (int rowIndex) {
-		return data.get(rowIndex);
-	}
-}
-
+    public boolean validarSelectTable(JTable table){
+        if(table.getSelectedRowCount()==1){
+            return true;
+        }
+        return false;
+    }
 }

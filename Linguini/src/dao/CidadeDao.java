@@ -1,20 +1,18 @@
 package dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import model.Cidade;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import persistence.HibernateUtil;
 
 /**
  *
  * @author VitinNote
  */
-public class CidadeDao {
+public class CidadeDao{
 
+       
     public void salvarAtualizar(Cidade cidade) {
 
         Session sessao = null;
@@ -27,7 +25,6 @@ public class CidadeDao {
                 cidade = (Cidade) sessao.merge(cidade);
             }
             //salva
-            cidade.setSituacao(true);
             sessao.persist(cidade);
 
             sessao.getTransaction().commit();
@@ -39,7 +36,7 @@ public class CidadeDao {
 
     }
 
-    public void excluir(Cidade cidade) {
+    public void excluirD(Cidade cidade) {
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
@@ -66,7 +63,7 @@ public class CidadeDao {
 
             //1=1 para não precisar ficar verifcando se já foi colocado o where ou não
             StringBuilder q = new StringBuilder(" from Cidade c "
-                    + "where 1 = 1");
+                    + "where situacao = true");
             if (cidade.getId() != null) {
                 q.append(" and c.id = :id");
             }
@@ -79,7 +76,7 @@ public class CidadeDao {
             }
 
             if (cidade.getNome() != null && !cidade.getNome().equals("")) {
-                sql.setParameter("nome", "%" + cidade.getNome());
+                sql.setParameter("nome", "%" + cidade.getNome() + "%");
             }
             return sql.list();
 

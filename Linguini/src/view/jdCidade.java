@@ -7,10 +7,7 @@ package view;
 
 import controller.CidadeControl;
 import javax.swing.JOptionPane;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import persistence.HibernateUtil;
+import utils.ValidacaoException;
 
 /**
  *
@@ -46,18 +43,18 @@ public class jdCidade extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnNovo = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
         btnPesquisar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        txtNomeCidade1 = new javax.swing.JTextField();
-        txtNomeCidade2 = new javax.swing.JTextField();
+        txtCódigo = new javax.swing.JTextField();
+        txtNomeCidade = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblCidades = new javax.swing.JTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,33 +75,33 @@ public class jdCidade extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton2.setBackground(new java.awt.Color(51, 102, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-mais-48.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setOpaque(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnNovo.setBackground(new java.awt.Color(51, 102, 255));
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-mais-48.png"))); // NOI18N
+        btnNovo.setBorderPainted(false);
+        btnNovo.setOpaque(false);
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnNovoActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(51, 102, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-selecionado-48.png"))); // NOI18N
-        jButton3.setBorderPainted(false);
-        jButton3.setOpaque(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setBackground(new java.awt.Color(51, 102, 255));
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-salvar-48_1.png"))); // NOI18N
+        btnSalvar.setBorderPainted(false);
+        btnSalvar.setOpaque(false);
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(51, 102, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-excluir-48.png"))); // NOI18N
-        jButton4.setBorderPainted(false);
-        jButton4.setOpaque(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluir.setBackground(new java.awt.Color(51, 102, 255));
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-excluir-48.png"))); // NOI18N
+        btnExcluir.setBorderPainted(false);
+        btnExcluir.setOpaque(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnExcluirActionPerformed(evt);
             }
         });
 
@@ -134,11 +131,11 @@ public class jdCidade extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jButton2)
+                .addComponent(btnNovo)
                 .addGap(56, 56, 56)
-                .addComponent(jButton3)
+                .addComponent(btnSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(btnExcluir)
                 .addGap(56, 56, 56)
                 .addComponent(btnPesquisar)
                 .addGap(56, 56, 56)
@@ -152,9 +149,9 @@ public class jdCidade extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -162,44 +159,43 @@ public class jdCidade extends javax.swing.JDialog {
 
         jLabel3.setText("Código:");
 
-        txtNomeCidade1.setEditable(false);
+        txtCódigo.setEditable(false);
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeDigitado.id}"), txtNomeCidade1, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeDigitado.id}"), txtCódigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        txtNomeCidade1.addActionListener(new java.awt.event.ActionListener() {
+        txtCódigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeCidade1ActionPerformed(evt);
+                txtCódigoActionPerformed(evt);
             }
         });
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeDigitado.nome}"), txtNomeCidade2, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeDigitado.nome}"), txtNomeCidade, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        txtNomeCidade2.addActionListener(new java.awt.event.ActionListener() {
+        txtNomeCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeCidade2ActionPerformed(evt);
+                txtNomeCidadeActionPerformed(evt);
             }
         });
 
         jLabel7.setText("Nome:");
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeTabela}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable2);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tblCidades);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
         columnBinding.setColumnName("Código");
         columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nome}"));
         columnBinding.setColumnName("Nome");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${situacao}"));
-        columnBinding.setColumnName("Situação");
-        columnBinding.setColumnClass(Boolean.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeSelecionado}"), jTable2, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeSelecionado}"), tblCidades, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
         bindingGroup.addBinding(binding);
 
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblCidades);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -216,8 +212,8 @@ public class jdCidade extends javax.swing.JDialog {
                         .addGap(12, 12, 12)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNomeCidade2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNomeCidade1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCódigo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -226,14 +222,14 @@ public class jdCidade extends javax.swing.JDialog {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtNomeCidade1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCódigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtNomeCidade2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                    .addComponent(txtNomeCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -260,32 +256,48 @@ public class jdCidade extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNomeCidade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeCidade1ActionPerformed
+    private void txtCódigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCódigoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeCidade1ActionPerformed
+    }//GEN-LAST:event_txtCódigoActionPerformed
 
-    private void txtNomeCidade2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeCidade2ActionPerformed
+    private void txtNomeCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeCidadeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeCidade2ActionPerformed
+    }//GEN-LAST:event_txtNomeCidadeActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         cidadeControl.novo();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnNovoActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        cidadeControl.salvar();
-        JOptionPane.showMessageDialog(this, "Cidade salva com sucesso", "Salvar Cidade", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        try {
+            cidadeControl.getCidadeDigitado().setSituacao(true);
+            cidadeControl.salvar();
+            JOptionPane.showMessageDialog(this,
+                    "Cidade salva com sucesso", "Salvar Cidade", JOptionPane.INFORMATION_MESSAGE);
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a cidade", "Excluir Cidade", JOptionPane.YES_NO_OPTION)
+        } catch (ValidacaoException ex) {
+
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(),
+                    "Falha de validação", JOptionPane.WARNING_MESSAGE);
+
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+
+        if (cidadeControl.validarSelectTable(tblCidades) && JOptionPane.showConfirmDialog(this,
+                "Deseja realmente excluir a cidade", "Excluir Cidade", JOptionPane.YES_NO_OPTION)
                 == JOptionPane.YES_OPTION) {
             cidadeControl.excluir();
-            System.out.println("Excluido");
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Selecione uma cidade para remover",
+                    "Falha de validação", JOptionPane.WARNING_MESSAGE);
         }
 
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         dispose();
@@ -296,11 +308,11 @@ public class jdCidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
@@ -308,9 +320,9 @@ public class jdCidade extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField txtNomeCidade1;
-    private javax.swing.JTextField txtNomeCidade2;
+    private javax.swing.JTable tblCidades;
+    private javax.swing.JTextField txtCódigo;
+    private javax.swing.JTextField txtNomeCidade;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
