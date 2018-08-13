@@ -308,11 +308,6 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
                   </TableColumnModel>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -322,19 +317,15 @@
               <BindingProperties>
                 <BindingProperty name="elements" source="Form" sourcePath="${cidadeControl.cidadeTabela}" target="jTable2" targetPath="elements" updateStrategy="0" immediately="true">
                   <Subbinding sourcePath="${id}">
-                    <BindingParameter name="NAME" value="Title 1"/>
+                    <BindingParameter name="NAME" value="C&#xf3;digo"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
                   </Subbinding>
                   <Subbinding sourcePath="${nome}">
-                    <BindingParameter name="NAME" value="Title 2"/>
+                    <BindingParameter name="NAME" value="Nome"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                   </Subbinding>
-                  <Subbinding sourcePath="${pessoas}">
-                    <BindingParameter name="NAME" value="Title 3"/>
-                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Set.class"/>
-                  </Subbinding>
                   <Subbinding sourcePath="${situacao}">
-                    <BindingParameter name="NAME" value="Title 4"/>
+                    <BindingParameter name="NAME" value="Situa&#xe7;&#xe3;o"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Boolean.class"/>
                   </Subbinding>
                 </BindingProperty>
