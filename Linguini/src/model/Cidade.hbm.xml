@@ -6,7 +6,7 @@
     <class name="model.Cidade" table="cidade" schema="public" optimistic-lock="version">
         <id name="codCidade" type="long">
             <column name="cod_cidade" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="estado" class="model.Estado" fetch="select">
             <column name="estado_cod_estado" not-null="true" />
