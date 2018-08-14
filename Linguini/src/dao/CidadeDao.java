@@ -65,7 +65,7 @@ public class CidadeDao{
             StringBuilder q = new StringBuilder(" from Cidade c "
                     + "where situacao = true");
             if (cidade.getCodCidade() != 0) {
-                q.append(" and c.id = :id");
+                q.append(" and c.cod_cidade = :cod_cidade");
             }
             if (cidade.getNome() != null && !cidade.getNome().equals("")) {
                 q.append(" and c.nome like :nome");
