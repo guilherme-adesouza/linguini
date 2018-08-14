@@ -1,5 +1,5 @@
 package model;
-// Generated 10/08/2018 00:28:47 by Hibernate Tools 4.3.1
+// Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -23,7 +23,7 @@ import javax.persistence.Table;
 public class Usuario  implements java.io.Serializable {
 
 
-     private int id;
+     private long id;
      private Grupo grupo;
      private String nome;
      private String senha;
@@ -37,14 +37,14 @@ public class Usuario  implements java.io.Serializable {
     }
 
 	
-    public Usuario(int id, Grupo grupo, String nome, String senha, boolean situacao) {
+    public Usuario(long id, Grupo grupo, String nome, String senha, boolean situacao) {
         this.id = id;
         this.grupo = grupo;
         this.nome = nome;
         this.senha = senha;
         this.situacao = situacao;
     }
-    public Usuario(int id, Grupo grupo, String nome, String senha, boolean situacao, Set auditorias, Set pedidosForCaixaId, Set pedidosForAtendenteId, Set funcionarios) {
+    public Usuario(long id, Grupo grupo, String nome, String senha, boolean situacao, Set auditorias, Set pedidosForCaixaId, Set pedidosForAtendenteId, Set funcionarios) {
        this.id = id;
        this.grupo = grupo;
        this.nome = nome;
@@ -60,11 +60,11 @@ public class Usuario  implements java.io.Serializable {
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

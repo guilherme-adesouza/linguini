@@ -1,5 +1,5 @@
 package model;
-// Generated 10/08/2018 00:28:47 by Hibernate Tools 4.3.1
+// Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,10 +26,11 @@ import javax.persistence.Table;
 public class Pessoa  implements java.io.Serializable {
 
 
-     private int id;
+     private long id;
      private Cidade cidade;
-     private Telefone telefone;
      private String nome;
+     private String telefone1;
+     private String telefone2;
      private String logradouro;
      private String bairro;
      private Integer numero;
@@ -42,18 +45,17 @@ public class Pessoa  implements java.io.Serializable {
     }
 
 	
-    public Pessoa(int id, Cidade cidade, Telefone telefone, String nome, boolean situacao) {
+    public Pessoa(long id, String nome, boolean situacao) {
         this.id = id;
-        this.cidade = cidade;
-        this.telefone = telefone;
         this.nome = nome;
         this.situacao = situacao;
     }
-    public Pessoa(int id, Cidade cidade, Telefone telefone, String nome, String logradouro, String bairro, Integer numero, String complemento, String observacao, boolean situacao, Entregador entregador, Set pedidos, Funcionario funcionario) {
+    public Pessoa(long id, Cidade cidade, String nome, String telefone1, String telefone2, String logradouro, String bairro, Integer numero, String complemento, String observacao, boolean situacao, Entregador entregador, Set pedidos, Funcionario funcionario) {
        this.id = id;
        this.cidade = cidade;
-       this.telefone = telefone;
        this.nome = nome;
+       this.telefone1 = telefone1;
+       this.telefone2 = telefone2;
        this.logradouro = logradouro;
        this.bairro = bairro;
        this.numero = numero;
@@ -65,36 +67,25 @@ public class Pessoa  implements java.io.Serializable {
        this.funcionario = funcionario;
     }
    
-     @Id 
-
-    
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="cidade_id", nullable=false)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="cidade_id")
     public Cidade getCidade() {
         return this.cidade;
     }
     
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
-    }
-
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="telefone_id", nullable=false)
-    public Telefone getTelefone() {
-        return this.telefone;
-    }
-    
-    public void setTelefone(Telefone telefone) {
-        this.telefone = telefone;
     }
 
     
@@ -105,6 +96,26 @@ public class Pessoa  implements java.io.Serializable {
     
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    
+    @Column(name="telefone1", length=50)
+    public String getTelefone1() {
+        return this.telefone1;
+    }
+    
+    public void setTelefone1(String telefone1) {
+        this.telefone1 = telefone1;
+    }
+
+    
+    @Column(name="telefone2", length=50)
+    public String getTelefone2() {
+        return this.telefone2;
+    }
+    
+    public void setTelefone2(String telefone2) {
+        this.telefone2 = telefone2;
     }
 
     

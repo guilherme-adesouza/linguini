@@ -1,21 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 10/08/2018 00:28:48 by Hibernate Tools 4.3.1 -->
+<!-- Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.ItemPedido" table="item_pedido" schema="public" optimistic-lock="version">
-        <composite-id name="id" class="model.ItemPedidoId">
-            <key-property name="pedidoId" type="int">
-                <column name="pedido_id" />
-            </key-property>
-            <key-property name="produtoId" type="int">
-                <column name="produto_id" />
-            </key-property>
-        </composite-id>
-        <many-to-one name="pedido" class="model.Pedido" update="false" insert="false" fetch="select">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="pedido" class="model.Pedido" fetch="select">
             <column name="pedido_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="produto" class="model.Produto" update="false" insert="false" fetch="select">
+        <many-to-one name="produto" class="model.Produto" fetch="select">
             <column name="produto_id" not-null="true" />
         </many-to-one>
         <property name="valor" type="big_decimal">

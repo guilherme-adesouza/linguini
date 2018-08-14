@@ -1,5 +1,5 @@
 package model;
-// Generated 10/08/2018 00:28:47 by Hibernate Tools 4.3.1
+// Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -21,7 +21,7 @@ import javax.persistence.Table;
 public class Fornecedor  implements java.io.Serializable {
 
 
-     private int id;
+     private long id;
      private String nomeFantasia;
      private String razaoSocial;
      private String cnpj;
@@ -32,12 +32,12 @@ public class Fornecedor  implements java.io.Serializable {
     }
 
 	
-    public Fornecedor(int id, String nomeFantasia, boolean situacao) {
+    public Fornecedor(long id, String nomeFantasia, boolean situacao) {
         this.id = id;
         this.nomeFantasia = nomeFantasia;
         this.situacao = situacao;
     }
-    public Fornecedor(int id, String nomeFantasia, String razaoSocial, String cnpj, boolean situacao, Set produtos) {
+    public Fornecedor(long id, String nomeFantasia, String razaoSocial, String cnpj, boolean situacao, Set produtos) {
        this.id = id;
        this.nomeFantasia = nomeFantasia;
        this.razaoSocial = razaoSocial;
@@ -50,11 +50,11 @@ public class Fornecedor  implements java.io.Serializable {
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -1,5 +1,5 @@
 package model;
-// Generated 10/08/2018 00:28:47 by Hibernate Tools 4.3.1
+// Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 public class Auditoria  implements java.io.Serializable {
 
 
-     private int id;
+     private long id;
      private Usuario usuario;
      private String ip;
      private String sql;
@@ -32,7 +32,7 @@ public class Auditoria  implements java.io.Serializable {
     public Auditoria() {
     }
 
-    public Auditoria(int id, Usuario usuario, String ip, String sql, Date dataHora) {
+    public Auditoria(long id, Usuario usuario, String ip, String sql, Date dataHora) {
        this.id = id;
        this.usuario = usuario;
        this.ip = ip;
@@ -44,11 +44,11 @@ public class Auditoria  implements java.io.Serializable {
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
