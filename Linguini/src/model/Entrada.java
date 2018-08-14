@@ -1,5 +1,5 @@
 package model;
-// Generated 10/08/2018 00:28:47 by Hibernate Tools 4.3.1
+// Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 public class Entrada  implements java.io.Serializable {
 
 
-     private int id;
+     private long id;
      private Produto produto;
      private int quantidade;
      private Date data;
@@ -31,7 +31,7 @@ public class Entrada  implements java.io.Serializable {
     public Entrada() {
     }
 
-    public Entrada(int id, Produto produto, int quantidade, Date data) {
+    public Entrada(long id, Produto produto, int quantidade, Date data) {
        this.id = id;
        this.produto = produto;
        this.quantidade = quantidade;
@@ -42,11 +42,11 @@ public class Entrada  implements java.io.Serializable {
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

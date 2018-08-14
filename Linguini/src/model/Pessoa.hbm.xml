@@ -1,21 +1,24 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 10/08/2018 00:28:48 by Hibernate Tools 4.3.1 -->
+<!-- Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.Pessoa" table="pessoa" schema="public" optimistic-lock="version">
-        <id name="id" type="int">
+        <id name="id" type="long">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="cidade" class="model.Cidade" fetch="select">
-            <column name="cidade_id" not-null="true" />
-        </many-to-one>
-        <many-to-one name="telefone" class="model.Telefone" fetch="select">
-            <column name="telefone_id" not-null="true" />
+            <column name="cidade_id" />
         </many-to-one>
         <property name="nome" type="string">
             <column name="nome" length="150" not-null="true" />
+        </property>
+        <property name="telefone1" type="string">
+            <column name="telefone1" length="50" />
+        </property>
+        <property name="telefone2" type="string">
+            <column name="telefone2" length="50" />
         </property>
         <property name="logradouro" type="string">
             <column name="logradouro" length="150" />

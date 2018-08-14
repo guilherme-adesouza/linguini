@@ -1,5 +1,5 @@
 package model;
-// Generated 10/08/2018 00:28:47 by Hibernate Tools 4.3.1
+// Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
 public class Pedido  implements java.io.Serializable {
 
 
-     private int id;
+     private long id;
      private Entregador entregador;
      private Pessoa pessoa;
      private Usuario usuarioByCaixaId;
@@ -50,14 +50,14 @@ public class Pedido  implements java.io.Serializable {
     }
 
 	
-    public Pedido(int id, Usuario usuarioByCaixaId, Usuario usuarioByAtendenteId, Date dataHora, BigDecimal valor) {
+    public Pedido(long id, Usuario usuarioByCaixaId, Usuario usuarioByAtendenteId, Date dataHora, BigDecimal valor) {
         this.id = id;
         this.usuarioByCaixaId = usuarioByCaixaId;
         this.usuarioByAtendenteId = usuarioByAtendenteId;
         this.dataHora = dataHora;
         this.valor = valor;
     }
-    public Pedido(int id, Entregador entregador, Pessoa pessoa, Usuario usuarioByCaixaId, Usuario usuarioByAtendenteId, Date dataHora, Date dataHoraFechado, BigDecimal valor, Integer mesa, String logradouro, String bairro, String complemento, Integer numero, Integer tempoDeslocamento, Character status, String observacao, Set itemPedidos, Set contasRecebers) {
+    public Pedido(long id, Entregador entregador, Pessoa pessoa, Usuario usuarioByCaixaId, Usuario usuarioByAtendenteId, Date dataHora, Date dataHoraFechado, BigDecimal valor, Integer mesa, String logradouro, String bairro, String complemento, Integer numero, Integer tempoDeslocamento, Character status, String observacao, Set itemPedidos, Set contasRecebers) {
        this.id = id;
        this.entregador = entregador;
        this.pessoa = pessoa;
@@ -82,11 +82,11 @@ public class Pedido  implements java.io.Serializable {
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

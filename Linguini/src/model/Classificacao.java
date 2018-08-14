@@ -1,5 +1,5 @@
 package model;
-// Generated 10/08/2018 00:28:47 by Hibernate Tools 4.3.1
+// Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -21,7 +21,7 @@ import javax.persistence.Table;
 public class Classificacao  implements java.io.Serializable {
 
 
-     private int id;
+     private long id;
      private String classificacao;
      private boolean situacao;
      private Set produtos = new HashSet(0);
@@ -30,12 +30,12 @@ public class Classificacao  implements java.io.Serializable {
     }
 
 	
-    public Classificacao(int id, String classificacao, boolean situacao) {
+    public Classificacao(long id, String classificacao, boolean situacao) {
         this.id = id;
         this.classificacao = classificacao;
         this.situacao = situacao;
     }
-    public Classificacao(int id, String classificacao, boolean situacao, Set produtos) {
+    public Classificacao(long id, String classificacao, boolean situacao, Set produtos) {
        this.id = id;
        this.classificacao = classificacao;
        this.situacao = situacao;
@@ -46,11 +46,11 @@ public class Classificacao  implements java.io.Serializable {
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

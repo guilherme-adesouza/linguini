@@ -1,5 +1,5 @@
 package model;
-// Generated 10/08/2018 00:28:47 by Hibernate Tools 4.3.1
+// Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
 public class Produto  implements java.io.Serializable {
 
 
-     private int id;
+     private long id;
      private Classificacao classificacao;
      private Fornecedor fornecedor;
      private String descricao;
@@ -47,7 +47,7 @@ public class Produto  implements java.io.Serializable {
     }
 
 	
-    public Produto(int id, Classificacao classificacao, Fornecedor fornecedor, String descricao, BigDecimal valor, int quantidade, int tempoPreparo, boolean cozinha, int estoqueMinimo, boolean insumo) {
+    public Produto(long id, Classificacao classificacao, Fornecedor fornecedor, String descricao, BigDecimal valor, int quantidade, int tempoPreparo, boolean cozinha, int estoqueMinimo, boolean insumo) {
         this.id = id;
         this.classificacao = classificacao;
         this.fornecedor = fornecedor;
@@ -59,7 +59,7 @@ public class Produto  implements java.io.Serializable {
         this.estoqueMinimo = estoqueMinimo;
         this.insumo = insumo;
     }
-    public Produto(int id, Classificacao classificacao, Fornecedor fornecedor, String descricao, BigDecimal valor, int quantidade, int tempoPreparo, boolean cozinha, int estoqueMinimo, boolean insumo, String unidadeMedida, BigDecimal valorPromocao, Date dataFimPromocao, Set itemPedidos, Set entradas) {
+    public Produto(long id, Classificacao classificacao, Fornecedor fornecedor, String descricao, BigDecimal valor, int quantidade, int tempoPreparo, boolean cozinha, int estoqueMinimo, boolean insumo, String unidadeMedida, BigDecimal valorPromocao, Date dataFimPromocao, Set itemPedidos, Set entradas) {
        this.id = id;
        this.classificacao = classificacao;
        this.fornecedor = fornecedor;
@@ -81,11 +81,11 @@ public class Produto  implements java.io.Serializable {
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

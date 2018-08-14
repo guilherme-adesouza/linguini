@@ -1,14 +1,12 @@
 package model;
-// Generated 10/08/2018 00:28:47 by Hibernate Tools 4.3.1
+// Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -23,7 +21,7 @@ import javax.persistence.Table;
 public class ItemPedido  implements java.io.Serializable {
 
 
-     private ItemPedidoId id;
+     private long id;
      private Pedido pedido;
      private Produto produto;
      private BigDecimal valor;
@@ -34,14 +32,14 @@ public class ItemPedido  implements java.io.Serializable {
     }
 
 	
-    public ItemPedido(ItemPedidoId id, Pedido pedido, Produto produto, BigDecimal valor, int quantidade) {
+    public ItemPedido(long id, Pedido pedido, Produto produto, BigDecimal valor, int quantidade) {
         this.id = id;
         this.pedido = pedido;
         this.produto = produto;
         this.valor = valor;
         this.quantidade = quantidade;
     }
-    public ItemPedido(ItemPedidoId id, Pedido pedido, Produto produto, BigDecimal valor, int quantidade, BigDecimal desconto) {
+    public ItemPedido(long id, Pedido pedido, Produto produto, BigDecimal valor, int quantidade, BigDecimal desconto) {
        this.id = id;
        this.pedido = pedido;
        this.produto = produto;
@@ -50,22 +48,20 @@ public class ItemPedido  implements java.io.Serializable {
        this.desconto = desconto;
     }
    
-     @EmbeddedId
+     @Id 
 
     
-    @AttributeOverrides( {
-        @AttributeOverride(name="pedidoId", column=@Column(name="pedido_id", nullable=false) ), 
-        @AttributeOverride(name="produtoId", column=@Column(name="produto_id", nullable=false) ) } )
-    public ItemPedidoId getId() {
+    @Column(name="id", unique=true, nullable=false)
+    public long getId() {
         return this.id;
     }
     
-    public void setId(ItemPedidoId id) {
+    public void setId(long id) {
         this.id = id;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="pedido_id", nullable=false, insertable=false, updatable=false)
+    @JoinColumn(name="pedido_id", nullable=false)
     public Pedido getPedido() {
         return this.pedido;
     }
@@ -75,7 +71,7 @@ public class ItemPedido  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="produto_id", nullable=false, insertable=false, updatable=false)
+    @JoinColumn(name="produto_id", nullable=false)
     public Produto getProduto() {
         return this.produto;
     }

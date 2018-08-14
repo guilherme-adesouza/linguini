@@ -1,5 +1,5 @@
 package model;
-// Generated 10/08/2018 00:28:47 by Hibernate Tools 4.3.1
+// Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -21,7 +21,7 @@ import javax.persistence.Table;
 public class Grupo  implements java.io.Serializable {
 
 
-     private int id;
+     private long id;
      private String descricao;
      private boolean moduloFinanceiro;
      private boolean moduloGestao;
@@ -35,7 +35,7 @@ public class Grupo  implements java.io.Serializable {
     }
 
 	
-    public Grupo(int id, String descricao, boolean moduloFinanceiro, boolean moduloGestao, boolean moduloCaixa, boolean moduloCozinha, boolean moduloAtendente, boolean moduloAdmin) {
+    public Grupo(long id, String descricao, boolean moduloFinanceiro, boolean moduloGestao, boolean moduloCaixa, boolean moduloCozinha, boolean moduloAtendente, boolean moduloAdmin) {
         this.id = id;
         this.descricao = descricao;
         this.moduloFinanceiro = moduloFinanceiro;
@@ -45,7 +45,7 @@ public class Grupo  implements java.io.Serializable {
         this.moduloAtendente = moduloAtendente;
         this.moduloAdmin = moduloAdmin;
     }
-    public Grupo(int id, String descricao, boolean moduloFinanceiro, boolean moduloGestao, boolean moduloCaixa, boolean moduloCozinha, boolean moduloAtendente, boolean moduloAdmin, Set usuarios) {
+    public Grupo(long id, String descricao, boolean moduloFinanceiro, boolean moduloGestao, boolean moduloCaixa, boolean moduloCozinha, boolean moduloAtendente, boolean moduloAdmin, Set usuarios) {
        this.id = id;
        this.descricao = descricao;
        this.moduloFinanceiro = moduloFinanceiro;
@@ -61,11 +61,11 @@ public class Grupo  implements java.io.Serializable {
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -1,5 +1,5 @@
 package model;
-// Generated 10/08/2018 00:28:47 by Hibernate Tools 4.3.1
+// Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -26,7 +26,7 @@ import org.hibernate.annotations.Parameter;
 public class Entregador  implements java.io.Serializable {
 
 
-     private int pessoaId;
+     private long pessoaId;
      private Pessoa pessoa;
      private String placa;
      private Set pedidos = new HashSet(0);
@@ -49,11 +49,11 @@ public class Entregador  implements java.io.Serializable {
 
     
     @Column(name="pessoa_id", unique=true, nullable=false)
-    public int getPessoaId() {
+    public long getPessoaId() {
         return this.pessoaId;
     }
     
-    public void setPessoaId(int pessoaId) {
+    public void setPessoaId(long pessoaId) {
         this.pessoaId = pessoaId;
     }
 

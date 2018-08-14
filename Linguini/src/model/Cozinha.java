@@ -1,5 +1,5 @@
 package model;
-// Generated 10/08/2018 00:28:47 by Hibernate Tools 4.3.1
+// Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -17,13 +17,13 @@ import javax.persistence.Table;
 public class Cozinha  implements java.io.Serializable {
 
 
-     private int id;
+     private long id;
      private int capacidade;
 
     public Cozinha() {
     }
 
-    public Cozinha(int id, int capacidade) {
+    public Cozinha(long id, int capacidade) {
        this.id = id;
        this.capacidade = capacidade;
     }
@@ -32,11 +32,11 @@ public class Cozinha  implements java.io.Serializable {
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

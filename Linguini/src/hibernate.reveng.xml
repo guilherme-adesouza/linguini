@@ -41,21 +41,21 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="linguini"/>
-  <table-filter match-name="entrada"/>
   <table-filter match-name="fornecedor"/>
-  <table-filter match-name="item_pedido"/>
-  <table-filter match-name="usuario"/>
-  <table-filter match-name="contas_receber"/>
-  <table-filter match-name="grupo"/>
-  <table-filter match-name="entregador"/>
   <table-filter match-name="pessoa"/>
-  <table-filter match-name="funcionario"/>
-  <table-filter match-name="classificacao"/>
-  <table-filter match-name="auditoria"/>
-  <table-filter match-name="cozinha"/>
-  <table-filter match-name="cidade"/>
-  <table-filter match-name="telefone"/>
+  <table-filter match-name="usuario"/>
   <table-filter match-name="pedido"/>
-  <table-filter match-name="produto"/>
+  <table-filter match-name="item_pedido"/>
+  <table-filter match-name="contas_receber"/>
+  <table-filter match-name="entrada"/>
   <table-filter match-name="forma_pagamento"/>
+  <table-filter match-name="produto"/>
+  <table-filter match-name="auditoria"/>
+  <table-filter match-name="estado"/>
+  <table-filter match-name="cozinha"/>
+  <table-filter match-name="funcionario"/>
+  <table-filter match-name="cidade"/>
+  <table-filter match-name="entregador"/>
+  <table-filter match-name="grupo"/>
+  <table-filter match-name="classificacao"/>
 </hibernate-reverse-engineering>

@@ -1,34 +1,41 @@
---CREATE DATABASE linguini;
+  -- CREATE DATABASE linguini 
+
+-- -----------------------------------------------------
+-- Table "estado"
+-- -----------------------------------------------------
+CREATE TABLE  "estado" (
+  "cod_estado" INT NOT NULL ,
+  "sigla" CHAR(2) NOT NULL,
+  "nome" VARCHAR(72) NULL,
+  PRIMARY KEY ("cod_estado"));
+
 
 -- -----------------------------------------------------
 -- Table "cidade"
 -- -----------------------------------------------------
 CREATE TABLE  "cidade" (
-  "id" INT NOT NULL,
+  "cod_cidade" BIGINT NOT NULL ,
   "nome" VARCHAR(45) NOT NULL,
   "situacao" BOOLEAN NOT NULL,
-  PRIMARY KEY ("id"));
-
-
--- -----------------------------------------------------
--- Table "telefone"
--- -----------------------------------------------------
-CREATE TABLE  "telefone" (
-  "id" INT NOT NULL,
-  "telefone" VARCHAR(45) NOT NULL,
-  "descricao" VARCHAR(150) NULL,
-  "situacao" BOOLEAN NOT NULL,
-  PRIMARY KEY ("id"));
+  "estado_cod_estado" INT NOT NULL,
+  "cep" VARCHAR(8) NULL,
+  PRIMARY KEY ("cod_cidade"),
+  CONSTRAINT "fk_cidade_estado1"
+    FOREIGN KEY ("estado_cod_estado")
+    REFERENCES "estado" ("cod_estado")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
 -- Table "pessoa"
 -- -----------------------------------------------------
 CREATE TABLE  "pessoa" (
-  "id" INT NOT NULL ,
-  "telefone_id" INT NOT NULL,
-  "cidade_id" INT NOT NULL,
+  "id" BIGINT NOT NULL ,
+  "cidade_id" INT NULL,
   "nome" VARCHAR(150) NOT NULL,
+  "telefone1" VARCHAR(50) NULL,
+  "telefone2" VARCHAR(50) NULL,
   "logradouro" VARCHAR(150) NULL,
   "bairro" VARCHAR(150) NULL,
   "numero" INT NULL,
@@ -36,14 +43,9 @@ CREATE TABLE  "pessoa" (
   "observacao" VARCHAR(150) NULL,
   "situacao" BOOLEAN NOT NULL,
   PRIMARY KEY ("id"),
-  CONSTRAINT "fk_cliente_telefone1"
-    FOREIGN KEY ("telefone_id")
-    REFERENCES "telefone" ("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT "fk_cliente_cidade1"
     FOREIGN KEY ("cidade_id")
-    REFERENCES "cidade" ("id")
+    REFERENCES "cidade" ("cod_cidade")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -52,7 +54,7 @@ CREATE TABLE  "pessoa" (
 -- Table "grupo"
 -- -----------------------------------------------------
 CREATE TABLE  "grupo" (
-  "id" INT NOT NULL ,
+  "id" BIGINT NOT NULL ,
   "descricao" VARCHAR(60) NOT NULL,
   "modulo_financeiro" BOOLEAN NOT NULL,
   "modulo_gestao" BOOLEAN NOT NULL,
@@ -67,7 +69,7 @@ CREATE TABLE  "grupo" (
 -- Table "usuario"
 -- -----------------------------------------------------
 CREATE TABLE  "usuario" (
-  "id" INT NOT NULL ,
+  "id" BIGINT NOT NULL ,
   "grupo_id" INT NOT NULL,
   "nome" VARCHAR(150) NOT NULL,
   "senha" VARCHAR(150) NOT NULL,
@@ -84,7 +86,7 @@ CREATE TABLE  "usuario" (
 -- Table "funcionario"
 -- -----------------------------------------------------
 CREATE TABLE  "funcionario" (
-  "pessoa_id" INT NOT NULL,
+  "pessoa_id" BIGINT NOT NULL,
   "usuario_id" INT NOT NULL,
   "cpf" VARCHAR(45) NOT NULL,
   "salario" DECIMAL(10,2) NULL,
@@ -105,7 +107,7 @@ CREATE TABLE  "funcionario" (
 -- Table "fornecedor"
 -- -----------------------------------------------------
 CREATE TABLE  "fornecedor" (
-  "id" INT NOT NULL,
+  "id" BIGINT NOT NULL ,
   "nome_fantasia" VARCHAR(45) NOT NULL,
   "razao_social" VARCHAR(45) NULL,
   "cnpj" CHAR(14) NULL,
@@ -117,7 +119,7 @@ CREATE TABLE  "fornecedor" (
 -- Table "classificacao"
 -- -----------------------------------------------------
 CREATE TABLE  "classificacao" (
-  "id" INT NOT NULL ,
+  "id" BIGINT NOT NULL ,
   "classificacao" VARCHAR(150) NOT NULL,
   "situacao" BOOLEAN NOT NULL,
   PRIMARY KEY ("id"));
@@ -127,7 +129,7 @@ CREATE TABLE  "classificacao" (
 -- Table "produto"
 -- -----------------------------------------------------
 CREATE TABLE  "produto" (
-  "id" INT NOT NULL ,
+  "id" BIGINT NOT NULL ,
   "classificacao_id" INT NOT NULL,
   "fornecedor_id" INT NOT NULL,
   "descricao" VARCHAR(500) NOT NULL,
@@ -157,7 +159,7 @@ CREATE TABLE  "produto" (
 -- Table "entregador"
 -- -----------------------------------------------------
 CREATE TABLE  "entregador" (
-  "pessoa_id" INT NOT NULL,
+  "pessoa_id" BIGINT NOT NULL,
   "placa" CHAR(7) NOT NULL,
   PRIMARY KEY ("pessoa_id"),
   CONSTRAINT "fk_entregador_pessoa1"
@@ -171,11 +173,11 @@ CREATE TABLE  "entregador" (
 -- Table "pedido"
 -- -----------------------------------------------------
 CREATE TABLE  "pedido" (
-  "id" INT NOT NULL ,
-  "pessoa_id" INT NULL,
-  "caixa_id" INT NOT NULL,
+  "id" BIGINT NOT NULL ,
+  "pessoa_id" BIGINT NULL,
+  "caixa_id" BIGINT NOT NULL,
   "atendente_id" INT NOT NULL,
-  "entregador_pessoa_id" INT NULL,
+  "entregador_pessoa_id" BIGINT NULL,
   "data_hora" TIMESTAMP NOT NULL,
   "data_hora_fechado" TIMESTAMP NULL,
   "valor" DECIMAL(10,2) NOT NULL,
@@ -214,12 +216,13 @@ CREATE TABLE  "pedido" (
 -- Table "item_pedido"
 -- -----------------------------------------------------
 CREATE TABLE  "item_pedido" (
+  "id" BIGINT NOT NULL ,
   "pedido_id" INT NOT NULL,
   "produto_id" INT NOT NULL,
   "valor" DECIMAL(10,2) NOT NULL,
   "quantidade" INT NOT NULL,
   "desconto" DECIMAL(10,2) NULL,
-  PRIMARY KEY ("pedido_id", "produto_id"),
+  PRIMARY KEY ("id"),
   CONSTRAINT "fk_pedido_has_produto_pedido1"
     FOREIGN KEY ("pedido_id")
     REFERENCES "pedido" ("id")
@@ -236,7 +239,7 @@ CREATE TABLE  "item_pedido" (
 -- Table "auditoria"
 -- -----------------------------------------------------
 CREATE TABLE  "auditoria" (
-  "id" INT NOT NULL ,
+  "id" BIGINT NOT NULL ,
   "usuario_id" INT NOT NULL,
   "ip" VARCHAR(50) NOT NULL,
   "sql" TEXT NOT NULL,
@@ -253,7 +256,7 @@ CREATE TABLE  "auditoria" (
 -- Table "entrada"
 -- -----------------------------------------------------
 CREATE TABLE  "entrada" (
-  "id" INT NOT NULL,
+  "id" BIGINT NOT NULL ,
   "produto_id" INT NOT NULL,
   "quantidade" INT NOT NULL,
   "data" DATE NOT NULL,
@@ -269,7 +272,7 @@ CREATE TABLE  "entrada" (
 -- Table "forma_pagamento"
 -- -----------------------------------------------------
 CREATE TABLE  "forma_pagamento" (
-  "id" INT NOT NULL ,
+  "id" BIGINT NOT NULL ,
   "descricao" VARCHAR(150) NOT NULL,
   "prazo" INT NOT NULL,
   PRIMARY KEY ("id"));
@@ -279,7 +282,7 @@ CREATE TABLE  "forma_pagamento" (
 -- Table "contas_receber"
 -- -----------------------------------------------------
 CREATE TABLE  "contas_receber" (
-  "id" INT NOT NULL ,
+  "id" BIGINT NOT NULL ,
   "pedido_id" INT NOT NULL,
   "forma_pagamento_id" INT NOT NULL,
   "valor_final" DECIMAL(10,2) NOT NULL,
@@ -304,11 +307,17 @@ CREATE TABLE  "contas_receber" (
 -- Table "cozinha"
 -- -----------------------------------------------------
 CREATE TABLE  "cozinha" (
-  "id" INT NOT NULL,
+  "id" BIGINT NOT NULL ,
   "capacidade" INT NOT NULL,
   PRIMARY KEY ("id"));
 
 
+DROP SEQUENCE IF EXISTS "estado_cod_estado_sequence";
+CREATE SEQUENCE  "estado_cod_estado_sequence";
+ALTER TABLE "estado" ALTER COLUMN "cod_estado" SET DEFAULT NEXTVAL('"estado_cod_estado_sequence"');
+DROP SEQUENCE IF EXISTS "cidade_cod_cidade_sequence";
+CREATE SEQUENCE  "cidade_cod_cidade_sequence";
+ALTER TABLE "cidade" ALTER COLUMN "cod_cidade" SET DEFAULT NEXTVAL('"cidade_cod_cidade_sequence"');
 DROP SEQUENCE IF EXISTS "pessoa_id_sequence";
 CREATE SEQUENCE  "pessoa_id_sequence";
 ALTER TABLE "pessoa" ALTER COLUMN "id" SET DEFAULT NEXTVAL('"pessoa_id_sequence"');
@@ -318,6 +327,9 @@ ALTER TABLE "grupo" ALTER COLUMN "id" SET DEFAULT NEXTVAL('"grupo_id_sequence"')
 DROP SEQUENCE IF EXISTS "usuario_id_sequence";
 CREATE SEQUENCE  "usuario_id_sequence";
 ALTER TABLE "usuario" ALTER COLUMN "id" SET DEFAULT NEXTVAL('"usuario_id_sequence"');
+DROP SEQUENCE IF EXISTS "fornecedor_id_sequence";
+CREATE SEQUENCE  "fornecedor_id_sequence";
+ALTER TABLE "fornecedor" ALTER COLUMN "id" SET DEFAULT NEXTVAL('"fornecedor_id_sequence"');
 DROP SEQUENCE IF EXISTS "classificacao_id_sequence";
 CREATE SEQUENCE  "classificacao_id_sequence";
 ALTER TABLE "classificacao" ALTER COLUMN "id" SET DEFAULT NEXTVAL('"classificacao_id_sequence"');
@@ -327,12 +339,21 @@ ALTER TABLE "produto" ALTER COLUMN "id" SET DEFAULT NEXTVAL('"produto_id_sequenc
 DROP SEQUENCE IF EXISTS "pedido_id_sequence";
 CREATE SEQUENCE  "pedido_id_sequence";
 ALTER TABLE "pedido" ALTER COLUMN "id" SET DEFAULT NEXTVAL('"pedido_id_sequence"');
+DROP SEQUENCE IF EXISTS "item_pedido_id_sequence";
+CREATE SEQUENCE  "item_pedido_id_sequence";
+ALTER TABLE "item_pedido" ALTER COLUMN "id" SET DEFAULT NEXTVAL('"item_pedido_id_sequence"');
 DROP SEQUENCE IF EXISTS "auditoria_id_sequence";
 CREATE SEQUENCE  "auditoria_id_sequence";
 ALTER TABLE "auditoria" ALTER COLUMN "id" SET DEFAULT NEXTVAL('"auditoria_id_sequence"');
+DROP SEQUENCE IF EXISTS "entrada_id_sequence";
+CREATE SEQUENCE  "entrada_id_sequence";
+ALTER TABLE "entrada" ALTER COLUMN "id" SET DEFAULT NEXTVAL('"entrada_id_sequence"');
 DROP SEQUENCE IF EXISTS "forma_pagamento_id_sequence";
 CREATE SEQUENCE  "forma_pagamento_id_sequence";
 ALTER TABLE "forma_pagamento" ALTER COLUMN "id" SET DEFAULT NEXTVAL('"forma_pagamento_id_sequence"');
 DROP SEQUENCE IF EXISTS "contas_receber_id_sequence";
 CREATE SEQUENCE  "contas_receber_id_sequence";
 ALTER TABLE "contas_receber" ALTER COLUMN "id" SET DEFAULT NEXTVAL('"contas_receber_id_sequence"');
+DROP SEQUENCE IF EXISTS "cozinha_id_sequence";
+CREATE SEQUENCE  "cozinha_id_sequence";
+ALTER TABLE "cozinha" ALTER COLUMN "id" SET DEFAULT NEXTVAL('"cozinha_id_sequence"');

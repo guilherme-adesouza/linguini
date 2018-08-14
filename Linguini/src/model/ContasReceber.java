@@ -1,5 +1,5 @@
 package model;
-// Generated 10/08/2018 00:28:47 by Hibernate Tools 4.3.1
+// Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
 public class ContasReceber  implements java.io.Serializable {
 
 
-     private int id;
+     private long id;
      private FormaPagamento formaPagamento;
      private Pedido pedido;
      private BigDecimal valorFinal;
@@ -37,14 +37,14 @@ public class ContasReceber  implements java.io.Serializable {
     }
 
 	
-    public ContasReceber(int id, FormaPagamento formaPagamento, Pedido pedido, BigDecimal valorFinal, Date dataPrevista) {
+    public ContasReceber(long id, FormaPagamento formaPagamento, Pedido pedido, BigDecimal valorFinal, Date dataPrevista) {
         this.id = id;
         this.formaPagamento = formaPagamento;
         this.pedido = pedido;
         this.valorFinal = valorFinal;
         this.dataPrevista = dataPrevista;
     }
-    public ContasReceber(int id, FormaPagamento formaPagamento, Pedido pedido, BigDecimal valorFinal, Date dataPrevista, Date dataPagamento, BigDecimal desconto, BigDecimal acrescimo) {
+    public ContasReceber(long id, FormaPagamento formaPagamento, Pedido pedido, BigDecimal valorFinal, Date dataPrevista, Date dataPagamento, BigDecimal desconto, BigDecimal acrescimo) {
        this.id = id;
        this.formaPagamento = formaPagamento;
        this.pedido = pedido;
@@ -59,11 +59,11 @@ public class ContasReceber  implements java.io.Serializable {
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public long getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

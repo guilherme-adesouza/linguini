@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 10/08/2018 00:28:48 by Hibernate Tools 4.3.1 -->
+<!-- Generated Aug 13, 2018 9:27:05 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.Funcionario" table="funcionario" schema="public" optimistic-lock="version">
-        <id name="pessoaId" type="int">
+        <id name="pessoaId" type="long">
             <column name="pessoa_id" />
             <generator class="foreign">
                 <param name="property">pessoa</param>
