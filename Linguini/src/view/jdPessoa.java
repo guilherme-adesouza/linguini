@@ -5,12 +5,10 @@
  */
 package view;
 
-import controller.CidadeControl;
+import controller.PessoaController;
+import dao.MensagemRetorno;
 import javax.swing.JOptionPane;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import persistence.HibernateUtil;
+import model.Pessoa;
 
 /**
  *
@@ -18,19 +16,20 @@ import persistence.HibernateUtil;
  */
 public class jdPessoa extends javax.swing.JDialog {
 
-    private CidadeControl cidadeControl;
-
+    private PessoaController pessoaController;
+    private Pessoa pessoa;
     /**
      * Creates new form jdCidade
      */
     public jdPessoa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        cidadeControl = new CidadeControl();
         initComponents();
+        this.pessoaController = new PessoaController();
+        this.pessoa = new Pessoa();
     }
 
-    public CidadeControl getCidadeControl() {
-        return cidadeControl;
+    public PessoaController getPessoaControl() {
+        return pessoaController;
     }
 
     /**
@@ -44,9 +43,9 @@ public class jdPessoa extends javax.swing.JDialog {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnNovo = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
         btnPesquisar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -57,12 +56,12 @@ public class jdPessoa extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         tfdLogradouro = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtNomeCidade4 = new javax.swing.JTextField();
-        tfdCodigo1 = new javax.swing.JTextField();
+        tfdBairro = new javax.swing.JTextField();
+        tfdNumero = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtNomeCidade5 = new javax.swing.JTextField();
+        tfdComplemento = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        tfaObservacao = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -72,38 +71,38 @@ public class jdPessoa extends javax.swing.JDialog {
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gerenciar Cidades");
+        setTitle("Pessoa");
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton2.setBackground(new java.awt.Color(51, 102, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-mais-48.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnNovo.setBackground(new java.awt.Color(51, 102, 255));
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-mais-48.png"))); // NOI18N
+        btnNovo.setBorderPainted(false);
+        btnNovo.setContentAreaFilled(false);
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnNovoActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(51, 102, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-selecionado-48.png"))); // NOI18N
-        jButton3.setBorderPainted(false);
-        jButton3.setContentAreaFilled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setBackground(new java.awt.Color(51, 102, 255));
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-salvar-48_1.png"))); // NOI18N
+        btnSalvar.setBorderPainted(false);
+        btnSalvar.setContentAreaFilled(false);
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(51, 102, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-excluir-48.png"))); // NOI18N
-        jButton4.setBorderPainted(false);
-        jButton4.setContentAreaFilled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluir.setBackground(new java.awt.Color(51, 102, 255));
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-excluir-48.png"))); // NOI18N
+        btnExcluir.setBorderPainted(false);
+        btnExcluir.setContentAreaFilled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnExcluirActionPerformed(evt);
             }
         });
 
@@ -133,14 +132,14 @@ public class jdPessoa extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jButton2)
+                .addComponent(btnNovo)
                 .addGap(68, 68, 68)
-                .addComponent(jButton3)
+                .addComponent(btnSalvar)
                 .addGap(73, 73, 73)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnExcluir)
+                .addGap(70, 70, 70)
                 .addComponent(btnPesquisar)
-                .addGap(56, 56, 56)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnFechar)
                 .addGap(29, 29, 29))
         );
@@ -151,9 +150,9 @@ public class jdPessoa extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -196,32 +195,32 @@ public class jdPessoa extends javax.swing.JDialog {
 
         jLabel9.setText("Bairro");
 
-        txtNomeCidade4.setPreferredSize(new java.awt.Dimension(16, 30));
-        txtNomeCidade4.addActionListener(new java.awt.event.ActionListener() {
+        tfdBairro.setPreferredSize(new java.awt.Dimension(16, 30));
+        tfdBairro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeCidade4ActionPerformed(evt);
+                tfdBairroActionPerformed(evt);
             }
         });
 
-        tfdCodigo1.setPreferredSize(new java.awt.Dimension(16, 30));
-        tfdCodigo1.addActionListener(new java.awt.event.ActionListener() {
+        tfdNumero.setPreferredSize(new java.awt.Dimension(16, 30));
+        tfdNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfdCodigo1ActionPerformed(evt);
+                tfdNumeroActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Número");
 
-        txtNomeCidade5.setPreferredSize(new java.awt.Dimension(16, 30));
-        txtNomeCidade5.addActionListener(new java.awt.event.ActionListener() {
+        tfdComplemento.setPreferredSize(new java.awt.Dimension(16, 30));
+        tfdComplemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeCidade5ActionPerformed(evt);
+                tfdComplementoActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        tfaObservacao.setColumns(20);
+        tfaObservacao.setRows(5);
+        jScrollPane2.setViewportView(tfaObservacao);
 
         jLabel1.setText("Observação");
 
@@ -277,22 +276,23 @@ public class jdPessoa extends javax.swing.JDialog {
                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfdNome, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfdNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtNomeCidade5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfdComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfdNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -301,14 +301,14 @@ public class jdPessoa extends javax.swing.JDialog {
                                 .addComponent(jLabel9)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNomeCidade4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfdBairro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,16 +323,16 @@ public class jdPessoa extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfdLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(txtNomeCidade4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfdBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtNomeCidade5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfdComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel4)
-                                .addComponent(tfdCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfdNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel5)
                                 .addComponent(jLabel8))
                             .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -377,48 +377,52 @@ public class jdPessoa extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfdNomeActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        cidadeControl.novo();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       // cidadeControl.salvar();
-        JOptionPane.showMessageDialog(this, "Cidade salva com sucesso", "Salvar Cidade", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnNovoActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a cidade", "Excluir Cidade", JOptionPane.YES_NO_OPTION)
-                == JOptionPane.YES_OPTION) {
-            cidadeControl.excluir();
-            System.out.println("Excluido");
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        this.pessoa.setBairro(this.tfdBairro.getText());
+        this.pessoa.setComplemento(this.tfdComplemento.getText());
+        this.pessoa.setLogradouro(this.tfdLogradouro.getText());
+        this.pessoa.setNome(this.tfdNome.getText());
+        this.pessoa.setNumero(Integer.parseInt(this.tfdNumero.getText()));
+        MensagemRetorno msg = this.pessoaController.salvar(this.pessoa);
+        if(msg.isSucesso()){
+            JOptionPane.showMessageDialog(rootPane, msg.getMensagem());
         }
+        else {
+            JOptionPane.showMessageDialog(this, msg.getMensagem(), "ERRO!", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        cidadeControl.pesquisar();
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void tfdLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdLogradouroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfdLogradouroActionPerformed
 
-    private void txtNomeCidade4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeCidade4ActionPerformed
+    private void tfdBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdBairroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeCidade4ActionPerformed
+    }//GEN-LAST:event_tfdBairroActionPerformed
 
-    private void tfdCodigo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdCodigo1ActionPerformed
+    private void tfdNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdNumeroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfdCodigo1ActionPerformed
+    }//GEN-LAST:event_tfdNumeroActionPerformed
 
-    private void txtNomeCidade5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeCidade5ActionPerformed
+    private void tfdComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdComplementoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeCidade5ActionPerformed
+    }//GEN-LAST:event_tfdComplementoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -429,12 +433,12 @@ public class jdPessoa extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -449,13 +453,13 @@ public class jdPessoa extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea tfaObservacao;
+    private javax.swing.JTextField tfdBairro;
     private javax.swing.JTextField tfdCodigo;
-    private javax.swing.JTextField tfdCodigo1;
+    private javax.swing.JTextField tfdComplemento;
     private javax.swing.JTextField tfdLogradouro;
     private javax.swing.JTextField tfdNome;
-    private javax.swing.JTextField txtNomeCidade4;
-    private javax.swing.JTextField txtNomeCidade5;
+    private javax.swing.JTextField tfdNumero;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

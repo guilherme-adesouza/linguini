@@ -33,7 +33,7 @@ public class GenericoDAO<Object> {
             t.commit();
 
             retorno.setSucesso(true);
-
+            retorno.setMensagem("Salvo com sucesso!");
         } catch (HibernateException he) {
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();

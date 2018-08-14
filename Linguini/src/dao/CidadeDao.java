@@ -20,7 +20,7 @@ public class CidadeDao{
             sessao = HibernateUtil.getSessionFactory().openSession();
             //Transaction t = sessao.beginTransaction();
             sessao.getTransaction().begin();
-            if (cidade.getId() != null) {
+            if (cidade.getCodCidade() != 0) {
                 //carrego os dados da cidade
                 cidade = (Cidade) sessao.merge(cidade);
             }
@@ -64,7 +64,7 @@ public class CidadeDao{
             //1=1 para não precisar ficar verifcando se já foi colocado o where ou não
             StringBuilder q = new StringBuilder(" from Cidade c "
                     + "where situacao = true");
-            if (cidade.getId() != null) {
+            if (cidade.getCodCidade() != 0) {
                 q.append(" and c.id = :id");
             }
             if (cidade.getNome() != null && !cidade.getNome().equals("")) {
@@ -72,8 +72,8 @@ public class CidadeDao{
             }
             q.append(" order by nome");
             org.hibernate.Query sql = sessao.createQuery(q.toString());
-            if (cidade.getId() != null) {
-                sql.setParameter("id", cidade.getId());
+            if (cidade.getCodCidade() != 0) {
+                sql.setParameter("id", cidade.getCodCidade());
             }
 
             if (cidade.getNome() != null && !cidade.getNome().equals("")) {

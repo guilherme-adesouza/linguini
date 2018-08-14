@@ -7,11 +7,8 @@ package view;
 
 import java.awt.Color;
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.border.Border;
 
 /**
- *
  * @author VitinNote
  */
 public class Home extends javax.swing.JFrame {
@@ -269,19 +266,14 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_labAbrirFecharCaixaMouseExited
 
     private void labAbrirFecharCaixaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labAbrirFecharCaixaMouseClicked
-        JFrame frame = new JFrame();
-        jdCaixa caixa = new jdCaixa(frame, true);
-        caixa.setLocationRelativeTo(caixa);
-        //cf.setBounds(0, 0, screenSize.width, screenSize.height);
-        caixa.setVisible(true);
+        jdCaixa telaCaixa = new jdCaixa(this, true);
+        telaCaixa.setVisible(true);
     }//GEN-LAST:event_labAbrirFecharCaixaMouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        JFrame frame = new JFrame();
-        jdCaixa caixa = new jdCaixa(frame, true);
-        caixa.setLocationRelativeTo(caixa);
-        //cf.setBounds(0, 0, screenSize.width, screenSize.height);
-        caixa.setVisible(true);
+        jdCaixa telaCaixa = new jdCaixa(this, true);
+        telaCaixa.setLocationRelativeTo(telaCaixa);
+        telaCaixa.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -294,6 +286,7 @@ public class Home extends javax.swing.JFrame {
     private void jmiTelefonesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiTelefonesActionPerformed
     {//GEN-HEADEREND:event_jmiTelefonesActionPerformed
         jdTelefone telaTelefone = new jdTelefone(this, true);
+        telaTelefone.setLocationRelativeTo(telaTelefone);
         telaTelefone.setVisible(true);
     }//GEN-LAST:event_jmiTelefonesActionPerformed
 
@@ -304,6 +297,7 @@ public class Home extends javax.swing.JFrame {
 
     private void jmiPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPessoasActionPerformed
         jdPessoa telaPessoa = new jdPessoa(this, true);
+        telaPessoa.setLocationRelativeTo(telaPessoa);
         telaPessoa.setVisible(true);
     }//GEN-LAST:event_jmiPessoasActionPerformed
 

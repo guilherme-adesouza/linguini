@@ -44,7 +44,6 @@ public class CidadeControl {
     }
 
     public void salvar() throws ValidacaoException {
-        cidadeDigitado.validar();
         cidadeDao.salvarAtualizar(cidadeDigitado);
        
         novo();
