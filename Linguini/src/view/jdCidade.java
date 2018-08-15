@@ -5,9 +5,10 @@
  */
 package view;
 
-import controller.CidadeControl;
+import controller.CidadeController;
 import javax.swing.JOptionPane;
-import utils.ValidacaoException;
+import model.Cidade;
+import model.Estado;
 
 /**
  *
@@ -15,19 +16,28 @@ import utils.ValidacaoException;
  */
 public class jdCidade extends javax.swing.JDialog {
 
-    private CidadeControl cidadeControl;
+    private CidadeController cidadeController;
+    private Cidade cidade;
+    private Estado estado;
+
+    private void clearFields() {
+        tfdCodigo.setText("");
+        tfdNomeCidade.setText("");
+    }
 
     /**
      * Creates new form jdCidade
      */
     public jdCidade(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        cidadeControl = new CidadeControl();
         initComponents();
+        this.cidadeController = new CidadeController();
+        this.cidade = new Cidade();
+
     }
 
-    public CidadeControl getCidadeControl() {
-        return cidadeControl;
+    public CidadeController getCidadeController() {
+        return cidadeController;
     }
 
     /**
@@ -38,7 +48,6 @@ public class jdCidade extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -50,8 +59,8 @@ public class jdCidade extends javax.swing.JDialog {
         btnPesquisar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        txtCódigo = new javax.swing.JTextField();
-        txtNomeCidade = new javax.swing.JTextField();
+        tfdCodigo = new javax.swing.JTextField();
+        tfdNomeCidade = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCidades = new javax.swing.JTable();
@@ -159,41 +168,20 @@ public class jdCidade extends javax.swing.JDialog {
 
         jLabel3.setText("Código:");
 
-        txtCódigo.setEditable(false);
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeDigitado.id}"), txtCódigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        txtCódigo.addActionListener(new java.awt.event.ActionListener() {
+        tfdCodigo.setEditable(false);
+        tfdCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCódigoActionPerformed(evt);
+                tfdCodigoActionPerformed(evt);
             }
         });
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeDigitado.nome}"), txtNomeCidade, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        txtNomeCidade.addActionListener(new java.awt.event.ActionListener() {
+        tfdNomeCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeCidadeActionPerformed(evt);
+                tfdNomeCidadeActionPerformed(evt);
             }
         });
 
         jLabel7.setText("Nome:");
-
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeTabela}");
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tblCidades);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
-        columnBinding.setColumnName("Código");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nome}"));
-        columnBinding.setColumnName("Nome");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeSelecionado}"), tblCidades, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
-        bindingGroup.addBinding(binding);
 
         jScrollPane2.setViewportView(tblCidades);
 
@@ -212,8 +200,8 @@ public class jdCidade extends javax.swing.JDialog {
                         .addGap(12, 12, 12)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNomeCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCódigo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfdNomeCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -222,11 +210,11 @@ public class jdCidade extends javax.swing.JDialog {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtCódigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtNomeCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfdNomeCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(34, Short.MAX_VALUE))
@@ -251,50 +239,38 @@ public class jdCidade extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        bindingGroup.bind();
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCódigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCódigoActionPerformed
+    private void tfdCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdCodigoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCódigoActionPerformed
+    }//GEN-LAST:event_tfdCodigoActionPerformed
 
-    private void txtNomeCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeCidadeActionPerformed
+    private void tfdNomeCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdNomeCidadeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeCidadeActionPerformed
+    }//GEN-LAST:event_tfdNomeCidadeActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        cidadeControl.novo();
+        clearFields();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        try {
-            cidadeControl.getCidadeDigitado().setSituacao(true);
-            cidadeControl.salvar();
-            JOptionPane.showMessageDialog(this,
-                    "Cidade salva com sucesso", "Salvar Cidade", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (ValidacaoException ex) {
-
-            JOptionPane.showMessageDialog(this,
-                    ex.getMessage(),
-                    "Falha de validação", JOptionPane.WARNING_MESSAGE);
-
-        }
+        cidade.setCep("00000000");
+        //cidade.setEstado(estado.);
+        cidadeController.salvar(cidade);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
 
-        if (cidadeControl.validarSelectTable(tblCidades) && JOptionPane.showConfirmDialog(this,
-                "Deseja realmente excluir a cidade", "Excluir Cidade", JOptionPane.YES_NO_OPTION)
-                == JOptionPane.YES_OPTION) {
-            cidadeControl.excluir();
-        } else {
-            JOptionPane.showMessageDialog(this,
-                    "Selecione uma cidade para remover",
-                    "Falha de validação", JOptionPane.WARNING_MESSAGE);
-        }
+//        if (cidadeControl.validarSelectTable(tblCidades) && JOptionPane.showConfirmDialog(this,
+//                "Deseja realmente excluir a cidade", "Excluir Cidade", JOptionPane.YES_NO_OPTION)
+//                == JOptionPane.YES_OPTION) {
+//            cidadeControl.excluir();
+//        } else {
+//            JOptionPane.showMessageDialog(this,
+//                    "Selecione uma cidade para remover",
+//                    "Falha de validação", JOptionPane.WARNING_MESSAGE);
+//        }
 
 
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -304,7 +280,7 @@ public class jdCidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        cidadeControl.pesquisar();
+        
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -321,8 +297,7 @@ public class jdCidade extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tblCidades;
-    private javax.swing.JTextField txtCódigo;
-    private javax.swing.JTextField txtNomeCidade;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
+    private javax.swing.JTextField tfdCodigo;
+    private javax.swing.JTextField tfdNomeCidade;
     // End of variables declaration//GEN-END:variables
 }

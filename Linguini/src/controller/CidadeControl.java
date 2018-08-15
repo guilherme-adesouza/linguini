@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Cidade;
-import dao.CidadeDao;
+import dao.CidadeDAO;
 import javax.swing.JTable;
 import org.jdesktop.observablecollections.ObservableCollections;
-import utils.ValidacaoException;
 
 /**
  *
@@ -22,10 +21,10 @@ public class CidadeControl {
     private Cidade cidadeDigitado;
     private Cidade cidadeSelecionado;
     private List<Cidade> cidadeTabela;
-    private CidadeDao cidadeDao;
+    private CidadeDAO cidadeDao;
 
     public CidadeControl() {
-        cidadeDao = new CidadeDao();
+        cidadeDao = new CidadeDAO();
         cidadeTabela = ObservableCollections.observableList(new ArrayList<Cidade>());
         novo();
         //atenção ao usar em telas separas
@@ -40,18 +39,13 @@ public class CidadeControl {
     public void pesquisar() {
         cidadeTabela.clear();
         //atenção ao usar em telas separas
-        cidadeTabela.addAll(cidadeDao.pesquisar(cidadeDigitado));
+       // cidadeTabela.addAll(cidadeDao.pesquisar(cidadeDigitado));
     }
 
-    public void salvar() throws ValidacaoException {
-        cidadeDao.salvarAtualizar(cidadeDigitado);
-       
-        novo();
-        pesquisar();
-    }
+    
 
     public void excluir() {
-        cidadeDao.excluirD(cidadeDigitado);
+       // cidadeDao.excluirD(cidadeDigitado);
         novo();
         pesquisar();
     }
