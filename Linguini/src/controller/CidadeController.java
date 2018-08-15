@@ -10,7 +10,6 @@ import model.Cidade;
  */
 public class CidadeController {
     CidadeDAO cidadeDao;
-    private Cidade cidadeDigitado;
     
     public CidadeController(){
     this.cidadeDao = new CidadeDAO();
