@@ -150,7 +150,7 @@ public class GenericoDAO<Object> {
             query.setInteger("idParam", id);
             
             retorno.setObjeto((Object) query.uniqueResult());
-
+            
         } catch (HibernateException he) {
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();

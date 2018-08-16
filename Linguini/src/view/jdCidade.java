@@ -6,6 +6,7 @@
 package view;
 
 import controller.CidadeController;
+import dao.MensagemRetorno;
 import javax.swing.JOptionPane;
 import model.Cidade;
 import model.Estado;
@@ -243,7 +244,7 @@ public class jdCidade extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfdCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdCodigoActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tfdCodigoActionPerformed
 
     private void tfdNomeCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdNomeCidadeActionPerformed
@@ -252,6 +253,7 @@ public class jdCidade extends javax.swing.JDialog {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         clearFields();
+        
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -272,7 +274,6 @@ public class jdCidade extends javax.swing.JDialog {
 //                    "Falha de validação", JOptionPane.WARNING_MESSAGE);
 //        }
 
-
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -280,7 +281,7 @@ public class jdCidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
