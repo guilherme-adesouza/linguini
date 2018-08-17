@@ -7,27 +7,33 @@ package view;
 
 import controller.FornecedorController;
 import dao.MensagemRetorno;
+import javax.swing.JOptionPane;
 import model.Cidade;
 import model.Fornecedor;
+import utils.Formatacao;
 
 /**
  *
  * @author VitinNote
  */
 public class jdFornecedor extends javax.swing.JDialog {
-    
+
     private Fornecedor fornecedor;
     private FornecedorController fornecedorController;
-    
+
     private void clearFields() {
         tfdCodigo.setText("");
         tfdNomeFantasia.setText("");
         tfdRazaoSocial.setText("");
-        //tffTelefone.setText("");
-        //tffCNPJ.setText("");
+        tffTelefone.setText("");
+        tffCNPJ.setText("");
+        this.fornecedor = new Fornecedor();
     }
-    
-    
+
+    private void atualizarTabela() {
+        this.fornecedorController.popularTabela(tblFornecedores, "");
+    }
+
     /**
      * Creates new form jdFornecedor
      */
@@ -36,6 +42,9 @@ public class jdFornecedor extends javax.swing.JDialog {
         initComponents();
         this.fornecedor = new Fornecedor();
         this.fornecedorController = new FornecedorController();
+        this.fornecedorController.popularTabela(tblFornecedores, "");
+        Formatacao.formatarCnpj(tffCNPJ);
+        Formatacao.formatarTelefone(tffTelefone);
     }
 
     /**
@@ -268,28 +277,46 @@ public class jdFornecedor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        this.fornecedor.setCnpj(tffCNPJ.getText());
+        this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
         this.fornecedor.setNomeFantasia(tfdNomeFantasia.getText());
         this.fornecedor.setRazaoSocial(tfdRazaoSocial.getText());
         this.fornecedor.setSituacao(true);
-        //this.fornecedor.setTelefone(tffTelefone.getText());
+        //this.fornecedor.setTelefone(Formatacao.removerFormatacao(tffTelefone.getText()));
 
         MensagemRetorno msg = this.fornecedorController.salvar(this.fornecedor);
         if (msg.isSucesso()) {
-            System.out.println("OK salvou");
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            System.out.println(msg.getMensagem());
+            atualizarTabela();
+            clearFields();
         } else {
-            System.out.println("NoooSalvou");
+            JOptionPane.showMessageDialog(this, "Falha ao salvar", "ERRO!", JOptionPane.WARNING_MESSAGE);
+            System.out.println(msg.getMensagem());
+            atualizarTabela();
+            clearFields();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if (!tfdCodigo.getText().equals("") || tfdCodigo.getText() != null) {
-            MensagemRetorno msg = this.fornecedorController.excluir(this.fornecedor);
+        if (this.tblFornecedores.getSelectedRowCount() == 1) {
+            String valor = String.valueOf(this.tblFornecedores.getValueAt(this.tblFornecedores.getSelectedRow(), 0));
+            MensagemRetorno msg = this.fornecedorController.pesquisarPorId(Integer.parseInt(valor));
+            this.fornecedor = (Fornecedor) msg.getObjeto();
+            msg = this.fornecedorController.excluir(fornecedor);
             if (msg.isSucesso()) {
-                System.out.println("Excluido");                
+                JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+                System.out.println(msg.getMensagem());
+                atualizarTabela();
+                clearFields();
             } else {
-                System.out.println("NooExcluido");
+                JOptionPane.showMessageDialog(this, "Falha ao excluir", "ERRO!", JOptionPane.WARNING_MESSAGE);
+                System.out.println(msg.getMensagem());
+                atualizarTabela();
+                clearFields();
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione o fornecedor primeiro");
+            System.out.println("selecione");
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
