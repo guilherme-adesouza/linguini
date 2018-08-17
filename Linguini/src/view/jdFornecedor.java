@@ -34,6 +34,21 @@ public class jdFornecedor extends javax.swing.JDialog {
         this.fornecedorController.popularTabela(tblFornecedores, "");
     }
 
+    private void getSelecionado() {
+
+        //verificar campos vazios
+        String valor = String.valueOf(this.tblFornecedores.getValueAt(this.tblFornecedores.getSelectedRow(), 0));
+        MensagemRetorno msg = this.fornecedorController.pesquisarPorId(Integer.parseInt(valor));
+        this.fornecedor = (Fornecedor) msg.getObjeto();
+        fornecedorController.setForneceodrSel(this.fornecedor);
+        tfdCodigo.setText(String.valueOf(this.fornecedor.getId()));
+        //tfdNomeFantasia.setText(this.fornecedor.getNomeFantasia());
+        //tfdRazaoSocial.setText(this.fornecedor.getRazaoSocial());
+        //tffCNPJ.setText(this.fornecedor.getCnpj());
+        // tffTelefone.setText(fornecedor.getTelefone());
+
+    }
+
     /**
      * Creates new form jdFornecedor
      */
@@ -178,6 +193,19 @@ public class jdFornecedor extends javax.swing.JDialog {
 
         jLabel7.setText("Nome Fantasia:");
 
+        tblFornecedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblFornecedoresMouseClicked(evt);
+            }
+        });
+        tblFornecedores.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblFornecedoresKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblFornecedoresKeyReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblFornecedores);
 
         tfdRazaoSocial.addActionListener(new java.awt.event.ActionListener() {
@@ -277,23 +305,46 @@ public class jdFornecedor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
-        this.fornecedor.setNomeFantasia(tfdNomeFantasia.getText());
-        this.fornecedor.setRazaoSocial(tfdRazaoSocial.getText());
-        this.fornecedor.setSituacao(true);
-        //this.fornecedor.setTelefone(Formatacao.removerFormatacao(tffTelefone.getText()));
+        if (!tfdCodigo.getText().equals("")) {
+            getSelecionado();
 
-        MensagemRetorno msg = this.fornecedorController.salvar(this.fornecedor);
-        if (msg.isSucesso()) {
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-            System.out.println(msg.getMensagem());
-            atualizarTabela();
-            clearFields();
+            this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
+            this.fornecedor.setNomeFantasia(tfdNomeFantasia.getText());
+            this.fornecedor.setRazaoSocial(tfdRazaoSocial.getText());
+            //this.fornecedor.setTelefone(Formatacao.removerFormatacao(tffTelefone.getText()));
+
+            MensagemRetorno msg = this.fornecedorController.atualizar(this.fornecedor);
+            System.out.println("atualizando");
+            if (msg.isSucesso()) {
+                JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+                System.out.println(msg.getMensagem());
+                atualizarTabela();
+                clearFields();
+            } else {
+                JOptionPane.showMessageDialog(this, "Falha ao atualizar", "ERRO!", JOptionPane.WARNING_MESSAGE);
+                System.out.println(msg.getMensagem());
+                atualizarTabela();
+                clearFields();
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Falha ao salvar", "ERRO!", JOptionPane.WARNING_MESSAGE);
-            System.out.println(msg.getMensagem());
-            atualizarTabela();
-            clearFields();
+            this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
+            this.fornecedor.setNomeFantasia(tfdNomeFantasia.getText());
+            this.fornecedor.setRazaoSocial(tfdRazaoSocial.getText());
+            this.fornecedor.setSituacao(true);
+            //this.fornecedor.setTelefone(Formatacao.removerFormatacao(tffTelefone.getText()));
+
+            MensagemRetorno msg = this.fornecedorController.salvar(this.fornecedor);
+            if (msg.isSucesso()) {
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+                System.out.println(msg.getMensagem());
+                atualizarTabela();
+                clearFields();
+            } else {
+                JOptionPane.showMessageDialog(this, "Falha ao salvar", "ERRO!", JOptionPane.WARNING_MESSAGE);
+                System.out.println(msg.getMensagem());
+                atualizarTabela();
+                clearFields();
+            }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -325,7 +376,11 @@ public class jdFornecedor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-
+//        String valor = String.valueOf(this.tblFornecedores.getValueAt(this.tblFornecedores.getSelectedRow(), 0));
+//        MensagemRetorno msg = this.fornecedorController.pesquisarPorId(Integer.parseInt(valor));
+//        this.fornecedor = (Fornecedor) msg.getObjeto();
+//        fornecedorController.setForneceodrSel(fornecedor);
+//        System.out.println(this.fornecedor.getId());
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void tfdCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdCodigoActionPerformed
@@ -339,6 +394,18 @@ public class jdFornecedor extends javax.swing.JDialog {
     private void tfdRazaoSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdRazaoSocialActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfdRazaoSocialActionPerformed
+
+    private void tblFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFornecedoresMouseClicked
+        getSelecionado();
+    }//GEN-LAST:event_tblFornecedoresMouseClicked
+
+    private void tblFornecedoresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblFornecedoresKeyPressed
+
+    }//GEN-LAST:event_tblFornecedoresKeyPressed
+
+    private void tblFornecedoresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblFornecedoresKeyReleased
+        getSelecionado();
+    }//GEN-LAST:event_tblFornecedoresKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;

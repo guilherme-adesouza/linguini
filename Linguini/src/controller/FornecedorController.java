@@ -15,7 +15,7 @@ import model.Fornecedor;
 public class FornecedorController {
 
     private FornecedorDAO fornecedorDao;
-    //private Fornecedor fornecedor;
+    private Fornecedor fornecedorSel;
 
     public FornecedorController() {
         this.fornecedorDao = new FornecedorDAO();
@@ -23,6 +23,10 @@ public class FornecedorController {
 
     public MensagemRetorno salvar(Fornecedor fornecedor) {
         return this.fornecedorDao.salvar(fornecedor);
+    }
+    
+    public MensagemRetorno atualizar(Fornecedor fornecedor){
+        return this.fornecedorDao.atualizar(fornecedor);
     }
 
     public MensagemRetorno excluir(Fornecedor fornecedor) {
@@ -40,6 +44,10 @@ public class FornecedorController {
     public MensagemRetorno pesquisarPorId(int id) {
         return this.fornecedorDao.consultarPorId(id, "Fornecedor");
     }
+    
+    public void setForneceodrSel(Fornecedor fornecedorSel) {
+        this.fornecedorSel = fornecedorSel;
+   }
 
     public void popularTabela(JTable tabela, String criterio) {
         MensagemRetorno ms = fornecedorDao.consultarTodos("Fornecedor");
