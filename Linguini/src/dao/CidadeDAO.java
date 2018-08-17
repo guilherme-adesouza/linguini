@@ -8,4 +8,4 @@ import model.Cidade;
  */
 public class CidadeDAO extends GenericoDAO<Cidade> {
 
-}
+    }
