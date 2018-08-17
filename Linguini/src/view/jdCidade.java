@@ -33,6 +33,7 @@ public class jdCidade extends javax.swing.JDialog {
         initComponents();
         this.cidadeController = new CidadeController();
         this.cidade = new Cidade();
+        tfdCodigo.isFocusable();
 
     }
 
@@ -84,10 +85,10 @@ public class jdCidade extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnNovo.setBackground(new java.awt.Color(51, 102, 255));
+        btnNovo.setBackground(new java.awt.Color(0, 0, 204));
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-mais-48.png"))); // NOI18N
-        btnNovo.setBorderPainted(false);
-        btnNovo.setOpaque(false);
+        btnNovo.setToolTipText("Novo");
+        btnNovo.setContentAreaFilled(false);
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoActionPerformed(evt);
@@ -97,6 +98,7 @@ public class jdCidade extends javax.swing.JDialog {
         btnSalvar.setBackground(new java.awt.Color(51, 102, 255));
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-salvar-48_1.png"))); // NOI18N
         btnSalvar.setBorderPainted(false);
+        btnSalvar.setContentAreaFilled(false);
         btnSalvar.setOpaque(false);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +109,7 @@ public class jdCidade extends javax.swing.JDialog {
         btnExcluir.setBackground(new java.awt.Color(51, 102, 255));
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-excluir-48.png"))); // NOI18N
         btnExcluir.setBorderPainted(false);
+        btnExcluir.setContentAreaFilled(false);
         btnExcluir.setOpaque(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +119,7 @@ public class jdCidade extends javax.swing.JDialog {
 
         btnFechar.setBackground(new java.awt.Color(51, 102, 255));
         btnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-importar-48.png"))); // NOI18N
-        btnFechar.setBorderPainted(false);
+        btnFechar.setContentAreaFilled(false);
         btnFechar.setOpaque(false);
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,8 +129,7 @@ public class jdCidade extends javax.swing.JDialog {
 
         btnPesquisar.setBackground(new java.awt.Color(51, 102, 255));
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-pesquisar-48.png"))); // NOI18N
-        btnPesquisar.setBorderPainted(false);
-        btnPesquisar.setOpaque(false);
+        btnPesquisar.setContentAreaFilled(false);
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarActionPerformed(evt);
