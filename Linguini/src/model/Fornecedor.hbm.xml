@@ -6,7 +6,7 @@
     <class name="model.Fornecedor" table="fornecedor" schema="public" optimistic-lock="version">
         <id name="id" type="long">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="nomeFantasia" type="string">
             <column name="nome_fantasia" length="45" not-null="true" />
