@@ -28,11 +28,16 @@ public class CidadeController {
         return cidadeDao.excluir(cidade);
     }
 
-    public MensagemRetorno pesquisar(String valor){
+    public MensagemRetorno pesquisarCCriterio(String valor){
         return cidadeDao.consultarComCriterio("Cidade", "nome", valor);
     }
-    
-    public MensagemRetorno obterEstado(Cidade cidade){
-        return estadoDao.consultarPorId(cidade.getEstado().getCodEstado(), "Estado");
+    public MensagemRetorno pesquisarPorId(int valor){
+        return cidadeDao.consultarPorId(valor, "Cidade");
     }
+    
+    public String obterEstado(Cidade cidade){
+        MensagemRetorno msg = estadoDao.consultarPorId(cidade.getEstado().getCodEstado(), "Estado");
+        Estado estado = (Estado) msg.getObjeto();
+        return cidade.getNome() + " " + estado.getSigla();
+       }
 }

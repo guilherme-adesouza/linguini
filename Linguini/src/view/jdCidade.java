@@ -9,7 +9,6 @@ import controller.CidadeController;
 import dao.MensagemRetorno;
 import javax.swing.JOptionPane;
 import model.Cidade;
-import model.Estado;
 
 /**
  *
@@ -19,7 +18,7 @@ public class jdCidade extends javax.swing.JDialog {
 
     private CidadeController cidadeController;
     private Cidade cidade;
-    private Estado estado;
+    private MensagemRetorno msg;
 
     private void clearFields() {
         tfdCodigo.setText("");
@@ -253,6 +252,11 @@ public class jdCidade extends javax.swing.JDialog {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         clearFields();
+        msg = cidadeController.pesquisarPorId(7800);
+        cidade = (Cidade) msg.getObjeto();
+        
+        cidadeController.obterEstado(cidade);
+        System.out.println(cidadeController.obterEstado(cidade));
         
     }//GEN-LAST:event_btnNovoActionPerformed
 
