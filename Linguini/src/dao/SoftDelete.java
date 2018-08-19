@@ -1,8 +1,10 @@
 package dao;
 
+import org.hibernate.Session;
+
 /**
  * @author guilherme-souza
  */
 public interface SoftDelete {
-    public void inativar();
+    public MensagemRetorno inativar(int id);
 }

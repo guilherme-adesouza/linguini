@@ -50,11 +50,11 @@ public class GenericoDAO<Object> {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
-
+            
             sessao.delete(o);
             t.commit();
             retorno.setSucesso(true);
-            
+            retorno.setMensagem("Registro excluído com sucesso!");
         } catch (HibernateException he) {
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
@@ -64,21 +64,20 @@ public class GenericoDAO<Object> {
         return retorno;
     }
     
-    //Soft Delete
-    public MensagemRetorno excluir(SoftDelete o){
+    public MensagemRetorno excluir(int id, String tabela) {
         
         MensagemRetorno retorno = new MensagemRetorno(false);
         Session sessao = null;
-        
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
             
-            o.inativar();
-            sessao.update(o);
+            Query query = sessao.createQuery("DELETE FROM " + tabela+" WHERE id = :idParam");
+            query.setInteger("idParam", id).executeUpdate();
             t.commit();
             
             retorno.setSucesso(true);
+            retorno.setMensagem("Registro excluído com sucesso!");
         } catch (HibernateException he) {
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
@@ -87,7 +86,7 @@ public class GenericoDAO<Object> {
         }
         return retorno;
     }
-
+    
     public MensagemRetorno consultarTodos(String tabela) {
         
         MensagemRetorno retorno = new MensagemRetorno(false);
@@ -98,7 +97,7 @@ public class GenericoDAO<Object> {
             sessao.beginTransaction();
 
             Query query = sessao.createQuery("FROM " + tabela);
-            
+
             retorno.setLista((List) query.list());
             retorno.setSucesso(true);
         } catch (HibernateException he) {
@@ -150,7 +149,7 @@ public class GenericoDAO<Object> {
             query.setInteger("idParam", id);
             
             retorno.setObjeto((Object) query.uniqueResult());
-            
+            retorno.setSucesso(true);
         } catch (HibernateException he) {
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
@@ -177,7 +176,7 @@ public class GenericoDAO<Object> {
             q.setString("campoPesquisa", "%"+valor+"%");
             
             retorno.setLista((List) q.list());
-
+            retorno.setSucesso(true);
         } catch (HibernateException he) {
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
@@ -187,4 +186,80 @@ public class GenericoDAO<Object> {
 
         return retorno;    
     }
+    
+    public MensagemRetorno consultarComCriterio(String tabela, String[] camposPesquisa, String valor, String orderBy){
+        
+        MensagemRetorno retorno = new MensagemRetorno(false);
+        Session sessao = null;
+
+        try {
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+            String camposPesquisados = "";
+            for(int i=0; i < camposPesquisa.length; i++) {
+                if(i>0){
+                    camposPesquisados +=" OR ";
+                }
+                camposPesquisados += "UPPER("+camposPesquisa[i]+") LIKE UPPER(:campoPesquisa)";
+            }
+            
+            String order = " id";
+
+            if(orderBy != null && !orderBy.isEmpty()){
+                order = orderBy;
+            }
+            org.hibernate.Query q = sessao.createQuery("FROM " +tabela+" WHERE "+camposPesquisados+" ORDER BY "+order);
+            
+            q.setString("campoPesquisa", "%"+valor+"%");
+            
+            retorno.setLista((List) q.list());
+            retorno.setSucesso(true);
+        } catch (HibernateException he) {
+            retorno.setMensagem(he.getMessage());
+            he.printStackTrace();
+        }finally{
+            sessao.close();
+        }
+        return retorno;    
+    }    
+    
+    public MensagemRetorno consultarAtivosComCriterio(String tabela, String[] camposPesquisa, String valor, String orderBy){
+        
+        MensagemRetorno retorno = new MensagemRetorno(false);
+        Session sessao = null;
+
+        try {
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+            String camposPesquisados = " AND (";
+            for(int i=0; i < camposPesquisa.length; i++) {
+                if(i>0){
+                    camposPesquisados +=" OR ";
+                }
+                camposPesquisados += "UPPER("+camposPesquisa[i]+") LIKE UPPER(:campoPesquisa)";
+            }
+            camposPesquisados += ")";
+            
+            String order = " id";
+
+            if(orderBy != null && !orderBy.isEmpty()){
+                order = orderBy;
+            }
+            org.hibernate.Query q = sessao.createQuery("FROM " +tabela+" WHERE situacao=:situacao "+camposPesquisados+" ORDER BY "+order);
+            
+            q.setString("campoPesquisa", "%"+valor+"%");
+            q.setBoolean("situacao", true);
+            
+            retorno.setLista((List) q.list());
+            retorno.setSucesso(true);
+        } catch (HibernateException he) {
+            retorno.setMensagem(he.getMessage());
+            he.printStackTrace();
+        }finally{
+            sessao.close();
+        }
+        return retorno;    
+    }  
 }

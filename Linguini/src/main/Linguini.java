@@ -13,14 +13,14 @@ public class Linguini {
 
     public static void main(String[] args) {
  
-    try 
-    {
-      UIManager.setLookAndFeel(new SyntheticaWhiteVisionLookAndFeel());
-    } 
-    catch (Exception e) 
-    {
-      e.printStackTrace();
-    }
+        try 
+        {
+          UIManager.setLookAndFeel(new SyntheticaWhiteVisionLookAndFeel());
+        } 
+        catch (Exception e) 
+        {
+          e.printStackTrace();
+        }
         new jfLogin().setVisible(true);
     }
 }
