@@ -217,7 +217,7 @@ public class Home extends javax.swing.JFrame {
         });
         jMenu1.add(jmiPessoas);
 
-        jmiTelefones.setText("Telefones");
+        jmiTelefones.setText("Classificação");
         jmiTelefones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiTelefonesActionPerformed(evt);
@@ -311,9 +311,9 @@ public class Home extends javax.swing.JFrame {
 
     private void jmiTelefonesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiTelefonesActionPerformed
     {//GEN-HEADEREND:event_jmiTelefonesActionPerformed
-        jdTelefone telaTelefone = new jdTelefone(this, true);
-        telaTelefone.setLocationRelativeTo(telaTelefone);
-        telaTelefone.setVisible(true);
+        jdClassificacao telaClassificacao = new jdClassificacao(this, true);
+        telaClassificacao.setLocationRelativeTo(telaClassificacao);
+        telaClassificacao.setVisible(true);
     }//GEN-LAST:event_jmiTelefonesActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenu1ActionPerformed

@@ -33,10 +33,6 @@ public class FornecedorController {
         return this.fornecedorDao.excluir(fornecedor);
     }
 
-    public MensagemRetorno excluir(SoftDelete fornecedor) {
-        return this.fornecedorDao.excluir(fornecedor);
-    }
-
     public MensagemRetorno pesquisarTodos() {
         return this.fornecedorDao.consultarTodos("Fornecedor");
     }

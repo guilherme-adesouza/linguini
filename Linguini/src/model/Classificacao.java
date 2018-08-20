@@ -27,6 +27,8 @@ public class Classificacao  implements java.io.Serializable {
      private Set produtos = new HashSet(0);
 
     public Classificacao() {
+        this.classificacao = "";
+        this.situacao = true;
     }
 
 	

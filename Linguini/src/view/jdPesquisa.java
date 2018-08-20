@@ -24,6 +24,7 @@ public class jdPesquisa extends javax.swing.JDialog {
         } 
         this.cmbFiltros.setSelectedIndex(0);
         this.controller.popularTabela(this.tblPesquisar, "", "id");
+        this.setLocationRelativeTo(null);
     }
     
     @SuppressWarnings("unchecked")
