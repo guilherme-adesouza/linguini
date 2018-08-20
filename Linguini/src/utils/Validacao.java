@@ -4,6 +4,7 @@
  */
 package utils;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
@@ -121,9 +122,18 @@ public class Validacao {
         }
     }
     
-    public static boolean validaFormatados(JFormattedTextField campo)
+    public static boolean camposPreenchidos(JTextField[] campos)
     {
-        boolean ok = false;
+        boolean ok = true;
+        for (JTextField campo : campos) {
+            if(campo.getText().isEmpty()){
+                if(ok){
+                    campo.requestFocus();
+                }
+                campo.setBackground(Color.YELLOW);
+                ok = false;
+            }
+        }
         return ok;
     }
     

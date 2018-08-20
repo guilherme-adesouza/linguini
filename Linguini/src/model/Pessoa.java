@@ -42,6 +42,14 @@ public class Pessoa  implements java.io.Serializable {
      private Funcionario funcionario;
 
     public Pessoa() {
+        this.nome = "";
+        this.telefone1 = "";
+        this.telefone2 = "";
+        this.logradouro = "";
+        this.bairro = "";
+        this.observacao = "";
+        this.nome = "";
+        this.situacao = true;
     }
 
 	

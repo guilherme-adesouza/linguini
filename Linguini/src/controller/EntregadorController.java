@@ -1,38 +1,38 @@
 package controller;
 
+import dao.EntregadorDAO;
 import dao.MensagemRetorno;
-import dao.PessoaDAO;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-import model.Pessoa;
+import model.Entregador;
 
 /**
  * @author guilherme-souza
  */
-public class PessoaController implements Controller<Pessoa>{
-    private PessoaDAO pessoaDAO;
-    private String tabela = "Pessoa";
+public class EntregadorController implements Controller<Entregador>{
     
-    public PessoaController(){
-        this.pessoaDAO = new PessoaDAO();
+    private EntregadorDAO entregadorDAO;
+    private String tabela = "Entregador";
+    
+    public EntregadorController(){
+        this.entregadorDAO = new EntregadorDAO();
     }
     
     @Override
-    public MensagemRetorno salvar(Pessoa pessoa){
-        return pessoaDAO.salvar(pessoa);
+    public MensagemRetorno salvar(Entregador entregador) {
+        return this.entregadorDAO.salvar(entregador);
     }
 
     @Override
-    public MensagemRetorno excluir(Pessoa pessoa) {
-        return pessoaDAO.excluir(pessoa);
+    public MensagemRetorno excluir(Entregador entregador) {
+        return this.entregadorDAO.excluir(entregador);
     }
-    
+
     @Override
     public MensagemRetorno excluir(int id) {
-        return pessoaDAO.excluir(id);
+        return this.entregadorDAO.excluir(id, this.tabela);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class PessoaController implements Controller<Pessoa>{
 
         // cria matriz de acordo com nº de registros da tabela
         try {
-            MensagemRetorno ms = this.pessoaDAO.consultarAtivosComCriterio(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
+            MensagemRetorno ms = this.entregadorDAO.consultarAtivosComCriterio(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
             if(ms.isSucesso()) {
                 dadosTabela = new Object[ms.getLista().size()][cabecalho.length];
             }
@@ -58,13 +58,13 @@ public class PessoaController implements Controller<Pessoa>{
 
         // efetua consulta na tabela
         try {
-            MensagemRetorno ms = this.pessoaDAO.consultarAtivosComCriterio(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
+            MensagemRetorno ms = this.entregadorDAO.consultarAtivosComCriterio(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
             
             for (Object o : ms.getLista()) {
-                Pessoa p = (Pessoa) o;
+                Entregador e = (Entregador) o;
 
-                dadosTabela[lin][0] = p.getId();
-                dadosTabela[lin][1] = p.getNome();
+                dadosTabela[lin][0] = e.getPessoaId();
+                dadosTabela[lin][1] = e.getPessoa().getNome();
                 lin++;
             }
 
@@ -114,17 +114,6 @@ public class PessoaController implements Controller<Pessoa>{
             }
         }
     }
-
-    @Override
-    public MensagemRetorno consultarTodos() {
-        //consultar apenas ativos
-        return this.pessoaDAO.consultarComCriterio(this.tabela, "situacao", "true");
-    }
-
-    @Override
-    public MensagemRetorno consultarPorID(int id) {
-        return this.pessoaDAO.consultarPorId(id, this.tabela);
-    }
     
     private String[] getCabecalho(){
         String[] cabecalho = {"Código", "Nome"};
@@ -137,11 +126,17 @@ public class PessoaController implements Controller<Pessoa>{
     }
 
     @Override
+    public MensagemRetorno consultarTodos() {
+        return this.entregadorDAO.consultarTodos(this.tabela);
+    }
+
+    @Override
+    public MensagemRetorno consultarPorID(int id) {
+        return this.entregadorDAO.consultarPorId(id, this.tabela);
+    }
+
+    @Override
     public List<CampoOrdenavel> getOrdenacao() {
-        List campos = new ArrayList();
-        campos.add(new CampoOrdenavel("ID", "id"));
-        campos.add(new CampoOrdenavel("Nome", "nome"));
-        campos.add(new CampoOrdenavel("Rua", "logradouro"));
-        return campos;
+        return new PessoaController().getOrdenacao();
     }
 }

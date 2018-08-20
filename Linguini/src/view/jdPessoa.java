@@ -5,12 +5,17 @@
  */
 package view;
 
+import controller.EntregadorController;
 import controller.PessoaController;
 import dao.MensagemRetorno;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import model.Entregador;
+import model.Funcionario;
 import model.Pessoa;
 import utils.Formatacao;
+import utils.Validacao;
 
 /**
  *
@@ -20,6 +25,10 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
 
     private PessoaController pessoaController;
     private Pessoa pessoa;
+    private Entregador entregador;
+    private Funcionario funcionario;
+    private EntregadorController entregadorController;
+    
     /**
      * Creates new form jdCidade
      */
@@ -27,9 +36,14 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
         super(parent, modal);
         initComponents();
         this.pessoaController = new PessoaController();
+        this.entregadorController = new EntregadorController();
         this.pessoa = new Pessoa();
+        this.entregador = new Entregador();
+        this.funcionario = new Funcionario();
         Formatacao.formatarTelefone(this.ftfTelefone1);
         Formatacao.formatarTelefone(this.ftfTelefone2);
+        Formatacao.formatarPlaca(this.ftfPlaca);
+        this.ftfPlaca.setEnabled(this.cboEntregador.isSelected());
     }
 
     /**
@@ -68,6 +82,10 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
         jLabel6 = new javax.swing.JLabel();
         ftfTelefone1 = new javax.swing.JFormattedTextField();
         ftfTelefone2 = new javax.swing.JFormattedTextField();
+        jPanel3 = new javax.swing.JPanel();
+        ftfPlaca = new javax.swing.JFormattedTextField();
+        jLabel10 = new javax.swing.JLabel();
+        cboEntregador = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pessoa");
@@ -136,7 +154,7 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
                 .addComponent(btnSalvar)
                 .addGap(73, 73, 73)
                 .addComponent(btnExcluir)
-                .addGap(70, 70, 70)
+                .addGap(62, 62, 62)
                 .addComponent(btnPesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnFechar)
@@ -157,8 +175,9 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel3.setText("Código:");
+        jLabel3.setText("Código");
 
+        tfdCodigo.setEditable(false);
         tfdCodigo.setPreferredSize(new java.awt.Dimension(16, 30));
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeDigitado.id}"), tfdCodigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -229,6 +248,51 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
 
         jLabel6.setText("Telefone 2");
 
+        ftfTelefone1.setPreferredSize(new java.awt.Dimension(16, 30));
+
+        ftfTelefone2.setPreferredSize(new java.awt.Dimension(16, 30));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel10.setText("Placa");
+
+        cboEntregador.setText("Entregador");
+        cboEntregador.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboEntregadorItemStateChanged(evt);
+            }
+        });
+        cboEntregador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboEntregadorActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(cboEntregador)
+                .addGap(59, 59, 59)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(ftfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(ftfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboEntregador))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -241,35 +305,15 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel11))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tfdComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)
-                                .addComponent(tfdBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tfdLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(51, 51, 51)
                                 .addComponent(jLabel3)
-                                .addGap(13, 13, 13))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
-                                .addGap(22, 22, 22)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -282,7 +326,29 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(ftfTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(ftfTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tfdLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfdNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tfdComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfdBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -290,33 +356,35 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfdNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(ftfTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ftfTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ftfTelefone1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ftfTelefone2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfdLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel4)
-                    .addComponent(tfdNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfdNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
                     .addComponent(tfdBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfdComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(12, 12, 12)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -352,22 +420,36 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_tfdNomeActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-
+        this.limparCampos((int) this.pessoa.getId());
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        this.pessoa.setBairro(this.tfdBairro.getText());
-        this.pessoa.setComplemento(this.tfdComplemento.getText());
-        this.pessoa.setLogradouro(this.tfdLogradouro.getText());
-        this.pessoa.setNome(this.tfdNome.getText());
-        this.pessoa.setNumero(Integer.parseInt(this.tfdNumero.getText()));
-        MensagemRetorno msg = this.pessoaController.salvar(this.pessoa);
-        if(msg.isSucesso()){
-            JOptionPane.showMessageDialog(rootPane, msg.getMensagem());
+        if(Validacao.camposPreenchidos(camposObrigatorios())){
+            this.pessoa.setBairro(this.tfdBairro.getText());
+            this.pessoa.setComplemento(this.tfdComplemento.getText());
+            this.pessoa.setLogradouro(this.tfdLogradouro.getText());
+            this.pessoa.setNome(this.tfdNome.getText());
+            this.pessoa.setNumero(Integer.parseInt(this.tfdNumero.getText()));
+            
+            MensagemRetorno msg;
+            if(this.cboEntregador.isSelected()){
+                this.entregador.setPessoa(this.pessoa);
+                this.entregador.setPlaca(Formatacao.removerFormatacao(this.ftfPlaca.getText()));
+                msg = this.entregadorController.salvar(this.entregador);        
+            } else {
+                msg = this.pessoaController.salvar(this.pessoa);
+            }
+            
+            if(msg.isSucesso()){
+                JOptionPane.showMessageDialog(rootPane, msg.getMensagem());
+            }
+            else {
+                JOptionPane.showMessageDialog(this, msg.getMensagem(), "ERRO!", JOptionPane.WARNING_MESSAGE);
+            }
         }
         else {
-            JOptionPane.showMessageDialog(this, msg.getMensagem(), "ERRO!", JOptionPane.WARNING_MESSAGE);
-        }
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -399,15 +481,26 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfdComplementoActionPerformed
 
+    private void cboEntregadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboEntregadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboEntregadorActionPerformed
+
+    private void cboEntregadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboEntregadorItemStateChanged
+        this.ftfPlaca.setEnabled(this.cboEntregador.isSelected());
+    }//GEN-LAST:event_cboEntregadorItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JCheckBox cboEntregador;
+    private javax.swing.JFormattedTextField ftfPlaca;
     private javax.swing.JFormattedTextField ftfTelefone1;
     private javax.swing.JFormattedTextField ftfTelefone2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -418,6 +511,7 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea tfaObservacao;
     private javax.swing.JTextField tfdBairro;
@@ -429,19 +523,30 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
+    private JTextField[] camposObrigatorios(){
+        JTextField[] campos = {this.tfdNome}; 
+        return campos;
+    }
+    
     @Override
     public void carregar(int codigo) {
         MensagemRetorno retorno = this.pessoaController.consultarPorID(codigo);
-        Pessoa p = (Pessoa) retorno.getObjeto();
-        this.tfdCodigo.setText(p.getId()+"");
-        this.tfdNome.setText(p.getNome()+"");
-        //this.tfdTelefone1.setText(p.getTelefone1()+"");
-        //this.tfdTelefone2.setText(p.getTelefone2()+"");
-        this.tfdLogradouro.setText(p.getLogradouro()+"");
-        this.tfdComplemento.setText(p.getComplemento()+"");
-        this.tfdNumero.setText(p.getNumero()+"");
-        this.tfdBairro.setText(p.getBairro()+"");
-        this.tfaObservacao.setText(p.getObservacao()+"");
+        this.pessoa = (Pessoa) retorno.getObjeto();
+        this.tfdCodigo.setText(this.pessoa.getId()+"");
+        this.tfdNome.setText(this.pessoa.getNome()+"");
+        //this.tfdTelefone1.setText(this.pessoa.getTelefone1()+"");
+        //this.tfdTelefone2.setText(this.pessoa.getTelefone2()+"");
+        this.tfdLogradouro.setText(this.pessoa.getLogradouro()+"");
+        this.tfdComplemento.setText(this.pessoa.getComplemento()+"");
+        this.tfdNumero.setText(this.pessoa.getNumero()+"");
+        this.tfdBairro.setText(this.pessoa.getBairro()+"");
+        this.tfaObservacao.setText(this.pessoa.getObservacao()+"");
+        MensagemRetorno msg = this.entregadorController.consultarPorID(codigo);
+        if(msg.getObjeto() != null){
+            this.entregador = (Entregador) msg.getObjeto();
+            this.cboEntregador.setSelected(true);
+            this.ftfPlaca.setText(this.entregador.getPlaca());
+        }
     }
 
     @Override
@@ -449,6 +554,17 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
         if(this.pessoa.getId() == codigo){
             //limpar campos da tela
             this.pessoa = new Pessoa();
+            this.tfdCodigo.setText(this.pessoa.getId()+"");
+            this.tfdNome.setText(this.pessoa.getNome());
+            //this.tfdTelefone1.setText(this.pessoa.getTelefone1()+"");
+            //this.tfdTelefone2.setText(this.pessoa.getTelefone2()+"");
+            this.tfdLogradouro.setText(this.pessoa.getLogradouro());
+            this.tfdBairro.setText(this.pessoa.getBairro());
+            this.tfdComplemento.setText(this.pessoa.getComplemento());
+            this.tfdNumero.setText(this.pessoa.getNumero()+"");
+            this.tfaObservacao.setText(this.pessoa.getObservacao());
+            this.cboEntregador.setSelected(false);
+            this.ftfPlaca.setText("");
         }
     }
 }
