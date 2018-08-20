@@ -266,7 +266,7 @@ public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (Validacao.camposPreenchidos(camposObrigatorios())) {
-            if (!Validacao.contarNumerosDigitados(tffTelefone.getText(), 10)) {
+            if (!Validacao.contarNumeros(tffTelefone.getText(), 10)) {
                 JOptionPane.showMessageDialog(null, "Telefone inválido!");
                 tffTelefone.setBackground(Color.yellow);
             } else if (!tfdCodigo.getText().equals("")) {
