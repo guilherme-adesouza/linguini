@@ -173,7 +173,7 @@ public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
             }
         });
 
-        jLabel7.setText("Nome Fantasia:");
+        jLabel7.setText("Nome Fantasia*:");
 
         tfdRazaoSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,7 +209,7 @@ public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
                         .addComponent(tffTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,10 +266,7 @@ public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (Validacao.camposPreenchidos(camposObrigatorios())) {
-            if (!Validacao.contarNumeros(tffTelefone.getText(), 10)) {
-                JOptionPane.showMessageDialog(null, "Telefone inválido!");
-                tffTelefone.setBackground(Color.yellow);
-            } else if (!tfdCodigo.getText().equals("")) {
+            if (!tfdCodigo.getText().equals("")) {
                 this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
                 this.fornecedor.setNomeFantasia(tfdNomeFantasia.getText());
                 this.fornecedor.setRazaoSocial(tfdRazaoSocial.getText());
@@ -311,6 +308,7 @@ public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
 
         } else {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

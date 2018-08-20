@@ -199,7 +199,7 @@
                           <Component id="tffTelefone" min="-2" pref="142" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="148" max="32767" attributes="0"/>
+                  <EmptySpace pref="142" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -258,7 +258,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nome Fantasia:"/>
+            <Property name="text" type="java.lang.String" value="Nome Fantasia*:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfdRazaoSocial">
