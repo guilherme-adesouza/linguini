@@ -428,7 +428,9 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
             this.pessoa.setComplemento(this.tfdComplemento.getText());
             this.pessoa.setLogradouro(this.tfdLogradouro.getText());
             this.pessoa.setNome(this.tfdNome.getText());
-            this.pessoa.setNumero(Integer.parseInt(this.tfdNumero.getText()));
+            if(!this.tfdNumero.getText().isEmpty()){
+                this.pessoa.setNumero(Integer.parseInt(this.tfdNumero.getText()));
+            }
             
             MensagemRetorno msg;
             if(this.cboEntregador.isSelected()){
@@ -438,7 +440,7 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
             } else {
                 msg = this.pessoaController.salvar(this.pessoa);
             }
-            
+            this.limparCampos((int) this.pessoa.getId());
             if(msg.isSucesso()){
                 JOptionPane.showMessageDialog(rootPane, msg.getMensagem());
             }
@@ -537,7 +539,9 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
         //this.tfdTelefone2.setText(this.pessoa.getTelefone2()+"");
         this.tfdLogradouro.setText(this.pessoa.getLogradouro()+"");
         this.tfdComplemento.setText(this.pessoa.getComplemento()+"");
-        this.tfdNumero.setText(this.pessoa.getNumero()+"");
+        if(this.pessoa.getNumero() != null){
+            this.tfdNumero.setText(this.pessoa.getNumero()+"");
+        }
         this.tfdBairro.setText(this.pessoa.getBairro()+"");
         this.tfaObservacao.setText(this.pessoa.getObservacao()+"");
         MensagemRetorno msg = this.entregadorController.consultarPorID(codigo);
@@ -560,7 +564,9 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
             this.tfdLogradouro.setText(this.pessoa.getLogradouro());
             this.tfdBairro.setText(this.pessoa.getBairro());
             this.tfdComplemento.setText(this.pessoa.getComplemento());
-            this.tfdNumero.setText(this.pessoa.getNumero()+"");
+            if(this.pessoa.getNumero() != null){
+                this.tfdNumero.setText(this.pessoa.getNumero()+"");
+            }
             this.tfaObservacao.setText(this.pessoa.getObservacao());
             this.cboEntregador.setSelected(false);
             this.ftfPlaca.setText("");
