@@ -144,5 +144,18 @@ public class Validacao {
             s.setText(a+"");
         }    
         return s.getText();
-    }        
+    }
+    
+    public static boolean contarNumerosDigitados(String x, int qta) {
+        int qtdDigitos = 0;
+        for (int i = 0; i < x.length(); i++) {
+            //char dig = x.charAt(i);  
+            if (Character.isDigit(x.charAt(i))) {
+                if (++qtdDigitos == qta) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
