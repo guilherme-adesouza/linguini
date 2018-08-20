@@ -26,23 +26,26 @@ public class Fornecedor  implements java.io.Serializable {
      private String razaoSocial;
      private String cnpj;
      private boolean situacao;
+     private String telefone;
      private Set produtos = new HashSet(0);
 
     public Fornecedor() {
     }
 
 	
-    public Fornecedor(long id, String nomeFantasia, boolean situacao) {
+    public Fornecedor(long id, String nomeFantasia, boolean situacao, String telefone) {
         this.id = id;
         this.nomeFantasia = nomeFantasia;
         this.situacao = situacao;
+        this.telefone = telefone;
     }
-    public Fornecedor(long id, String nomeFantasia, String razaoSocial, String cnpj, boolean situacao, Set produtos) {
+    public Fornecedor(long id, String nomeFantasia, String razaoSocial, String cnpj, boolean situacao,String telefone, Set produtos) {
        this.id = id;
        this.nomeFantasia = nomeFantasia;
        this.razaoSocial = razaoSocial;
        this.cnpj = cnpj;
        this.situacao = situacao;
+       this.telefone = telefone;
        this.produtos = produtos;
     }
    
@@ -97,6 +100,16 @@ public class Fornecedor  implements java.io.Serializable {
     public void setSituacao(boolean situacao) {
         this.situacao = situacao;
     }
+    
+     @Column(name="telefone", nullable=false, length=45)
+    public String getTelefone() {
+        return this.telefone;
+    }
+    
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="fornecedor")
     public Set getProdutos() {

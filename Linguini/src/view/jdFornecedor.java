@@ -7,16 +7,19 @@ package view;
 
 import controller.FornecedorController;
 import dao.MensagemRetorno;
+import java.awt.Color;
+import java.awt.Frame;
 import javax.swing.JOptionPane;
-import model.Cidade;
+import javax.swing.JTextField;
 import model.Fornecedor;
 import utils.Formatacao;
+import utils.Validacao;
 
 /**
  *
  * @author VitinNote
  */
-public class jdFornecedor extends javax.swing.JDialog {
+public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
 
     private Fornecedor fornecedor;
     private FornecedorController fornecedorController;
@@ -30,25 +33,6 @@ public class jdFornecedor extends javax.swing.JDialog {
         this.fornecedor = new Fornecedor();
     }
 
-    private void atualizarTabela() {
-        this.fornecedorController.popularTabela(tblFornecedores, "");
-    }
-
-    private void getSelecionado() {
-
-        //verificar campos vazios
-        String valor = String.valueOf(this.tblFornecedores.getValueAt(this.tblFornecedores.getSelectedRow(), 0));
-        MensagemRetorno msg = this.fornecedorController.pesquisarPorId(Integer.parseInt(valor));
-        this.fornecedor = (Fornecedor) msg.getObjeto();
-        fornecedorController.setForneceodrSel(this.fornecedor);
-        tfdCodigo.setText(String.valueOf(this.fornecedor.getId()));
-        //tfdNomeFantasia.setText(this.fornecedor.getNomeFantasia());
-        //tfdRazaoSocial.setText(this.fornecedor.getRazaoSocial());
-        //tffCNPJ.setText(this.fornecedor.getCnpj());
-        // tffTelefone.setText(fornecedor.getTelefone());
-
-    }
-
     /**
      * Creates new form jdFornecedor
      */
@@ -57,7 +41,6 @@ public class jdFornecedor extends javax.swing.JDialog {
         initComponents();
         this.fornecedor = new Fornecedor();
         this.fornecedorController = new FornecedorController();
-        this.fornecedorController.popularTabela(tblFornecedores, "");
         Formatacao.formatarCnpj(tffCNPJ);
         Formatacao.formatarTelefone(tffTelefone);
     }
@@ -82,8 +65,6 @@ public class jdFornecedor extends javax.swing.JDialog {
         tfdCodigo = new javax.swing.JTextField();
         tfdNomeFantasia = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblFornecedores = new javax.swing.JTable();
         tfdRazaoSocial = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -92,6 +73,7 @@ public class jdFornecedor extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Fornecedor");
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -193,21 +175,6 @@ public class jdFornecedor extends javax.swing.JDialog {
 
         jLabel7.setText("Nome Fantasia:");
 
-        tblFornecedores.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblFornecedoresMouseClicked(evt);
-            }
-        });
-        tblFornecedores.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tblFornecedoresKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblFornecedoresKeyReleased(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tblFornecedores);
-
         tfdRazaoSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfdRazaoSocialActionPerformed(evt);
@@ -225,29 +192,24 @@ public class jdFornecedor extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfdNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfdRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
+                        .addComponent(tffCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel10)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfdNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfdRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tffCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(68, 68, 68)
-                                .addComponent(jLabel10)
-                                .addGap(18, 18, 18)
-                                .addComponent(tffTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(tffTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,16 +228,13 @@ public class jdFornecedor extends javax.swing.JDialog {
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tffCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tffCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tffTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel10)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -292,8 +251,8 @@ public class jdFornecedor extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -302,72 +261,81 @@ public class jdFornecedor extends javax.swing.JDialog {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         clearFields();
+        //this.limparCampos((int) this.fornecedor.getId());
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (!tfdCodigo.getText().equals("")) {
-            getSelecionado();
+        if (Validacao.camposPreenchidos(camposObrigatorios())) {
+            if (!Validacao.contarNumerosDigitados(tffTelefone.getText(), 10)) {
+                JOptionPane.showMessageDialog(null, "Telefone inválido!");
+                tffTelefone.setBackground(Color.yellow);
+            } else if (!tfdCodigo.getText().equals("")) {
+                this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
+                this.fornecedor.setNomeFantasia(tfdNomeFantasia.getText());
+                this.fornecedor.setRazaoSocial(tfdRazaoSocial.getText());
+                this.fornecedor.setTelefone(Formatacao.removerFormatacao(tffTelefone.getText()));
 
-            this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
-            this.fornecedor.setNomeFantasia(tfdNomeFantasia.getText());
-            this.fornecedor.setRazaoSocial(tfdRazaoSocial.getText());
-            //this.fornecedor.setTelefone(Formatacao.removerFormatacao(tffTelefone.getText()));
+                MensagemRetorno msg = this.fornecedorController.atualizar(this.fornecedor);
+                System.out.println("atualizando");
+                if (msg.isSucesso()) {
+                    JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+                    System.out.println(msg.getMensagem());
 
-            MensagemRetorno msg = this.fornecedorController.atualizar(this.fornecedor);
-            System.out.println("atualizando");
-            if (msg.isSucesso()) {
-                JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
-                System.out.println(msg.getMensagem());
-                atualizarTabela();
-                clearFields();
+                    clearFields();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Falha ao atualizar", "ERRO!", JOptionPane.WARNING_MESSAGE);
+                    System.out.println(msg.getMensagem());
+
+                    clearFields();
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Falha ao atualizar", "ERRO!", JOptionPane.WARNING_MESSAGE);
-                System.out.println(msg.getMensagem());
-                atualizarTabela();
-                clearFields();
+                this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
+                this.fornecedor.setNomeFantasia(tfdNomeFantasia.getText());
+                this.fornecedor.setRazaoSocial(tfdRazaoSocial.getText());
+                this.fornecedor.setSituacao(true);
+                this.fornecedor.setTelefone(Formatacao.removerFormatacao(tffTelefone.getText()));
+
+                MensagemRetorno msg = this.fornecedorController.salvar(this.fornecedor);
+                if (msg.isSucesso()) {
+                    JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+                    System.out.println(msg.getMensagem());
+
+                    clearFields();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Falha ao salvar", "ERRO!", JOptionPane.WARNING_MESSAGE);
+                    System.out.println(msg.getMensagem());
+
+                    clearFields();
+                }
             }
+
         } else {
-            this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
-            this.fornecedor.setNomeFantasia(tfdNomeFantasia.getText());
-            this.fornecedor.setRazaoSocial(tfdRazaoSocial.getText());
-            this.fornecedor.setSituacao(true);
-            //this.fornecedor.setTelefone(Formatacao.removerFormatacao(tffTelefone.getText()));
-
-            MensagemRetorno msg = this.fornecedorController.salvar(this.fornecedor);
-            if (msg.isSucesso()) {
-                JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-                System.out.println(msg.getMensagem());
-                atualizarTabela();
-                clearFields();
-            } else {
-                JOptionPane.showMessageDialog(this, "Falha ao salvar", "ERRO!", JOptionPane.WARNING_MESSAGE);
-                System.out.println(msg.getMensagem());
-                atualizarTabela();
-                clearFields();
-            }
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if (this.tblFornecedores.getSelectedRowCount() == 1) {
-            String valor = String.valueOf(this.tblFornecedores.getValueAt(this.tblFornecedores.getSelectedRow(), 0));
-            MensagemRetorno msg = this.fornecedorController.pesquisarPorId(Integer.parseInt(valor));
+        if (!tfdCodigo.getText().equals("")) {
+            MensagemRetorno msg = this.fornecedorController.consultarPorID(Integer.parseInt(tfdCodigo.getText()));
             this.fornecedor = (Fornecedor) msg.getObjeto();
-            msg = this.fornecedorController.excluir(fornecedor);
+            msg = this.fornecedorController.excluir(Integer.valueOf((int) fornecedor.getId()));
             if (msg.isSucesso()) {
                 JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
                 System.out.println(msg.getMensagem());
-                atualizarTabela();
+
                 clearFields();
             } else {
                 JOptionPane.showMessageDialog(this, "Falha ao excluir", "ERRO!", JOptionPane.WARNING_MESSAGE);
                 System.out.println(msg.getMensagem());
-                atualizarTabela();
+
                 clearFields();
             }
         } else {
             JOptionPane.showMessageDialog(null, "Selecione o fornecedor primeiro");
             System.out.println("selecione");
+            jdPesquisa pesquisa = new jdPesquisa((Frame) this.getParent(), this, true, this.fornecedorController);
+            pesquisa.setLocationRelativeTo(pesquisa);
+            pesquisa.setVisible(true);
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -376,11 +344,9 @@ public class jdFornecedor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-//        String valor = String.valueOf(this.tblFornecedores.getValueAt(this.tblFornecedores.getSelectedRow(), 0));
-//        MensagemRetorno msg = this.fornecedorController.pesquisarPorId(Integer.parseInt(valor));
-//        this.fornecedor = (Fornecedor) msg.getObjeto();
-//        fornecedorController.setForneceodrSel(fornecedor);
-//        System.out.println(this.fornecedor.getId());
+        jdPesquisa pesquisa = new jdPesquisa((Frame) this.getParent(), this, true, this.fornecedorController);
+        pesquisa.setLocationRelativeTo(pesquisa);
+        pesquisa.setVisible(true);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void tfdCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdCodigoActionPerformed
@@ -395,18 +361,6 @@ public class jdFornecedor extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfdRazaoSocialActionPerformed
 
-    private void tblFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFornecedoresMouseClicked
-        getSelecionado();
-    }//GEN-LAST:event_tblFornecedoresMouseClicked
-
-    private void tblFornecedoresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblFornecedoresKeyPressed
-
-    }//GEN-LAST:event_tblFornecedoresKeyPressed
-
-    private void tblFornecedoresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblFornecedoresKeyReleased
-        getSelecionado();
-    }//GEN-LAST:event_tblFornecedoresKeyReleased
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
@@ -420,12 +374,40 @@ public class jdFornecedor extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblFornecedores;
     private javax.swing.JTextField tfdCodigo;
     private javax.swing.JTextField tfdNomeFantasia;
     private javax.swing.JTextField tfdRazaoSocial;
     private javax.swing.JFormattedTextField tffCNPJ;
     private javax.swing.JFormattedTextField tffTelefone;
     // End of variables declaration//GEN-END:variables
+
+    private JTextField[] camposObrigatorios() {
+        JTextField[] campos = {this.tfdNomeFantasia, this.tffTelefone};
+        return campos;
+    }
+
+    @Override
+    public void carregar(int codigo) {
+        MensagemRetorno retorno = this.fornecedorController.consultarPorID(codigo);
+        this.fornecedor = (Fornecedor) retorno.getObjeto();
+        this.tfdCodigo.setText(this.fornecedor.getId() + "");
+        this.tfdNomeFantasia.setText(this.fornecedor.getNomeFantasia());
+        this.tfdRazaoSocial.setText(this.fornecedor.getRazaoSocial());
+        this.tffCNPJ.setText(this.fornecedor.getCnpj());
+        this.tffTelefone.setText(this.fornecedor.getTelefone());
+    }
+
+    @Override
+    public void limparCampos(int codigo) {
+        if (this.fornecedor.getId() == codigo) {
+            //limpa campos da tela
+            this.fornecedor = new Fornecedor();
+            this.tfdCodigo.setText(this.fornecedor.getId() + "");
+            this.tfdNomeFantasia.setText(this.fornecedor.getNomeFantasia());
+            this.tfdRazaoSocial.setText(this.fornecedor.getRazaoSocial());
+            this.tffCNPJ.setText(this.fornecedor.getCnpj());
+            this.tffTelefone.setText(this.fornecedor.getTelefone());
+
+        }
+    }
 }

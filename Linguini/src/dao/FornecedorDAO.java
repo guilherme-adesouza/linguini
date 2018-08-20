@@ -6,12 +6,39 @@
 package dao;
 
 import model.Fornecedor;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import persistence.HibernateUtil;
 
 
 /**
  *
  * @author VitinNote
  */
-public class FornecedorDAO extends GenericoDAO<Fornecedor>{
-    
+public class FornecedorDAO extends GenericoDAO<Fornecedor> implements SoftDelete{
+    @Override
+    public MensagemRetorno inativar(int id) {
+        MensagemRetorno retorno = new MensagemRetorno(false);
+        Session sessao = null;
+
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+
+            Query query = sessao.createQuery("UPDATE Fornecedor f SET f.situacao=false WHERE id = :idParam");
+            int qtd = query.setParameter("idParam", (long) id).executeUpdate();
+
+            t.commit();
+            retorno.setSucesso(true);
+            retorno.setMensagem("Registro excluído com sucesso!");
+        } catch (HibernateException he) {
+            retorno.setMensagem(he.getMessage());
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return retorno;
+    }
 }

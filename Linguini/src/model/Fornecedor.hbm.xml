@@ -20,6 +20,9 @@
         <property name="situacao" type="boolean">
             <column name="situacao" not-null="true" />
         </property>
+        <property name="telefone" type="string">
+            <column name="telefone" not-null="true" />
+        </property>
         <set name="produtos" table="produto" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="fornecedor_id" not-null="true" />

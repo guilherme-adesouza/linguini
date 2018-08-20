@@ -3,6 +3,8 @@ package controller;
 import dao.FornecedorDAO;
 import dao.MensagemRetorno;
 import dao.SoftDelete;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -12,7 +14,7 @@ import model.Fornecedor;
  *
  * @author VitinNote
  */
-public class FornecedorController {
+public class FornecedorController implements Controller<Fornecedor> {
 
     private FornecedorDAO fornecedorDao;
     private Fornecedor fornecedorSel;
@@ -21,56 +23,84 @@ public class FornecedorController {
         this.fornecedorDao = new FornecedorDAO();
     }
 
+    @Override
     public MensagemRetorno salvar(Fornecedor fornecedor) {
         return this.fornecedorDao.salvar(fornecedor);
     }
-    
-    public MensagemRetorno atualizar(Fornecedor fornecedor){
+
+    public MensagemRetorno atualizar(Fornecedor fornecedor) {
         return this.fornecedorDao.atualizar(fornecedor);
     }
 
+    @Override
     public MensagemRetorno excluir(Fornecedor fornecedor) {
         return this.fornecedorDao.excluir(fornecedor);
     }
 
-    public MensagemRetorno pesquisarTodos() {
+    @Override
+    public MensagemRetorno excluir(int id) {
+        return fornecedorDao.inativar(id);
+    }
+
+    @Override
+    public MensagemRetorno consultarTodos() {
         return this.fornecedorDao.consultarTodos("Fornecedor");
     }
 
-    public MensagemRetorno pesquisarPorId(int id) {
+    public MensagemRetorno pesquisarTodosAtivos() {
+        return this.fornecedorDao.consultarComCriterio("Fornecedor", "situacao", "true");
+    }
+
+    @Override
+    public MensagemRetorno consultarPorID(int id) {
         return this.fornecedorDao.consultarPorId(id, "Fornecedor");
     }
-    
-    public void setForneceodrSel(Fornecedor fornecedorSel) {
-        this.fornecedorSel = fornecedorSel;
-   }
 
-    public void popularTabela(JTable tabela, String criterio) {
-        MensagemRetorno ms = fornecedorDao.consultarTodos("Fornecedor");
+    private String[] getCabecalho() {
+        String[] cabecalho = {"Código", "Nome Fantasia"};
+        return cabecalho;
+    }
+
+    private String[] getCamposPesquisaveis() {
+        String[] campos = {"CAST(id AS text)", "nome_fantasia"};
+        return campos;
+    }
+
+    @Override
+    public List<CampoOrdenavel> getOrdenacao() {
+        List campos = new ArrayList();
+        campos.add(new CampoOrdenavel("ID", "id"));
+        campos.add(new CampoOrdenavel("Nome", "nome_fantasia"));
+        return campos;
+    }
+
+    @Override
+    public void popularTabela(JTable tabela, String criterio, String ordenacao) {
 
         // dados da tabela
         Object[][] dadosTabela = null;
 
         // cabecalho da tabela
-        Object[] cabecalho = new Object[4];
-        cabecalho[0] = "Código";
-        cabecalho[1] = "Nome";
-        cabecalho[2] = "Razão Social";
-        cabecalho[3] = "CNPJ";
+        String[] cabecalho = this.getCabecalho();
 
         // cria matriz de acordo com nº de registros da tabela
         try {
-
+            MensagemRetorno ms = this.fornecedorDao.consultarAtivosComCriterio("Fornecedor", this.getCamposPesquisaveis(), criterio, ordenacao);
+            if (ms.isSucesso()) {
+                dadosTabela = new Object[ms.getLista().size()][cabecalho.length];
+            }
             dadosTabela = new Object[ms.getLista().size()][4];
 
         } catch (Exception e) {
-            System.out.println("Erro ao consultar XXX: " + e);
+            System.out.println("Erro ao consultar Fornecedor: " + e);
         }
 
         int lin = 0;
 
         // efetua consulta na tabela
         try {
+            MensagemRetorno ms = this.fornecedorDao.consultarAtivosComCriterio("Fornecedor", this.getCamposPesquisaveis(), criterio, ordenacao);
+
             for (Object o : ms.getLista()) {
                 Fornecedor s = (Fornecedor) o;
                 dadosTabela[lin][0] = s.getId();
@@ -87,7 +117,7 @@ public class FornecedorController {
 //                    dadosTabela[lin][2] = new ImageIcon(getClass().getClassLoader().getResource("Interface/imagens/status_inativo.png"));
 //                }
         } catch (Exception e) {
-            System.out.println("problemas para popular tabela...");
+            System.out.println("problemas para popular tabela Fornecedor...");
             System.out.println(e);
         }
 
@@ -108,7 +138,8 @@ public class FornecedorController {
 
             // alteracao no metodo que determina a coluna em que o objeto ImageIcon devera aparecer
             @Override
-            public Class getColumnClass(int column) {
+            public Class
+                    getColumnClass(int column) {
 
                 if (column == 2) {
                     //return ImageIcon.class;
