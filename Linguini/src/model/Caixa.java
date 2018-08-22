@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -31,12 +32,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(catalog = "linguini", schema = "public")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Auditoria.findAll", query = "SELECT a FROM Auditoria a")
-    , @NamedQuery(name = "Auditoria.findById", query = "SELECT a FROM Auditoria a WHERE a.id = :id")
-    , @NamedQuery(name = "Auditoria.findByIp", query = "SELECT a FROM Auditoria a WHERE a.ip = :ip")
-    , @NamedQuery(name = "Auditoria.findBySql", query = "SELECT a FROM Auditoria a WHERE a.sql = :sql")
-    , @NamedQuery(name = "Auditoria.findByDataHora", query = "SELECT a FROM Auditoria a WHERE a.dataHora = :dataHora")})
-public class Auditoria implements Serializable {
+    @NamedQuery(name = "Caixa.findAll", query = "SELECT c FROM Caixa c")
+    , @NamedQuery(name = "Caixa.findById", query = "SELECT c FROM Caixa c WHERE c.id = :id")
+    , @NamedQuery(name = "Caixa.findByDataEntrada", query = "SELECT c FROM Caixa c WHERE c.dataEntrada = :dataEntrada")
+    , @NamedQuery(name = "Caixa.findByDataSaida", query = "SELECT c FROM Caixa c WHERE c.dataSaida = :dataSaida")
+    , @NamedQuery(name = "Caixa.findByValorInicial", query = "SELECT c FROM Caixa c WHERE c.valorInicial = :valorInicial")
+    , @NamedQuery(name = "Caixa.findByValorFinal", query = "SELECT c FROM Caixa c WHERE c.valorFinal = :valorFinal")})
+public class Caixa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,31 +47,33 @@ public class Auditoria implements Serializable {
     @Column(nullable = false)
     private Long id;
     @Basic(optional = false)
-    @Column(nullable = false, length = 50)
-    private String ip;
-    @Basic(optional = false)
-    @Column(nullable = false, length = 2147483647)
-    private String sql;
-    @Basic(optional = false)
-    @Column(name = "data_hora", nullable = false)
+    @Column(name = "data_entrada", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dataHora;
+    private Date dataEntrada;
+    @Column(name = "data_saida")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataSaida;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @Column(name = "valor_inicial", nullable = false, precision = 10, scale = 2)
+    private BigDecimal valorInicial;
+    @Column(name = "valor_final", precision = 10, scale = 2)
+    private BigDecimal valorFinal;
     @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Usuario usuarioId;
 
-    public Auditoria() {
+    public Caixa() {
     }
 
-    public Auditoria(Long id) {
+    public Caixa(Long id) {
         this.id = id;
     }
 
-    public Auditoria(Long id, String ip, String sql, Date dataHora) {
+    public Caixa(Long id, Date dataEntrada, BigDecimal valorInicial) {
         this.id = id;
-        this.ip = ip;
-        this.sql = sql;
-        this.dataHora = dataHora;
+        this.dataEntrada = dataEntrada;
+        this.valorInicial = valorInicial;
     }
 
     public Long getId() {
@@ -80,28 +84,36 @@ public class Auditoria implements Serializable {
         this.id = id;
     }
 
-    public String getIp() {
-        return ip;
+    public Date getDataEntrada() {
+        return dataEntrada;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
+    public void setDataEntrada(Date dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 
-    public String getSql() {
-        return sql;
+    public Date getDataSaida() {
+        return dataSaida;
     }
 
-    public void setSql(String sql) {
-        this.sql = sql;
+    public void setDataSaida(Date dataSaida) {
+        this.dataSaida = dataSaida;
     }
 
-    public Date getDataHora() {
-        return dataHora;
+    public BigDecimal getValorInicial() {
+        return valorInicial;
     }
 
-    public void setDataHora(Date dataHora) {
-        this.dataHora = dataHora;
+    public void setValorInicial(BigDecimal valorInicial) {
+        this.valorInicial = valorInicial;
+    }
+
+    public BigDecimal getValorFinal() {
+        return valorFinal;
+    }
+
+    public void setValorFinal(BigDecimal valorFinal) {
+        this.valorFinal = valorFinal;
     }
 
     public Usuario getUsuarioId() {
@@ -122,10 +134,10 @@ public class Auditoria implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Auditoria)) {
+        if (!(object instanceof Caixa)) {
             return false;
         }
-        Auditoria other = (Auditoria) object;
+        Caixa other = (Caixa) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -134,7 +146,7 @@ public class Auditoria implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Auditoria[ id=" + id + " ]";
+        return "model.Caixa[ id=" + id + " ]";
     }
     
 }

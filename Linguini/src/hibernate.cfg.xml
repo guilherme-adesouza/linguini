@@ -48,22 +48,23 @@ Contributor(s):
     <property name="hibernate.connection.password">postgres</property>
     <property name="hbm2ddl.auto">update</property>
     <property name="show_sql">true</property>
-    <mapping class="model.Cidade" file="" jar="" package="" resource="model/Cidade.hbm.xml"/>
-    <mapping resource="model/Pessoa.hbm.xml"/>
-    <mapping resource="model/Grupo.hbm.xml"/>
-    <mapping resource="model/Entrada.hbm.xml"/>
-    <mapping resource="model/Cozinha.hbm.xml"/>
-    <mapping resource="model/FormaPagamento.hbm.xml"/>
-    <mapping resource="model/Estado.hbm.xml"/>
-    <mapping resource="model/Auditoria.hbm.xml"/>
-    <mapping resource="model/ContasReceber.hbm.xml"/>
-    <mapping resource="model/Pedido.hbm.xml"/>
-    <mapping resource="model/Funcionario.hbm.xml"/>
-    <mapping resource="model/ItemPedido.hbm.xml"/>
-    <mapping resource="model/Usuario.hbm.xml"/>
-    <mapping resource="model/Produto.hbm.xml"/>
-    <mapping resource="model/Entregador.hbm.xml"/>
-    <mapping resource="model/Classificacao.hbm.xml"/>
-    <mapping resource="model/Fornecedor.hbm.xml"/>
+    <mapping class="model.Cidade"/>
+    <mapping class="model.Pessoa"/>
+    <mapping class="model.Grupo"/>
+    <mapping class="model.Entrada"/>
+    <mapping class="model.Cozinha"/>
+    <mapping class="model.FormaPagamento"/>
+    <mapping class="model.Estado"/>
+    <mapping class="model.Auditoria"/>
+    <mapping class="model.ContasReceber"/>
+    <mapping class="model.Pedido"/>
+    <mapping class="model.Funcionario"/>
+    <mapping class="model.ItemPedido"/>
+    <mapping class="model.Usuario"/>
+    <mapping class="model.Produto"/>
+    <mapping class="model.Entregador"/>
+    <mapping class="model.Classificacao"/>
+    <mapping class="model.Fornecedor"/>
+    <mapping class="model.Caixa"/>
   </session-factory>
 </hibernate-configuration>

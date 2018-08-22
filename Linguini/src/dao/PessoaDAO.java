@@ -18,7 +18,7 @@ public class PessoaDAO extends GenericoDAO<Pessoa> implements SoftDelete{
     
     @Override
     public MensagemRetorno excluir(Pessoa p){
-        return this.inativar((int) (p.getId()));
+        return this.inativar(Integer.parseInt(p.getId().toString()));
     }
 
     @Override

@@ -24,7 +24,7 @@ public class ClassificacaoDAO extends GenericoDAO<Classificacao> implements Soft
     
     @Override
     public MensagemRetorno excluir(Classificacao c){
-        return this.inativar((int) (c.getId()));
+        return this.inativar(Integer.parseInt(c.getId().toString()));
     }
     
     @Override

@@ -239,7 +239,7 @@ public class jdClassificacao extends javax.swing.JDialog implements Pesquisavel{
     }//GEN-LAST:event_tfdClassificacaoActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        this.limparCampos((int)this.classificacao.getId());
+        this.limparCampos(Integer.parseInt(this.classificacao.getId().toString()));
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed

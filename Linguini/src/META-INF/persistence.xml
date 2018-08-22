@@ -4,6 +4,22 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>model.Cidade</class>
     <class>model.Pessoa</class>
+    <class>model.ItemPedido</class>
+    <class>model.Grupo</class>
+    <class>model.Produto</class>
+    <class>model.ContasReceber</class>
+    <class>model.Usuario</class>
+    <class>model.Caixa</class>
+    <class>model.FormaPagamento</class>
+    <class>model.Classificacao</class>
+    <class>model.Entrada</class>
+    <class>model.Pedido</class>
+    <class>model.Auditoria</class>
+    <class>model.Estado</class>
+    <class>model.Fornecedor</class>
+    <class>model.Funcionario</class>
+    <class>model.Entregador</class>
+    <class>model.Cozinha</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/linguini"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>

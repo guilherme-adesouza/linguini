@@ -315,7 +315,7 @@ public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
         if (!tfdCodigo.getText().equals("")) {
             MensagemRetorno msg = this.fornecedorController.consultarPorID(Integer.parseInt(tfdCodigo.getText()));
             this.fornecedor = (Fornecedor) msg.getObjeto();
-            msg = this.fornecedorController.excluir(Integer.valueOf((int) fornecedor.getId()));
+            msg = this.fornecedorController.excluir(Integer.parseInt(fornecedor.getId().toString()));
             if (msg.isSucesso()) {
                 JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
                 System.out.println(msg.getMensagem());

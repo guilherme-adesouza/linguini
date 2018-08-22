@@ -396,7 +396,7 @@ public class jdFuncionario extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_tfdNomeActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        this.limparCampos((int) this.pessoa.getId());
+         this.limparCampos(Integer.parseInt(this.pessoa.getId().toString()));
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed

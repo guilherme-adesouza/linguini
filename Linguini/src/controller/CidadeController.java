@@ -40,15 +40,15 @@ public class CidadeController {
     }
 
     public String obterEstado(Cidade cidade) {
-        MensagemRetorno msg = estadoDao.consultarPorId(cidade.getEstado().getCodEstado(), "Estado");
-        Estado estado = (Estado) msg.getObjeto();
-        return cidade.getNome() + " " + estado.getSigla();
+        // MensagemRetorno msg = estadoDao.consultarPorId(cidade.getEstadoCodEstado() , "Estado");
+        //Estado estado = (Estado) msg.getObjeto();
+        return cidade.getNome() + " " + cidade.getEstadoCodEstado().getSigla();
     }
-    
-    public MensagemRetorno pesquisarTodos(){
-       return this.cidadeDao.consultarTodos("Cidade");
-   }
-    
+
+    public MensagemRetorno pesquisarTodos() {
+        return this.cidadeDao.consultarTodos("Cidade");
+    }
+
     public void popularTabela(JTable tabela, String criterio) {
         // dados da tabela
         Object[][] dadosTabela = null;
