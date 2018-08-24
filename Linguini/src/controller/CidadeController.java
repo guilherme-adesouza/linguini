@@ -3,6 +3,7 @@ package controller;
 import dao.CidadeDAO;
 import dao.EstadoDAO;
 import dao.MensagemRetorno;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -156,5 +157,8 @@ public class CidadeController {
 //            }
 //        });
     }
-
+    
+    public void popularCombo(JComboBox combo){
+        this.cidadeDao.popularCombo("Cidade", combo);
+    }
 }
