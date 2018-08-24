@@ -12,12 +12,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import persistence.HibernateUtil;
 
-
 /**
  *
  * @author VitinNote
  */
-public class FornecedorDAO extends GenericoDAO<Fornecedor> implements SoftDelete{
+public class FornecedorDAO extends GenericoDAO<Fornecedor> implements SoftDelete {
+
     @Override
     public MensagemRetorno inativar(int id) {
         MensagemRetorno retorno = new MensagemRetorno(false);
@@ -27,13 +27,13 @@ public class FornecedorDAO extends GenericoDAO<Fornecedor> implements SoftDelete
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
 
-            Query query = sessao.createQuery("UPDATE Fornecedor f SET f.situacao=false WHERE id = :idParam");
+            Query query = sessao.createQuery("UPDATE Fornecedore f SET f.situacao=false WHERE id = :idParam");
             int qtd = query.setParameter("idParam", (long) id).executeUpdate();
-
             t.commit();
             retorno.setSucesso(true);
             retorno.setMensagem("Registro excluído com sucesso!");
         } catch (HibernateException he) {
+            new GeradorLog(he.getMessage());
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
         } finally {

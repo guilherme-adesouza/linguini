@@ -6,6 +6,7 @@
 package view;
 
 import controller.FornecedorController;
+import dao.GeradorLog;
 import dao.MensagemRetorno;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
@@ -272,16 +273,13 @@ public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
                 this.fornecedor.setTelefone(Formatacao.removerFormatacao(tffTelefone.getText()));
 
                 MensagemRetorno msg = this.fornecedorController.atualizar(this.fornecedor);
-                System.out.println("atualizando");
                 if (msg.isSucesso()) {
-                    JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
-                    System.out.println(msg.getMensagem());
-
+                    msg.setMensagem("Atualizado com sucesso!");
+                    JOptionPane.showMessageDialog(null, msg.getMensagem());
                     clearFields();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Falha ao atualizar", "ERRO!", JOptionPane.WARNING_MESSAGE);
-                    System.out.println(msg.getMensagem());
-
+                    JOptionPane.showMessageDialog(null, "Problemas ao atualizar registro!\n\n"
+                            + "Mensagem técnica: \n" + msg.getMensagem());
                     clearFields();
                 }
             } else {
@@ -293,14 +291,11 @@ public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
 
                 MensagemRetorno msg = this.fornecedorController.salvar(this.fornecedor);
                 if (msg.isSucesso()) {
-                    JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-                    System.out.println(msg.getMensagem());
-
+                    JOptionPane.showMessageDialog(null, msg.getMensagem());
                     clearFields();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Falha ao salvar", "ERRO!", JOptionPane.WARNING_MESSAGE);
-                    System.out.println(msg.getMensagem());
-
+                    JOptionPane.showMessageDialog(null, "Problemas ao salvar registro!\n\n"
+                            + "Mensagem técnica: \n" + msg.getMensagem());
                     clearFields();
                 }
             }
@@ -317,19 +312,16 @@ public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
             this.fornecedor = (Fornecedor) msg.getObjeto();
             msg = this.fornecedorController.excluir(Integer.parseInt(fornecedor.getId().toString()));
             if (msg.isSucesso()) {
-                JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
-                System.out.println(msg.getMensagem());
-
                 clearFields();
-            } else {
-                JOptionPane.showMessageDialog(this, "Falha ao excluir", "ERRO!", JOptionPane.WARNING_MESSAGE);
-                System.out.println(msg.getMensagem());
+                JOptionPane.showMessageDialog(null, msg.getMensagem());
 
+            } else {
+                JOptionPane.showMessageDialog(null, "Problemas ao excluir registro!\n\n"
+                        + "Mensagem técnica: \n" + msg.getMensagem());
                 clearFields();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione o fornecedor primeiro");
-            System.out.println("selecione");
+            JOptionPane.showMessageDialog(null, "Selecione um registro para excluir");
             jdPesquisa pesquisa = new jdPesquisa((Frame) this.getParent(), this, true, this.fornecedorController);
             pesquisa.setLocationRelativeTo(pesquisa);
             pesquisa.setVisible(true);
@@ -396,15 +388,15 @@ public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
 
     @Override
     public void limparCampos(int codigo) {
-        if (this.fornecedor.getId() == codigo) {
-            //limpa campos da tela
-            this.fornecedor = new Fornecedor();
-            this.tfdCodigo.setText(this.fornecedor.getId() + "");
-            this.tfdNomeFantasia.setText(this.fornecedor.getNomeFantasia());
-            this.tfdRazaoSocial.setText(this.fornecedor.getRazaoSocial());
-            this.tffCNPJ.setText(this.fornecedor.getCnpj());
-            this.tffTelefone.setText(this.fornecedor.getTelefone());
+        //if (this.fornecedor.getId() == codigo) {
+        //limpa campos da tela
+        this.fornecedor = new Fornecedor();
+        //this.tfdCodigo.setText(this.fornecedor.getId() + "");
+        this.tfdNomeFantasia.setText(this.fornecedor.getNomeFantasia());
+        this.tfdRazaoSocial.setText(this.fornecedor.getRazaoSocial());
+        this.tffCNPJ.setText(this.fornecedor.getCnpj());
+        this.tffTelefone.setText(this.fornecedor.getTelefone());
 
-        }
+        // }
     }
 }

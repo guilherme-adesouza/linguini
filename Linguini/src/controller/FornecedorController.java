@@ -2,7 +2,6 @@ package controller;
 
 import dao.FornecedorDAO;
 import dao.MensagemRetorno;
-import dao.SoftDelete;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
@@ -45,6 +44,7 @@ public class FornecedorController implements Controller<Fornecedor> {
     @Override
     public MensagemRetorno consultarTodos() {
         return this.fornecedorDao.consultarTodos("Fornecedor");
+      
     }
 
     public MensagemRetorno pesquisarTodosAtivos() {
