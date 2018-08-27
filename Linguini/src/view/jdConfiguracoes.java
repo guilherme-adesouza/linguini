@@ -19,7 +19,7 @@ public class jdConfiguracoes extends javax.swing.JDialog {
         this.cozinhaController = new CozinhaController();
         this.cozinha = (Cozinha) this.cozinhaController.consultarPorID(1).getObjeto();
         this.ftfCapacidade.setText(this.cozinha.getCapacidade()+"");
-        this.ftfCapacidade.setText(this.cozinha.getCapacidade()+"");
+        this.cboAuditoria.setSelected(this.cozinha.isAuditoria());
     }
 
     /**
@@ -200,7 +200,7 @@ public class jdConfiguracoes extends javax.swing.JDialog {
         this.cozinha.setAuditoria(this.cboAuditoria.isSelected());
         MensagemRetorno msg = this.cozinhaController.salvar(this.cozinha);
         if(msg.isSucesso()) {
-            JOptionPane.showMessageDialog(this, "Configurações atualizadas com sucesso!", "Mensagem", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Configurações atualizadas com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
         }
         else {
             JOptionPane.showMessageDialog(this, msg.getMensagem(), "Erro!", JOptionPane.ERROR_MESSAGE);
