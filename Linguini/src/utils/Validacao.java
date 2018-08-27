@@ -126,7 +126,7 @@ public class Validacao {
     {
         boolean ok = true;
         for (JTextField campo : campos) {
-            if(campo.getText().isEmpty()){
+            if(campo.getText().trim().isEmpty()){
                 if(ok){
                     campo.requestFocus();
                 }

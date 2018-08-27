@@ -39,6 +39,9 @@ public class Cozinha implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private int capacidade;
+    @Basic(optional = true)
+    @Column(nullable = true)
+    private boolean auditoria;
 
     public Cozinha() {
     }
@@ -51,6 +54,13 @@ public class Cozinha implements Serializable {
         this.id = id;
         this.capacidade = capacidade;
     }
+    
+    public Cozinha(Long id, int capacidade, boolean auditoria) {
+        this.id = id;
+        this.capacidade = capacidade;
+        this.auditoria = auditoria;
+    }
+
 
     public Long getId() {
         return id;
@@ -66,6 +76,14 @@ public class Cozinha implements Serializable {
 
     public void setCapacidade(int capacidade) {
         this.capacidade = capacidade;
+    }
+
+    public boolean isAuditoria() {
+        return auditoria;
+    }
+
+    public void setAuditoria(boolean auditoria) {
+        this.auditoria = auditoria;
     }
 
     @Override
