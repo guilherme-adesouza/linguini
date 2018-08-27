@@ -29,7 +29,7 @@ public class GenericoDAO<Object> {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
 
-            sessao.save(o);
+            sessao.saveOrUpdate(o);
             t.commit();
 
             retorno.setSucesso(true);
