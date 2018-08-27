@@ -448,7 +448,12 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_tfdNomeActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        this.limparCampos(Integer.parseInt(this.pessoa.getId().toString()));
+        if(this.pessoa.getId() == null) {
+            this.limparCampos(0);
+        }
+        else {
+            this.limparCampos( this.pessoa.getId().intValue() );
+        }
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -575,7 +580,7 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
     public void carregar(int codigo) {
         MensagemRetorno retorno = this.pessoaController.consultarPorID(codigo);
         this.pessoa = (Pessoa) retorno.getObjeto();
-        this.tfdCodigo.setText("");//this.pessoa.getId()+"");
+        this.tfdCodigo.setText(this.pessoa.getId()+"");
         this.tfdNome.setText(this.pessoa.getNome()+"");
         //this.tfdTelefone1.setText(this.pessoa.getTelefone1()+"");
         //this.tfdTelefone2.setText(this.pessoa.getTelefone2()+"");
@@ -596,10 +601,10 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
 
     @Override
     public void limparCampos(int codigo) {
-        if(this.pessoa.getId() == codigo){
+        if(this.pessoa.getId() == null || this.pessoa.getId() == codigo){
             //limpar campos da tela
             this.pessoa = new Pessoa();
-            this.tfdCodigo.setText(this.pessoa.getId()+"");
+            this.tfdCodigo.setText("");
             this.tfdNome.setText(this.pessoa.getNome());
             //this.tfdTelefone1.setText(this.pessoa.getTelefone1()+"");
             //this.tfdTelefone2.setText(this.pessoa.getTelefone2()+"");
@@ -607,9 +612,7 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
             this.cmbCidade.setSelectedIndex(0);
             this.tfdBairro.setText(this.pessoa.getBairro());
             this.tfdComplemento.setText(this.pessoa.getComplemento());
-            if(this.pessoa.getNumero() != null){
-                this.tfdNumero.setText(this.pessoa.getNumero()+"");
-            }
+            this.tfdNumero.setText("");
             this.tfaObservacao.setText(this.pessoa.getObservacao());
             this.cboEntregador.setSelected(false);
             this.ftfPlaca.setText("");

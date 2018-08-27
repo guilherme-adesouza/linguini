@@ -5,17 +5,28 @@
  */
 package view;
 
+import controller.UsuarioController;
+import dao.MensagemRetorno;
+import javax.swing.JOptionPane;
+import model.Usuario;
+
 /**
  *
  * @author VitinNote
  */
 public class jfLogin extends javax.swing.JFrame {
 
+    private UsuarioController usuarioController;
+    private Usuario usuario;
     /**
      * Creates new form jfLogin
      */
     public jfLogin() {
         initComponents();
+        
+        this.usuarioController = new UsuarioController();
+        this.usuario = new Usuario();
+        this.tfdUsuario.requestFocus();
         this.setLocationRelativeTo(null);
     }
 
@@ -32,12 +43,12 @@ public class jfLogin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        tfdUsuario = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        pfdSenha = new javax.swing.JPasswordField();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -55,13 +66,14 @@ public class jfLogin extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Senha");
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tfdUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        btnLogin.setBackground(new java.awt.Color(0, 173, 234));
+        btnLogin.setBackground(new java.awt.Color(0, 174, 239));
         btnLogin.setFont(new java.awt.Font("Noto Sans", 1, 12)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(254, 254, 254));
         btnLogin.setText("LOGIN");
+        btnLogin.setBorderPainted(false);
+        btnLogin.setOpaque(true);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -90,11 +102,11 @@ public class jfLogin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfdUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                            .addComponent(pfdSenha)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(170, 170, 170)
                         .addComponent(jLabel5))
@@ -118,12 +130,12 @@ public class jfLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addComponent(pfdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -143,9 +155,23 @@ public class jfLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        Home home = new Home();
-        home.setVisible(true);
-        this.setVisible(false);
+        if(this.tfdUsuario.getText().trim().isEmpty() || this.pfdSenha.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos necessários", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }        
+        else {
+            this.usuario.setNome(this.tfdUsuario.getText().trim());
+            this.usuario.setSenha(this.pfdSenha.getText().trim());
+
+            MensagemRetorno msg = new MensagemRetorno(true); //this.usuarioController.autenticar(usuario);
+            if(msg.isSucesso()){
+                Home home = new Home();
+                home.setVisible(true);
+                this.dispose();
+            }
+            else {
+                JOptionPane.showMessageDialog(this, msg.getMensagem(), "Dados inválidos", JOptionPane.WARNING_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
 
@@ -158,7 +184,7 @@ public class jfLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JPasswordField pfdSenha;
+    private javax.swing.JTextField tfdUsuario;
     // End of variables declaration//GEN-END:variables
 }
