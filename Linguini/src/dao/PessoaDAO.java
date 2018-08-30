@@ -29,6 +29,7 @@ public class PessoaDAO extends GenericoDAO<Pessoa> implements SoftDelete{
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
+            this.setParametroSessao(sessao);
 
             Query query = sessao.createQuery("UPDATE Pessoa p SET p.situacao=false WHERE id = :idParam");
             int qtd = query.setParameter("idParam", (long) id).executeUpdate();

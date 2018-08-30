@@ -5,12 +5,17 @@
  */
 package dao;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
 import persistence.HibernateUtil;
+import utils.Sessao;
 
 /**
  *
@@ -28,6 +33,7 @@ public class GenericoDAO<Object> {
 
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
+            this.setParametroSessao(sessao);
 
             sessao.saveOrUpdate(o);
             t.commit();
@@ -50,6 +56,7 @@ public class GenericoDAO<Object> {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
+            this.setParametroSessao(sessao);
             
             sessao.delete(o);
             t.commit();
@@ -71,6 +78,7 @@ public class GenericoDAO<Object> {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
+            this.setParametroSessao(sessao);
             
             Query query = sessao.createQuery("DELETE FROM " + tabela+" WHERE id = :idParam");
             query.setInteger("idParam", id).executeUpdate();
@@ -118,6 +126,7 @@ public class GenericoDAO<Object> {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
+            this.setParametroSessao(sessao);
 
             sessao.update(o);
             t.commit();
@@ -262,4 +271,14 @@ public class GenericoDAO<Object> {
         }
         return retorno;    
     }  
+    
+    public void setParametroSessao(Session sessao){
+        sessao.doWork(new Work() {
+            public void execute(Connection connection) throws SQLException {
+                CallableStatement call = connection.prepareCall("{ call set_session_user(?) }");
+                call.setLong(1, Sessao.getUsuario().getId());
+                call.execute();
+            }
+        });
+    }
 }

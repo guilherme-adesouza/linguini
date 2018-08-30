@@ -22,6 +22,7 @@ public class UsuarioDAO extends GenericoDAO<Usuario> {
 
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
+            this.setParametroSessao(sessao);
             
             String senhaCriptografada = Criptografia.criptografar(usuario.getSenha());
             usuario.setSenha(senhaCriptografada);

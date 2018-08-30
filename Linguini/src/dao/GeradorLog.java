@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
@@ -24,12 +25,19 @@ public class GeradorLog {
     public GeradorLog(String erros) {
         escreverLog(erros);
     }
+    
+    public GeradorLog(Exception e){
+        escreverLog(e.getMessage());
+    }
 
     public void escreverLog(String erros) {
-
+        
+        GregorianCalendar gc = new GregorianCalendar();
+        
+        String today = gc.get(Calendar.YEAR)+"-"+gc.get(Calendar.MONTH)+"-"+gc.get(Calendar.DAY_OF_MONTH);
         try {
-            GregorianCalendar gc = new GregorianCalendar();
-            arquivo = new File("Log.txt");
+            
+            arquivo = new File("log"+today+".txt");
             fileReader = new FileReader(arquivo);
             bufferedReader = new BufferedReader(fileReader);
             ArrayList texto = new ArrayList();
@@ -56,12 +64,10 @@ public class GeradorLog {
 
         } catch (FileNotFoundException ex) {
             try {
-
                 //Se nao exite o arquivo, cria-o
                 arquivo.createNewFile();
                 escreverLog(erros);
             } catch (IOException ex1) {
-
                 //Se não conseguir digitar fecha tudo
                 //motivo: disco cheio
                 System.exit(0);
