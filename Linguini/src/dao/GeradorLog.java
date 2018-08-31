@@ -27,7 +27,7 @@ public class GeradorLog {
     }
     
     public GeradorLog(Exception e){
-        escreverLog(e.getMessage());
+        escreverLog(e.getMessage()+"\n"+e.getStackTrace());
     }
 
     public void escreverLog(String erros) {
