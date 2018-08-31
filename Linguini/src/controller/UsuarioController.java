@@ -30,6 +30,7 @@ public class UsuarioController implements Controller<Usuario>{
             if(Criptografia.equals(usuario.getSenha(), u.getSenha())){
                 System.out.println("Sucesso");
                 System.out.println(u.getNome() + " - "+u.getSenha());
+                msg.setObjeto(u);
                 msg.setSucesso(true);
                 msg.setMensagem("Sucesso!");
             }

@@ -1,5 +1,9 @@
 package utils;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * @author guilherme-souza
  */
@@ -19,14 +23,35 @@ public class Criptografia {
     }
     
     public static String criptografar(String palavra){
-        return SHA(palavra);
+        return SHA256(palavra);
     }
     
-    private static String SHA(String palavra) {
-        return palavra;
+    private static String SHA256(String palavra) {
+        String cripto = "";
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedhash = digest.digest(palavra.getBytes(StandardCharsets.UTF_8));
+            cripto = bytesToHex(encodedhash);
+        }
+        catch(NoSuchAlgorithmException e){
+            return "";
+        }
+        finally {
+            return cripto;            
+        }        
     }
     
     private static String MD5(String palavra){
         return palavra;
+    }
+    
+    private static String bytesToHex(byte[] hash) {
+        StringBuffer hexString = new StringBuffer();
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if(hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 }

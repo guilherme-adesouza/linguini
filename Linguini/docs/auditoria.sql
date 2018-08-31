@@ -51,17 +51,17 @@ BEGIN
             v_old_data := ROW(OLD.*);
             v_new_data := ROW(NEW.*);
             INSERT INTO audit.logged_actions (schema_name,table_name,user_name,action,original_data,new_data,query) 
-            VALUES (TG_TABLE_SCHEMA::TEXT,TG_TABLE_NAME::TEXT,session_user::TEXT,substring(TG_OP,1,1),v_old_data,v_new_data, current_query());
+            VALUES (TG_TABLE_SCHEMA::TEXT,TG_TABLE_NAME::TEXT,(SELECT current_setting('linguini.user')),substring(TG_OP,1,1),v_old_data,v_new_data, current_query());
             RETURN NEW;
         ELSIF (TG_OP = 'DELETE') THEN
             v_old_data := ROW(OLD.*);
             INSERT INTO audit.logged_actions (schema_name,table_name,user_name,action,original_data,query)
-            VALUES (TG_TABLE_SCHEMA::TEXT,TG_TABLE_NAME::TEXT,session_user::TEXT,substring(TG_OP,1,1),v_old_data, current_query());
+            VALUES (TG_TABLE_SCHEMA::TEXT,TG_TABLE_NAME::TEXT, (SELECT current_setting('linguini.user')),substring(TG_OP,1,1),v_old_data, current_query());
             RETURN OLD;
         ELSIF (TG_OP = 'INSERT') THEN
             v_new_data := ROW(NEW.*);
             INSERT INTO audit.logged_actions (schema_name,table_name,user_name,action,new_data,query)
-            VALUES (TG_TABLE_SCHEMA::TEXT,TG_TABLE_NAME::TEXT,session_user::TEXT,substring(TG_OP,1,1),v_new_data, current_query());
+            VALUES (TG_TABLE_SCHEMA::TEXT,TG_TABLE_NAME::TEXT, (SELECT current_setting('linguini.user')),substring(TG_OP,1,1),v_new_data, current_query());
             RETURN NEW;
         ELSE
             RAISE WARNING '[AUDIT.IF_MODIFIED_FUNC] - Other action occurred: %, at %',TG_OP,now();
@@ -117,3 +117,11 @@ FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
 CREATE TRIGGER cozinha_audit
 AFTER INSERT OR UPDATE OR DELETE ON cozinha
 FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+
+
+CREATE OR REPLACE FUNCTION set_session_user(user_id bigint)
+RETURNS VOID AS $$
+BEGIN
+    PERFORM set_config('linguini.user', user_id::text, true);
+END
+$$ LANGUAGE plpgsql;

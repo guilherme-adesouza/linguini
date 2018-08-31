@@ -7,8 +7,15 @@ package view;
 
 import controller.UsuarioController;
 import dao.MensagemRetorno;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import model.Usuario;
+import utils.Sessao;
 
 /**
  *
@@ -28,6 +35,20 @@ public class jfLogin extends javax.swing.JFrame {
         this.usuario = new Usuario();
         this.tfdUsuario.requestFocus();
         this.setLocationRelativeTo(null);
+        
+        InputMap inputMap = this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "forward");
+        this.getRootPane().setInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW, inputMap);
+        this.getRootPane().getActionMap().put("forward", new AbstractAction()
+        {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void actionPerformed(ActionEvent arg0)
+            {
+                btnLogin.doClick();
+            }
+        });
     }
 
     /**
@@ -162,8 +183,10 @@ public class jfLogin extends javax.swing.JFrame {
             this.usuario.setNome(this.tfdUsuario.getText().trim());
             this.usuario.setSenha(this.pfdSenha.getText().trim());
 
-            MensagemRetorno msg = new MensagemRetorno(true); //this.usuarioController.autenticar(usuario);
+            MensagemRetorno msg = this.usuarioController.autenticar(usuario);
             if(msg.isSucesso()){
+                Sessao.setUsuario((Usuario) msg.getObjeto());
+                
                 Home home = new Home();
                 home.setVisible(true);
                 this.dispose();

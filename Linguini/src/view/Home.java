@@ -52,6 +52,7 @@ public class Home extends javax.swing.JFrame {
         jmiTelefones = new javax.swing.JMenuItem();
         menuFornecedor = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jmiUsuario = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -233,6 +234,14 @@ public class Home extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
+        jmiUsuario.setText("Usuário");
+        jmiUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiUsuario);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Vendas");
@@ -333,6 +342,12 @@ public class Home extends javax.swing.JFrame {
         telaConfiguracoes.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jmiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuarioActionPerformed
+        jdUsuario telaUsuario = new jdUsuario(this, true);
+        telaUsuario.setLocationRelativeTo(telaUsuario);
+        telaUsuario.setVisible(true);
+    }//GEN-LAST:event_jmiUsuarioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane DpPrincipal;
     private javax.swing.JLabel jLabel10;
@@ -358,6 +373,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JMenuItem jmiPessoas;
     private javax.swing.JMenuItem jmiTelefones;
+    private javax.swing.JMenuItem jmiUsuario;
     private javax.swing.JLabel labAbrirFecharCaixa;
     private javax.swing.JMenuItem menuFornecedor;
     // End of variables declaration//GEN-END:variables
