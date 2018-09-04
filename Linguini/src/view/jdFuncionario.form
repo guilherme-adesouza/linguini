@@ -262,46 +262,46 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="tfdCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel7" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="tfdNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="tfdCodigo" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="jLabel7" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="tfdNome" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
-                      <Component id="ftfTelefone1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="ftfTelefone2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabel6" alignment="0" pref="26" max="32767" attributes="0"/>
+                      <Component id="jLabel5" alignment="0" pref="26" max="32767" attributes="0"/>
+                      <Component id="ftfTelefone1" alignment="0" pref="26" max="32767" attributes="0"/>
+                      <Component id="ftfTelefone2" alignment="0" pref="26" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel11" alignment="1" max="32767" attributes="0"/>
                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" max="32767" attributes="0"/>
-                          <Component id="tfdLogradouro" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfdLogradouro" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="tfdNumero" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfdNumero" min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel8" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="jLabel9" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="jLabel8" alignment="1" min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="jLabel9" alignment="1" min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfdBairro" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfdComplemento" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfdBairro" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="tfdComplemento" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="ftfCPF" alignment="3" max="32767" attributes="0"/>
-                      <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="ftfSalario" alignment="3" max="32767" attributes="0"/>
+                      <Component id="jLabel2" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="ftfCPF" alignment="3" pref="0" max="32767" attributes="0"/>
+                      <Component id="jLabel13" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="ftfSalario" alignment="3" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="56" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
