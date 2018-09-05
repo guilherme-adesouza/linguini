@@ -26,6 +26,10 @@ public class ProdutoController implements Controller<Produto> {
     public ProdutoController() {
         this.produtoDao = new ProdutoDAO();
     }
+    
+    public MensagemRetorno atualizar(Produto produto){
+        return produtoDao.atualizar(produto);
+    }
 
     @Override
     public MensagemRetorno salvar(Produto objeto) {
