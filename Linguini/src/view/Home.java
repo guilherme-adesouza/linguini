@@ -375,7 +375,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogin1MouseExited
 
     private void btnLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin1ActionPerformed
-        // TODO add your handling code here:
+        jdProduto telaProduto = new jdProduto(this, true);
+        telaProduto.setLocationRelativeTo(telaProduto);
+        telaProduto.setVisible(true);
     }//GEN-LAST:event_btnLogin1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

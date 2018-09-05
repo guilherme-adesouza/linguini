@@ -9,6 +9,7 @@ import dao.ClassificacaoDAO;
 import dao.MensagemRetorno;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -19,14 +20,14 @@ import model.Classificacao;
  * @author guilherme-souza
  */
 public class ClassificacaoController implements Controller<Classificacao> {
-    
+
     private ClassificacaoDAO classificacaoDAO;
     private String tabela = "Classificacao";
 
-    public ClassificacaoController(){
+    public ClassificacaoController() {
         this.classificacaoDAO = new ClassificacaoDAO();
     }
-    
+
     @Override
     public MensagemRetorno salvar(Classificacao classificacao) {
         return classificacaoDAO.salvar(classificacao);
@@ -53,11 +54,11 @@ public class ClassificacaoController implements Controller<Classificacao> {
         // cria matriz de acordo com nº de registros da tabela
         try {
             MensagemRetorno ms = this.classificacaoDAO.consultarAtivosComCriterio(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
-            if(ms.isSucesso()) {
+            if (ms.isSucesso()) {
                 dadosTabela = new Object[ms.getLista().size()][cabecalho.length];
             }
         } catch (Exception e) {
-            System.out.println("Erro ao consultar "+this.tabela+": " + e);
+            System.out.println("Erro ao consultar " + this.tabela + ": " + e);
             System.out.println(e);
         }
 
@@ -66,7 +67,7 @@ public class ClassificacaoController implements Controller<Classificacao> {
         // efetua consulta na tabela
         try {
             MensagemRetorno ms = this.classificacaoDAO.consultarAtivosComCriterio(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
-            
+
             for (Object o : ms.getLista()) {
                 Classificacao c = (Classificacao) o;
 
@@ -82,7 +83,7 @@ public class ClassificacaoController implements Controller<Classificacao> {
 //                    dadosTabela[lin][2] = new ImageIcon(getClass().getClassLoader().getResource("Interface/imagens/status_inativo.png"));
 //                }
         } catch (Exception e) {
-            System.out.println("problemas para popular tabela "+this.tabela+"...");
+            System.out.println("problemas para popular tabela " + this.tabela + "...");
             System.out.println(e);
         }
 
@@ -93,6 +94,7 @@ public class ClassificacaoController implements Controller<Classificacao> {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
+
             // alteracao no metodo que determina a coluna em que o objeto ImageIcon devera aparecer
             @Override
             public Class getColumnClass(int column) {
@@ -131,13 +133,13 @@ public class ClassificacaoController implements Controller<Classificacao> {
     public MensagemRetorno consultarPorID(int id) {
         return classificacaoDAO.consultarPorId(id, this.tabela);
     }
-    
-    private String[] getCabecalho(){
+
+    private String[] getCabecalho() {
         String[] cabecalho = {"Código", "Classificação"};
         return cabecalho;
     }
-    
-    private String[] getCamposPesquisaveis(){
+
+    private String[] getCamposPesquisaveis() {
         String[] campos = {"CAST(id AS text)", "classificacao"};
         return campos;
     }
@@ -149,4 +151,9 @@ public class ClassificacaoController implements Controller<Classificacao> {
         campos.add(new CampoOrdenavel("Classificação", "classificacao"));
         return campos;
     }
+
+    public void popularCombo(JComboBox combo) {
+        this.classificacaoDAO.popularCombo("Classificacao", combo);
+    }
+
 }

@@ -26,8 +26,8 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     
     private Produto produto;
     private ProdutoController produtoController;
-    private Classificacao classificao;
     private ClassificacaoController classificacaoController;
+    private Classificacao classificacao;
     private FornecedorController fornecedorController;
 
     /**
@@ -38,6 +38,10 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         initComponents();
         this.produto = new Produto();
         this.produtoController = new ProdutoController();
+        this.fornecedorController = new FornecedorController();
+        this.classificacao = new Classificacao();
+        this.classificacaoController = new ClassificacaoController();
+        this.classificacaoController.popularCombo(this.comboCategoria);
         this.fornecedorController.popularCombo(this.comboFornecedor);
     }
 
@@ -229,16 +233,12 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
             }
         });
 
-        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         rLitro.setText("LT");
         rLitro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rLitroActionPerformed(evt);
             }
         });
-
-        comboFornecedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel18.setText("Fornecedor");
 
