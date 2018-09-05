@@ -6,6 +6,7 @@
 package view;
 
 import controller.ClassificacaoController;
+import controller.FornecedorController;
 import controller.ProdutoController;
 import dao.GeradorLog;
 import dao.MensagemRetorno;
@@ -22,11 +23,12 @@ import utils.Validacao;
  * @author VitinNote
  */
 public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
-
+    
     private Produto produto;
     private ProdutoController produtoController;
     private Classificacao classificao;
     private ClassificacaoController classificacaoController;
+    private FornecedorController fornecedorController;
 
     /**
      * Creates new form jdProduto
@@ -36,6 +38,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         initComponents();
         this.produto = new Produto();
         this.produtoController = new ProdutoController();
+        this.fornecedorController.popularCombo(this.comboFornecedor);
     }
 
     /**
@@ -70,6 +73,8 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         comboCategoria = new javax.swing.JComboBox<>();
         tfdPrecoCusto = new apoio.MoedaFormatada();
         rLitro = new javax.swing.JRadioButton();
+        comboFornecedor = new javax.swing.JComboBox<>();
+        jLabel18 = new javax.swing.JLabel();
         jtabMais = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -233,6 +238,10 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
             }
         });
 
+        comboFornecedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel18.setText("Fornecedor");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -240,28 +249,14 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(99, 99, 99)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfdCodigoBarras, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                    .addComponent(tfdNome)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel8))
+                        .addGap(50, 50, 50)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tfdPrecoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel10)
-                                .addGap(18, 18, 18)
-                                .addComponent(tfdPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel11)
@@ -269,9 +264,28 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
                                 .addComponent(rUnidade)
                                 .addGap(18, 18, 18)
                                 .addComponent(rKilo)
-                                .addGap(18, 18, 18)
-                                .addComponent(rLitro)))
-                        .addGap(38, 38, 38)))
+                                .addGap(34, 34, 34)
+                                .addComponent(rLitro))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(99, 99, 99)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfdCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfdNome))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfdPrecoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfdPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -299,8 +313,12 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfdPrecoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfdPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(comboFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfdPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -503,7 +521,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
             if (!tfdCodigo.getText().equals("")) {
                 //this.produto.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
                 this.produto.setDescricao(tfdNome.getText());
-
+                
                 MensagemRetorno msg = this.produtoController.atualizar(this.produto);
                 if (msg.isSucesso()) {
                     msg.setMensagem("Atualizado com sucesso!");
@@ -518,7 +536,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
             } else {
                 //this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
                 this.produto.setDescricao(tfdNome.getText());
-
+                
                 MensagemRetorno msg = this.produtoController.salvar(this.produto);
                 if (msg.isSucesso()) {
                     JOptionPane.showMessageDialog(null, msg.getMensagem());
@@ -530,10 +548,10 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
                     clearFields();
                 }
             }
-
+            
         } else {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-
+            
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -545,7 +563,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
             if (msg.isSucesso()) {
                 clearFields();
                 JOptionPane.showMessageDialog(null, msg.getMensagem());
-
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Problemas ao excluir registro!\n\n"
                         + "Mensagem técnica: \n" + msg.getMensagem());
@@ -662,6 +680,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     private javax.swing.JCheckBox checkItemCozinha;
     private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JComboBox<String> comboCozinha;
+    private javax.swing.JComboBox<String> comboFornecedor;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -670,6 +689,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -702,14 +722,14 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         JTextField[] campos = {this.tfdNome};
         return campos;
     }
-
+    
     private void clearFields() {
         tfdCodigo.setText("");
         tfdNome.setText("");
         tfdPrecoVenda.setText("");
         this.produto = new Produto();
     }
-
+    
     @Override
     public void carregar(int codigo) {
         MensagemRetorno retorno = this.produtoController.consultarPorID(codigo);
@@ -718,7 +738,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         this.tfdCodigo.setText(this.produto.getId() + "");
         this.tfdNome.setText(this.produto.getDescricao() + "");
     }
-
+    
     @Override
     public void limparCampos(int codigo) {
         if (this.produto.getId() == codigo) {

@@ -9,10 +9,12 @@ import dao.MensagemRetorno;
 import dao.ProdutoDAO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import model.Produto;
+import view.ComboItens;
 
 /**
  *
@@ -26,8 +28,8 @@ public class ProdutoController implements Controller<Produto> {
     public ProdutoController() {
         this.produtoDao = new ProdutoDAO();
     }
-    
-    public MensagemRetorno atualizar(Produto produto){
+
+    public MensagemRetorno atualizar(Produto produto) {
         return produtoDao.atualizar(produto);
     }
 

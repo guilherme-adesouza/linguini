@@ -4,6 +4,7 @@ import dao.FornecedorDAO;
 import dao.MensagemRetorno;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -184,5 +185,10 @@ public class FornecedorController implements Controller<Fornecedor> {
 //            }
 //        });
     }
+    
+    public void popularCombo(JComboBox combo){
+        this.fornecedorDao.popularCombo("Fornecedor", combo);
+    }
+    
 
 }
