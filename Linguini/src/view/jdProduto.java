@@ -11,11 +11,11 @@ import controller.ProdutoController;
 import dao.GeradorLog;
 import dao.MensagemRetorno;
 import java.awt.Frame;
+import java.awt.event.ItemEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.Classificacao;
 import model.Produto;
-import utils.Formatacao;
 import utils.Validacao;
 
 /**
@@ -233,6 +233,12 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
             }
         });
 
+        comboCategoria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboCategoriaItemStateChanged(evt);
+            }
+        });
+
         rLitro.setText("LT");
         rLitro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -310,15 +316,16 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
                     .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rLitro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfdPrecoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfdPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(comboFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfdPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))))
+                        .addComponent(jLabel18))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfdPrecoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -627,6 +634,16 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     private void checkInsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkInsumoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_checkInsumoActionPerformed
+
+    private void comboCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCategoriaItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED)
+        {
+            int cod = ((ComboItens)comboCategoria.getSelectedItem()).getCodigo();
+            if(cod != 0) {
+                this.produto.setClassificacaoId((Classificacao) classificacaoController.consultarPorID(cod).getObjeto());
+            }
+        }
+    }//GEN-LAST:event_comboCategoriaItemStateChanged
 
     /**
      * @param args the command line arguments
