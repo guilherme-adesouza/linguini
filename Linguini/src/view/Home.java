@@ -38,18 +38,18 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
         btnLogin1 = new javax.swing.JButton();
-        deskPane = new javax.swing.JDesktopPane();
-        jPanel3 = new javax.swing.JPanel();
+        btnDelivery = new javax.swing.JButton();
+        btnPedido = new javax.swing.JButton();
+        btnPedido1 = new javax.swing.JButton();
+        btnLogin2 = new javax.swing.JButton();
+        btnLogin3 = new javax.swing.JButton();
+        btnLogin4 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jPanel3 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiPessoas = new javax.swing.JMenuItem();
@@ -68,22 +68,10 @@ public class Home extends javax.swing.JFrame {
 
         jPanel2.setPreferredSize(new java.awt.Dimension(1200, 800));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-comprar-48.png"))); // NOI18N
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-lista-de-verificação-48.png"))); // NOI18N
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-grupos-de-usuários-48.png"))); // NOI18N
-
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-rastrear-encomenda-48.png"))); // NOI18N
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-exportar-48.png"))); // NOI18N
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-propriedade-de-tempo-48.png"))); // NOI18N
-
         btnLogin.setBackground(new java.awt.Color(153, 153, 153));
         btnLogin.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-fluxo-de-caixa-48.png"))); // NOI18N
-        btnLogin.setText("Abrir / Fechar Caixa");
+        btnLogin.setText("Caixa");
         btnLogin.setBorderPainted(false);
         btnLogin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnLogin.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -104,7 +92,7 @@ public class Home extends javax.swing.JFrame {
         btnLogin1.setBackground(new java.awt.Color(153, 153, 153));
         btnLogin1.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
         btnLogin1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-lancheira-48.png"))); // NOI18N
-        btnLogin1.setText("Produto");
+        btnLogin1.setText("Produtos");
         btnLogin1.setBorderPainted(false);
         btnLogin1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnLogin1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -122,6 +110,132 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        btnDelivery.setBackground(new java.awt.Color(153, 153, 153));
+        btnDelivery.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        btnDelivery.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-entrega-de-comida-48.png"))); // NOI18N
+        btnDelivery.setText("Delivery");
+        btnDelivery.setBorderPainted(false);
+        btnDelivery.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDelivery.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDelivery.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDeliveryMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDeliveryMouseExited(evt);
+            }
+        });
+        btnDelivery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeliveryActionPerformed(evt);
+            }
+        });
+
+        btnPedido.setBackground(new java.awt.Color(153, 153, 153));
+        btnPedido.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        btnPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-comprar-48.png"))); // NOI18N
+        btnPedido.setText("Novo Pedido");
+        btnPedido.setBorderPainted(false);
+        btnPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnPedidoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnPedidoMouseExited(evt);
+            }
+        });
+        btnPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPedidoActionPerformed(evt);
+            }
+        });
+
+        btnPedido1.setBackground(new java.awt.Color(153, 153, 153));
+        btnPedido1.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        btnPedido1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-lista-de-verificação-48.png"))); // NOI18N
+        btnPedido1.setText("Comandas");
+        btnPedido1.setBorderPainted(false);
+        btnPedido1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPedido1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPedido1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnPedido1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnPedido1MouseExited(evt);
+            }
+        });
+        btnPedido1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPedido1ActionPerformed(evt);
+            }
+        });
+
+        btnLogin2.setBackground(new java.awt.Color(153, 153, 153));
+        btnLogin2.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        btnLogin2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-grupos-de-usuários-48.png"))); // NOI18N
+        btnLogin2.setText("Clientes");
+        btnLogin2.setBorderPainted(false);
+        btnLogin2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnLogin2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnLogin2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLogin2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLogin2MouseExited(evt);
+            }
+        });
+        btnLogin2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogin2ActionPerformed(evt);
+            }
+        });
+
+        btnLogin3.setBackground(new java.awt.Color(153, 153, 153));
+        btnLogin3.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        btnLogin3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-propriedade-de-tempo-48.png"))); // NOI18N
+        btnLogin3.setText("Relatórios");
+        btnLogin3.setBorderPainted(false);
+        btnLogin3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnLogin3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnLogin3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLogin3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLogin3MouseExited(evt);
+            }
+        });
+        btnLogin3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogin3ActionPerformed(evt);
+            }
+        });
+
+        btnLogin4.setBackground(new java.awt.Color(153, 153, 153));
+        btnLogin4.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        btnLogin4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-exportar-48.png"))); // NOI18N
+        btnLogin4.setText("Sair");
+        btnLogin4.setBorderPainted(false);
+        btnLogin4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnLogin4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnLogin4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLogin4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLogin4MouseExited(evt);
+            }
+        });
+        btnLogin4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogin4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -129,70 +243,35 @@ public class Home extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnLogin)
-                .addGap(73, 73, 73)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
+                .addComponent(btnDelivery)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPedido)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPedido1)
+                .addGap(44, 44, 44)
                 .addComponent(btnLogin1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addGap(94, 94, 94)
-                .addComponent(jLabel9)
-                .addGap(29, 29, 29))
+                .addComponent(btnLogin2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLogin3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addComponent(btnLogin4)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(34, 34, 34))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLogin)
-                    .addComponent(btnLogin1))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        deskPane.setBackground(new java.awt.Color(51, 51, 51));
-
-        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel3.setPreferredSize(new java.awt.Dimension(0, 570));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
-        );
-
-        deskPane.setLayer(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout deskPaneLayout = new javax.swing.GroupLayout(deskPane);
-        deskPane.setLayout(deskPaneLayout);
-        deskPaneLayout.setHorizontalGroup(
-            deskPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
-        );
-        deskPaneLayout.setVerticalGroup(
-            deskPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(deskPaneLayout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                    .addComponent(btnLogin1)
+                    .addComponent(btnDelivery)
+                    .addComponent(btnPedido)
+                    .addComponent(btnPedido1)
+                    .addComponent(btnLogin2)
+                    .addComponent(btnLogin3)
+                    .addComponent(btnLogin4))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -214,6 +293,32 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(209, 210, 210));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 558, Short.MAX_VALUE)
+        );
+
+        jDesktopPane1.setLayer(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jMenuBar1.setPreferredSize(new java.awt.Dimension(267, 28));
@@ -294,17 +399,17 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
-            .addComponent(deskPane)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jDesktopPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(deskPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDesktopPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -355,7 +460,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiUsuarioActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
+        jdCaixa telaCaixa = new jdCaixa(this, true);
+        telaCaixa.setLocationRelativeTo(telaCaixa);
+        telaCaixa.setVisible(true);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
@@ -380,17 +487,89 @@ public class Home extends javax.swing.JFrame {
         telaProduto.setVisible(true);
     }//GEN-LAST:event_btnLogin1ActionPerformed
 
+    private void btnDeliveryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeliveryMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeliveryMouseEntered
+
+    private void btnDeliveryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeliveryMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeliveryMouseExited
+
+    private void btnDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeliveryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeliveryActionPerformed
+
+    private void btnPedidoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedidoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPedidoMouseEntered
+
+    private void btnPedidoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedidoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPedidoMouseExited
+
+    private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPedidoActionPerformed
+
+    private void btnPedido1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedido1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPedido1MouseEntered
+
+    private void btnPedido1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedido1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPedido1MouseExited
+
+    private void btnPedido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedido1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPedido1ActionPerformed
+
+    private void btnLogin2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin2MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogin2MouseEntered
+
+    private void btnLogin2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogin2MouseExited
+
+    private void btnLogin2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogin2ActionPerformed
+
+    private void btnLogin3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogin3MouseEntered
+
+    private void btnLogin3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin3MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogin3MouseExited
+
+    private void btnLogin3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogin3ActionPerformed
+
+    private void btnLogin4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin4MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogin4MouseEntered
+
+    private void btnLogin4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin4MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogin4MouseExited
+
+    private void btnLogin4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogin4ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDelivery;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnLogin1;
-    private javax.swing.JDesktopPane deskPane;
+    private javax.swing.JButton btnLogin2;
+    private javax.swing.JButton btnLogin3;
+    private javax.swing.JButton btnLogin4;
+    private javax.swing.JButton btnPedido;
+    private javax.swing.JButton btnPedido1;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
