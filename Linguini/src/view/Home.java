@@ -5,13 +5,6 @@
  */
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.Toolkit;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 
 /**
  * @author VitinNote
@@ -38,14 +31,14 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        btnLogin = new javax.swing.JButton();
-        btnLogin1 = new javax.swing.JButton();
+        btnCaixa = new javax.swing.JButton();
+        btnProduto = new javax.swing.JButton();
         btnDelivery = new javax.swing.JButton();
         btnPedido = new javax.swing.JButton();
-        btnPedido1 = new javax.swing.JButton();
-        btnLogin2 = new javax.swing.JButton();
-        btnLogin3 = new javax.swing.JButton();
-        btnLogin4 = new javax.swing.JButton();
+        btnComandas = new javax.swing.JButton();
+        btnCliente = new javax.swing.JButton();
+        btnHistorico = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
@@ -68,52 +61,52 @@ public class Home extends javax.swing.JFrame {
 
         jPanel2.setPreferredSize(new java.awt.Dimension(1200, 800));
 
-        btnLogin.setBackground(new java.awt.Color(153, 153, 153));
-        btnLogin.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-fluxo-de-caixa-48.png"))); // NOI18N
-        btnLogin.setText("Caixa");
-        btnLogin.setBorderPainted(false);
-        btnLogin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnLogin.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCaixa.setBackground(new java.awt.Color(153, 153, 153));
+        btnCaixa.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        btnCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-fluxo-de-caixa-48.png"))); // NOI18N
+        btnCaixa.setText("Caixa");
+        btnCaixa.setBorderPainted(false);
+        btnCaixa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCaixa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnLoginMouseEntered(evt);
+                btnCaixaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnLoginMouseExited(evt);
+                btnCaixaMouseExited(evt);
             }
         });
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnCaixa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+                btnCaixaActionPerformed(evt);
             }
         });
 
-        btnLogin1.setBackground(new java.awt.Color(153, 153, 153));
-        btnLogin1.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
-        btnLogin1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-lancheira-48.png"))); // NOI18N
-        btnLogin1.setText("Produtos");
-        btnLogin1.setBorderPainted(false);
-        btnLogin1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnLogin1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnLogin1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnProduto.setBackground(new java.awt.Color(153, 153, 153));
+        btnProduto.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        btnProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-lancheira-48.png"))); // NOI18N
+        btnProduto.setText("Produtos");
+        btnProduto.setBorderPainted(false);
+        btnProduto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnProduto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnLogin1MouseEntered(evt);
+                btnProdutoMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnLogin1MouseExited(evt);
+                btnProdutoMouseExited(evt);
             }
         });
-        btnLogin1.addActionListener(new java.awt.event.ActionListener() {
+        btnProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin1ActionPerformed(evt);
+                btnProdutoActionPerformed(evt);
             }
         });
 
         btnDelivery.setBackground(new java.awt.Color(153, 153, 153));
         btnDelivery.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
         btnDelivery.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-entrega-de-comida-48.png"))); // NOI18N
-        btnDelivery.setText("Delivery");
+        btnDelivery.setText("Novo Delivery");
         btnDelivery.setBorderPainted(false);
         btnDelivery.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDelivery.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -152,87 +145,87 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        btnPedido1.setBackground(new java.awt.Color(153, 153, 153));
-        btnPedido1.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
-        btnPedido1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-lista-de-verificação-48.png"))); // NOI18N
-        btnPedido1.setText("Comandas");
-        btnPedido1.setBorderPainted(false);
-        btnPedido1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnPedido1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPedido1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnComandas.setBackground(new java.awt.Color(153, 153, 153));
+        btnComandas.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        btnComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-lista-de-verificação-48.png"))); // NOI18N
+        btnComandas.setText("Comandas");
+        btnComandas.setBorderPainted(false);
+        btnComandas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnComandas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnComandas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnPedido1MouseEntered(evt);
+                btnComandasMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnPedido1MouseExited(evt);
+                btnComandasMouseExited(evt);
             }
         });
-        btnPedido1.addActionListener(new java.awt.event.ActionListener() {
+        btnComandas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPedido1ActionPerformed(evt);
+                btnComandasActionPerformed(evt);
             }
         });
 
-        btnLogin2.setBackground(new java.awt.Color(153, 153, 153));
-        btnLogin2.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
-        btnLogin2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-grupos-de-usuários-48.png"))); // NOI18N
-        btnLogin2.setText("Clientes");
-        btnLogin2.setBorderPainted(false);
-        btnLogin2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnLogin2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnLogin2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCliente.setBackground(new java.awt.Color(153, 153, 153));
+        btnCliente.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-grupos-de-usuários-48.png"))); // NOI18N
+        btnCliente.setText("Clientes");
+        btnCliente.setBorderPainted(false);
+        btnCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnLogin2MouseEntered(evt);
+                btnClienteMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnLogin2MouseExited(evt);
+                btnClienteMouseExited(evt);
             }
         });
-        btnLogin2.addActionListener(new java.awt.event.ActionListener() {
+        btnCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin2ActionPerformed(evt);
+                btnClienteActionPerformed(evt);
             }
         });
 
-        btnLogin3.setBackground(new java.awt.Color(153, 153, 153));
-        btnLogin3.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
-        btnLogin3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-propriedade-de-tempo-48.png"))); // NOI18N
-        btnLogin3.setText("Relatórios");
-        btnLogin3.setBorderPainted(false);
-        btnLogin3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnLogin3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnLogin3.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnHistorico.setBackground(new java.awt.Color(153, 153, 153));
+        btnHistorico.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        btnHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-propriedade-de-tempo-48.png"))); // NOI18N
+        btnHistorico.setText("Histórico de Pedidos");
+        btnHistorico.setBorderPainted(false);
+        btnHistorico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnHistorico.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnHistorico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnLogin3MouseEntered(evt);
+                btnHistoricoMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnLogin3MouseExited(evt);
+                btnHistoricoMouseExited(evt);
             }
         });
-        btnLogin3.addActionListener(new java.awt.event.ActionListener() {
+        btnHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin3ActionPerformed(evt);
+                btnHistoricoActionPerformed(evt);
             }
         });
 
-        btnLogin4.setBackground(new java.awt.Color(153, 153, 153));
-        btnLogin4.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
-        btnLogin4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-exportar-48.png"))); // NOI18N
-        btnLogin4.setText("Sair");
-        btnLogin4.setBorderPainted(false);
-        btnLogin4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnLogin4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnLogin4.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnSair.setBackground(new java.awt.Color(153, 153, 153));
+        btnSair.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-exportar-48.png"))); // NOI18N
+        btnSair.setText("Sair");
+        btnSair.setBorderPainted(false);
+        btnSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnLogin4MouseEntered(evt);
+                btnSairMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnLogin4MouseExited(evt);
+                btnSairMouseExited(evt);
             }
         });
-        btnLogin4.addActionListener(new java.awt.event.ActionListener() {
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin4ActionPerformed(evt);
+                btnSairActionPerformed(evt);
             }
         });
 
@@ -242,35 +235,35 @@ public class Home extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnLogin)
+                .addComponent(btnCaixa)
                 .addGap(43, 43, 43)
                 .addComponent(btnDelivery)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPedido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPedido1)
+                .addComponent(btnComandas)
                 .addGap(44, 44, 44)
-                .addComponent(btnLogin1)
+                .addComponent(btnProduto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLogin2)
+                .addComponent(btnCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLogin3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                .addComponent(btnLogin4)
+                .addComponent(btnHistorico)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(btnSair)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLogin)
-                    .addComponent(btnLogin1)
+                    .addComponent(btnCaixa)
+                    .addComponent(btnProduto)
                     .addComponent(btnDelivery)
                     .addComponent(btnPedido)
-                    .addComponent(btnPedido1)
-                    .addComponent(btnLogin2)
-                    .addComponent(btnLogin3)
-                    .addComponent(btnLogin4))
+                    .addComponent(btnComandas)
+                    .addComponent(btnCliente)
+                    .addComponent(btnHistorico)
+                    .addComponent(btnSair))
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
@@ -459,40 +452,40 @@ public class Home extends javax.swing.JFrame {
         telaUsuario.setVisible(true);
     }//GEN-LAST:event_jmiUsuarioActionPerformed
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+    private void btnCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaixaActionPerformed
         jdCaixa telaCaixa = new jdCaixa(this, true);
         telaCaixa.setLocationRelativeTo(telaCaixa);
         telaCaixa.setVisible(true);
-    }//GEN-LAST:event_btnLoginActionPerformed
+    }//GEN-LAST:event_btnCaixaActionPerformed
 
-    private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
-        this.btnLogin.setBorderPainted(true);
-    }//GEN-LAST:event_btnLoginMouseEntered
+    private void btnCaixaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixaMouseEntered
+        this.btnCaixa.setBorderPainted(true);
+    }//GEN-LAST:event_btnCaixaMouseEntered
 
-    private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
-        this.btnLogin.setBorderPainted(false);
-    }//GEN-LAST:event_btnLoginMouseExited
+    private void btnCaixaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixaMouseExited
+        this.btnCaixa.setBorderPainted(false);
+    }//GEN-LAST:event_btnCaixaMouseExited
 
-    private void btnLogin1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin1MouseEntered
-        this.btnLogin1.setBorderPainted(true);
-    }//GEN-LAST:event_btnLogin1MouseEntered
+    private void btnProdutoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdutoMouseEntered
+        this.btnProduto.setBorderPainted(true);
+    }//GEN-LAST:event_btnProdutoMouseEntered
 
-    private void btnLogin1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin1MouseExited
-        this.btnLogin1.setBorderPainted(false);
-    }//GEN-LAST:event_btnLogin1MouseExited
+    private void btnProdutoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdutoMouseExited
+        this.btnProduto.setBorderPainted(false);
+    }//GEN-LAST:event_btnProdutoMouseExited
 
-    private void btnLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin1ActionPerformed
+    private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
         jdProduto telaProduto = new jdProduto(this, true);
         telaProduto.setLocationRelativeTo(telaProduto);
         telaProduto.setVisible(true);
-    }//GEN-LAST:event_btnLogin1ActionPerformed
+    }//GEN-LAST:event_btnProdutoActionPerformed
 
     private void btnDeliveryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeliveryMouseEntered
-        // TODO add your handling code here:
+        this.btnDelivery.setBorderPainted(true);
     }//GEN-LAST:event_btnDeliveryMouseEntered
 
     private void btnDeliveryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeliveryMouseExited
-        // TODO add your handling code here:
+        this.btnDelivery.setBorderPainted(false);
     }//GEN-LAST:event_btnDeliveryMouseExited
 
     private void btnDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeliveryActionPerformed
@@ -500,74 +493,74 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeliveryActionPerformed
 
     private void btnPedidoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedidoMouseEntered
-        // TODO add your handling code here:
+        this.btnPedido.setBorderPainted(true);
     }//GEN-LAST:event_btnPedidoMouseEntered
 
     private void btnPedidoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedidoMouseExited
-        // TODO add your handling code here:
+        this.btnPedido.setBorderPainted(false);
     }//GEN-LAST:event_btnPedidoMouseExited
 
     private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPedidoActionPerformed
 
-    private void btnPedido1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedido1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPedido1MouseEntered
+    private void btnComandasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComandasMouseEntered
+        this.btnComandas.setBorderPainted(true);
+    }//GEN-LAST:event_btnComandasMouseEntered
 
-    private void btnPedido1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedido1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPedido1MouseExited
+    private void btnComandasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComandasMouseExited
+        this.btnComandas.setBorderPainted(false);
+    }//GEN-LAST:event_btnComandasMouseExited
 
-    private void btnPedido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedido1ActionPerformed
+    private void btnComandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComandasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnPedido1ActionPerformed
+    }//GEN-LAST:event_btnComandasActionPerformed
 
-    private void btnLogin2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin2MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin2MouseEntered
+    private void btnClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClienteMouseEntered
+        this.btnCliente.setBorderPainted(true);
+    }//GEN-LAST:event_btnClienteMouseEntered
 
-    private void btnLogin2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin2MouseExited
+    private void btnClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClienteMouseExited
+        this.btnCliente.setBorderPainted(false);
+    }//GEN-LAST:event_btnClienteMouseExited
 
-    private void btnLogin2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin2ActionPerformed
+    private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin2ActionPerformed
+    }//GEN-LAST:event_btnClienteActionPerformed
 
-    private void btnLogin3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin3MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin3MouseEntered
+    private void btnHistoricoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistoricoMouseEntered
+        this.btnHistorico.setBorderPainted(true);
+    }//GEN-LAST:event_btnHistoricoMouseEntered
 
-    private void btnLogin3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin3MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin3MouseExited
+    private void btnHistoricoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistoricoMouseExited
+        this.btnHistorico.setBorderPainted(false);
+    }//GEN-LAST:event_btnHistoricoMouseExited
 
-    private void btnLogin3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin3ActionPerformed
+    private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin3ActionPerformed
+    }//GEN-LAST:event_btnHistoricoActionPerformed
 
-    private void btnLogin4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin4MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin4MouseEntered
+    private void btnSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseEntered
+        this.btnSair.setBorderPainted(true);
+    }//GEN-LAST:event_btnSairMouseEntered
 
-    private void btnLogin4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogin4MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin4MouseExited
+    private void btnSairMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseExited
+        this.btnSair.setBorderPainted(false);
+    }//GEN-LAST:event_btnSairMouseExited
 
-    private void btnLogin4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin4ActionPerformed
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCaixa;
+    private javax.swing.JButton btnCliente;
+    private javax.swing.JButton btnComandas;
     private javax.swing.JButton btnDelivery;
-    private javax.swing.JButton btnLogin;
-    private javax.swing.JButton btnLogin1;
-    private javax.swing.JButton btnLogin2;
-    private javax.swing.JButton btnLogin3;
-    private javax.swing.JButton btnLogin4;
+    private javax.swing.JButton btnHistorico;
     private javax.swing.JButton btnPedido;
-    private javax.swing.JButton btnPedido1;
+    private javax.swing.JButton btnProduto;
+    private javax.swing.JButton btnSair;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
