@@ -20,6 +20,8 @@
     <class>model.Funcionario</class>
     <class>model.Entregador</class>
     <class>model.Cozinha</class>
+    <class>model.Fornecedor_1</class>
+    <class>model.Classificacao_1</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/linguini"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
