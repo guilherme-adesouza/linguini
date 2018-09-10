@@ -12,10 +12,18 @@ import dao.GeradorLog;
 import dao.MensagemRetorno;
 import java.awt.Frame;
 import java.awt.event.ItemEvent;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.Classificacao;
+import model.Fornecedor;
 import model.Produto;
+import utils.Calendario;
+import utils.ControlarEntradaNumero;
+import utils.Formatacao;
 import utils.Validacao;
 
 /**
@@ -23,13 +31,17 @@ import utils.Validacao;
  * @author VitinNote
  */
 public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
-    
+
     private Produto produto;
     private ProdutoController produtoController;
     private ClassificacaoController classificacaoController;
     private Classificacao classificacao;
+    private Fornecedor fornecedor;
     private FornecedorController fornecedorController;
+    private Calendario calendario;
 
+    //A FAZER > VALOR VENDA SEMPRE MAIOR QUE CUSTO - VALIDAR
+    //ADICIONAR CODIGO DE BARRAS NO BANCO
     /**
      * Creates new form jdProduto
      */
@@ -38,11 +50,29 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         initComponents();
         this.produto = new Produto();
         this.produtoController = new ProdutoController();
+        this.fornecedor = new Fornecedor();
         this.fornecedorController = new FornecedorController();
         this.classificacao = new Classificacao();
         this.classificacaoController = new ClassificacaoController();
         this.classificacaoController.popularCombo(this.comboCategoria);
         this.fornecedorController.popularCombo(this.comboFornecedor);
+        this.calendario = new Calendario();
+
+        //Campos Formatados
+        Formatacao.formatarData(tffDataFimPromocao);
+        tffDataFimPromocao.setEnabled(false);
+        tfdEstoqueMinimo.setDocument(new ControlarEntradaNumero(5));
+        tfdEstoque.setDocument(new ControlarEntradaNumero((5)));
+        tfdTempoPreparo.setDocument(new ControlarEntradaNumero(5));
+
+        //Iniciar préfixados
+        this.produto.setCozinha(false);
+        this.produto.setInsumo(false);
+        rUnidade.setSelected(true);
+        this.tfdEstoque.setText("0");
+        this.tfdEstoqueMinimo.setText("0");
+        this.tfdTempoPreparo.setText("0");
+
     }
 
     /**
@@ -54,6 +84,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGrupoMedida = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         btnNovo = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
@@ -67,7 +98,6 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        tfdPrecoVenda = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
         tfdCodigoBarras = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -75,10 +105,11 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         rUnidade = new javax.swing.JRadioButton();
         rKilo = new javax.swing.JRadioButton();
         comboCategoria = new javax.swing.JComboBox<>();
-        tfdPrecoCusto = new apoio.MoedaFormatada();
+        tffPrecoCusto = new apoio.MoedaFormatada();
         rLitro = new javax.swing.JRadioButton();
         comboFornecedor = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
+        tffPrecoVenda = new apoio.MoedaFormatada();
         jtabMais = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -95,10 +126,11 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         jLabel17 = new javax.swing.JLabel();
         tfdEstoqueMinimo = new javax.swing.JFormattedTextField();
         jPanel5 = new javax.swing.JPanel();
-        tfdPrecoPromocao = new apoio.MoedaFormatada();
+        tffPrecoPromocao = new apoio.MoedaFormatada();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         tffDataFimPromocao = new javax.swing.JFormattedTextField();
+        checkInsumo1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produto");
@@ -219,14 +251,26 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
 
         jLabel11.setText("Medida");
 
+        btnGrupoMedida.add(rUnidade);
         rUnidade.setText("UN");
+        rUnidade.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rUnidadeItemStateChanged(evt);
+            }
+        });
         rUnidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rUnidadeActionPerformed(evt);
             }
         });
 
+        btnGrupoMedida.add(rKilo);
         rKilo.setText("KG");
+        rKilo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rKiloItemStateChanged(evt);
+            }
+        });
         rKilo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rKiloActionPerformed(evt);
@@ -239,10 +283,22 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
             }
         });
 
+        btnGrupoMedida.add(rLitro);
         rLitro.setText("LT");
+        rLitro.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rLitroItemStateChanged(evt);
+            }
+        });
         rLitro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rLitroActionPerformed(evt);
+            }
+        });
+
+        comboFornecedor.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboFornecedorItemStateChanged(evt);
             }
         });
 
@@ -287,12 +343,12 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(18, 18, 18)
-                                .addComponent(tfdPrecoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tffPrecoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(160, 160, 160)
+                                .addComponent(tffPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(147, 147, 147)
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comboFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -322,11 +378,11 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfdPrecoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfdPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tffPrecoCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(comboFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18))
+                    .addComponent(jLabel18)
+                    .addComponent(tffPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -337,6 +393,11 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
 
         checkItemCozinha.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         checkItemCozinha.setText("Item para cozinha");
+        checkItemCozinha.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkItemCozinhaItemStateChanged(evt);
+            }
+        });
         checkItemCozinha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkItemCozinhaActionPerformed(evt);
@@ -350,8 +411,21 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
 
         comboCozinha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        tfdTempoPreparo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tfdTempoPreparo.setText("0");
+        tfdTempoPreparo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfdTempoPreparoFocusLost(evt);
+            }
+        });
+
         checkInsumo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         checkInsumo.setText("Insumo");
+        checkInsumo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkInsumoItemStateChanged(evt);
+            }
+        });
         checkInsumo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkInsumoActionPerformed(evt);
@@ -411,7 +485,31 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
 
         jLabel16.setText("Estoque");
 
+        tfdEstoque.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tfdEstoque.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                tfdEstoqueCaretUpdate(evt);
+            }
+        });
+        tfdEstoque.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfdEstoqueFocusLost(evt);
+            }
+        });
+        tfdEstoque.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tfdEstoquePropertyChange(evt);
+            }
+        });
+
         jLabel17.setText("Estoque Mínimo");
+
+        tfdEstoqueMinimo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tfdEstoqueMinimo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfdEstoqueMinimoFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -446,9 +544,14 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
 
         jtabMais.addTab("Estoque", jPanel4);
 
-        tfdPrecoPromocao.addActionListener(new java.awt.event.ActionListener() {
+        tffPrecoPromocao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tffPrecoPromocaoFocusLost(evt);
+            }
+        });
+        tffPrecoPromocao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfdPrecoPromocaoActionPerformed(evt);
+                tffPrecoPromocaoActionPerformed(evt);
             }
         });
 
@@ -456,9 +559,27 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
 
         jLabel15.setText("Data Fim da Promoção");
 
+        tffDataFimPromocao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tffDataFimPromocaoFocusLost(evt);
+            }
+        });
         tffDataFimPromocao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tffDataFimPromocaoActionPerformed(evt);
+            }
+        });
+
+        checkInsumo1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        checkInsumo1.setText("Item em promoção");
+        checkInsumo1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkInsumo1ItemStateChanged(evt);
+            }
+        });
+        checkInsumo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkInsumo1ActionPerformed(evt);
             }
         });
 
@@ -469,23 +590,28 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(18, 18, 18))
+                    .addComponent(checkInsumo1)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(33, 33, 33)))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(tfdPrecoPromocao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tffDataFimPromocao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGap(18, 18, 18))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(33, 33, 33)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tffPrecoPromocao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tffDataFimPromocao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(575, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(16, 16, 16)
+                .addComponent(checkInsumo1)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfdPrecoPromocao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tffPrecoPromocao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -528,11 +654,23 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        Calendario cal = new Calendario();
+
+        if (btnGrupoMedida.isSelected(rKilo.getModel())) {
+
+        }
         if (Validacao.camposPreenchidos(camposObrigatorios())) {
             if (!tfdCodigo.getText().equals("")) {
-                //this.produto.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
                 this.produto.setDescricao(tfdNome.getText());
-                
+                this.produto.setEstoqueMinimo(Integer.parseInt(tfdEstoqueMinimo.getText()));
+                this.produto.setQuantidade(Integer.parseInt(tfdEstoque.getText()));
+                this.produto.setTempoPreparo(Integer.parseInt(tfdTempoPreparo.getText()));
+                this.produto.setValorCusto(tffPrecoCusto.getValue());
+                this.produto.setValorVenda(tffPrecoVenda.getValue());
+                this.produto.setClassificacaoId(classificacao);
+                this.produto.setFornecedorId(fornecedor);
+                this.produto.setSituacao(true);
+
                 MensagemRetorno msg = this.produtoController.atualizar(this.produto);
                 if (msg.isSucesso()) {
                     msg.setMensagem("Atualizado com sucesso!");
@@ -545,9 +683,16 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
                     clearFields();
                 }
             } else {
-                //this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
+                this.produto.setSituacao(true);
                 this.produto.setDescricao(tfdNome.getText());
-                
+                this.produto.setEstoqueMinimo(Integer.parseInt(tfdEstoqueMinimo.getText()));
+                this.produto.setQuantidade(Integer.parseInt(tfdEstoque.getText()));
+                this.produto.setTempoPreparo(Integer.parseInt(tfdTempoPreparo.getText()));
+                this.produto.setValorCusto(tffPrecoCusto.getValue());
+                this.produto.setValorVenda(tffPrecoVenda.getValue());
+                this.produto.setClassificacaoId(classificacao);
+                this.produto.setFornecedorId(fornecedor);
+
                 MensagemRetorno msg = this.produtoController.salvar(this.produto);
                 if (msg.isSucesso()) {
                     JOptionPane.showMessageDialog(null, msg.getMensagem());
@@ -559,10 +704,10 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
                     clearFields();
                 }
             }
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            
+
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -574,7 +719,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
             if (msg.isSucesso()) {
                 clearFields();
                 JOptionPane.showMessageDialog(null, msg.getMensagem());
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "Problemas ao excluir registro!\n\n"
                         + "Mensagem técnica: \n" + msg.getMensagem());
@@ -612,7 +757,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_tfdCodigoBarrasActionPerformed
 
     private void rUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rUnidadeActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_rUnidadeActionPerformed
 
     private void rKiloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rKiloActionPerformed
@@ -627,9 +772,9 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkItemCozinhaActionPerformed
 
-    private void tfdPrecoPromocaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdPrecoPromocaoActionPerformed
+    private void tffPrecoPromocaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tffPrecoPromocaoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfdPrecoPromocaoActionPerformed
+    }//GEN-LAST:event_tffPrecoPromocaoActionPerformed
 
     private void tffDataFimPromocaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tffDataFimPromocaoActionPerformed
         // TODO add your handling code here:
@@ -640,64 +785,180 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_checkInsumoActionPerformed
 
     private void comboCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCategoriaItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED)
-        {
-            int cod = ((ComboItens)comboCategoria.getSelectedItem()).getCodigo();
-            if(cod != 0) {
-                this.produto.setClassificacaoId((Classificacao) classificacaoController.consultarPorID(cod).getObjeto());
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int cod = ((ComboItens) comboCategoria.getSelectedItem()).getCodigo();
+            if (cod != 0) {
+                this.classificacao = (Classificacao) classificacaoController.consultarPorID(cod).getObjeto();
             }
         }
     }//GEN-LAST:event_comboCategoriaItemStateChanged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(jdProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(jdProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(jdProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(jdProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void checkItemCozinhaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkItemCozinhaItemStateChanged
+        if (checkItemCozinha.isSelected()) {
+            this.produto.setCozinha(true);
+        } else {
+            this.produto.setCozinha(false);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_checkItemCozinhaItemStateChanged
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                jdProduto dialog = new jdProduto(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+    private void tffDataFimPromocaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffDataFimPromocaoFocusLost
+        Calendario cal = new Calendario();
+        Date dataAtual = null;
+        Date data = null;
+        try {
+            dataAtual = cal.getDateDeString(cal.obterDataAtualDMA());
+            data = cal.getDateDeString(tffDataFimPromocao.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(jdProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (data.after(dataAtual)) {
+            this.produto.setDataFimPromocao(data);
+            this.produto.setValorPromocao(tffPrecoPromocao.getValue());
+        } else {
+            JOptionPane.showMessageDialog(null, "Data inválida");
+
+        }
+    }//GEN-LAST:event_tffDataFimPromocaoFocusLost
+
+    private void comboFornecedorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboFornecedorItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int cod = ((ComboItens) comboFornecedor.getSelectedItem()).getCodigo();
+            if (cod != 0) {
+                this.fornecedor = (Fornecedor) fornecedorController.consultarPorID(cod).getObjeto();
             }
-        });
-    }
+        }
+    }//GEN-LAST:event_comboFornecedorItemStateChanged
+
+    private void checkInsumoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkInsumoItemStateChanged
+        if (checkInsumo.isSelected()) {
+            this.produto.setInsumo(true);
+        } else {
+            this.produto.setInsumo(false);
+        }
+    }//GEN-LAST:event_checkInsumoItemStateChanged
+
+    private void tfdTempoPreparoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdTempoPreparoFocusLost
+        String trim = tfdTempoPreparo.getText().trim();
+        if (trim.length() == 0) {
+            tfdTempoPreparo.setText("0");
+        }
+    }//GEN-LAST:event_tfdTempoPreparoFocusLost
+
+    private void tfdEstoqueFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdEstoqueFocusLost
+        String trim = tfdEstoque.getText().trim();
+        if (trim.length() == 0) {
+            tfdEstoque.setText("0");
+            //this.produto.setQuantidade(Integer.parseInt(tfdEstoque.getText()));
+        }
+    }//GEN-LAST:event_tfdEstoqueFocusLost
+
+    private void tfdEstoqueMinimoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdEstoqueMinimoFocusLost
+        String trim = tfdEstoqueMinimo.getText().trim();
+        if (trim.length() == 0) {
+            tfdEstoqueMinimo.setText("0");
+            //this.produto.setEstoqueMinimo(Integer.parseInt(tfdEstoqueMinimo.getText()));
+        }
+    }//GEN-LAST:event_tfdEstoqueMinimoFocusLost
+
+    private void rUnidadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rUnidadeItemStateChanged
+        if (rUnidade.isSelected()) {
+            this.produto.setUnidadeMedida("UN");
+        }
+    }//GEN-LAST:event_rUnidadeItemStateChanged
+
+    private void rKiloItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rKiloItemStateChanged
+        if (rKilo.isSelected()) {
+            this.produto.setUnidadeMedida("KG");
+        }
+    }//GEN-LAST:event_rKiloItemStateChanged
+
+    private void rLitroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rLitroItemStateChanged
+        if (rLitro.isSelected()) {
+            this.produto.setUnidadeMedida("LT");
+        }
+    }//GEN-LAST:event_rLitroItemStateChanged
+
+    private void tfdEstoquePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tfdEstoquePropertyChange
+
+    }//GEN-LAST:event_tfdEstoquePropertyChange
+
+    private void tfdEstoqueCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfdEstoqueCaretUpdate
+
+    }//GEN-LAST:event_tfdEstoqueCaretUpdate
+
+    private void tffPrecoPromocaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffPrecoPromocaoFocusLost
+        if (checkInsumo1.isSelected()) {
+            this.produto.setValorPromocao(tffPrecoPromocao.getValue());
+            try {
+                this.produto.setDataFimPromocao(calendario.getDateDeString(tffDataFimPromocao.getText()));
+            } catch (Exception ex) {
+                Logger.getLogger(jdProduto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            tffPrecoPromocao.setText("");
+            tffDataFimPromocao.setText("");
+            this.produto.setValorPromocao(null);
+            Date date = null;
+            this.produto.setDataFimPromocao(date);
+        }
+
+        //        Calendario cal = new Calendario();
+//        if (!tffPrecoPromocao.getText().equals("R$ 0,00")) {
+//            tffDataFimPromocao.setText(cal.obterDataAtualMais(5));
+//            try {
+//                this.produto.setDataFimPromocao(cal.getDateDeString(tffDataFimPromocao.getText()));
+//            } catch (Exception ex) {
+//                Logger.getLogger(jdProduto.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            this.produto.setValorPromocao(tffPrecoPromocao.getValue());
+//        } else {
+//            tffDataFimPromocao.setText("");
+//            tffPrecoPromocao.setText("");
+//            try {
+//                this.produto.setDataFimPromocao(cal.getDateDeString(tffDataFimPromocao.getText()));
+//            } catch (Exception ex) {
+//                Logger.getLogger(jdProduto.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+
+    }//GEN-LAST:event_tffPrecoPromocaoFocusLost
+
+    private void checkInsumo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkInsumo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkInsumo1ActionPerformed
+
+    private void checkInsumo1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkInsumo1ItemStateChanged
+        if (checkInsumo1.isSelected()) {
+            calendario = new Calendario();
+            tffDataFimPromocao.setText(calendario.obterDataAtualMais(1));
+            tffDataFimPromocao.setEnabled(true);
+            this.produto.setValorPromocao(tffPrecoPromocao.getValue());
+            try {
+                this.produto.setDataFimPromocao(calendario.getDateDeString(tffDataFimPromocao.getText()));
+            } catch (Exception ex) {
+                Logger.getLogger(jdProduto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            tffPrecoPromocao.setText("");
+            tffDataFimPromocao.setText("");
+            tffDataFimPromocao.setEnabled(false);
+            this.produto.setValorPromocao(null);
+            Date date = null;
+            this.produto.setDataFimPromocao(date);
+        }
+
+    }//GEN-LAST:event_checkInsumo1ItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
+    private javax.swing.ButtonGroup btnGrupoMedida;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox checkInsumo;
+    private javax.swing.JCheckBox checkInsumo1;
     private javax.swing.JCheckBox checkItemCozinha;
     private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JComboBox<String> comboCozinha;
@@ -732,34 +993,95 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     private javax.swing.JFormattedTextField tfdEstoque;
     private javax.swing.JFormattedTextField tfdEstoqueMinimo;
     private javax.swing.JTextField tfdNome;
-    private apoio.MoedaFormatada tfdPrecoCusto;
-    private apoio.MoedaFormatada tfdPrecoPromocao;
-    private javax.swing.JFormattedTextField tfdPrecoVenda;
     private javax.swing.JFormattedTextField tfdTempoPreparo;
     private javax.swing.JFormattedTextField tffDataFimPromocao;
+    private apoio.MoedaFormatada tffPrecoCusto;
+    private apoio.MoedaFormatada tffPrecoPromocao;
+    private apoio.MoedaFormatada tffPrecoVenda;
     // End of variables declaration//GEN-END:variables
 
     private JTextField[] camposObrigatorios() {
         JTextField[] campos = {this.tfdNome};
+        if (this.tffPrecoCusto.getText().equals("R$ 0,00")) {
+            this.tffPrecoCusto.setText("");
+            JTextField[] campose = {this.tfdNome, this.tffPrecoCusto};
+            campos = campose;
+            System.out.println("PRECO CUSTO = NADA");
+        }
+        if (this.produto.getUnidadeMedida().equals("")) {
+            this.produto.setUnidadeMedida("UN");
+        }
+
         return campos;
     }
-    
+
     private void clearFields() {
         tfdCodigo.setText("");
         tfdNome.setText("");
-        tfdPrecoVenda.setText("");
+        tffPrecoVenda.setText("");
+        tfdCodigoBarras.setText("");
+        tfdEstoque.setText("0");
+        tfdEstoqueMinimo.setText("0");
+        tfdTempoPreparo.setText("0");
+        tffDataFimPromocao.setText("");
+        tffPrecoCusto.setText("");
+        tffPrecoPromocao.setText("");
+        tffPrecoVenda.setText("");
+        comboCategoria.setSelectedIndex(0);
+        comboFornecedor.setSelectedIndex(0);
+        checkInsumo.setSelected(false);
+        checkItemCozinha.setSelected(false);
+        checkInsumo1.setSelected(false);
+        tffDataFimPromocao.setEditable(false);
         this.produto = new Produto();
     }
-    
+
     @Override
     public void carregar(int codigo) {
+
         MensagemRetorno retorno = this.produtoController.consultarPorID(codigo);
         this.produto = (Produto) retorno.getObjeto();
-        this.comboCategoria.setName(this.produto.getClassificacaoId().getClassificacao());
         this.tfdCodigo.setText(this.produto.getId() + "");
         this.tfdNome.setText(this.produto.getDescricao() + "");
+        this.comboCategoria.setSelectedIndex(this.produto.getClassificacaoId().getId().intValue());
+        this.comboFornecedor.setSelectedIndex(this.produto.getFornecedorId().getId().intValue());
+        if (this.produto.getUnidadeMedida().equals("UN ")) {
+            rUnidade.setSelected(true);
+        } else if (this.produto.getUnidadeMedida().equals("KG ")) {
+            rKilo.setSelected(true);
+        } else if (this.produto.getUnidadeMedida().equals("LT ")) {
+            rLitro.setSelected(true);
+        }
+        this.tffPrecoCusto.setText(this.produto.getValorCusto().toString());
+        this.tffPrecoVenda.setText(this.produto.getValorVenda().toString());
+        if (!this.produto.getInsumo()) {
+            this.checkInsumo.setSelected(false);
+        } else {
+            this.checkInsumo.setSelected(true);
+        }
+        if (!this.produto.getCozinha()) {
+            this.checkItemCozinha.setSelected(false);
+        } else {
+            this.checkItemCozinha.setSelected(true);
+        }
+        this.tfdTempoPreparo.setText(this.produto.getTempoPreparo() + "");
+        this.tfdEstoque.setText(this.produto.getQuantidade() + "");
+        this.tfdEstoqueMinimo.setText(this.produto.getEstoqueMinimo() + "");
+        if (this.produto.getValorPromocao() != null) {
+            this.checkInsumo1.setSelected(true);
+            this.tffDataFimPromocao.setEditable(true);
+            this.tffPrecoPromocao.setText(this.produto.getValorPromocao().toString());
+            Calendario c = new Calendario();
+            this.tffDataFimPromocao.setText(c.getDataDeDate(this.produto.getDataFimPromocao()));
+
+        } else {
+            this.checkInsumo1.setSelected(false);
+            this.tffPrecoPromocao.setText("0");
+            this.tffDataFimPromocao.setText("");
+        }
+
     }
-    
+
     @Override
     public void limparCampos(int codigo) {
         if (this.produto.getId() == codigo) {
