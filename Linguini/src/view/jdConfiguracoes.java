@@ -178,11 +178,12 @@ public class jdConfiguracoes extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(ftfCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboAuditoria)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(ftfCapacidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboAuditoria)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
@@ -225,13 +226,13 @@ public class jdConfiguracoes extends javax.swing.JDialog {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         JOptionPane.showMessageDialog(this, "A capacidade da cozinha está relacionado ao quantos produtos ela consegue preparar ao mesmo tempo. "
-                + "                       \n Isso irá ajudar o sistema a calcular o tempo médio de espera do cliente.");
+                + "                       \n Isso irá ajudar o sistema a calcular o tempo médio de espera do cliente.", "Ajuda", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void cboAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboAuditoriaActionPerformed
        if(!this.cboAuditoria.isSelected()) {
-            int opcao = JOptionPane.showConfirmDialog(this, "Nenhuma informação sobre as alterações do sistema serão mapeadas com esta opção desativada."
-                    + "                                 \n Você deseja confimar esta operação?", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            int opcao = CustomJOption.confirmacao("Aviso", "Nenhuma informação sobre as alterações do sistema serão mapeadas com esta opção desativada."
+                    + "                                 \n Você deseja confimar esta operação?", JOptionPane.INFORMATION_MESSAGE);
             this.cboAuditoria.setSelected(opcao != JOptionPane.YES_OPTION);
        }
     }//GEN-LAST:event_cboAuditoriaActionPerformed

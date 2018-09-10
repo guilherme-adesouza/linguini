@@ -181,8 +181,7 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
 
         jLabel3.setText("Código");
 
-        tfdCodigo.setEditable(false);
-        tfdCodigo.setPreferredSize(new java.awt.Dimension(16, 30));
+        tfdCodigo.setEnabled(false);
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeDigitado.id}"), tfdCodigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
@@ -192,8 +191,6 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
                 tfdCodigoActionPerformed(evt);
             }
         });
-
-        tfdNome.setPreferredSize(new java.awt.Dimension(16, 30));
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${cidadeControl.cidadeDigitado.nome}"), tfdNome, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
@@ -208,7 +205,6 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
 
         jLabel8.setText("Complemento");
 
-        tfdLogradouro.setPreferredSize(new java.awt.Dimension(16, 30));
         tfdLogradouro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfdLogradouroActionPerformed(evt);
@@ -217,14 +213,12 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
 
         jLabel9.setText("Bairro");
 
-        tfdBairro.setPreferredSize(new java.awt.Dimension(16, 30));
         tfdBairro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfdBairroActionPerformed(evt);
             }
         });
 
-        tfdNumero.setPreferredSize(new java.awt.Dimension(16, 30));
         tfdNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfdNumeroActionPerformed(evt);
@@ -233,7 +227,6 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
 
         jLabel4.setText("Número");
 
-        tfdComplemento.setPreferredSize(new java.awt.Dimension(16, 30));
         tfdComplemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfdComplementoActionPerformed(evt);
@@ -251,8 +244,6 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
         jLabel11.setText("Endereço");
 
         jLabel6.setText("Telefone 2");
-
-        ftfTelefone1.setPreferredSize(new java.awt.Dimension(16, 30));
 
         ftfTelefone2.setPreferredSize(new java.awt.Dimension(16, 30));
 
@@ -283,7 +274,7 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
                 .addComponent(ftfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +318,7 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
                                 .addGap(29, 29, 29)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(tfdNome))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -358,18 +349,19 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(72, 72, 72))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(43, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                        .addContainerGap(23, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(263, 263, 263)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(tfdBairro))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -436,14 +428,6 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfdCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdCodigoActionPerformed
-
-    private void tfdNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdNomeActionPerformed
-
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         if(this.pessoa.getId() == null) {
             this.limparCampos(0);
@@ -498,22 +482,6 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
         pesquisa.setVisible(true);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void tfdLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdLogradouroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdLogradouroActionPerformed
-
-    private void tfdBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdBairroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdBairroActionPerformed
-
-    private void tfdNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdNumeroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdNumeroActionPerformed
-
-    private void tfdComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdComplementoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdComplementoActionPerformed
-
     private void cboEntregadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboEntregadorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboEntregadorActionPerformed
@@ -531,6 +499,30 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
             }
         }
     }//GEN-LAST:event_cmbCidadeItemStateChanged
+
+    private void tfdBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdBairroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfdBairroActionPerformed
+
+    private void tfdComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdComplementoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfdComplementoActionPerformed
+
+    private void tfdNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdNumeroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfdNumeroActionPerformed
+
+    private void tfdLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdLogradouroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfdLogradouroActionPerformed
+
+    private void tfdNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfdNomeActionPerformed
+
+    private void tfdCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfdCodigoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
