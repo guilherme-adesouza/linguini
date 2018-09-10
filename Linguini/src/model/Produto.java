@@ -48,7 +48,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Produto.findByInsumo", query = "SELECT p FROM Produto p WHERE p.insumo = :insumo")
     , @NamedQuery(name = "Produto.findByUnidadeMedida", query = "SELECT p FROM Produto p WHERE p.unidadeMedida = :unidadeMedida")
     , @NamedQuery(name = "Produto.findByValorPromocao", query = "SELECT p FROM Produto p WHERE p.valorPromocao = :valorPromocao")
-    , @NamedQuery(name = "Produto.findByDataFimPromocao", query = "SELECT p FROM Produto p WHERE p.dataFimPromocao = :dataFimPromocao")})
+    , @NamedQuery(name = "Produto.findByDataFimPromocao", query = "SELECT p FROM Produto p WHERE p.dataFimPromocao = :dataFimPromocao")
+    , @NamedQuery(name = "Produto.findBySituacao", query = "SELECT p FROM Produto p WHERE p.situacao = :situacao")})
 public class Produto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -76,6 +77,9 @@ public class Produto implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private boolean cozinha;
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private boolean situacao;
     @Basic(optional = false)
     @Column(name = "estoque_minimo", nullable = false)
     private int estoqueMinimo;
@@ -107,7 +111,7 @@ public class Produto implements Serializable {
         this.id = id;
     }
 
-    public Produto(Long id, String descricao, BigDecimal valorCusto, BigDecimal valorVenda, int quantidade, int tempoPreparo, boolean cozinha, int estoqueMinimo, boolean insumo) {
+    public Produto(Long id, String descricao, BigDecimal valorCusto, BigDecimal valorVenda, int quantidade, int tempoPreparo, boolean cozinha, int estoqueMinimo, boolean insumo, boolean situacao) {
         this.id = id;
         this.descricao = descricao;
         this.valorCusto = valorCusto;
@@ -117,6 +121,7 @@ public class Produto implements Serializable {
         this.cozinha = cozinha;
         this.estoqueMinimo = estoqueMinimo;
         this.insumo = insumo;
+        this.situacao = situacao;
     }
 
     public Long getId() {
@@ -189,6 +194,14 @@ public class Produto implements Serializable {
 
     public void setInsumo(boolean insumo) {
         this.insumo = insumo;
+    }
+    
+    public boolean getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(boolean situacao) {
+        this.situacao = situacao;
     }
 
     public String getUnidadeMedida() {
