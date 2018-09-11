@@ -19,29 +19,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author vitorolavo
+ * @author guilherme-souza
  */
 @Entity
-@Table(catalog = "linguini", schema = "public")
+@Table(name = "cozinha", catalog = "linguini", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cozinha.findAll", query = "SELECT c FROM Cozinha c")
     , @NamedQuery(name = "Cozinha.findById", query = "SELECT c FROM Cozinha c WHERE c.id = :id")
-    , @NamedQuery(name = "Cozinha.findByCapacidade", query = "SELECT c FROM Cozinha c WHERE c.capacidade = :capacidade")})
+    , @NamedQuery(name = "Cozinha.findByCapacidade", query = "SELECT c FROM Cozinha c WHERE c.capacidade = :capacidade")
+    , @NamedQuery(name = "Cozinha.findByAuditoria", query = "SELECT c FROM Cozinha c WHERE c.auditoria = :auditoria")})
 public class Cozinha implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "capacidade", nullable = false)
     private int capacidade;
-    @Basic(optional = true)
-    @Column(nullable = true)
-    private boolean auditoria;
+    @Column(name = "auditoria")
+    private Boolean auditoria;
 
     public Cozinha() {
     }
@@ -54,13 +54,6 @@ public class Cozinha implements Serializable {
         this.id = id;
         this.capacidade = capacidade;
     }
-    
-    public Cozinha(Long id, int capacidade, boolean auditoria) {
-        this.id = id;
-        this.capacidade = capacidade;
-        this.auditoria = auditoria;
-    }
-
 
     public Long getId() {
         return id;
@@ -78,11 +71,11 @@ public class Cozinha implements Serializable {
         this.capacidade = capacidade;
     }
 
-    public boolean isAuditoria() {
+    public Boolean getAuditoria() {
         return auditoria;
     }
 
-    public void setAuditoria(boolean auditoria) {
+    public void setAuditoria(Boolean auditoria) {
         this.auditoria = auditoria;
     }
 

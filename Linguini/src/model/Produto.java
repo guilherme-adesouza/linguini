@@ -13,7 +13,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,10 +29,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vitorolavo
+ * @author guilherme-souza
  */
 @Entity
-@Table(catalog = "linguini", schema = "public")
+@Table(name = "produto", catalog = "linguini", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Produto.findAll", query = "SELECT p FROM Produto p")
@@ -48,7 +47,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Produto.findByInsumo", query = "SELECT p FROM Produto p WHERE p.insumo = :insumo")
     , @NamedQuery(name = "Produto.findByUnidadeMedida", query = "SELECT p FROM Produto p WHERE p.unidadeMedida = :unidadeMedida")
     , @NamedQuery(name = "Produto.findByValorPromocao", query = "SELECT p FROM Produto p WHERE p.valorPromocao = :valorPromocao")
+    , @NamedQuery(name = "Produto.findByDataInicioPromocao", query = "SELECT p FROM Produto p WHERE p.dataInicioPromocao = :dataInicioPromocao")
     , @NamedQuery(name = "Produto.findByDataFimPromocao", query = "SELECT p FROM Produto p WHERE p.dataFimPromocao = :dataFimPromocao")
+    , @NamedQuery(name = "Produto.findByCodigoBarra", query = "SELECT p FROM Produto p WHERE p.codigoBarra = :codigoBarra")
     , @NamedQuery(name = "Produto.findBySituacao", query = "SELECT p FROM Produto p WHERE p.situacao = :situacao")})
 public class Produto implements Serializable {
 
@@ -56,10 +57,10 @@ public class Produto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
     @Basic(optional = false)
-    @Column(nullable = false, length = 500)
+    @Column(name = "descricao", nullable = false, length = 500)
     private String descricao;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
@@ -69,39 +70,44 @@ public class Produto implements Serializable {
     @Column(name = "valor_venda", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorVenda;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "quantidade", nullable = false)
     private int quantidade;
     @Basic(optional = false)
     @Column(name = "tempo_preparo", nullable = false)
     private int tempoPreparo;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "cozinha", nullable = false)
     private boolean cozinha;
-    @Basic(optional = false)
-    @Column(nullable = false)
-    private boolean situacao;
     @Basic(optional = false)
     @Column(name = "estoque_minimo", nullable = false)
     private int estoqueMinimo;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "insumo", nullable = false)
     private boolean insumo;
     @Column(name = "unidade_medida", length = 3)
     private String unidadeMedida;
     @Column(name = "valor_promocao", precision = 10, scale = 2)
     private BigDecimal valorPromocao;
+    @Column(name = "data_inicio_promocao")
+    @Temporal(TemporalType.DATE)
+    private Date dataInicioPromocao;
     @Column(name = "data_fim_promocao")
     @Temporal(TemporalType.DATE)
     private Date dataFimPromocao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtoId", fetch = FetchType.EAGER)
+    @Column(name = "codigo_barra")
+    private Integer codigoBarra;
+    @Basic(optional = false)
+    @Column(name = "situacao", nullable = false)
+    private boolean situacao;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtoId")
     private List<ItemPedido> itemPedidoList;
     @JoinColumn(name = "classificacao_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Classificacao classificacaoId;
-    @JoinColumn(name = "fornecedor_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "fornecedor_id", referencedColumnName = "id")
+    @ManyToOne
     private Fornecedor fornecedorId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtoId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtoId")
     private List<Entrada> entradaList;
 
     public Produto() {
@@ -195,14 +201,6 @@ public class Produto implements Serializable {
     public void setInsumo(boolean insumo) {
         this.insumo = insumo;
     }
-    
-    public boolean getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(boolean situacao) {
-        this.situacao = situacao;
-    }
 
     public String getUnidadeMedida() {
         return unidadeMedida;
@@ -220,12 +218,36 @@ public class Produto implements Serializable {
         this.valorPromocao = valorPromocao;
     }
 
+    public Date getDataInicioPromocao() {
+        return dataInicioPromocao;
+    }
+
+    public void setDataInicioPromocao(Date dataInicioPromocao) {
+        this.dataInicioPromocao = dataInicioPromocao;
+    }
+
     public Date getDataFimPromocao() {
         return dataFimPromocao;
     }
 
     public void setDataFimPromocao(Date dataFimPromocao) {
         this.dataFimPromocao = dataFimPromocao;
+    }
+
+    public Integer getCodigoBarra() {
+        return codigoBarra;
+    }
+
+    public void setCodigoBarra(Integer codigoBarra) {
+        this.codigoBarra = codigoBarra;
+    }
+
+    public boolean getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(boolean situacao) {
+        this.situacao = situacao;
     }
 
     @XmlTransient

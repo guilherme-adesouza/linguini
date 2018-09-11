@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author vitorolavo
+ * @author guilherme-souza
  */
 @Entity
 @Table(name = "item_pedido", catalog = "linguini", schema = "public")
@@ -40,22 +39,22 @@ public class ItemPedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "valor", nullable = false, precision = 10, scale = 2)
     private BigDecimal valor;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "quantidade", nullable = false)
     private int quantidade;
-    @Column(precision = 10, scale = 2)
+    @Column(name = "desconto", precision = 10, scale = 2)
     private BigDecimal desconto;
     @JoinColumn(name = "pedido_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Pedido pedidoId;
     @JoinColumn(name = "produto_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Produto produtoId;
 
     public ItemPedido() {

@@ -26,13 +26,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author guilherme-souza
  */
 @Entity
-@Table(name = "grupo", catalog = "linguini", schema = "public")
+@Table(name = "telas", catalog = "linguini", schema = "public")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Grupo.findAll", query = "SELECT g FROM Grupo g")
-    , @NamedQuery(name = "Grupo.findById", query = "SELECT g FROM Grupo g WHERE g.id = :id")
-    , @NamedQuery(name = "Grupo.findByNome", query = "SELECT g FROM Grupo g WHERE g.nome = :nome")})
-public class Grupo implements Serializable {
+    @NamedQuery(name = "Telas.findAll", query = "SELECT t FROM Telas t")
+    , @NamedQuery(name = "Telas.findById", query = "SELECT t FROM Telas t WHERE t.id = :id")
+    , @NamedQuery(name = "Telas.findByTela", query = "SELECT t FROM Telas t WHERE t.tela = :tela")})
+public class Telas implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,25 +41,23 @@ public class Grupo implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "nome", nullable = false, length = 200)
-    private String nome;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grupoId")
-    private List<PermissaoBotao> permissaoBotaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grupoId")
+    @Column(name = "tela", nullable = false, length = 2147483647)
+    private String tela;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "telasId")
     private List<Permissao> permissaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grupoId")
-    private List<Usuario> usuarioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "telasId")
+    private List<Botoes> botoesList;
 
-    public Grupo() {
+    public Telas() {
     }
 
-    public Grupo(Integer id) {
+    public Telas(Integer id) {
         this.id = id;
     }
 
-    public Grupo(Integer id, String nome) {
+    public Telas(Integer id, String tela) {
         this.id = id;
-        this.nome = nome;
+        this.tela = tela;
     }
 
     public Integer getId() {
@@ -70,21 +68,12 @@ public class Grupo implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getTela() {
+        return tela;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    @XmlTransient
-    public List<PermissaoBotao> getPermissaoBotaoList() {
-        return permissaoBotaoList;
-    }
-
-    public void setPermissaoBotaoList(List<PermissaoBotao> permissaoBotaoList) {
-        this.permissaoBotaoList = permissaoBotaoList;
+    public void setTela(String tela) {
+        this.tela = tela;
     }
 
     @XmlTransient
@@ -97,12 +86,12 @@ public class Grupo implements Serializable {
     }
 
     @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
+    public List<Botoes> getBotoesList() {
+        return botoesList;
     }
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    public void setBotoesList(List<Botoes> botoesList) {
+        this.botoesList = botoesList;
     }
 
     @Override
@@ -115,10 +104,10 @@ public class Grupo implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Grupo)) {
+        if (!(object instanceof Telas)) {
             return false;
         }
-        Grupo other = (Grupo) object;
+        Telas other = (Telas) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -127,7 +116,7 @@ public class Grupo implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Grupo[ id=" + id + " ]";
+        return "model.Telas[ id=" + id + " ]";
     }
     
 }

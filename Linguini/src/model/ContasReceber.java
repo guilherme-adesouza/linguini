@@ -11,7 +11,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author vitorolavo
+ * @author guilherme-souza
  */
 @Entity
 @Table(name = "contas_receber", catalog = "linguini", schema = "public")
@@ -45,7 +44,7 @@ public class ContasReceber implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
@@ -58,15 +57,15 @@ public class ContasReceber implements Serializable {
     @Column(name = "data_pagamento")
     @Temporal(TemporalType.DATE)
     private Date dataPagamento;
-    @Column(precision = 10, scale = 2)
+    @Column(name = "desconto", precision = 10, scale = 2)
     private BigDecimal desconto;
-    @Column(precision = 10, scale = 2)
+    @Column(name = "acrescimo", precision = 10, scale = 2)
     private BigDecimal acrescimo;
     @JoinColumn(name = "forma_pagamento_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private FormaPagamento formaPagamentoId;
     @JoinColumn(name = "pedido_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Pedido pedidoId;
 
     public ContasReceber() {

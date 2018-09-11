@@ -8,10 +8,8 @@ package model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,10 +22,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vitorolavo
+ * @author guilherme-souza
  */
 @Entity
-@Table(catalog = "linguini", schema = "public")
+@Table(name = "fornecedor", catalog = "linguini", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Fornecedor.findAll", query = "SELECT f FROM Fornecedor f")
@@ -43,21 +41,21 @@ public class Fornecedor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
     @Basic(optional = false)
     @Column(name = "nome_fantasia", nullable = false, length = 45)
     private String nomeFantasia;
-    @Column(length = 20)
+    @Column(name = "telefone", length = 20)
     private String telefone;
     @Column(name = "razao_social", length = 45)
     private String razaoSocial;
-    @Column(length = 14)
+    @Column(name = "cnpj", length = 14)
     private String cnpj;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "situacao", nullable = false)
     private boolean situacao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fornecedorId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "fornecedorId")
     private List<Produto> produtoList;
 
     public Fornecedor() {

@@ -46,8 +46,9 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/linguini</property>
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">postgres</property>
-    <property name="hbm2ddl.auto">update</property>
+    <property name="hbm2dll.auto">update</property>
     <property name="show_sql">true</property>
+    <mapping class="model.Botoes"/>
     <mapping class="model.Cidade"/>
     <mapping class="model.Pessoa"/>
     <mapping class="model.Grupo"/>
@@ -55,7 +56,6 @@ Contributor(s):
     <mapping class="model.Cozinha"/>
     <mapping class="model.FormaPagamento"/>
     <mapping class="model.Estado"/>
-    <mapping class="model.Auditoria"/>
     <mapping class="model.ContasReceber"/>
     <mapping class="model.Pedido"/>
     <mapping class="model.Funcionario"/>
@@ -66,5 +66,8 @@ Contributor(s):
     <mapping class="model.Classificacao"/>
     <mapping class="model.Fornecedor"/>
     <mapping class="model.Caixa"/>
+    <mapping class="model.Telas"/>
+    <mapping class="model.Permissao"/>
+    <mapping class="model.PermissaoBotao"/>
   </session-factory>
 </hibernate-configuration>

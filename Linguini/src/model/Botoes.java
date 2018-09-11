@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,13 +28,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author guilherme-souza
  */
 @Entity
-@Table(name = "grupo", catalog = "linguini", schema = "public")
+@Table(name = "botoes", catalog = "linguini", schema = "public")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Grupo.findAll", query = "SELECT g FROM Grupo g")
-    , @NamedQuery(name = "Grupo.findById", query = "SELECT g FROM Grupo g WHERE g.id = :id")
-    , @NamedQuery(name = "Grupo.findByNome", query = "SELECT g FROM Grupo g WHERE g.nome = :nome")})
-public class Grupo implements Serializable {
+    @NamedQuery(name = "Botoes.findAll", query = "SELECT b FROM Botoes b")
+    , @NamedQuery(name = "Botoes.findById", query = "SELECT b FROM Botoes b WHERE b.id = :id")
+    , @NamedQuery(name = "Botoes.findByNome", query = "SELECT b FROM Botoes b WHERE b.nome = :nome")})
+public class Botoes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,23 +43,22 @@ public class Grupo implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "nome", nullable = false, length = 200)
+    @Column(name = "nome", nullable = false, length = 2147483647)
     private String nome;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grupoId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "botoesId")
     private List<PermissaoBotao> permissaoBotaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grupoId")
-    private List<Permissao> permissaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grupoId")
-    private List<Usuario> usuarioList;
+    @JoinColumn(name = "telas_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private Telas telasId;
 
-    public Grupo() {
+    public Botoes() {
     }
 
-    public Grupo(Integer id) {
+    public Botoes(Integer id) {
         this.id = id;
     }
 
-    public Grupo(Integer id, String nome) {
+    public Botoes(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
     }
@@ -87,22 +88,12 @@ public class Grupo implements Serializable {
         this.permissaoBotaoList = permissaoBotaoList;
     }
 
-    @XmlTransient
-    public List<Permissao> getPermissaoList() {
-        return permissaoList;
+    public Telas getTelasId() {
+        return telasId;
     }
 
-    public void setPermissaoList(List<Permissao> permissaoList) {
-        this.permissaoList = permissaoList;
-    }
-
-    @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
-    }
-
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    public void setTelasId(Telas telasId) {
+        this.telasId = telasId;
     }
 
     @Override
@@ -115,10 +106,10 @@ public class Grupo implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Grupo)) {
+        if (!(object instanceof Botoes)) {
             return false;
         }
-        Grupo other = (Grupo) object;
+        Botoes other = (Botoes) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -127,7 +118,7 @@ public class Grupo implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Grupo[ id=" + id + " ]";
+        return "model.Botoes[ id=" + id + " ]";
     }
     
 }

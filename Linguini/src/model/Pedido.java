@@ -13,7 +13,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,10 +29,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vitorolavo
+ * @author guilherme-souza
  */
 @Entity
-@Table(catalog = "linguini", schema = "public")
+@Table(name = "pedido", catalog = "linguini", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pedido.findAll", query = "SELECT p FROM Pedido p")
@@ -55,7 +54,7 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
     @Basic(optional = false)
     @Column(name = "data_hora", nullable = false)
@@ -66,36 +65,39 @@ public class Pedido implements Serializable {
     private Date dataHoraFechado;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "valor", nullable = false, precision = 10, scale = 2)
     private BigDecimal valor;
+    @Column(name = "mesa")
     private Integer mesa;
-    @Column(length = 150)
+    @Column(name = "logradouro", length = 150)
     private String logradouro;
-    @Column(length = 150)
+    @Column(name = "bairro", length = 150)
     private String bairro;
-    @Column(length = 150)
+    @Column(name = "complemento", length = 150)
     private String complemento;
+    @Column(name = "numero")
     private Integer numero;
     @Column(name = "tempo_deslocamento")
     private Integer tempoDeslocamento;
+    @Column(name = "status")
     private Character status;
-    @Column(length = 2147483647)
+    @Column(name = "observacao", length = 2147483647)
     private String observacao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoId")
     private List<ItemPedido> itemPedidoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoId")
     private List<ContasReceber> contasReceberList;
     @JoinColumn(name = "entregador_pessoa_id", referencedColumnName = "pessoa_id")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private Entregador entregadorPessoaId;
     @JoinColumn(name = "pessoa_id", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private Pessoa pessoaId;
     @JoinColumn(name = "caixa_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Usuario caixaId;
     @JoinColumn(name = "atendente_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Usuario atendenteId;
 
     public Pedido() {

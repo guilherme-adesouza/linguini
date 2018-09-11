@@ -11,7 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,10 +23,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vitorolavo
+ * @author guilherme-souza
  */
 @Entity
-@Table(catalog = "linguini", schema = "public")
+@Table(name = "classificacao", catalog = "linguini", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Classificacao.findAll", query = "SELECT c FROM Classificacao c")
@@ -40,15 +39,15 @@ public class Classificacao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
     @Basic(optional = false)
-    @Column(nullable = false, length = 150)
+    @Column(name = "classificacao", nullable = false, length = 150)
     private String classificacao;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "situacao", nullable = false)
     private boolean situacao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classificacaoId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classificacaoId")
     private List<Produto> produtoList;
 
     public Classificacao() {

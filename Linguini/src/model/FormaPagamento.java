@@ -11,7 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vitorolavo
+ * @author guilherme-souza
  */
 @Entity
 @Table(name = "forma_pagamento", catalog = "linguini", schema = "public")
@@ -40,15 +39,15 @@ public class FormaPagamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
     @Basic(optional = false)
-    @Column(nullable = false, length = 150)
+    @Column(name = "descricao", nullable = false, length = 150)
     private String descricao;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "prazo", nullable = false)
     private int prazo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "formaPagamentoId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "formaPagamentoId")
     private List<ContasReceber> contasReceberList;
 
     public FormaPagamento() {

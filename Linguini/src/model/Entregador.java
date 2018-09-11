@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -23,10 +22,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vitorolavo
+ * @author guilherme-souza
  */
 @Entity
-@Table(catalog = "linguini", schema = "public")
+@Table(name = "entregador", catalog = "linguini", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Entregador.findAll", query = "SELECT e FROM Entregador e")
@@ -40,12 +39,12 @@ public class Entregador implements Serializable {
     @Column(name = "pessoa_id", nullable = false)
     private Long pessoaId;
     @Basic(optional = false)
-    @Column(nullable = false, length = 7)
+    @Column(name = "placa", nullable = false, length = 7)
     private String placa;
     @JoinColumn(name = "pessoa_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.EAGER)
+    @OneToOne(optional = false)
     private Pessoa pessoa;
-    @OneToMany(mappedBy = "entregadorPessoaId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "entregadorPessoaId")
     private List<Pedido> pedidoList;
 
     public Entregador() {

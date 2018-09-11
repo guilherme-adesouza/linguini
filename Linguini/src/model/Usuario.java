@@ -11,7 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,10 +25,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vitorolavo
+ * @author guilherme-souza
  */
 @Entity
-@Table(catalog = "linguini", schema = "public")
+@Table(name = "usuario", catalog = "linguini", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
@@ -43,30 +42,28 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
     @Basic(optional = false)
-    @Column(nullable = false, length = 150)
+    @Column(name = "nome", nullable = false, length = 150)
     private String nome;
     @Basic(optional = false)
-    @Column(nullable = false, length = 150)
+    @Column(name = "senha", nullable = false, length = 150)
     private String senha;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "situacao", nullable = false)
     private boolean situacao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId")
     private List<Caixa> caixaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "caixaId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "caixaId")
     private List<Pedido> pedidoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atendenteId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atendenteId")
     private List<Pedido> pedidoList1;
     @JoinColumn(name = "grupo_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Grupo grupoId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId")
     private List<Funcionario> funcionarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId", fetch = FetchType.EAGER)
-    private List<Auditoria> auditoriaList;
 
     public Usuario() {
     }
@@ -156,15 +153,6 @@ public class Usuario implements Serializable {
 
     public void setFuncionarioList(List<Funcionario> funcionarioList) {
         this.funcionarioList = funcionarioList;
-    }
-
-    @XmlTransient
-    public List<Auditoria> getAuditoriaList() {
-        return auditoriaList;
-    }
-
-    public void setAuditoriaList(List<Auditoria> auditoriaList) {
-        this.auditoriaList = auditoriaList;
     }
 
     @Override

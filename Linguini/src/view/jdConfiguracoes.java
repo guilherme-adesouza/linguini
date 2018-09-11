@@ -19,7 +19,7 @@ public class jdConfiguracoes extends javax.swing.JDialog {
         this.cozinhaController = new CozinhaController();
         this.cozinha = (Cozinha) this.cozinhaController.consultarPorID(1).getObjeto();
         this.ftfCapacidade.setText(this.cozinha.getCapacidade()+"");
-        this.cboAuditoria.setSelected(this.cozinha.isAuditoria());
+        this.cboAuditoria.setSelected(this.cozinha.getAuditoria());
     }
 
     /**

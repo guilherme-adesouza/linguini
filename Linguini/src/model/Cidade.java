@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,10 +24,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vitorolavo
+ * @author guilherme-souza
  */
 @Entity
-@Table(catalog = "linguini", schema = "public")
+@Table(name = "cidade", catalog = "linguini", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cidade.findAll", query = "SELECT c FROM Cidade c")
@@ -45,17 +44,17 @@ public class Cidade implements Serializable {
     @Column(name = "cod_cidade", nullable = false)
     private Long codCidade;
     @Basic(optional = false)
-    @Column(nullable = false, length = 45)
+    @Column(name = "nome", nullable = false, length = 45)
     private String nome;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "situacao", nullable = false)
     private boolean situacao;
-    @Column(length = 9)
+    @Column(name = "cep", length = 9)
     private String cep;
     @JoinColumn(name = "estado_cod_estado", referencedColumnName = "cod_estado", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Estado estadoCodEstado;
-    @OneToMany(mappedBy = "cidadeId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cidadeId")
     private List<Pessoa> pessoaList;
 
     public Cidade() {

@@ -11,7 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,10 +26,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vitorolavo
+ * @author guilherme-souza
  */
 @Entity
-@Table(catalog = "linguini", schema = "public")
+@Table(name = "pessoa", catalog = "linguini", schema = "public")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pessoa.findAll", query = "SELECT p FROM Pessoa p")
@@ -50,35 +49,36 @@ public class Pessoa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
     @Basic(optional = false)
-    @Column(nullable = false, length = 150)
+    @Column(name = "nome", nullable = false, length = 150)
     private String nome;
-    @Column(length = 50)
+    @Column(name = "telefone1", length = 50)
     private String telefone1;
-    @Column(length = 50)
+    @Column(name = "telefone2", length = 50)
     private String telefone2;
-    @Column(length = 150)
+    @Column(name = "logradouro", length = 150)
     private String logradouro;
-    @Column(length = 150)
+    @Column(name = "bairro", length = 150)
     private String bairro;
+    @Column(name = "numero")
     private Integer numero;
-    @Column(length = 150)
+    @Column(name = "complemento", length = 150)
     private String complemento;
-    @Column(length = 150)
+    @Column(name = "observacao", length = 150)
     private String observacao;
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "situacao", nullable = false)
     private boolean situacao;
     @JoinColumn(name = "cidade_id", referencedColumnName = "cod_cidade")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private Cidade cidadeId;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pessoa", fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pessoa")
     private Entregador entregador;
-    @OneToMany(mappedBy = "pessoaId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pessoaId")
     private List<Pedido> pedidoList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pessoa", fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pessoa")
     private Funcionario funcionario;
 
     public Pessoa() {
