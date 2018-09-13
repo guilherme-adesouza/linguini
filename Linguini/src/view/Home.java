@@ -5,6 +5,8 @@
  */
 package view;
 
+import utils.Giba;
+
 
 /**
  * @author VitinNote
@@ -495,8 +497,13 @@ public class Home extends javax.swing.JFrame {
 
     private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
         jdProduto telaProduto = new jdProduto(this, true);
-        telaProduto.setLocationRelativeTo(telaProduto);
-        telaProduto.setVisible(true);
+        if(!Giba.bloquear(telaProduto.nomeTela, telaProduto)){
+            telaProduto.setLocationRelativeTo(telaProduto);
+            telaProduto.setVisible(true);
+        }
+        else {
+            telaProduto.dispose();
+        }
     }//GEN-LAST:event_btnProdutoActionPerformed
 
     private void btnDeliveryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeliveryMouseEntered
@@ -569,6 +576,7 @@ public class Home extends javax.swing.JFrame {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
+        System.exit(0);
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void jmiGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGrupoActionPerformed

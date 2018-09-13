@@ -10,6 +10,8 @@ package view;
  * @author VitinNote
  */
 public class jdCaixa extends javax.swing.JDialog {
+    
+    String nomeTela = "telaCaixa";
 
     /**
      * Creates new form jdFluxo
@@ -83,7 +85,7 @@ public class jdCaixa extends javax.swing.JDialog {
 
         jButton4.setBackground(new java.awt.Color(51, 102, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-selecionado-48.png"))); // NOI18N
-        jButton4.setOpaque(false);
+        jButton4.setName(""); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -133,7 +135,6 @@ public class jdCaixa extends javax.swing.JDialog {
         jButton2.setBackground(new java.awt.Color(51, 102, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-importar-48.png"))); // NOI18N
         jButton2.setBorderPainted(false);
-        jButton2.setOpaque(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -144,7 +145,6 @@ public class jdCaixa extends javax.swing.JDialog {
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-expeditedssl-48.png"))); // NOI18N
         jButton3.setBorderPainted(false);
         jButton3.setEnabled(false);
-        jButton3.setOpaque(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);

@@ -24,6 +24,7 @@ import model.Produto;
 import utils.Calendario;
 import utils.ControlarEntradaNumero;
 import utils.Formatacao;
+import utils.Giba;
 import utils.Validacao;
 
 /**
@@ -39,6 +40,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     private Fornecedor fornecedor;
     private FornecedorController fornecedorController;
     private Calendario calendario;
+    public static String nomeTela = "telaProduto";
 
     //A FAZER > VALOR VENDA SEMPRE MAIOR QUE CUSTO - VALIDAR
     //ADICIONAR CODIGO DE BARRAS NO BANCO
@@ -48,6 +50,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     public jdProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+                
         this.produto = new Produto();
         this.produtoController = new ProdutoController();
         this.fornecedor = new Fornecedor();
@@ -152,6 +155,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-salvar-48_1.png"))); // NOI18N
         btnSalvar.setBorderPainted(false);
         btnSalvar.setContentAreaFilled(false);
+        btnSalvar.setName("btnSalvar"); // NOI18N
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -193,11 +197,11 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(btnNovo)
-                .addGap(95, 95, 95)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalvar)
-                .addGap(97, 97, 97)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExcluir)
-                .addGap(95, 95, 95)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnPesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnFechar)

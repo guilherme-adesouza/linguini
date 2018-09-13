@@ -2,12 +2,46 @@ package dao;
 
 import javax.swing.JComboBox;
 import model.Telas;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import persistence.HibernateUtil;
 import view.ComboItens;
 
 /**
  * @author guilherme-souza
  */
 public class TelaDAO extends GenericoDAO<Telas>{
+    
+   
+    public MensagemRetorno consultarPorNome(String nomeTela, String tabela) {
+        
+        MensagemRetorno retorno = new MensagemRetorno(false);
+        Session sessao = null;
+        
+        try {
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            
+            sessao.beginTransaction();
+
+            Query query = sessao.createQuery("FROM " + tabela+" WHERE tela = :nomeTelaParam");
+
+            query.setString("nomeTelaParam", nomeTela);
+            
+            retorno.setObjeto((Object) query.uniqueResult());
+            retorno.setSucesso(true);
+        } catch (HibernateException he) {
+            retorno.setMensagem(he.getMessage());
+            he.printStackTrace();
+        }finally {
+            sessao.close();
+        }
+
+        return retorno;
+    }
+    
+    
     public void popularCombo(String tabela, JComboBox combo) {
         
         combo.addItem(itemSelecione());

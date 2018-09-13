@@ -14,8 +14,8 @@ import model.Grupo;
  */
 public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
     
-    PermissaoController permissaoController;
-    PermissaoBotaoController permissaoBotaoController;
+    TelaController telaController;
+    BotaoController botaoController;
     GrupoController grupoController;
     Grupo grupo;
 
@@ -25,10 +25,11 @@ public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
     public jdGrupo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.permissaoController = new PermissaoController();
-        this.permissaoBotaoController = new PermissaoBotaoController();
+        this.telaController = new TelaController();
+        this.botaoController = new BotaoController();
         this.grupoController = new GrupoController();
         this.grupo = new Grupo();
+        this.telaController.popularCombo(cmbTelas);
     }
 
     /**
@@ -286,7 +287,8 @@ public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int cod = ((ComboItens) cmbTelas.getSelectedItem()).getCodigo();
             if (cod != 0) {
-                
+                this.cmbBotoes.removeAllItems();
+                this.botaoController.popularCombo(cod, cmbBotoes);
             }
         }
     }//GEN-LAST:event_cmbTelasItemStateChanged
@@ -324,13 +326,6 @@ public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
         this.grupo = (Grupo) retorno.getObjeto();
         this.tfdCodigo.setText(this.grupo.getId()+"");
         this.tfdGrupo.setText(this.grupo.getNome()+"");
-
-//        MensagemRetorno msg = this.entregadorController.consultarPorID(codigo);
-//        if(msg.getObjeto() != null){
-//            this.entregador = (Entregador) msg.getObjeto();
-//            this.cboEntregador.setSelected(true);
-//            this.ftfPlaca.setText(this.entregador.getPlaca());
-//        }
     }
 
     @Override

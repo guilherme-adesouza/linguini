@@ -145,7 +145,7 @@ public class BotaoController implements Controller<Botoes>{
         return campos;
     }
     
-    public void popularCombo(JComboBox combo){
-        this.botaoDAO.popularCombo(this.tabela, combo);
+    public void popularCombo(int idTela, JComboBox combo){
+        this.botaoDAO.popularCombo(idTela, this.tabela, combo);
     }
 }

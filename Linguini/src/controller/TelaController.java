@@ -126,6 +126,10 @@ public class TelaController implements Controller<Telas>{
     public MensagemRetorno consultarPorID(int id) {
         return this.telaDAO.consultarPorId(id, this.tabela);
     }
+    
+    public MensagemRetorno consultarPorNome(String nome) {
+        return this.telaDAO.consultarPorNome(nome.trim(), this.tabela);
+    }
 
     private String[] getCabecalho(){
         String[] cabecalho = {"Código", "Tela"};

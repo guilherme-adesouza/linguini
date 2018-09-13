@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.List;
 import javax.swing.JComboBox;
 import model.Botoes;
 import org.hibernate.HibernateException;
@@ -14,7 +15,7 @@ import view.ComboItens;
 public class BotaoDAO extends GenericoDAO<Botoes>{
     
     
-    public MensagemRetorno consultarPorTelaGrupo(int id, int idTela, String tabela) {
+    public MensagemRetorno consultarPorTela(int idTela, String tabela) {
         
         MensagemRetorno retorno = new MensagemRetorno(false);
         Session sessao = null;
@@ -25,11 +26,11 @@ public class BotaoDAO extends GenericoDAO<Botoes>{
             
             sessao.beginTransaction();
 
-            Query query = sessao.createQuery("FROM " + tabela+" WHERE id = :idParam");
+            Query query = sessao.createQuery("FROM " + tabela+" WHERE telas_id = :idParam");
 
-            query.setInteger("idParam", id);
+            query.setInteger("idParam", idTela);
             
-            retorno.setObjeto((Object) query.uniqueResult());
+            retorno.setLista((List) query.list());
             retorno.setSucesso(true);
         } catch (HibernateException he) {
             retorno.setMensagem(he.getMessage());
@@ -42,12 +43,12 @@ public class BotaoDAO extends GenericoDAO<Botoes>{
     }
     
     
-    public void popularCombo(String tabela, JComboBox combo) {
+    public void popularCombo(int idTela, String tabela, JComboBox combo) {
         
         combo.addItem(itemSelecione());
 
         try {
-            MensagemRetorno msg = this.consultarTodos("Telas");
+            MensagemRetorno msg = this.consultarPorTela(idTela, "Botoes");
             if(msg.isSucesso()){
                 for (Object object : msg.getLista()) {
                     Botoes c = (Botoes) object;
