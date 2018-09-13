@@ -50,6 +50,7 @@ public class Home extends javax.swing.JFrame {
         menuFornecedor = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jmiUsuario = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -62,7 +63,6 @@ public class Home extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(1200, 800));
 
         btnCaixa.setBackground(new java.awt.Color(153, 153, 153));
-        btnCaixa.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
         btnCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-fluxo-de-caixa-48.png"))); // NOI18N
         btnCaixa.setText("Caixa");
         btnCaixa.setBorderPainted(false);
@@ -83,7 +83,6 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnProduto.setBackground(new java.awt.Color(153, 153, 153));
-        btnProduto.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
         btnProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-lancheira-48.png"))); // NOI18N
         btnProduto.setText("Produtos");
         btnProduto.setBorderPainted(false);
@@ -104,7 +103,6 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnDelivery.setBackground(new java.awt.Color(153, 153, 153));
-        btnDelivery.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
         btnDelivery.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-entrega-de-comida-48.png"))); // NOI18N
         btnDelivery.setText("Novo Delivery");
         btnDelivery.setBorderPainted(false);
@@ -125,7 +123,6 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnPedido.setBackground(new java.awt.Color(153, 153, 153));
-        btnPedido.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
         btnPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-comprar-48.png"))); // NOI18N
         btnPedido.setText("Novo Pedido");
         btnPedido.setBorderPainted(false);
@@ -146,7 +143,6 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnComandas.setBackground(new java.awt.Color(153, 153, 153));
-        btnComandas.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
         btnComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-lista-de-verificação-48.png"))); // NOI18N
         btnComandas.setText("Comandas");
         btnComandas.setBorderPainted(false);
@@ -167,7 +163,6 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnCliente.setBackground(new java.awt.Color(153, 153, 153));
-        btnCliente.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
         btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-grupos-de-usuários-48.png"))); // NOI18N
         btnCliente.setText("Clientes");
         btnCliente.setBorderPainted(false);
@@ -188,7 +183,6 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnHistorico.setBackground(new java.awt.Color(153, 153, 153));
-        btnHistorico.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
         btnHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-propriedade-de-tempo-48.png"))); // NOI18N
         btnHistorico.setText("Histórico de Pedidos");
         btnHistorico.setBorderPainted(false);
@@ -209,7 +203,6 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnSair.setBackground(new java.awt.Color(153, 153, 153));
-        btnSair.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-exportar-48.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.setBorderPainted(false);
@@ -264,7 +257,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(btnCliente)
                     .addComponent(btnHistorico)
                     .addComponent(btnSair))
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -362,6 +355,14 @@ public class Home extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jmiUsuario);
+
+        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
 
@@ -552,6 +553,12 @@ public class Home extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        jdGrupo telaProduto = new jdGrupo(this, true);
+        telaProduto.setLocationRelativeTo(telaProduto);
+        telaProduto.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCaixa;
     private javax.swing.JButton btnCliente;
@@ -571,6 +578,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

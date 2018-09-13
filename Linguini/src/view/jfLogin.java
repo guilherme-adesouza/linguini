@@ -15,6 +15,7 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import model.Usuario;
+import utils.LeitorTela;
 import utils.Sessao;
 
 /**
@@ -30,7 +31,6 @@ public class jfLogin extends javax.swing.JFrame {
      */
     public jfLogin() {
         initComponents();
-        
         this.usuarioController = new UsuarioController();
         this.usuario = new Usuario();
         this.tfdUsuario.requestFocus();
@@ -60,7 +60,6 @@ public class jfLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jRadioButton1 = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -70,8 +69,6 @@ public class jfLogin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         pfdSenha = new javax.swing.JPasswordField();
-
-        jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -94,6 +91,7 @@ public class jfLogin extends javax.swing.JFrame {
         btnLogin.setForeground(new java.awt.Color(254, 254, 254));
         btnLogin.setText("LOGIN");
         btnLogin.setBorderPainted(false);
+        btnLogin.setName("btnLogin"); // NOI18N
         btnLogin.setOpaque(true);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,7 +206,6 @@ public class jfLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JPasswordField pfdSenha;
     private javax.swing.JTextField tfdUsuario;
     // End of variables declaration//GEN-END:variables
