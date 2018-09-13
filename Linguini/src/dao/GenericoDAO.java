@@ -18,7 +18,6 @@ import persistence.HibernateUtil;
 import utils.Sessao;
 
 /**
- *
  * @author guilherme-souza
  * @param <Object>
  */

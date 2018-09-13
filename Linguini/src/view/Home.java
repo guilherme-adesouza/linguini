@@ -48,9 +48,11 @@ public class Home extends javax.swing.JFrame {
         jmiPessoas = new javax.swing.JMenuItem();
         jmiTelefones = new javax.swing.JMenuItem();
         menuFornecedor = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jmiConfiguracoes = new javax.swing.JMenuItem();
         jmiUsuario = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jmiGrupo = new javax.swing.JMenuItem();
+        jmiTela = new javax.swing.JMenuItem();
+        jmiBotao = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -316,7 +318,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        jmiPessoas.setText("Pessoas");
+        jmiPessoas.setText("Pessoa");
         jmiPessoas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiPessoasActionPerformed(evt);
@@ -340,13 +342,13 @@ public class Home extends javax.swing.JFrame {
         });
         jMenu1.add(menuFornecedor);
 
-        jMenuItem2.setText("Configurações");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jmiConfiguracoes.setText("Configurações");
+        jmiConfiguracoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jmiConfiguracoesActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(jmiConfiguracoes);
 
         jmiUsuario.setText("Usuário");
         jmiUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -356,13 +358,29 @@ public class Home extends javax.swing.JFrame {
         });
         jMenu1.add(jmiUsuario);
 
-        jMenuItem3.setText("jMenuItem3");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jmiGrupo.setText("Grupo");
+        jmiGrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jmiGrupoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(jmiGrupo);
+
+        jmiTela.setText("Tela");
+        jmiTela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiTelaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiTela);
+
+        jmiBotao.setText("Botão");
+        jmiBotao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiBotaoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiBotao);
 
         jMenuBar1.add(jMenu1);
 
@@ -441,11 +459,11 @@ public class Home extends javax.swing.JFrame {
         telaFornecedor.setVisible(true);
     }//GEN-LAST:event_menuFornecedorActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jmiConfiguracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConfiguracoesActionPerformed
         jdConfiguracoes telaConfiguracoes = new jdConfiguracoes(this, true);
         telaConfiguracoes.setLocationRelativeTo(telaConfiguracoes);
         telaConfiguracoes.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jmiConfiguracoesActionPerformed
 
     private void jmiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuarioActionPerformed
         jdUsuario telaUsuario = new jdUsuario(this, true);
@@ -553,11 +571,23 @@ public class Home extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jmiGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGrupoActionPerformed
         jdGrupo telaProduto = new jdGrupo(this, true);
         telaProduto.setLocationRelativeTo(telaProduto);
         telaProduto.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jmiGrupoActionPerformed
+
+    private void jmiBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBotaoActionPerformed
+        jdBotao telaBotao = new jdBotao(this, true);
+        telaBotao.setLocationRelativeTo(telaBotao);
+        telaBotao.setVisible(true);
+    }//GEN-LAST:event_jmiBotaoActionPerformed
+
+    private void jmiTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTelaActionPerformed
+        jdTela telaTela=  new jdTela(this, true);
+        telaTela.setLocationRelativeTo(telaTela);
+        telaTela.setVisible(true);
+    }//GEN-LAST:event_jmiTelaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCaixa;
@@ -577,12 +607,14 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JMenuItem jmiBotao;
+    private javax.swing.JMenuItem jmiConfiguracoes;
+    private javax.swing.JMenuItem jmiGrupo;
     private javax.swing.JMenuItem jmiPessoas;
+    private javax.swing.JMenuItem jmiTela;
     private javax.swing.JMenuItem jmiTelefones;
     private javax.swing.JMenuItem jmiUsuario;
     private javax.swing.JMenuItem menuFornecedor;
