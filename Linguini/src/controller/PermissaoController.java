@@ -48,4 +48,8 @@ public class PermissaoController implements Controller<Permissao> {
     public List<CampoOrdenavel> getOrdenacao() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public MensagemRetorno consultarPorGrupo(int idGrupo){
+        return this.permissaoDAO.consultarPorGrupo(idGrupo, this.tabela);
+    }
 }

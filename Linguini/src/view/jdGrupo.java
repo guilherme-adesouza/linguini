@@ -1,16 +1,22 @@
 package view;
 
+import controller.BotaoController;
+import controller.GrupoController;
+import controller.PermissaoBotaoController;
+import controller.PermissaoController;
 import controller.TelaController;
+import dao.MensagemRetorno;
 import java.awt.event.ItemEvent;
-import model.Classificacao;
 import model.Grupo;
 
 /**
  * @author guilherme-souza
  */
-public class jdGrupo extends javax.swing.JDialog {
+public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
     
-    TelaController telaController;
+    PermissaoController permissaoController;
+    PermissaoBotaoController permissaoBotaoController;
+    GrupoController grupoController;
     Grupo grupo;
 
     /**
@@ -19,8 +25,9 @@ public class jdGrupo extends javax.swing.JDialog {
     public jdGrupo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.telaController = new TelaController();
-        this.telaController.popularCombo(cmbTelas);
+        this.permissaoController = new PermissaoController();
+        this.permissaoBotaoController = new PermissaoBotaoController();
+        this.grupoController = new GrupoController();
         this.grupo = new Grupo();
     }
 
@@ -41,13 +48,14 @@ public class jdGrupo extends javax.swing.JDialog {
         btnPesquisar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfdGrupo = new javax.swing.JTextField();
         cmbTelas = new javax.swing.JComboBox<>();
         tfdCodigo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         cboTelaVisivel = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblBotoes = new javax.swing.JTable();
+        cmbBotoes = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        cboBotaoVisivel = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -156,7 +164,7 @@ public class jdGrupo extends javax.swing.JDialog {
 
         jLabel1.setText("Tela");
 
-        jLabel2.setText("Nome");
+        jLabel2.setText("Grupo");
 
         cmbTelas.setToolTipText("");
         cmbTelas.addItemListener(new java.awt.event.ItemListener() {
@@ -174,49 +182,55 @@ public class jdGrupo extends javax.swing.JDialog {
 
         jLabel3.setText("Código");
 
-        cboTelaVisivel.setText("Visível");
+        cboTelaVisivel.setText("Tela Visível");
 
-        tblBotoes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        cmbBotoes.setToolTipText("");
+        cmbBotoes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbBotoesItemStateChanged(evt);
             }
-        ));
-        jScrollPane1.setViewportView(tblBotoes);
+        });
+
+        jLabel4.setText("Botão");
+
+        cboBotaoVisivel.setText("Botão Visível");
+        cboBotaoVisivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboBotaoVisivelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(88, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(cmbTelas, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(89, 89, 89)
-                        .addComponent(cboTelaVisivel)
-                        .addGap(75, 75, 75))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88))))
+                        .addComponent(cmbTelas, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cboTelaVisivel)
+                    .addComponent(cboBotaoVisivel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,17 +239,20 @@ public class jdGrupo extends javax.swing.JDialog {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbTelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(cboTelaVisivel))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(cboBotaoVisivel))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         pack();
@@ -266,8 +283,21 @@ public class jdGrupo extends javax.swing.JDialog {
     }//GEN-LAST:event_tfdCodigoActionPerformed
 
     private void cmbTelasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbTelasItemStateChanged
-        
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            int cod = ((ComboItens) cmbTelas.getSelectedItem()).getCodigo();
+            if (cod != 0) {
+                
+            }
+        }
     }//GEN-LAST:event_cmbTelasItemStateChanged
+
+    private void cmbBotoesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBotoesItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbBotoesItemStateChanged
+
+    private void cboBotaoVisivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboBotaoVisivelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboBotaoVisivelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
@@ -275,15 +305,43 @@ public class jdGrupo extends javax.swing.JDialog {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JCheckBox cboBotaoVisivel;
     private javax.swing.JCheckBox cboTelaVisivel;
+    private javax.swing.JComboBox<String> cmbBotoes;
     private javax.swing.JComboBox<String> cmbTelas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tblBotoes;
     private javax.swing.JTextField tfdCodigo;
+    private javax.swing.JTextField tfdGrupo;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void carregar(int codigo) {
+        MensagemRetorno retorno = this.grupoController.consultarPorID(codigo);
+        this.grupo = (Grupo) retorno.getObjeto();
+        this.tfdCodigo.setText(this.grupo.getId()+"");
+        this.tfdGrupo.setText(this.grupo.getNome()+"");
+
+//        MensagemRetorno msg = this.entregadorController.consultarPorID(codigo);
+//        if(msg.getObjeto() != null){
+//            this.entregador = (Entregador) msg.getObjeto();
+//            this.cboEntregador.setSelected(true);
+//            this.ftfPlaca.setText(this.entregador.getPlaca());
+//        }
+    }
+
+    @Override
+    public void limparCampos(int codigo) {
+        if(this.grupo.getId() == null || this.grupo.getId() == codigo){
+            //limpar campos da tela
+            this.grupo = new Grupo();
+            this.tfdCodigo.setText("");
+            this.tfdGrupo.setText(this.grupo.getNome());
+            this.cmbBotoes.removeAllItems();
+            this.cmbTelas.removeAllItems();
+        }
+    }
 }
