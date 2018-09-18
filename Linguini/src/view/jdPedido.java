@@ -777,7 +777,7 @@ public class jdPedido extends javax.swing.JDialog {
             itemPedido.setQuantidade(Integer.parseInt(this.tfdQuantidade.getText()));
             itemPedido.setValor(tfdPrecoUnitario.getValue());
 
-            MensagemRetorno msge = itemPedidoController.salvarItem(this.itemPedido);
+            MensagemRetorno msge = itemPedidoController.salvar(this.itemPedido);
             if (msge.isSucesso()) {
                 System.out.println("ON");
             } else {

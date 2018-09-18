@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ItemPedido.findAll", query = "SELECT i FROM ItemPedido i")
-    , @NamedQuery(name = "ItemPedido.findById", query = "SELECT i FROM ItemPedido i WHERE i.id = :id")
+    //, @NamedQuery(name = "ItemPedido.findById", query = "SELECT i FROM ItemPedido i WHERE i.id = :id")
     , @NamedQuery(name = "ItemPedido.findByValor", query = "SELECT i FROM ItemPedido i WHERE i.valor = :valor")
     , @NamedQuery(name = "ItemPedido.findByQuantidade", query = "SELECT i FROM ItemPedido i WHERE i.quantidade = :quantidade")
     , @NamedQuery(name = "ItemPedido.findByDesconto", query = "SELECT i FROM ItemPedido i WHERE i.desconto = :desconto")})
@@ -39,11 +39,11 @@ public class ItemPedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    //@Column(name = "id", nullable = false)
+    //private Long id;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @Column(name = "valor", nullable = false, precision = 10, scale = 2)
+    //@Basic(optional = false)
+    //@Column(name = "valor", nullable = false, precision = 10, scale = 2)
     private BigDecimal valor;
     @Basic(optional = false)
     @Column(name = "quantidade", nullable = false)
@@ -51,32 +51,28 @@ public class ItemPedido implements Serializable {
     @Column(name = "desconto", precision = 10, scale = 2)
     private BigDecimal desconto;
     @JoinColumn(name = "pedido_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Pedido pedidoId;
     @JoinColumn(name = "produto_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Produto produtoId;
 
     public ItemPedido() {
     }
 
-    public ItemPedido(Long id) {
-        this.id = id;
-    }
+//    public ItemPedido(Long id) {
+//        this.id = id;
+//    }
 
-    public ItemPedido(Long id, BigDecimal valor, int quantidade) {
-        this.id = id;
+    public ItemPedido(BigDecimal valor, int quantidade) {
+        
         this.valor = valor;
         this.quantidade = quantidade;
     }
 
-    public Long getId() {
-        return id;
-    }
+    
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    
 
     public BigDecimal getValor() {
         return valor;
@@ -121,7 +117,7 @@ public class ItemPedido implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+       // hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -132,15 +128,15 @@ public class ItemPedido implements Serializable {
             return false;
         }
         ItemPedido other = (ItemPedido) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
+//        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+//            return false;
+//        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "model.ItemPedido[ id=" + id + " ]";
+        return "model.ItemPedido[ id= AAAA ]";
     }
     
 }
