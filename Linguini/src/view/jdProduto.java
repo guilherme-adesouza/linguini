@@ -1012,9 +1012,9 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
             campos = campose;
             System.out.println("PRECO CUSTO = NADA");
         }
-        if (this.produto.getUnidadeMedida().equals("")) {
-            this.produto.setUnidadeMedida("UN");
-        }
+//        if (this.produto.getUnidadeMedida().equals("")) {
+//            this.produto.setUnidadeMedida("UN");
+//        }
 
         return campos;
     }

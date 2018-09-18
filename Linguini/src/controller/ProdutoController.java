@@ -132,12 +132,20 @@ public class ProdutoController implements Controller<Produto> {
     @Override
     //colocar situacao = true
     public MensagemRetorno consultarTodos() {
-        return produtoDao.consultarTodos(tabela);
+        return produtoDao.consultarTodos(this.tabela);
     }
 
     @Override
     public MensagemRetorno consultarPorID(int id) {
-        return produtoDao.consultarPorId(id, tabela);
+        return produtoDao.consultarPorId(id, this.tabela);
+    }
+
+    public MensagemRetorno consultarPorCriterio(String campo) {
+        return produtoDao.consultarComCriterio(this.tabela, "descricao", campo);
+    }
+
+    public MensagemRetorno consultarPorNome(String produto) {
+        return produtoDao.consultarPorNome(produto);
     }
 
     private String[] getCabecalho() {

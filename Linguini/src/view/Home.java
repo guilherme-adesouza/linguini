@@ -7,7 +7,6 @@ package view;
 
 import utils.Giba;
 
-
 /**
  * @author VitinNote
  */
@@ -496,14 +495,18 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProdutoMouseExited
 
     private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
+//        jdProduto telaProduto = new jdProduto(this, true);
+//        if(!Giba.bloquear(telaProduto.nomeTela, telaProduto)){
+//            telaProduto.setLocationRelativeTo(telaProduto);
+//            telaProduto.setVisible(true);
+//        }
+//        else {
+//            telaProduto.dispose();
+//        }
+
         jdProduto telaProduto = new jdProduto(this, true);
-        if(!Giba.bloquear(telaProduto.nomeTela, telaProduto)){
-            telaProduto.setLocationRelativeTo(telaProduto);
-            telaProduto.setVisible(true);
-        }
-        else {
-            telaProduto.dispose();
-        }
+        telaProduto.setLocationRelativeTo(telaProduto);
+        telaProduto.setVisible(true);
     }//GEN-LAST:event_btnProdutoActionPerformed
 
     private void btnDeliveryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeliveryMouseEntered
@@ -527,7 +530,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPedidoMouseExited
 
     private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
-        // TODO add your handling code here:
+        jdPedido telaPedido = new jdPedido(this, true);
+        telaPedido.setLocationRelativeTo(telaPedido);
+        telaPedido.setVisible(true);
     }//GEN-LAST:event_btnPedidoActionPerformed
 
     private void btnComandasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComandasMouseEntered
@@ -592,7 +597,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiBotaoActionPerformed
 
     private void jmiTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTelaActionPerformed
-        jdTela telaTela=  new jdTela(this, true);
+        jdTela telaTela = new jdTela(this, true);
         telaTela.setLocationRelativeTo(telaTela);
         telaTela.setVisible(true);
     }//GEN-LAST:event_jmiTelaActionPerformed
