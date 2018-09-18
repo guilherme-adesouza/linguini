@@ -5,10 +5,19 @@
  */
 package view;
 
+import controller.ItemPedidoController;
+import controller.PedidoController;
 import controller.ProdutoController;
+import controller.UsuarioController;
 import dao.MensagemRetorno;
+import java.math.BigDecimal;
+import java.util.Date;
 import javax.swing.DefaultListModel;
+import model.ItemPedido;
+import model.Pedido;
 import model.Produto;
+import model.Usuario;
+import utils.Calendario;
 
 /**
  *
@@ -18,6 +27,13 @@ public class jdPedido extends javax.swing.JDialog {
 
     private Produto produto;
     private ProdutoController produtoController;
+    private ItemPedido itemPedido;
+    private ItemPedidoController itemPedidoController;
+    private Pedido pedido;
+    private PedidoController pedidoController;
+    private Calendario calendario;
+    private Usuario usuario;
+    private UsuarioController usuarioController;
 
     private void Quantidade() {
         if (tfdQuantidade.getText().equals("")) {
@@ -31,8 +47,16 @@ public class jdPedido extends javax.swing.JDialog {
     public jdPedido(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.calendario = new Calendario();
         this.produto = new Produto();
         this.produtoController = new ProdutoController();
+        this.itemPedido = new ItemPedido();
+        this.itemPedidoController = new ItemPedidoController();
+        this.pedido = new Pedido();
+        this.pedidoController = new PedidoController();
+        this.usuario = new Usuario();
+        this.usuarioController = new UsuarioController();
+
         listaProdutos.setVisible(false);
         Quantidade();
     }
@@ -70,9 +94,9 @@ public class jdPedido extends javax.swing.JDialog {
         jLabel25 = new javax.swing.JLabel();
         tfdQuantidade = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
-        tfdPrecoItem = new javax.swing.JTextField();
         btnAdicionar = new javax.swing.JButton();
         btnAdicionar1 = new javax.swing.JButton();
+        tfdPrecoUnitario = new apoio.MoedaFormatada();
         jPanel2 = new javax.swing.JPanel();
         btnNovo = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
@@ -80,11 +104,8 @@ public class jdPedido extends javax.swing.JDialog {
         btnPesquisar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
@@ -95,6 +116,9 @@ public class jdPedido extends javax.swing.JDialog {
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
+        tfdPrecoTotal = new apoio.MoedaFormatada();
+        tfdPrecoDesconto = new apoio.MoedaFormatada();
+        tfdPrecoSubTotal = new apoio.MoedaFormatada();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -334,12 +358,6 @@ public class jdPedido extends javax.swing.JDialog {
 
         jLabel26.setText("Preço");
 
-        tfdPrecoItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfdPrecoItemActionPerformed(evt);
-            }
-        });
-
         btnAdicionar.setText("Adicionar");
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,8 +395,8 @@ public class jdPedido extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel26)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdPrecoItem, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                                .addComponent(tfdPrecoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                                 .addComponent(btnAdicionar))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -400,8 +418,8 @@ public class jdPedido extends javax.swing.JDialog {
                     .addComponent(jLabel25)
                     .addComponent(tfdQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel26)
-                    .addComponent(tfdPrecoItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdicionar))
+                    .addComponent(btnAdicionar)
+                    .addComponent(tfdPrecoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
@@ -513,15 +531,9 @@ public class jdPedido extends javax.swing.JDialog {
 
         jLabel15.setText("SubTotal");
 
-        jLabel16.setText("R$ 0,00");
-
         jLabel17.setText("Desconto");
 
-        jLabel18.setText("R$ 0,00");
-
         jLabel19.setText("Total");
-
-        jLabel20.setText("R$ 0,00");
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("DELIVERY"));
@@ -623,15 +635,15 @@ public class jdPedido extends javax.swing.JDialog {
                                 .addGap(22, 22, 22)
                                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(49, 49, 49)
+                                .addComponent(tfdPrecoSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(61, 61, 61)
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(70, 70, 70)
-                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfdPrecoDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(82, 82, 82)
+                                .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tfdPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
@@ -649,12 +661,12 @@ public class jdPedido extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(jLabel16)
                             .addComponent(jLabel17)
-                            .addComponent(jLabel18)
                             .addComponent(jLabel19)
-                            .addComponent(jLabel20))
-                        .addGap(63, 63, 63))))
+                            .addComponent(tfdPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfdPrecoDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfdPrecoSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(60, 60, 60))))
         );
 
         pack();
@@ -713,7 +725,7 @@ public class jdPedido extends javax.swing.JDialog {
         }
         this.listaProdutos.setModel(listModel);
 
-        if (this.listaProdutos.getModel().getSize() > 0 && txtBusca.getText().length() > 0) {
+        if (this.listaProdutos.getModel().getSize() > 0 && this.txtBusca.getText().length() > 0) {
             this.listaProdutos.setVisible(true);
             this.listaProdutos.setSelectedIndex(0);
         } else {
@@ -722,24 +734,18 @@ public class jdPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBuscatxtBuscaKeyReleased
 
     private void listaProdutosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaProdutosValueChanged
-// A CONCLUIR
-
-        MensagemRetorno msg = this.produtoController.consultarPorNome(listaProdutos.getSelectedValue());
+        MensagemRetorno msg = this.produtoController.consultarPorNome(this.listaProdutos.getSelectedValue());
         this.produto = (Produto) msg.getObjeto();
-        if (listaProdutos.getSelectedValue() != null) {
-            tfdPrecoItem.setText(produto.getValorVenda() + "");
+        if (this.listaProdutos.getSelectedValue() != null) {
+            this.tfdPrecoUnitario.setText(this.produto.getValorVenda() + "");
         } else {
-            tfdPrecoItem.setText("0,00");
+            this.tfdPrecoUnitario.setText("");
         }
     }//GEN-LAST:event_listaProdutosValueChanged
 
     private void tfdQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdQuantidadeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfdQuantidadeActionPerformed
-
-    private void tfdPrecoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdPrecoItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdPrecoItemActionPerformed
 
     private void tfdQuantidadePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tfdQuantidadePropertyChange
 
@@ -754,7 +760,32 @@ public class jdPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_tfdQuantidadeFocusLost
 
     private void btnAdicionarbtnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarbtnAdicionarActionPerformed
-        
+        MensagemRetorno ok = new MensagemRetorno();
+        if (this.pedido.getId() == null) {
+            this.pedido.setDataHora(new Date());
+            this.pedido.setValor(BigDecimal.ONE);
+            MensagemRetorno msg = this.usuarioController.consultarPorID(1);
+            this.pedido.setAtendenteId((Usuario) msg.getObjeto());
+            this.pedido.setCaixaId((Usuario) msg.getObjeto());
+
+            ok = pedidoController.salvar(this.pedido);
+            this.pedido = (Pedido) ok.getObjeto();
+        }
+        //if (this.pedido.getId() != null) {
+            itemPedido.setPedidoId(this.pedido);
+            itemPedido.setProdutoId(produto);
+            itemPedido.setDesconto(BigDecimal.ZERO);
+            itemPedido.setQuantidade(Integer.parseInt(this.tfdQuantidade.getText()));
+            itemPedido.setValor(tfdPrecoTotal.getValue());
+
+            MensagemRetorno msg = itemPedidoController.salvar(this.itemPedido);
+            if (msg.isSucesso()) {
+                System.out.println("ON");
+            } else {
+                System.out.println("OFF");
+            }
+
+       // }
     }//GEN-LAST:event_btnAdicionarbtnAdicionarActionPerformed
 
     private void btnAdicionar1btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionar1btnAdicionarActionPerformed
@@ -780,11 +811,8 @@ public class jdPedido extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -817,7 +845,10 @@ public class jdPedido extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JList<String> listaProdutos;
     private javax.swing.JTable tblPesquisar;
-    private javax.swing.JTextField tfdPrecoItem;
+    private apoio.MoedaFormatada tfdPrecoDesconto;
+    private apoio.MoedaFormatada tfdPrecoSubTotal;
+    private apoio.MoedaFormatada tfdPrecoTotal;
+    private apoio.MoedaFormatada tfdPrecoUnitario;
     private javax.swing.JTextField tfdQuantidade;
     private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
