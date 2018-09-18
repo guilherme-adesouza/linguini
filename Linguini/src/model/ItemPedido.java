@@ -51,7 +51,7 @@ public class ItemPedido implements Serializable {
     @Column(name = "desconto", precision = 10, scale = 2)
     private BigDecimal desconto;
     @JoinColumn(name = "pedido_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = true)
+    @ManyToOne(optional = false)
     private Pedido pedidoId;
     @JoinColumn(name = "produto_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)

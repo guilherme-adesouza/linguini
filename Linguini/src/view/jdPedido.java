@@ -769,23 +769,23 @@ public class jdPedido extends javax.swing.JDialog {
             this.pedido.setCaixaId((Usuario) msg.getObjeto());
 
             ok = pedidoController.salvar(this.pedido);
-            this.pedido = (Pedido) ok.getObjeto();
         }
-        //if (this.pedido.getId() != null) {
-            itemPedido.setPedidoId(this.pedido);
+        if (this.pedido.getId() != null) {
+            itemPedido.setPedidoId(pedido);
             itemPedido.setProdutoId(produto);
             itemPedido.setDesconto(BigDecimal.ZERO);
             itemPedido.setQuantidade(Integer.parseInt(this.tfdQuantidade.getText()));
-            itemPedido.setValor(tfdPrecoTotal.getValue());
+            itemPedido.setValor(tfdPrecoUnitario.getValue());
 
-            MensagemRetorno msg = itemPedidoController.salvar(this.itemPedido);
-            if (msg.isSucesso()) {
+            MensagemRetorno msge = itemPedidoController.salvarItem(this.itemPedido);
+            if (msge.isSucesso()) {
                 System.out.println("ON");
             } else {
                 System.out.println("OFF");
             }
-
-       // }
+        }else{
+            System.out.println("Erro");
+        }
     }//GEN-LAST:event_btnAdicionarbtnAdicionarActionPerformed
 
     private void btnAdicionar1btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionar1btnAdicionarActionPerformed

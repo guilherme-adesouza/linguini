@@ -27,6 +27,10 @@ public class ItemPedidoController implements Controller<ItemPedido> {
         return this.itemPedidoDAO.salvar(itemPedido);
     }
 
+    public MensagemRetorno salvarItem(ItemPedido itemPedido) {
+        return this.itemPedidoDAO.salvarItem(itemPedido);
+    }
+
     @Override
     public MensagemRetorno excluir(ItemPedido itemPedido) {
         return this.itemPedidoDAO.excluir(itemPedido);
@@ -128,7 +132,6 @@ public class ItemPedidoController implements Controller<ItemPedido> {
         return this.itemPedidoDAO.consultarPorId(id, this.tabela);
     }
 
-    
     //A FAZER TUDO ABAIXO
     private String[] getCabecalho() {
         String[] cabecalho = {"Código", "Nome"};
