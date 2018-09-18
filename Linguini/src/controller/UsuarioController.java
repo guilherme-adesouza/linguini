@@ -13,35 +13,33 @@ import utils.Criptografia;
 /**
  * @author guilherme-souza
  */
-public class UsuarioController implements Controller<Usuario>{
-    
+public class UsuarioController implements Controller<Usuario> {
+
     private UsuarioDAO usuarioDAO;
     private String tabela = "Usuario";
-    
-    public UsuarioController(){
+
+    public UsuarioController() {
         this.usuarioDAO = new UsuarioDAO();
     }
-    
-    public MensagemRetorno autenticar(Usuario usuario){
+
+    public MensagemRetorno autenticar(Usuario usuario) {
         MensagemRetorno msg = this.usuarioDAO.consultarPorNome(usuario);
-        
-        if(msg.isSucesso() && msg.getObjeto() != null){
+
+        if (msg.isSucesso() && msg.getObjeto() != null) {
             Usuario u = (Usuario) msg.getObjeto();
-            if(Criptografia.equals(usuario.getSenha(), u.getSenha())){
+            if (Criptografia.equals(usuario.getSenha(), u.getSenha())) {
                 System.out.println("Sucesso");
-                System.out.println(u.getNome() + " - "+u.getSenha());
+                System.out.println(u.getNome() + " - " + u.getSenha());
                 msg.setObjeto(u);
                 msg.setSucesso(true);
                 msg.setMensagem("Sucesso!");
-            }
-            else {
+            } else {
                 msg.setSucesso(false);
                 msg.setMensagem("Usuário ou senha inválidos");
             }
-        }
-        else {
+        } else {
             msg.setSucesso(false);
-            msg.setMensagem("Usuário ou senha inválidos");            
+            msg.setMensagem("Usuário ou senha inválidos");
         }
         return msg;
     }
@@ -150,9 +148,9 @@ public class UsuarioController implements Controller<Usuario>{
 
     @Override
     public MensagemRetorno consultarPorID(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return usuarioDAO.consultarPorId(id, this.tabela);
     }
-    
+
     private String[] getCabecalho() {
         String[] cabecalho = {"Código", "Usuário"};
         return cabecalho;
