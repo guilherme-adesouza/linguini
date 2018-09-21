@@ -760,30 +760,39 @@ public class jdPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_tfdQuantidadeFocusLost
 
     private void btnAdicionarbtnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarbtnAdicionarActionPerformed
+        //Cria o pedido caso ele não exista
         MensagemRetorno ok = new MensagemRetorno();
         if (this.pedido.getId() == null) {
             this.pedido.setDataHora(new Date());
-            this.pedido.setValor(BigDecimal.ONE);
+            this.pedido.setValor(this.tfdPrecoTotal.getValue());
             MensagemRetorno msg = this.usuarioController.consultarPorID(1);
             this.pedido.setAtendenteId((Usuario) msg.getObjeto());
             this.pedido.setCaixaId((Usuario) msg.getObjeto());
 
-            ok = pedidoController.salvar(this.pedido);
+            ok = this.pedidoController.salvar(this.pedido);
         }
+        //Preenche itempedido
         if (this.pedido.getId() != null) {
-            itemPedido.setPedidoId(pedido);
-            itemPedido.setProdutoId(produto);
-            itemPedido.setDesconto(BigDecimal.ZERO);
-            itemPedido.setQuantidade(Integer.parseInt(this.tfdQuantidade.getText()));
-            itemPedido.setValor(tfdPrecoUnitario.getValue());
+            this.itemPedido.setPedidoId(this.pedido);
+            this.itemPedido.setProdutoId(this.produto);
+            this.itemPedido.setDesconto(this.tfdPrecoDesconto.getValue());
+            this.itemPedido.setQuantidade(Integer.parseInt(this.tfdQuantidade.getText()));
+            this.itemPedido.setValor(this.tfdPrecoUnitario.getValue());
 
-            MensagemRetorno msge = itemPedidoController.salvar(this.itemPedido);
-            if (msge.isSucesso()) {
-                System.out.println("ON");
+            //Compara se é para add o item ou atualizar
+            MensagemRetorno confere = this.itemPedidoController.consultarPedidoProduto(this.pedido, this.produto);
+            if (confere.isSucesso()) {
+                System.out.println("Achou");
+                this.itemPedido = (ItemPedido) confere.getObjeto();
+                this.itemPedido.setDesconto(this.tfdPrecoDesconto.getValue());
+                this.itemPedido.setQuantidade(Integer.parseInt(this.tfdQuantidade.getText()));
+                this.itemPedido.setValor(this.tfdPrecoUnitario.getValue());
+                this.itemPedidoController.atualizar(this.itemPedido);
             } else {
-                System.out.println("OFF");
+                System.out.println("Nao achou");
+                this.itemPedidoController.salvarItem(this.itemPedido);
             }
-        }else{
+        } else {
             System.out.println("Erro");
         }
     }//GEN-LAST:event_btnAdicionarbtnAdicionarActionPerformed
