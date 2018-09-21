@@ -5,17 +5,17 @@ import dao.MensagemRetorno;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import model.ItemPedido;
+import model.Pedido;
 import model.Produto;
 
 /**
- * @author guilherme-souza
+ * @author vitor-olavo
  */
 public class ItemPedidoController implements Controller<ItemPedido> {
 
     ItemPedidoDAO itemPedidoDAO;
+    
     String tabela = "ItemPedido";
 
     public ItemPedidoController() {
@@ -30,6 +30,14 @@ public class ItemPedidoController implements Controller<ItemPedido> {
     public MensagemRetorno salvarItem(ItemPedido itemPedido) {
         
         return this.itemPedidoDAO.salvarItem(itemPedido);
+    }
+    
+    public MensagemRetorno consultarPedidoProduto(Pedido pedido, Produto produto){
+        return this.itemPedidoDAO.consultarPedidoProduto(this.tabela, pedido.getId().intValue(), produto.getId().intValue());
+    }
+    
+    public MensagemRetorno atualizar(ItemPedido itemPedido){
+        return this.itemPedidoDAO.atualizar(itemPedido);
     }
 
     @Override
