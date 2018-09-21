@@ -66,4 +66,33 @@ public class ItemPedidoDAO extends GenericoDAO<ItemPedido> {
         return retorno;
     }
 
+    public MensagemRetorno consultarPorIdTodos(String tabela, int id) {
+
+        MensagemRetorno retorno = new MensagemRetorno(false);
+        Session sessao = null;
+
+        try {
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+
+            sessao.beginTransaction();
+
+            Query query = sessao.createQuery("FROM "+ tabela +" WHERE pedido_id = :idParam");
+
+            query.setInteger("idParam", id);
+
+            retorno.setLista((List) query.list());
+            if (retorno.getObjeto() != null) {
+                retorno.setSucesso(true);
+            }
+        } catch (HibernateException he) {
+            retorno.setMensagem(he.getMessage());
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+
+        return retorno;
+    }
+
 }
