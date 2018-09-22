@@ -45,20 +45,24 @@ public class Home extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel3 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jmiPessoas = new javax.swing.JMenuItem();
-        jmiTelefones = new javax.swing.JMenuItem();
+        jmeVendas = new javax.swing.JMenu();
+        jmePessoas = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         menuFornecedor = new javax.swing.JMenuItem();
+        jmiPessoas = new javax.swing.JMenuItem();
+        jmeCaixa = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jmeProduto = new javax.swing.JMenu();
+        jmiTelefones = new javax.swing.JMenuItem();
+        jmiProduto = new javax.swing.JMenuItem();
+        jmeFinanceiro = new javax.swing.JMenu();
+        jmeRelatorio = new javax.swing.JMenu();
+        jmeMais = new javax.swing.JMenu();
+        jmiBotao = new javax.swing.JMenuItem();
         jmiConfiguracoes = new javax.swing.JMenuItem();
-        jmiUsuario = new javax.swing.JMenuItem();
         jmiGrupo = new javax.swing.JMenuItem();
         jmiTela = new javax.swing.JMenuItem();
-        jmiBotao = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
+        jmiUsuario = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Linguini");
@@ -172,11 +176,11 @@ public class Home extends javax.swing.JFrame {
         btnCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnClienteMouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnClienteMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnClienteMouseEntered(evt);
             }
         });
         btnCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -212,11 +216,11 @@ public class Home extends javax.swing.JFrame {
         btnSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnSair.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnSairMouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnSairMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSairMouseEntered(evt);
             }
         });
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -312,28 +316,13 @@ public class Home extends javax.swing.JFrame {
 
         jMenuBar1.setPreferredSize(new java.awt.Dimension(267, 28));
 
-        jMenu1.setText("Gerencial");
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
-            }
-        });
+        jmeVendas.setText("Vendas");
+        jMenuBar1.add(jmeVendas);
 
-        jmiPessoas.setText("Pessoa");
-        jmiPessoas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiPessoasActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmiPessoas);
+        jmePessoas.setText("Pessoas");
 
-        jmiTelefones.setText("Classificação");
-        jmiTelefones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiTelefonesActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmiTelefones);
+        jMenuItem2.setText("Cliente");
+        jmePessoas.add(jMenuItem2);
 
         menuFornecedor.setText("Fornecedor");
         menuFornecedor.addActionListener(new java.awt.event.ActionListener() {
@@ -341,54 +330,19 @@ public class Home extends javax.swing.JFrame {
                 menuFornecedorActionPerformed(evt);
             }
         });
-        jMenu1.add(menuFornecedor);
+        jmePessoas.add(menuFornecedor);
 
-        jmiConfiguracoes.setText("Configurações");
-        jmiConfiguracoes.addActionListener(new java.awt.event.ActionListener() {
+        jmiPessoas.setText("Novo Cadastro");
+        jmiPessoas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiConfiguracoesActionPerformed(evt);
+                jmiPessoasActionPerformed(evt);
             }
         });
-        jMenu1.add(jmiConfiguracoes);
+        jmePessoas.add(jmiPessoas);
 
-        jmiUsuario.setText("Usuário");
-        jmiUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiUsuarioActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmiUsuario);
+        jMenuBar1.add(jmePessoas);
 
-        jmiGrupo.setText("Grupo");
-        jmiGrupo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiGrupoActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmiGrupo);
-
-        jmiTela.setText("Tela");
-        jmiTela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiTelaActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmiTela);
-
-        jmiBotao.setText("Botão");
-        jmiBotao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiBotaoActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmiBotao);
-
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Vendas");
-        jMenuBar1.add(jMenu2);
-
-        jMenu4.setText("Caixa");
+        jmeCaixa.setText("Caixa");
 
         jMenuItem1.setText("Abrir e Fechar Caixa");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -396,15 +350,79 @@ public class Home extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem1);
+        jmeCaixa.add(jMenuItem1);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(jmeCaixa);
 
-        jMenu3.setText("Financeiro");
-        jMenuBar1.add(jMenu3);
+        jmeProduto.setText("Produto");
 
-        jMenu5.setText("Relatório");
-        jMenuBar1.add(jMenu5);
+        jmiTelefones.setText("Classificação");
+        jmiTelefones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiTelefonesActionPerformed(evt);
+            }
+        });
+        jmeProduto.add(jmiTelefones);
+
+        jmiProduto.setText("Novo Produto");
+        jmiProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiProdutoActionPerformed(evt);
+            }
+        });
+        jmeProduto.add(jmiProduto);
+
+        jMenuBar1.add(jmeProduto);
+
+        jmeFinanceiro.setText("Financeiro");
+        jMenuBar1.add(jmeFinanceiro);
+
+        jmeRelatorio.setText("Relatório");
+        jMenuBar1.add(jmeRelatorio);
+
+        jmeMais.setText("Mais");
+
+        jmiBotao.setText("Botão");
+        jmiBotao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiBotaoActionPerformed(evt);
+            }
+        });
+        jmeMais.add(jmiBotao);
+
+        jmiConfiguracoes.setText("Configurações");
+        jmiConfiguracoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiConfiguracoesActionPerformed(evt);
+            }
+        });
+        jmeMais.add(jmiConfiguracoes);
+
+        jmiGrupo.setText("Grupo");
+        jmiGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiGrupoActionPerformed(evt);
+            }
+        });
+        jmeMais.add(jmiGrupo);
+
+        jmiTela.setText("Tela");
+        jmiTela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiTelaActionPerformed(evt);
+            }
+        });
+        jmeMais.add(jmiTela);
+
+        jmiUsuario.setText("Usuário");
+        jmiUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiUsuarioActionPerformed(evt);
+            }
+        });
+        jmeMais.add(jmiUsuario);
+
+        jMenuBar1.add(jmeMais);
 
         setJMenuBar(jMenuBar1);
 
@@ -442,11 +460,6 @@ public class Home extends javax.swing.JFrame {
         telaClassificacao.setLocationRelativeTo(telaClassificacao);
         telaClassificacao.setVisible(true);
     }//GEN-LAST:event_jmiTelefonesActionPerformed
-
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenu1ActionPerformed
-    {//GEN-HEADEREND:event_jMenu1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void jmiPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPessoasActionPerformed
         jdPessoa telaPessoa = new jdPessoa(this, true);
@@ -556,7 +569,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClienteMouseExited
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
-        // TODO add your handling code here:
+        jdPessoa telaPessoa = new jdPessoa(this, true);
+        telaPessoa.setLocationRelativeTo(telaPessoa);
+        telaPessoa.setVisible(true);
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnHistoricoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistoricoMouseEntered
@@ -602,6 +617,12 @@ public class Home extends javax.swing.JFrame {
         telaTela.setVisible(true);
     }//GEN-LAST:event_jmiTelaActionPerformed
 
+    private void jmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProdutoActionPerformed
+        jdProduto telaProduto = new jdProduto(this, true);
+        telaProduto.setLocationRelativeTo(telaProduto);
+        telaProduto.setVisible(true);
+    }//GEN-LAST:event_jmiProdutoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCaixa;
     private javax.swing.JButton btnCliente;
@@ -613,20 +634,24 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnSair;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JMenu jmeCaixa;
+    private javax.swing.JMenu jmeFinanceiro;
+    private javax.swing.JMenu jmeMais;
+    private javax.swing.JMenu jmePessoas;
+    private javax.swing.JMenu jmeProduto;
+    private javax.swing.JMenu jmeRelatorio;
+    private javax.swing.JMenu jmeVendas;
     private javax.swing.JMenuItem jmiBotao;
     private javax.swing.JMenuItem jmiConfiguracoes;
     private javax.swing.JMenuItem jmiGrupo;
     private javax.swing.JMenuItem jmiPessoas;
+    private javax.swing.JMenuItem jmiProduto;
     private javax.swing.JMenuItem jmiTela;
     private javax.swing.JMenuItem jmiTelefones;
     private javax.swing.JMenuItem jmiUsuario;

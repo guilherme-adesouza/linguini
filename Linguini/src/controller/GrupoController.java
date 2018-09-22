@@ -4,10 +4,12 @@ import dao.GrupoDAO;
 import dao.MensagemRetorno;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import model.Grupo;
+import view.ComboItens;
 
 /**
  * @author guilherme-souza
@@ -46,7 +48,7 @@ public class GrupoController implements Controller<Grupo> {
 
         // cria matriz de acordo com nº de registros da tabela
         try {
-            MensagemRetorno ms = this.grupoDAO.consultarAtivosComCriterio(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
+            MensagemRetorno ms = this.grupoDAO.consultarComCriterio(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
             if(ms.isSucesso()) {
                 dadosTabela = new Object[ms.getLista().size()][cabecalho.length];
             }
@@ -59,7 +61,7 @@ public class GrupoController implements Controller<Grupo> {
 
         // efetua consulta na tabela
         try {
-            MensagemRetorno ms = this.grupoDAO.consultarAtivosComCriterio(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
+            MensagemRetorno ms = this.grupoDAO.consultarComCriterio(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
             
             for (Object o : ms.getLista()) {
                 Grupo g = (Grupo) o;
@@ -136,12 +138,19 @@ public class GrupoController implements Controller<Grupo> {
         return campos;
     }
 
-
     @Override
     public List<CampoOrdenavel> getOrdenacao() {
         List campos = new ArrayList();
         campos.add(new CampoOrdenavel("ID", "id"));
         campos.add(new CampoOrdenavel("Nome", "nome"));
         return campos;
+    }
+    
+    public void popularCombo(JComboBox combo){
+        this.grupoDAO.popularCombo("Telas", combo);
+    }
+    
+    public void definirItemCombo(JComboBox combo, ComboItens comboItens){
+        this.grupoDAO.definirItemCombo(combo, comboItens);
     }
 }

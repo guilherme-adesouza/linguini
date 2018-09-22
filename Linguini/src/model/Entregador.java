@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -41,8 +42,9 @@ public class Entregador implements Serializable {
     @Basic(optional = false)
     @Column(name = "placa", nullable = false, length = 7)
     private String placa;
-    @JoinColumn(name = "pessoa_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "pessoa_id", referencedColumnName = "id", nullable = false)
     @OneToOne(optional = false)
+    @MapsId
     private Pessoa pessoa;
     @OneToMany(mappedBy = "entregadorPessoaId")
     private List<Pedido> pedidoList;

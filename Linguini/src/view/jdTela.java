@@ -5,13 +5,11 @@
  */
 package view;
 
-import controller.ClassificacaoController;
 import controller.TelaController;
 import dao.MensagemRetorno;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import model.Classificacao;
 import model.Telas;
 import utils.Validacao;
 
@@ -29,9 +27,10 @@ public class jdTela extends javax.swing.JDialog implements Pesquisavel{
      */
     public jdTela(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        initComponents();
+        this.tfdCodigo.setText("");
         this.tela = new Telas();
         this.telaController = new TelaController();
-        initComponents();
     }
     
     @SuppressWarnings("unchecked")
@@ -259,7 +258,12 @@ public class jdTela extends javax.swing.JDialog implements Pesquisavel{
     }//GEN-LAST:event_tfdClassificacaoActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        this.limparCampos(Integer.parseInt(this.tela.getId().toString()));
+        if(this.tela.getId() == null) {
+            this.limparCampos(0);
+        }
+        else {
+            this.limparCampos( this.tela.getId().intValue() );
+        }
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -327,9 +331,9 @@ public class jdTela extends javax.swing.JDialog implements Pesquisavel{
 
     @Override
     public void limparCampos(int codigo) {
-        if(this.tela.getId() == codigo){
+        if(this.tela.getId() == null || this.tela.getId() == codigo){
             this.tela = new Telas();
-            this.tfdCodigo.setText(this.tela.getId()+"");
+            this.tfdCodigo.setText("");
             this.tfdClassificacao.setText(this.tela.getTela());
         }
     }

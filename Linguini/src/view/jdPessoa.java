@@ -154,11 +154,11 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(btnNovo)
-                .addGap(68, 68, 68)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalvar)
-                .addGap(73, 73, 73)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExcluir)
-                .addGap(62, 62, 62)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnPesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnFechar)
@@ -353,12 +353,12 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel4))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(263, 263, 263)
+                                .addGap(269, 269, 269)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdBairro))
+                                .addComponent(tfdBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -443,6 +443,7 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
             this.pessoa.setComplemento(this.tfdComplemento.getText());
             this.pessoa.setLogradouro(this.tfdLogradouro.getText());
             this.pessoa.setNome(this.tfdNome.getText());
+            this.pessoa.setObservacao(this.tfaObservacao.getText());
             this.pessoa.setSituacao(true);
             if(!this.tfdNumero.getText().isEmpty()){
                 this.pessoa.setNumero(Integer.parseInt(this.tfdNumero.getText()));
@@ -478,7 +479,7 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        jdPesquisa pesquisa = new jdPesquisa((Frame) this.getParent(), this, true, this.pessoaController);
+        jdPesquisa pesquisa = new jdPesquisa(new Frame(), this, true, this.pessoaController);
         pesquisa.setVisible(true);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
@@ -488,6 +489,7 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
 
     private void cboEntregadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboEntregadorItemStateChanged
         this.ftfPlaca.setEnabled(this.cboEntregador.isSelected());
+        this.ftfPlaca.setText("");
     }//GEN-LAST:event_cboEntregadorItemStateChanged
 
     private void cmbCidadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCidadeItemStateChanged
@@ -571,15 +573,23 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
         this.pessoa = (Pessoa) retorno.getObjeto();
         this.tfdCodigo.setText(this.pessoa.getId()+"");
         this.tfdNome.setText(this.pessoa.getNome()+"");
-        //this.tfdTelefone1.setText(this.pessoa.getTelefone1()+"");
-        //this.tfdTelefone2.setText(this.pessoa.getTelefone2()+"");
+        this.ftfTelefone1.setText(this.pessoa.getTelefone1()+"");
+        this.ftfTelefone2.setText(this.pessoa.getTelefone2()+"");
         this.tfdLogradouro.setText(this.pessoa.getLogradouro()+"");
         this.tfdComplemento.setText(this.pessoa.getComplemento()+"");
         if(this.pessoa.getNumero() != null){
             this.tfdNumero.setText(this.pessoa.getNumero()+"");
         }
+        else {
+            this.tfdNumero.setText("");
+        }    
         this.tfdBairro.setText(this.pessoa.getBairro()+"");
-        this.tfaObservacao.setText(this.pessoa.getObservacao()+"");
+        if(this.pessoa.getObservacao() != null){
+            this.tfaObservacao.setText(this.pessoa.getObservacao()+"");
+        }
+        else {
+            this.tfaObservacao.setText("");
+        }
         MensagemRetorno msg = this.entregadorController.consultarPorID(codigo);
         if(msg.getObjeto() != null){
             this.entregador = (Entregador) msg.getObjeto();
@@ -595,14 +605,14 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
             this.pessoa = new Pessoa();
             this.tfdCodigo.setText("");
             this.tfdNome.setText(this.pessoa.getNome());
-            //this.tfdTelefone1.setText(this.pessoa.getTelefone1()+"");
-            //this.tfdTelefone2.setText(this.pessoa.getTelefone2()+"");
+            this.ftfTelefone1.setText(this.pessoa.getTelefone1()+"");
+            this.ftfTelefone2.setText(this.pessoa.getTelefone2()+"");
             this.tfdLogradouro.setText(this.pessoa.getLogradouro());
             this.cmbCidade.setSelectedIndex(0);
             this.tfdBairro.setText(this.pessoa.getBairro());
             this.tfdComplemento.setText(this.pessoa.getComplemento());
             this.tfdNumero.setText("");
-            this.tfaObservacao.setText(this.pessoa.getObservacao());
+            this.tfaObservacao.setText("");
             this.cboEntregador.setSelected(false);
             this.ftfPlaca.setText("");
         }
