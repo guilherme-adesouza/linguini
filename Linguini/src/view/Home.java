@@ -70,17 +70,18 @@ public class Home extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(1200, 800));
 
         btnCaixa.setBackground(new java.awt.Color(153, 153, 153));
+        btnCaixa.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         btnCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-fluxo-de-caixa-48.png"))); // NOI18N
         btnCaixa.setText("Caixa");
         btnCaixa.setBorderPainted(false);
         btnCaixa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCaixa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCaixaMouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnCaixaMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCaixaMouseEntered(evt);
             }
         });
         btnCaixa.addActionListener(new java.awt.event.ActionListener() {
@@ -90,17 +91,18 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnProduto.setBackground(new java.awt.Color(153, 153, 153));
+        btnProduto.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         btnProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-lancheira-48.png"))); // NOI18N
         btnProduto.setText("Produtos");
         btnProduto.setBorderPainted(false);
         btnProduto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProduto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnProduto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnProdutoMouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnProdutoMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnProdutoMouseEntered(evt);
             }
         });
         btnProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -110,17 +112,18 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnDelivery.setBackground(new java.awt.Color(153, 153, 153));
+        btnDelivery.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         btnDelivery.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-entrega-de-comida-48.png"))); // NOI18N
         btnDelivery.setText("Novo Delivery");
         btnDelivery.setBorderPainted(false);
         btnDelivery.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDelivery.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnDelivery.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDeliveryMouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnDeliveryMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDeliveryMouseEntered(evt);
             }
         });
         btnDelivery.addActionListener(new java.awt.event.ActionListener() {
@@ -130,17 +133,18 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnPedido.setBackground(new java.awt.Color(153, 153, 153));
+        btnPedido.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         btnPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-comprar-48.png"))); // NOI18N
         btnPedido.setText("Novo Pedido");
         btnPedido.setBorderPainted(false);
         btnPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnPedido.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnPedidoMouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnPedidoMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnPedidoMouseEntered(evt);
             }
         });
         btnPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -150,17 +154,18 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnComandas.setBackground(new java.awt.Color(153, 153, 153));
+        btnComandas.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         btnComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-lista-de-verificação-48.png"))); // NOI18N
         btnComandas.setText("Comandas");
         btnComandas.setBorderPainted(false);
         btnComandas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnComandas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnComandas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnComandasMouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnComandasMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnComandasMouseEntered(evt);
             }
         });
         btnComandas.addActionListener(new java.awt.event.ActionListener() {
@@ -170,6 +175,7 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnCliente.setBackground(new java.awt.Color(153, 153, 153));
+        btnCliente.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-grupos-de-usuários-48.png"))); // NOI18N
         btnCliente.setText("Clientes");
         btnCliente.setBorderPainted(false);
@@ -190,17 +196,18 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnHistorico.setBackground(new java.awt.Color(153, 153, 153));
+        btnHistorico.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         btnHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-propriedade-de-tempo-48.png"))); // NOI18N
         btnHistorico.setText("Histórico de Pedidos");
         btnHistorico.setBorderPainted(false);
         btnHistorico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnHistorico.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnHistorico.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnHistoricoMouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnHistoricoMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnHistoricoMouseEntered(evt);
             }
         });
         btnHistorico.addActionListener(new java.awt.event.ActionListener() {
@@ -210,6 +217,7 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnSair.setBackground(new java.awt.Color(153, 153, 153));
+        btnSair.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-exportar-48.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.setBorderPainted(false);
@@ -248,7 +256,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(btnCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHistorico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addComponent(btnSair)
                 .addContainerGap())
         );

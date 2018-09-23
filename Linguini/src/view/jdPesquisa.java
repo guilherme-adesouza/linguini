@@ -45,15 +45,20 @@ public class jdPesquisa extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Pesquisar");
+        setTitle("Pesquisa");
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnEditar.setBackground(new java.awt.Color(51, 102, 255));
+        btnEditar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(254, 254, 254));
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-editar-48.png"))); // NOI18N
+        btnEditar.setText("Editar");
         btnEditar.setBorderPainted(false);
         btnEditar.setContentAreaFilled(false);
+        btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -61,8 +66,13 @@ public class jdPesquisa extends javax.swing.JDialog {
         });
 
         btnFechar.setBackground(new java.awt.Color(51, 102, 255));
+        btnFechar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        btnFechar.setForeground(new java.awt.Color(254, 254, 254));
         btnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-importar-48.png"))); // NOI18N
+        btnFechar.setText("Fechar");
         btnFechar.setContentAreaFilled(false);
+        btnFechar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFechar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFecharActionPerformed(evt);
@@ -70,9 +80,14 @@ public class jdPesquisa extends javax.swing.JDialog {
         });
 
         btnExcluir.setBackground(new java.awt.Color(51, 102, 255));
+        btnExcluir.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        btnExcluir.setForeground(new java.awt.Color(254, 254, 254));
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-excluir-48.png"))); // NOI18N
+        btnExcluir.setText("Excluir");
         btnExcluir.setBorderPainted(false);
         btnExcluir.setContentAreaFilled(false);
+        btnExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
@@ -84,23 +99,23 @@ public class jdPesquisa extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(btnEditar)
+                .addGap(0, 0, 0)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExcluir)
-                .addGap(190, 190, 190)
-                .addComponent(btnFechar)
-                .addGap(21, 21, 21))
+                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(btnExcluir)
+                    .addComponent(btnFechar)
+                    .addComponent(btnEditar))
+                .addGap(0, 0, 0))
         );
 
         cmbFiltros.setToolTipText("");
