@@ -15,7 +15,6 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import model.Usuario;
-import utils.LeitorTela;
 import utils.Sessao;
 
 /**
@@ -31,6 +30,9 @@ public class jfLogin extends javax.swing.JFrame {
      */
     public jfLogin() {
         initComponents();
+        
+        this.btnLogin.setName("btnLogin");
+        
         this.usuarioController = new UsuarioController();
         this.usuario = new Usuario();
         this.tfdUsuario.requestFocus();
@@ -49,6 +51,7 @@ public class jfLogin extends javax.swing.JFrame {
                 btnLogin.doClick();
             }
         });
+        
     }
 
     /**

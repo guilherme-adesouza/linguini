@@ -14,6 +14,10 @@ public class PermissaoController implements Controller<Permissao> {
     PermissaoDAO permissaoDAO;
     String tabela = "Permissao";
     
+    public PermissaoController(){
+        this.permissaoDAO = new PermissaoDAO();
+    }
+    
     @Override
     public MensagemRetorno salvar(Permissao permissao) {
         return this.permissaoDAO.salvar(permissao);

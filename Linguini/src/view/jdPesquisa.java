@@ -11,13 +11,21 @@ import javax.swing.JOptionPane;
  */
 public class jdPesquisa extends javax.swing.JDialog {
     Controller controller;
-    Pesquisavel cadastro; 
+    Pesquisavel cadastro;
+    
+    public static String nomeTela = "telaPesquisa";
 
     public jdPesquisa(java.awt.Frame parent, Pesquisavel cadastro, boolean modal, Controller controller) {
         super(parent, modal);
+        initComponents();
+        
+        this.btnEditar.setName("btnEditar");
+        this.btnExcluir.setName("btnExcluir");
+        this.btnPesquisar.setName("btnPesquisar");
+        
         this.controller = controller;
         this.cadastro = cadastro;
-        initComponents();
+        
         List<CampoOrdenavel> campos = this.controller.getOrdenacao();
         for (CampoOrdenavel campo : campos) {
             this.cmbFiltros.addItem(campo.getNome());

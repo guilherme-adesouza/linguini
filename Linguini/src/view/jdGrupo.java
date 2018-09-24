@@ -23,7 +23,6 @@ import utils.Validacao;
 public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
     
     TelaController telaController;
-    BotaoController botaoController;
     GrupoController grupoController;
     PermissaoController permissaoController;
     PermissaoBotaoController permissaoBotaoController;
@@ -31,14 +30,21 @@ public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
     Permissao permissao;
     PermissaoBotao permissaoBotao;
 
+    public static String nomeTela = "telaGrupo";
+
     /**
      * Creates new form jdGrupo
      */
     public jdGrupo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        this.btnSalvar.setName("btnSalvar");
+        this.btnExcluir.setName("btnExcluir");
+        this.btnPesquisar.setName("btnPesquisar");
+        this.btnNovo.setName("btnNovo");
+        
         this.telaController = new TelaController();
-        this.botaoController = new BotaoController();
         this.grupoController = new GrupoController();
         this.permissaoController = new PermissaoController();
         this.permissaoBotaoController = new PermissaoBotaoController();
@@ -46,6 +52,7 @@ public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
         this.permissaoBotao = new PermissaoBotao();
         this.grupo = new Grupo();
         this.telaController.popularCombo(cmbTelas);
+        this.permissaoBotaoController.popularTabelaEditavel(tblPermissaoBotoes, -1, -1);
     }
 
     /**
@@ -63,18 +70,17 @@ public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
         btnExcluir = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
         btnPesquisar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         tfdGrupo = new javax.swing.JTextField();
-        cmbTelas = new javax.swing.JComboBox<>();
         tfdCodigo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPermissaoBotoes = new javax.swing.JTable();
+        cmbTelas = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        btnAlterarPermissoes = new javax.swing.JButton();
         cboTelaVisivel = new javax.swing.JCheckBox();
-        cmbBotoes = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        cboBotaoVisivel = new javax.swing.JCheckBox();
-        btnSalvarTela = new javax.swing.JButton();
-        btnSalvarBotao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Grupo de Usuário");
@@ -164,13 +170,13 @@ public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -182,16 +188,7 @@ public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
             .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jLabel1.setText("Tela");
-
         jLabel2.setText("Grupo");
-
-        cmbTelas.setToolTipText("");
-        cmbTelas.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbTelasItemStateChanged(evt);
-            }
-        });
 
         tfdCodigo.setEnabled(false);
         tfdCodigo.addActionListener(new java.awt.event.ActionListener() {
@@ -202,37 +199,76 @@ public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
 
         jLabel3.setText("Código");
 
-        cboTelaVisivel.setText("Tela Visível");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Permissões"));
 
-        cmbBotoes.setToolTipText("");
-        cmbBotoes.addItemListener(new java.awt.event.ItemListener() {
+        tblPermissaoBotoes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblPermissaoBotoes);
+
+        cmbTelas.setToolTipText("");
+        cmbTelas.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbBotoesItemStateChanged(evt);
+                cmbTelasItemStateChanged(evt);
             }
         });
 
-        jLabel4.setText("Botão");
+        jLabel1.setText("Tela");
 
-        cboBotaoVisivel.setText("Botão Visível");
-        cboBotaoVisivel.addActionListener(new java.awt.event.ActionListener() {
+        btnAlterarPermissoes.setText("Alterar Permissões");
+        btnAlterarPermissoes.setName("btnAlterarPermissoes"); // NOI18N
+        btnAlterarPermissoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboBotaoVisivelActionPerformed(evt);
+                btnAlterarPermissoesActionPerformed(evt);
             }
         });
 
-        btnSalvarTela.setText("Salvar Permissão Tela");
-        btnSalvarTela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarTelaActionPerformed(evt);
+        cboTelaVisivel.setText("Tela Visível");
+        cboTelaVisivel.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboTelaVisivelItemStateChanged(evt);
             }
         });
 
-        btnSalvarBotao.setText("Salvar Permissão Botão");
-        btnSalvarBotao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarBotaoActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbTelas, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboTelaVisivel)
+                        .addGap(27, 27, 27)
+                        .addComponent(btnAlterarPermissoes)))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbTelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(cboTelaVisivel)
+                    .addComponent(btnAlterarPermissoes))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -241,40 +277,19 @@ public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel1)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(cmbTelas, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(cboTelaVisivel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(248, 248, 248)
-                        .addComponent(btnSalvarTela))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(cmbBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
-                                .addComponent(cboBotaoVisivel))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnSalvarBotao)
-                                .addGap(110, 110, 110)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,21 +301,9 @@ public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
                     .addComponent(tfdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbTelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(cboTelaVisivel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSalvarTela)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(cboBotaoVisivel))
-                .addGap(18, 18, 18)
-                .addComponent(btnSalvarBotao)
-                .addGap(21, 21, 21))
+                .addGap(37, 37, 37)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -348,68 +351,24 @@ public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int cod = ((ComboItens) cmbTelas.getSelectedItem()).getCodigo();
             if (cod != 0) {
-                this.cmbBotoes.removeAllItems();
-                this.botaoController.popularCombo(cod, cmbBotoes);
-                
-                boolean permissaoExiste = false;
-                for(Permissao p : this.grupo.getPermissaoList()) {
-                    if(p.getTelasId().getId() == cod){
-                        this.permissao = p;
-                        permissaoExiste = true;
-                        break;
-                    }
+                this.permissaoBotaoController.popularTabelaEditavel(tblPermissaoBotoes, cod, this.grupo.getId());
+
+                if(this.grupo == null) {
+                    JOptionPane.showMessageDialog(this, "É necessário criar um grupo antes de informar as permissões", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 }
-                if(!permissaoExiste) {
-                    JOptionPane.showMessageDialog(rootPane, "Esta permissão ainda não existe, mas será criada ao salvar!");
-                    this.permissao = new Permissao();
-                    this.permissao.setTelasId((Telas)this.telaController.consultarPorID(cod).getObjeto());
-                    this.permissao.setGrupoId(this.grupo);
-                    this.permissao.setVisivel(false);
+                else {                    
+                    for(Permissao p : this.grupo.getPermissaoList()) {
+                        if(p.getTelasId().getId() == cod){
+                            this.permissao = p;
+                        }
+                    }
                 }
                 this.cboTelaVisivel.setSelected(this.permissao.getVisivel());
             }
         }
     }//GEN-LAST:event_cmbTelasItemStateChanged
 
-    private void cmbBotoesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBotoesItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            int cod = ((ComboItens) cmbBotoes.getSelectedItem()).getCodigo();
-            if (cod != 0) {                
-                boolean permissaoExiste = false;
-                for(PermissaoBotao p : this.grupo.getPermissaoBotaoList()) {
-                    if(p.getBotoesId().getId() == cod){
-                        this.permissaoBotao = p;
-                        permissaoExiste = true;
-                        break;
-                    }
-                }
-                if(!permissaoExiste) {
-                    JOptionPane.showMessageDialog(rootPane, "Esta permissão ainda não existe, mas será criada ao salvar!");
-                    this.permissaoBotao = new PermissaoBotao();
-                    this.permissaoBotao.setBotoesId((Botoes)this.botaoController.consultarPorID(cod).getObjeto());
-                    this.permissaoBotao.setGrupoId(this.grupo);
-                    this.permissaoBotao.setVisivel(false);
-                }
-                this.cboBotaoVisivel.setSelected(this.permissaoBotao.getVisivel());
-            }
-        }
-    }//GEN-LAST:event_cmbBotoesItemStateChanged
-
-    private void cboBotaoVisivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboBotaoVisivelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboBotaoVisivelActionPerformed
-
-    private void btnSalvarBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarBotaoActionPerformed
-        MensagemRetorno msg = this.permissaoBotaoController.salvar(this.permissaoBotao);
-        if(msg.isSucesso()){
-            JOptionPane.showMessageDialog(rootPane, msg.getMensagem());
-        }
-        else {
-            JOptionPane.showMessageDialog(this, msg.getMensagem(), "ERRO!", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_btnSalvarBotaoActionPerformed
-
-    private void btnSalvarTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTelaActionPerformed
+    private void btnAlterarPermissoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarPermissoesActionPerformed
         MensagemRetorno msg = this.permissaoController.salvar(this.permissao);
         if(msg.isSucesso()){
             JOptionPane.showMessageDialog(rootPane, msg.getMensagem());
@@ -417,25 +376,33 @@ public class jdGrupo extends javax.swing.JDialog implements Pesquisavel{
         else {
             JOptionPane.showMessageDialog(this, msg.getMensagem(), "ERRO!", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_btnSalvarTelaActionPerformed
+    }//GEN-LAST:event_btnAlterarPermissoesActionPerformed
+
+    private void cboTelaVisivelItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboTelaVisivelItemStateChanged
+        if(this.grupo == null) {
+            JOptionPane.showMessageDialog(this, "É necessário criar um grupo antes de informar as permissões", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            this.permissao.setVisivel(this.cboTelaVisivel.isSelected());
+        }
+    }//GEN-LAST:event_cboTelaVisivelItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterarPermissoes;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JButton btnSalvarBotao;
-    private javax.swing.JButton btnSalvarTela;
-    private javax.swing.JCheckBox cboBotaoVisivel;
     private javax.swing.JCheckBox cboTelaVisivel;
-    private javax.swing.JComboBox<String> cmbBotoes;
     private javax.swing.JComboBox<String> cmbTelas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblPermissaoBotoes;
     private javax.swing.JTextField tfdCodigo;
     private javax.swing.JTextField tfdGrupo;
     // End of variables declaration//GEN-END:variables

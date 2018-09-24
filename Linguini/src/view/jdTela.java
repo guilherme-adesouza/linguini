@@ -21,6 +21,7 @@ public class jdTela extends javax.swing.JDialog implements Pesquisavel{
 
     private TelaController telaController;
     private Telas tela;
+    public static String nomeTela = "telaTela";
 
     /**
      * Creates new form jdTelefone
@@ -28,6 +29,12 @@ public class jdTela extends javax.swing.JDialog implements Pesquisavel{
     public jdTela(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        this.btnSalvar.setName("btnSalvar");
+        this.btnExcluir.setName("btnExcluir");
+        this.btnPesquisar.setName("btnPesquisar");
+        this.btnNovo.setName("btnNovo");
+        
         this.tfdCodigo.setText("");
         this.tela = new Telas();
         this.telaController = new TelaController();

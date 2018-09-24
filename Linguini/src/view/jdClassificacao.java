@@ -21,15 +21,23 @@ public class jdClassificacao extends javax.swing.JDialog implements Pesquisavel{
 
     private ClassificacaoController classificacaoController;
     private Classificacao classificacao;
+    
+    public static String nomeTela = "telaClassificacao";
 
     /**
      * Creates new form jdTelefone
      */
     public jdClassificacao(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        initComponents();
+        
+        this.btnSalvar.setName("btnSalvar");
+        this.btnExcluir.setName("btnExcluir");
+        this.btnPesquisar.setName("btnPesquisar");
+        this.btnNovo.setName("btnNovo");
+        
         this.classificacao = new Classificacao();
         this.classificacaoController = new ClassificacaoController();
-        initComponents();
     }
     
     @SuppressWarnings("unchecked")

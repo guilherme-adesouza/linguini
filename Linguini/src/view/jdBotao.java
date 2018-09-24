@@ -25,6 +25,8 @@ public class jdBotao extends javax.swing.JDialog implements Pesquisavel{
     private BotaoController botaoController;
     private TelaController telaController;
     private Botoes botao;
+    
+    public static String nomeTela = "telaBotao";
 
     /**
      * Creates new form jdTelefone
@@ -32,6 +34,11 @@ public class jdBotao extends javax.swing.JDialog implements Pesquisavel{
     public jdBotao(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        this.btnSalvar.setName("btnSalvar");
+        this.btnExcluir.setName("btnExcluir");
+        this.btnPesquisar.setName("btnPesquisar");
+        this.btnNovo.setName("btnNovo");
         
         this.botao = new Botoes();
         this.botaoController = new BotaoController();

@@ -50,6 +50,11 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     public jdProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        this.btnSalvar.setName("btnSalvar");
+        this.btnExcluir.setName("btnExcluir");
+        this.btnPesquisar.setName("btnPesquisar");
+        this.btnNovo.setName("btnNovo");
                 
         this.produto = new Produto();
         this.produtoController = new ProdutoController();
