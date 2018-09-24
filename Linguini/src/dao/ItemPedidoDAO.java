@@ -77,7 +77,7 @@ public class ItemPedidoDAO extends GenericoDAO<ItemPedido> {
 
             sessao.beginTransaction();
 
-            Query query = sessao.createQuery("FROM "+ tabela +" WHERE pedido_id = :idParam");
+            Query query = sessao.createQuery("FROM " + tabela + " WHERE pedido_id = :idParam");
 
             query.setInteger("idParam", id);
 

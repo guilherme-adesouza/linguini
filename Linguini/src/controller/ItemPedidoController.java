@@ -10,6 +10,8 @@ import javax.swing.table.TableColumn;
 import model.ItemPedido;
 import model.Pedido;
 import model.Produto;
+import model.Usuario;
+import utils.Sessao;
 
 /**
  * @author vitor-olavo
@@ -19,7 +21,11 @@ public class ItemPedidoController implements Controller<ItemPedido> {
     ItemPedidoDAO itemPedidoDAO;
 
     String tabela = "ItemPedido";
-
+    
+    public Usuario obterUser(){
+      return Sessao.getUsuario();
+    }
+    
     public ItemPedidoController() {
         this.itemPedidoDAO = new ItemPedidoDAO();
     }
