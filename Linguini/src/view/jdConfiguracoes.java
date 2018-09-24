@@ -12,9 +12,18 @@ public class jdConfiguracoes extends javax.swing.JDialog {
 
     CozinhaController cozinhaController;
     Cozinha cozinha;
+  
+    public static String nomeTela = "telaConfiguracao";
+
+    
     public jdConfiguracoes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        this.btnSalvar.setName("btnSalvar");
+        this.btnExcluir.setName("btnExcluir");
+        this.btnPesquisar.setName("btnPesquisar");
+        this.btnNovo.setName("btnNovo");
         
         this.cozinhaController = new CozinhaController();
         this.cozinha = (Cozinha) this.cozinhaController.consultarPorID(1).getObjeto();

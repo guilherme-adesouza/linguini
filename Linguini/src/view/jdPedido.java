@@ -35,6 +35,8 @@ public class jdPedido extends javax.swing.JDialog {
     private Calendario calendario;
     private Usuario usuario;
     private UsuarioController usuarioController;
+    
+    public static String nomeTela = "telaPedido";
 
     private void quantidade() {
         if (this.tfdQuantidade.getText().equals("")) {

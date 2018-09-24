@@ -21,17 +21,26 @@ public class jdFuncionario extends javax.swing.JDialog implements Pesquisavel {
     private Pessoa pessoa;
     private Funcionario funcionario;
     private FuncionarioController funcionarioController;
-
+    
+    public static String nomeTela = "telaFuncionario";
+    
     /**
      * Creates new form jdCidade
      */
     public jdFuncionario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        this.btnSalvar.setName("btnSalvar");
+        this.btnExcluir.setName("btnExcluir");
+        this.btnPesquisar.setName("btnPesquisar");
+        this.btnNovo.setName("btnNovo");
+        
         this.pessoaController = new PessoaController();
         this.funcionarioController = new FuncionarioController();
         this.pessoa = new Pessoa();
         this.funcionario = new Funcionario();
+        
         Formatacao.formatarTelefone(this.ftfTelefone1);
         Formatacao.formatarTelefone(this.ftfTelefone2);
         Formatacao.formatarCpf(this.ftfCPF);

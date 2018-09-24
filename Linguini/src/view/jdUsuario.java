@@ -27,6 +27,12 @@ public class jdUsuario extends javax.swing.JDialog implements Pesquisavel{
     public jdUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        this.btnSalvar.setName("btnSalvar");
+        this.btnExcluir.setName("btnExcluir");
+        this.btnPesquisar.setName("btnPesquisar");
+        this.btnNovo.setName("btnNovo");
+        
         this.usuario = new Usuario();
         this.usuarioController = new UsuarioController();
         this.grupoController = new GrupoController();
@@ -66,6 +72,7 @@ public class jdUsuario extends javax.swing.JDialog implements Pesquisavel{
         btnNovo.setBorderPainted(false);
         btnNovo.setContentAreaFilled(false);
         btnNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnNovo.setName("btnNovo"); // NOI18N
         btnNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,6 +88,7 @@ public class jdUsuario extends javax.swing.JDialog implements Pesquisavel{
         btnSalvar.setBorderPainted(false);
         btnSalvar.setContentAreaFilled(false);
         btnSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSalvar.setName("btnSalvar"); // NOI18N
         btnSalvar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +105,7 @@ public class jdUsuario extends javax.swing.JDialog implements Pesquisavel{
         btnExcluir.setContentAreaFilled(false);
         btnExcluir.setEnabled(false);
         btnExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExcluir.setName("btnExcluir"); // NOI18N
         btnExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +136,7 @@ public class jdUsuario extends javax.swing.JDialog implements Pesquisavel{
         btnPesquisar.setBorderPainted(false);
         btnPesquisar.setContentAreaFilled(false);
         btnPesquisar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPesquisar.setName("btnPesquisar"); // NOI18N
         btnPesquisar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

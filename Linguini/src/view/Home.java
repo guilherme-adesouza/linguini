@@ -5,18 +5,21 @@
  */
 package view;
 
-import utils.Giba;
+import controller.GrupoController;
 
 /**
  * @author VitinNote
  */
 public class Home extends javax.swing.JFrame {
 
+    public static String nomeTela = "telaPrincipal";
+    
     /**
      * Creates new form Hello
      */
     public Home() {
         initComponents();
+        //new GrupoController().popularPermissoes();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.jMenuBar1.requestFocus();
 
@@ -539,7 +542,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeliveryMouseExited
 
     private void btnDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeliveryActionPerformed
-        // TODO add your handling code here:
+        jdPedido telaPedido = new jdPedido(this, true);
+        telaPedido.setLocationRelativeTo(telaPedido);
+        telaPedido.setVisible(true);
     }//GEN-LAST:event_btnDeliveryActionPerformed
 
     private void btnPedidoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedidoMouseEntered

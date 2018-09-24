@@ -23,6 +23,8 @@ public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
 
     private Fornecedor fornecedor;
     private FornecedorController fornecedorController;
+ 
+    public static String nomeTela = "telaFornecedor";
 
     private void clearFields() {
         tfdCodigo.setText("");
@@ -39,6 +41,12 @@ public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
     public jdFornecedor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        this.btnSalvar.setName("btnSalvar");
+        this.btnExcluir.setName("btnExcluir");
+        this.btnPesquisar.setName("btnPesquisar");
+        this.btnNovo.setName("btnNovo");
+        
         this.fornecedor = new Fornecedor();
         this.fornecedorController = new FornecedorController();
         Formatacao.formatarCnpj(tffCNPJ);

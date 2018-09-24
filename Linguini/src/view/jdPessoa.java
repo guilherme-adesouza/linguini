@@ -30,6 +30,8 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
     private Entregador entregador;
     private EntregadorController entregadorController = new EntregadorController();;
     private CidadeController cidadeController = new CidadeController();;
+
+    public static String nomeTela = "telaPessoa";
     
     /**
      * Creates new form jdCidade
@@ -37,6 +39,12 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
     public jdPessoa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        this.btnSalvar.setName("btnSalvar");
+        this.btnExcluir.setName("btnExcluir");
+        this.btnPesquisar.setName("btnPesquisar");
+        this.btnNovo.setName("btnNovo");
+        
         this.pessoa = new Pessoa();
         this.entregador = new Entregador();
         this.ftfPlaca.setEnabled(this.cboEntregador.isSelected());

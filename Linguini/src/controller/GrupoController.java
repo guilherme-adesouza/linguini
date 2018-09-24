@@ -8,7 +8,11 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import model.Botoes;
 import model.Grupo;
+import model.Permissao;
+import model.PermissaoBotao;
+import model.Telas;
 import view.ComboItens;
 
 /**
@@ -128,7 +132,7 @@ public class GrupoController implements Controller<Grupo> {
         return this.grupoDAO.consultarPorId(id, this.tabela);
     }
     
-      private String[] getCabecalho(){
+    private String[] getCabecalho(){
         String[] cabecalho = {"Código", "Nome"};
         return cabecalho;
     }
@@ -152,5 +156,27 @@ public class GrupoController implements Controller<Grupo> {
     
     public void definirItemCombo(JComboBox combo, ComboItens comboItens){
         this.grupoDAO.definirItemCombo(combo, comboItens);
+    }
+    
+    public void popularPermissoes(){
+        for(Object grupo : this.consultarTodos().getLista()){
+            Grupo g = (Grupo) grupo;
+            //Telas
+            for(Object telas : new TelaController().consultarTodos().getLista()){
+                Permissao permissao = new Permissao();
+                permissao.setGrupoId(g);
+                permissao.setTelasId((Telas) telas);
+                permissao.setVisivel(false);
+                new PermissaoController().salvar(permissao);
+            }
+            //Botoes
+            for(Object botoes : new BotaoController().consultarTodos().getLista()){
+                PermissaoBotao permissaoBotao = new PermissaoBotao();
+                permissaoBotao.setGrupoId(g);
+                permissaoBotao.setBotoesId((Botoes) botoes);
+                permissaoBotao.setVisivel(false);
+                new PermissaoBotaoController().salvar(permissaoBotao);
+            }
+        }
     }
 }
