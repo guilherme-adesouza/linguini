@@ -7,15 +7,18 @@ package view;
 
 import controller.ItemPedidoController;
 import controller.PedidoController;
+import controller.PessoaController;
 import controller.ProdutoController;
 import controller.UsuarioController;
 import dao.MensagemRetorno;
 import java.awt.Color;
+import java.awt.Frame;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import model.ItemPedido;
 import model.Pedido;
+import model.Pessoa;
 import model.Produto;
 import model.Usuario;
 import utils.Calendario;
@@ -24,7 +27,7 @@ import utils.Calendario;
  *
  * @author guilherme-souza
  */
-public class jdPedido extends javax.swing.JDialog {
+public class jdPedido extends javax.swing.JDialog implements Pesquisavel{
 
     private Produto produto;
     private ProdutoController produtoController;
@@ -35,6 +38,8 @@ public class jdPedido extends javax.swing.JDialog {
     private Calendario calendario;
     private Usuario usuario;
     private UsuarioController usuarioController;
+    private Pessoa cliente;
+    private PessoaController clienteController;
     
     public static String nomeTela = "telaPedido";
 
@@ -65,6 +70,9 @@ public class jdPedido extends javax.swing.JDialog {
         this.pedidoController = new PedidoController();
         this.usuario = itemPedidoController.obterUser();
         this.usuarioController = new UsuarioController();
+        this.cliente = new Pessoa();
+        this.clienteController = new PessoaController();
+        
         atualizarTabela();
         listaProdutos.setVisible(false);
         tfdNumeroPedido.setText("");
@@ -169,12 +177,27 @@ public class jdPedido extends javax.swing.JDialog {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Observação");
 
+        tfdAtendente.setEditable(false);
+
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Cliente");
+
+        tfdCliente.setEditable(false);
+        tfdCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfdClienteFocusGained(evt);
+            }
+        });
+        tfdCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfdClienteMouseClicked(evt);
+            }
+        });
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Caixa");
 
+        tfdCaixa.setEditable(false);
         tfdCaixa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfdCaixaActionPerformed(evt);
@@ -881,6 +904,16 @@ public class jdPedido extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboDelivery1ActionPerformed
 
+    private void tfdClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdClienteFocusGained
+        
+    }//GEN-LAST:event_tfdClienteFocusGained
+
+    private void tfdClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfdClienteMouseClicked
+       jdPesquisa pesquisa = new jdPesquisa((Frame) this.getParent(), this, true, this.clienteController);
+        pesquisa.setLocationRelativeTo(pesquisa);
+        pesquisa.setVisible(true);
+    }//GEN-LAST:event_tfdClienteMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnExcluir;
@@ -938,4 +971,18 @@ public class jdPedido extends javax.swing.JDialog {
     private javax.swing.JTextField tfdQuantidade;
     private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void carregar(int codigo) {
+        tfdAtendente.requestFocus();
+        MensagemRetorno retorno = this.clienteController.consultarPorID(codigo);
+        this.cliente = (Pessoa) retorno.getObjeto();
+        this.tfdCliente.setText(this.cliente.getNome()+ "");
+        
+    }
+
+    @Override
+    public void limparCampos(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

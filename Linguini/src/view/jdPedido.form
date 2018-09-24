@@ -264,6 +264,9 @@
         <Component class="javax.swing.JTextField" name="tfdObservacao">
         </Component>
         <Component class="javax.swing.JTextField" name="tfdAtendente">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
@@ -274,6 +277,13 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfdCliente">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfdClienteFocusGained"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tfdClienteMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
@@ -284,6 +294,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfdCaixa">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfdCaixaActionPerformed"/>
           </Events>
