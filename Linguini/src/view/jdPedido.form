@@ -566,6 +566,9 @@
           </Events>
         </Component>
         <Component class="apoio.MoedaFormatada" name="tfdPrecoUnitario">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -854,10 +857,19 @@
       </SubComponents>
     </Container>
     <Component class="apoio.MoedaFormatada" name="tfdPrecoTotal">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="apoio.MoedaFormatada" name="tfdPrecoDesconto">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfdPrecoDescontoFocusLost"/>
+      </Events>
     </Component>
     <Component class="apoio.MoedaFormatada" name="tfdPrecoSubTotal">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

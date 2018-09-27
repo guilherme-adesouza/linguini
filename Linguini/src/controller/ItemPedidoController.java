@@ -2,6 +2,7 @@ package controller;
 
 import dao.ItemPedidoDAO;
 import dao.MensagemRetorno;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
@@ -21,11 +22,11 @@ public class ItemPedidoController implements Controller<ItemPedido> {
     ItemPedidoDAO itemPedidoDAO;
 
     String tabela = "ItemPedido";
-    
-    public Usuario obterUser(){
-      return Sessao.getUsuario();
+
+    public Usuario obterUser() {
+        return Sessao.getUsuario();
     }
-    
+
     public ItemPedidoController() {
         this.itemPedidoDAO = new ItemPedidoDAO();
     }
@@ -93,6 +94,18 @@ public class ItemPedidoController implements Controller<ItemPedido> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public BigDecimal obterSubTotal(int pedido_id) {
+        BigDecimal teste = new BigDecimal(0);
+        MensagemRetorno ms = this.itemPedidoDAO.consultarPorIdTodos(this.tabela, pedido_id);
+        for (Object o : ms.getLista()) {
+            ItemPedido s = (ItemPedido) o;
+            BigDecimal qt = new BigDecimal(s.getQuantidade());
+            BigDecimal valor = qt.multiply(s.getValor());
+            teste = teste.add(valor);
+        }
+        return teste;
+    }
+
     public void popularTabelaItens(JTable tabela, int pedido_id) {
         // dados da tabela
         Object[][] dadosTabela = null;
@@ -129,7 +142,7 @@ public class ItemPedidoController implements Controller<ItemPedido> {
                 dadosTabela[lin][1] = s.getProdutoId().getDescricao();
                 dadosTabela[lin][2] = s.getQuantidade();
                 dadosTabela[lin][3] = s.getValor();
-                dadosTabela[lin][4] = s.getValor().doubleValue()*s.getQuantidade();
+                dadosTabela[lin][4] = s.getValor().doubleValue() * s.getQuantidade();
                 lin++;
             }
 
@@ -179,9 +192,9 @@ public class ItemPedidoController implements Controller<ItemPedido> {
             column = tabela.getColumnModel().getColumn(i);
             switch (i) {
                 case 0:
-                    column.setPreferredWidth(17);
+                    column.setPreferredWidth(0);
                     break;
-                case 1:
+                default:
                     column.setPreferredWidth(140);
                     break;
 //                case 2:

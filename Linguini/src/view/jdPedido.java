@@ -27,7 +27,7 @@ import utils.Calendario;
  *
  * @author guilherme-souza
  */
-public class jdPedido extends javax.swing.JDialog implements Pesquisavel{
+public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
 
     private Produto produto;
     private ProdutoController produtoController;
@@ -40,7 +40,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel{
     private UsuarioController usuarioController;
     private Pessoa cliente;
     private PessoaController clienteController;
-    
+
     public static String nomeTela = "telaPedido";
 
     private void quantidade() {
@@ -51,7 +51,17 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel{
 
     private void atualizarTabela() {
         if (this.pedido.getId() != null) {
-            this.itemPedidoController.popularTabelaItens(tblPesquisar, pedido.getId().intValue());
+            this.itemPedidoController.popularTabelaItens(this.tblPesquisar, this.pedido.getId().intValue());
+            this.tfdPrecoSubTotal.setText(itemPedidoController.obterSubTotal(this.pedido.getId().intValue()) + "");
+            atualizarTotal();
+        }
+    }
+    
+    private void atualizarTotal(){
+        if(this.tfdPrecoDesconto.isFocusable()){
+            this.tfdPrecoTotal.setValue(this.tfdPrecoSubTotal.getValue().subtract(this.tfdPrecoDesconto.getValue()));
+        }else{
+            this.tfdPrecoTotal.setValue(this.tfdPrecoSubTotal.getValue());
         }
     }
 
@@ -72,16 +82,16 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel{
         this.usuarioController = new UsuarioController();
         this.cliente = new Pessoa();
         this.clienteController = new PessoaController();
-        
+
         atualizarTabela();
         listaProdutos.setVisible(false);
         tfdNumeroPedido.setText("");
         tfdNumeroComanda.setText("");
         quantidade();
-        
+
         this.tfdCaixa.setText(this.usuario.getNome());
-        
-   }
+
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -435,6 +445,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel{
             }
         });
 
+        tfdPrecoUnitario.setEditable(false);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -681,6 +693,16 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel{
                 .addGap(23, 23, 23))
         );
 
+        tfdPrecoTotal.setEditable(false);
+
+        tfdPrecoDesconto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfdPrecoDescontoFocusLost(evt);
+            }
+        });
+
+        tfdPrecoSubTotal.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -834,10 +856,10 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel{
             ok = this.pedidoController.salvar(this.pedido);
         }
         //Preenche os campos e torna caixa ocupado
-        if(ok.isSucesso()){
-           tfdNumeroPedido.setText(this.pedido.getId()+"");
-           painelCaixa.setBackground(Color.red);
-           tfdCaixaLivre.setText("CAIXA OCUPADO");
+        if (ok.isSucesso()) {
+            tfdNumeroPedido.setText(this.pedido.getId() + "");
+            painelCaixa.setBackground(Color.red);
+            tfdCaixaLivre.setText("CAIXA OCUPADO");
         }
         //Preenche itempedido
         if (this.pedido.getId() != null) {
@@ -905,14 +927,18 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel{
     }//GEN-LAST:event_comboDelivery1ActionPerformed
 
     private void tfdClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdClienteFocusGained
-        
+
     }//GEN-LAST:event_tfdClienteFocusGained
 
     private void tfdClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfdClienteMouseClicked
-       jdPesquisa pesquisa = new jdPesquisa((Frame) this.getParent(), this, true, this.clienteController);
+        jdPesquisa pesquisa = new jdPesquisa((Frame) this.getParent(), this, true, this.clienteController);
         pesquisa.setLocationRelativeTo(pesquisa);
         pesquisa.setVisible(true);
     }//GEN-LAST:event_tfdClienteMouseClicked
+
+    private void tfdPrecoDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdPrecoDescontoFocusLost
+        atualizarTotal();
+    }//GEN-LAST:event_tfdPrecoDescontoFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
@@ -977,8 +1003,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel{
         tfdAtendente.requestFocus();
         MensagemRetorno retorno = this.clienteController.consultarPorID(codigo);
         this.cliente = (Pessoa) retorno.getObjeto();
-        this.tfdCliente.setText(this.cliente.getNome()+ "");
-        
+        this.tfdCliente.setText(this.cliente.getNome() + "");
+
     }
 
     @Override
