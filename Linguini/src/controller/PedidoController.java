@@ -140,7 +140,7 @@ public class PedidoController implements Controller<Pedido>{
         return cabecalho;
     }
     private String[] getCamposPesquisaveis() {
-        String[] campos = {"CAST(id AS text)", "id"};
+        String[] campos = {"CAST(id AS text)", "bairro"};       
         return campos;
     }
     

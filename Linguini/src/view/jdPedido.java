@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import model.ItemPedido;
 import model.Pedido;
@@ -998,9 +999,11 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     public void carregar(int codigo) {
         tfdAtendente.requestFocus();
         MensagemRetorno retorno = this.clienteController.consultarPorID(codigo);
-        this.cliente = (Pessoa) retorno.getObjeto();
-        this.tfdCliente.setText(this.cliente.getNome() + "");
-
+        this.pedido = (Pedido) retorno.getObjeto();
+        if (this.cliente.getNome() != null) {
+            this.tfdCliente.setText(this.cliente.getNome() + "");
+        }
+        
     }
 
     @Override
