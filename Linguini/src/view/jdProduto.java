@@ -50,12 +50,12 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     public jdProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         this.btnSalvar.setName("btnSalvar");
         this.btnExcluir.setName("btnExcluir");
         this.btnPesquisar.setName("btnPesquisar");
         this.btnNovo.setName("btnNovo");
-                
+
         this.produto = new Produto();
         this.produtoController = new ProdutoController();
         this.fornecedor = new Fornecedor();
@@ -72,6 +72,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         tfdEstoqueMinimo.setDocument(new ControlarEntradaNumero(5));
         tfdEstoque.setDocument(new ControlarEntradaNumero((5)));
         tfdTempoPreparo.setDocument(new ControlarEntradaNumero(5));
+        tfdCodigoBarras.setDocument(new ControlarEntradaNumero(20));
 
         //Iniciar préfixados
         this.produto.setCozinha(false);
@@ -80,7 +81,6 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         this.tfdEstoque.setText("0");
         this.tfdEstoqueMinimo.setText("0");
         this.tfdTempoPreparo.setText("0");
-
     }
 
     /**
@@ -702,6 +702,11 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
                 this.produto.setValorVenda(tffPrecoVenda.getValue());
                 this.produto.setClassificacaoId(classificacao);
                 this.produto.setFornecedorId(fornecedor);
+                if (!tfdCodigoBarras.getText().equals("")) {
+                    this.produto.setCodigoBarra(Integer.parseInt(this.tfdCodigoBarras.getText()));
+                }else{
+                    this.produto.setCodigoBarra(null);
+                }
                 this.produto.setSituacao(true);
 
                 MensagemRetorno msg = this.produtoController.atualizar(this.produto);
@@ -1099,6 +1104,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         }
         this.tfdTempoPreparo.setText(this.produto.getTempoPreparo() + "");
         this.tfdEstoque.setText(this.produto.getQuantidade() + "");
+        this.tfdCodigoBarras.setText((this.produto.getCodigoBarra() + ""));
         this.tfdEstoqueMinimo.setText(this.produto.getEstoqueMinimo() + "");
         if (this.produto.getValorPromocao() != null) {
             this.checkInsumo1.setSelected(true);
@@ -1117,11 +1123,11 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
 
     @Override
     public void limparCampos(int codigo) {
-        if (this.produto.getId() == codigo) {
-            //limpar campos da tela
-            this.produto = new Produto();
-            this.tfdCodigo.setText(this.produto.getId() + "");
-            this.tfdNome.setText(this.produto.getDescricao());
-        }
+        //if (this.produto.getId() == codigo) {
+        //limpar campos da tela
+        //this.produto = new Produto();
+        //this.tfdCodigo.setText(this.produto.getId() + "");
+        //this.tfdNome.setText(this.produto.getDescricao());
+        //}
     }
 }

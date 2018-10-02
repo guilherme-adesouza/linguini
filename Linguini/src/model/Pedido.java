@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package model;
 
 import java.io.Serializable;
@@ -47,7 +48,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Pedido.findByNumero", query = "SELECT p FROM Pedido p WHERE p.numero = :numero")
     , @NamedQuery(name = "Pedido.findByTempoDeslocamento", query = "SELECT p FROM Pedido p WHERE p.tempoDeslocamento = :tempoDeslocamento")
     , @NamedQuery(name = "Pedido.findByStatus", query = "SELECT p FROM Pedido p WHERE p.status = :status")
-    , @NamedQuery(name = "Pedido.findByObservacao", query = "SELECT p FROM Pedido p WHERE p.observacao = :observacao")})
+    , @NamedQuery(name = "Pedido.findByObservacao", query = "SELECT p FROM Pedido p WHERE p.observacao = :observacao")
+    , @NamedQuery(name = "Pedido.findBySituacao", query = "SELECT p FROM Pedido p WHERE p.situacao = :situacao")})
 public class Pedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -83,6 +85,8 @@ public class Pedido implements Serializable {
     private Character status;
     @Column(name = "observacao", length = 2147483647)
     private String observacao;
+    @Column(name = "situacao", nullable = false)
+    private boolean situacao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoId")
     private List<ItemPedido> itemPedidoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoId")
@@ -107,10 +111,11 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public Pedido(Long id, Date dataHora, BigDecimal valor) {
+    public Pedido(Long id, Date dataHora, BigDecimal valor, boolean situacao) {
         this.id = id;
         this.dataHora = dataHora;
         this.valor = valor;
+        this.situacao = situacao;
     }
 
     public Long getId() {
@@ -207,6 +212,14 @@ public class Pedido implements Serializable {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+    
+     public boolean getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(boolean situacao) {
+        this.situacao = situacao;
     }
 
     @XmlTransient

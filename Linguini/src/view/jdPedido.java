@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import controller.ItemPedidoController;
@@ -25,7 +20,7 @@ import utils.Calendario;
 
 /**
  *
- * @author guilherme-souza
+ * @author vitor-olavo
  */
 public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
 
@@ -56,11 +51,11 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             atualizarTotal();
         }
     }
-    
-    private void atualizarTotal(){
-        if(this.tfdPrecoDesconto.isFocusable()){
+
+    private void atualizarTotal() {
+        if (this.tfdPrecoDesconto.isFocusable()) {
             this.tfdPrecoTotal.setValue(this.tfdPrecoSubTotal.getValue().subtract(this.tfdPrecoDesconto.getValue()));
-        }else{
+        } else {
             this.tfdPrecoTotal.setValue(this.tfdPrecoSubTotal.getValue());
         }
     }
@@ -239,7 +234,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Mais Opções");
 
-        comboDelivery1.setText("Tornar Comanda");
+        comboDelivery1.setText("Converter em Comanda");
         comboDelivery1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboDelivery1ActionPerformed(evt);
@@ -339,11 +334,6 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         listaProdutos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        listaProdutos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         listaProdutos.setOpaque(false);
         listaProdutos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -365,8 +355,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         jLayeredPane2Layout.setVerticalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                .addComponent(listaProdutos)
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addComponent(listaProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jLabel24.setText("Busca");
@@ -497,7 +487,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                     .addComponent(tfdPrecoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
                 .addComponent(btnRemoverItem))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
@@ -769,7 +759,9 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-
+        jdPesquisa pesquisa = new jdPesquisa((Frame) this.getParent(), this, true, this.pedidoController);
+        pesquisa.setLocationRelativeTo(pesquisa);
+        pesquisa.setVisible(true);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void tfdCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdCaixaActionPerformed
@@ -846,46 +838,50 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     private void btnAdicionarbtnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarbtnAdicionarActionPerformed
         //Cria o pedido caso ele não exista
         MensagemRetorno ok = new MensagemRetorno();
-        if (this.pedido.getId() == null) {
-            this.pedido.setDataHora(new Date());
-            this.pedido.setValor(this.tfdPrecoTotal.getValue());
-            MensagemRetorno msg = this.usuarioController.consultarPorID(1);
-            this.pedido.setAtendenteId((Usuario) msg.getObjeto());
-            this.pedido.setCaixaId((Usuario) msg.getObjeto());
+        if (!listaProdutos.isSelectionEmpty()) {
 
-            ok = this.pedidoController.salvar(this.pedido);
-        }
-        //Preenche os campos e torna caixa ocupado
-        if (ok.isSucesso()) {
-            tfdNumeroPedido.setText(this.pedido.getId() + "");
-            painelCaixa.setBackground(Color.red);
-            tfdCaixaLivre.setText("CAIXA OCUPADO");
-        }
-        //Preenche itempedido
-        if (this.pedido.getId() != null) {
-            this.itemPedido.setPedidoId(this.pedido);
-            this.itemPedido.setProdutoId(this.produto);
-            this.itemPedido.setDesconto(this.tfdPrecoDesconto.getValue());
-            this.itemPedido.setQuantidade(Integer.parseInt(this.tfdQuantidade.getText()));
-            this.itemPedido.setValor(this.tfdPrecoUnitario.getValue());
+            if (this.pedido.getId() == null) {
+                this.pedido.setDataHora(new Date());
+                this.pedido.setValor(this.tfdPrecoTotal.getValue());
+                MensagemRetorno msg = this.usuarioController.consultarPorID(1);
+                this.pedido.setAtendenteId((Usuario) msg.getObjeto());
+                this.pedido.setCaixaId((Usuario) msg.getObjeto());
 
-            //Compara se é para add o item ou atualizar
-            MensagemRetorno confere = this.itemPedidoController.consultarPedidoProduto(this.pedido, this.produto);
-            if (confere.isSucesso()) {
-                System.out.println("Achou");
-                this.itemPedido = (ItemPedido) confere.getObjeto();
+                ok = this.pedidoController.salvar(this.pedido);
+            }
+            //Preenche os campos e torna caixa ocupado
+            if (ok.isSucesso()) {
+                tfdNumeroPedido.setText(this.pedido.getId() + "");
+                painelCaixa.setBackground(Color.red);
+                tfdCaixaLivre.setText("CAIXA OCUPADO");
+            }
+            //Preenche itempedido
+            if (this.pedido.getId() != null) {
+                this.itemPedido.setPedidoId(this.pedido);
+                this.itemPedido.setProdutoId(this.produto);
                 this.itemPedido.setDesconto(this.tfdPrecoDesconto.getValue());
                 this.itemPedido.setQuantidade(Integer.parseInt(this.tfdQuantidade.getText()));
                 this.itemPedido.setValor(this.tfdPrecoUnitario.getValue());
-                this.itemPedidoController.atualizar(this.itemPedido);
-                atualizarTabela();
-            } else {
-                System.out.println("Nao achou");
-                this.itemPedidoController.salvarItem(this.itemPedido);
-                atualizarTabela();
+
+                //Compara se é para add o item ou atualizar
+                MensagemRetorno confere = this.itemPedidoController.consultarPedidoProduto(this.pedido, this.produto);
+                if (confere.isSucesso()) {
+                    System.out.println("Achou");
+                    this.itemPedido = (ItemPedido) confere.getObjeto();
+                    this.itemPedido.setDesconto(this.tfdPrecoDesconto.getValue());
+                    this.itemPedido.setQuantidade(Integer.parseInt(this.tfdQuantidade.getText()));
+                    this.itemPedido.setValor(this.tfdPrecoUnitario.getValue());
+                    this.itemPedidoController.atualizar(this.itemPedido);
+                    atualizarTabela();
+                } else {
+                    System.out.println("Nao achou");
+                    this.itemPedidoController.salvarItem(this.itemPedido);
+                    atualizarTabela();
+                }
             }
         } else {
-            System.out.println("Erro");
+            JOptionPane.showMessageDialog(null, "Problemas ao adicionar Item!\n"
+                    + "Mensagem técnica: " + ok.getMensagem());
         }
     }//GEN-LAST:event_btnAdicionarbtnAdicionarActionPerformed
 
