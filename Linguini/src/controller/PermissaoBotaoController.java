@@ -99,7 +99,7 @@ public class PermissaoBotaoController implements Controller<PermissaoBotao> {
             public void setValueAt(Object value, int row, int col){
                 int permissaoId = (int) tabela.getValueAt(row, 0);
                 new PermissaoBotaoDAO().atualizarPorTabela(permissaoId, (Boolean) value);
-                tabela.setValueAt(value, row, col);
+                fireTableCellUpdated(row, col);
             }
         });
 

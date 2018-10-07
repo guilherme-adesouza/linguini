@@ -4,8 +4,10 @@
  */
 package utils;
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
@@ -122,11 +124,31 @@ public class Validacao {
         }
     }
     
+    private static boolean validaDateChooser(JDateChooser date){
+        return date.getDate() != null;
+    }
+    
+    private static boolean validaCampoText (JTextComponent campo){
+        return campo.getText() != null && !campo.getText().trim().isEmpty();
+    }
+    
+    public static boolean camposPreenchidos(JDateChooser[] campos)
+    {
+        boolean preenchidos = true;
+        for (JDateChooser campo : campos) {
+            if(!validaDateChooser(campo)){
+                campo.setBackground(Color.YELLOW);
+                preenchidos = false;
+            }
+        }
+        return preenchidos;
+    }
+    
     public static boolean camposPreenchidos(JTextField[] campos)
     {
         boolean ok = true;
         for (JTextField campo : campos) {
-            if(campo.getText().trim().isEmpty()){
+            if(validaCampoText(campo)){
                 if(ok){
                     campo.requestFocus();
                 }
@@ -135,6 +157,31 @@ public class Validacao {
             }
         }
         return ok;
+    }
+    
+    public static void camposPreenchidos(JComponent[] campos)
+    {
+        boolean ok = true;
+        for (JComponent campo : campos) {
+            if(campo instanceof JTextComponent){
+                if(validaCampoText((JTextComponent)campo)){
+                    if(ok){
+                        campo.requestFocus();
+                    }
+                    campo.setBackground(Color.YELLOW);
+                    ok = false;
+                }
+            }  
+            else if(campo instanceof JDateChooser){
+                if(validaDateChooser((JDateChooser) campo)){
+                    if(ok){
+                        campo.requestFocus();
+                    }
+                    campo.setBackground(Color.YELLOW);
+                    ok = false;
+                }
+            }
+        }
     }
     
     public static String parseNumVazio(JTextComponent s, int a)

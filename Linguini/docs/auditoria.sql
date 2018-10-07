@@ -125,3 +125,16 @@ BEGIN
     PERFORM set_config('linguini.user', user_id::text, true);
 END
 $$ LANGUAGE plpgsql;
+
+-- Tabela para arquivar auditoria
+
+CREATE TABLE audit.filed_logged_actions (
+    schema_name text NOT NULL,
+    TABLE_NAME text NOT NULL,
+    user_name text,
+    action_tstamp TIMESTAMP WITH TIME zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    action TEXT NOT NULL CHECK (action IN ('I','D','U')),
+    original_data text,
+    new_data text,
+    query text
+) WITH (fillfactor=100);

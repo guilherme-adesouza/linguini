@@ -470,10 +470,10 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if(Validacao.camposPreenchidos(camposObrigatorios())){
+            this.pessoa.setNome(this.tfdNome.getText());
             this.pessoa.setBairro(this.tfdBairro.getText());
             this.pessoa.setComplemento(this.tfdComplemento.getText());
             this.pessoa.setLogradouro(this.tfdLogradouro.getText());
-            this.pessoa.setNome(this.tfdNome.getText());
             this.pessoa.setObservacao(this.tfaObservacao.getText());
             this.pessoa.setSituacao(true);
             if(!this.tfdNumero.getText().isEmpty()){

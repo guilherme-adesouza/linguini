@@ -28,8 +28,6 @@ public class UsuarioController implements Controller<Usuario> {
         if (msg.isSucesso() && msg.getObjeto() != null) {
             Usuario u = (Usuario) msg.getObjeto();
             if (Criptografia.equals(usuario.getSenha(), u.getSenha())) {
-                System.out.println("Sucesso");
-                System.out.println(u.getNome() + " - " + u.getSenha());
                 msg.setObjeto(u);
                 msg.setSucesso(true);
                 msg.setMensagem("Sucesso!");

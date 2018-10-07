@@ -61,6 +61,7 @@ public class Home extends javax.swing.JFrame {
         jmeFinanceiro = new javax.swing.JMenu();
         jmeRelatorio = new javax.swing.JMenu();
         jmeMais = new javax.swing.JMenu();
+        jmiArquivarAuditoria = new javax.swing.JMenuItem();
         jmiBotao = new javax.swing.JMenuItem();
         jmiConfiguracoes = new javax.swing.JMenuItem();
         jmiGrupo = new javax.swing.JMenuItem();
@@ -391,7 +392,15 @@ public class Home extends javax.swing.JFrame {
         jmeRelatorio.setText("Relatório");
         jMenuBar1.add(jmeRelatorio);
 
-        jmeMais.setText("Mais");
+        jmeMais.setText("Administrador");
+
+        jmiArquivarAuditoria.setText("Arquivar Auditoria");
+        jmiArquivarAuditoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiArquivarAuditoriaActionPerformed(evt);
+            }
+        });
+        jmeMais.add(jmiArquivarAuditoria);
 
         jmiBotao.setText("Botão");
         jmiBotao.addActionListener(new java.awt.event.ActionListener() {
@@ -636,6 +645,12 @@ public class Home extends javax.swing.JFrame {
         telaProduto.setVisible(true);
     }//GEN-LAST:event_jmiProdutoActionPerformed
 
+    private void jmiArquivarAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiArquivarAuditoriaActionPerformed
+        jdAuditoria telaAuditoria = new jdAuditoria(this,true);
+        telaAuditoria.setLocationRelativeTo(telaAuditoria);
+        telaAuditoria.setVisible(true);
+    }//GEN-LAST:event_jmiArquivarAuditoriaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCaixa;
     private javax.swing.JButton btnCliente;
@@ -660,6 +675,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenu jmeProduto;
     private javax.swing.JMenu jmeRelatorio;
     private javax.swing.JMenu jmeVendas;
+    private javax.swing.JMenuItem jmiArquivarAuditoria;
     private javax.swing.JMenuItem jmiBotao;
     private javax.swing.JMenuItem jmiConfiguracoes;
     private javax.swing.JMenuItem jmiGrupo;

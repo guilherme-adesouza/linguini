@@ -4,12 +4,39 @@ import model.Entregador;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import persistence.HibernateUtil;
 
 /**
  * @author guilherme-souza
  */
 public class EntregadorDAO extends GenericoDAO<Entregador>{
+    
+    @Override
+    public MensagemRetorno salvar(Entregador entregador){
+        MensagemRetorno retorno = new PessoaDAO().salvar(entregador.getPessoa());
+        Session sessao = null;
+        if(retorno.isSucesso()){
+            try {
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+            this.setParametroSessao(sessao);
+
+            sessao.saveOrUpdate(entregador);
+            t.commit();
+
+            retorno.setSucesso(true);
+            retorno.setMensagem("Salvo com sucesso!");
+            } catch (HibernateException he) {
+                retorno.setMensagem(he.getMessage());
+                he.printStackTrace();
+            } finally {
+                sessao.close();
+            }
+        }      
+        return retorno; 
+    }
     
     @Override
     public MensagemRetorno excluir(int id, String tabela){

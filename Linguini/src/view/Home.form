@@ -92,9 +92,17 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jmeMais">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Mais"/>
+            <Property name="text" type="java.lang.String" value="Administrador"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiArquivarAuditoria">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Arquivar Auditoria"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiArquivarAuditoriaActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiBotao">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Bot&#xe3;o"/>
