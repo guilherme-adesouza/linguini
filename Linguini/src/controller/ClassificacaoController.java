@@ -30,6 +30,7 @@ public class ClassificacaoController implements Controller<Classificacao> {
 
     @Override
     public MensagemRetorno salvar(Classificacao classificacao) {
+        classificacao.setSituacao(true);
         return classificacaoDAO.salvar(classificacao);
     }
 

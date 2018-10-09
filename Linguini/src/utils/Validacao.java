@@ -148,7 +148,7 @@ public class Validacao {
     {
         boolean ok = true;
         for (JTextField campo : campos) {
-            if(validaCampoText(campo)){
+            if(!validaCampoText(campo)){
                 if(ok){
                     campo.requestFocus();
                 }
@@ -164,7 +164,7 @@ public class Validacao {
         boolean ok = true;
         for (JComponent campo : campos) {
             if(campo instanceof JTextComponent){
-                if(validaCampoText((JTextComponent)campo)){
+                if(!validaCampoText((JTextComponent)campo)){
                     if(ok){
                         campo.requestFocus();
                     }
@@ -173,7 +173,7 @@ public class Validacao {
                 }
             }  
             else if(campo instanceof JDateChooser){
-                if(validaDateChooser((JDateChooser) campo)){
+                if(!validaDateChooser((JDateChooser) campo)){
                     if(ok){
                         campo.requestFocus();
                     }
