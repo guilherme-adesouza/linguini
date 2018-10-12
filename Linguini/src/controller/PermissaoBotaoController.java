@@ -80,28 +80,8 @@ public class PermissaoBotaoController implements Controller<PermissaoBotao> {
         }
 
         // configuracoes adicionais no componente tabela
-        tabela.setModel(new DefaultTableModel(dadosTabela, cabecalho) {
-            @Override
-            // quando retorno for FALSE, a tabela nao é editavel
-            public boolean isCellEditable(int row, int column) {
-                return column == 2;
-            }
-            // alteracao no metodo que determina a coluna em que o objeto ImageIcon devera aparecer
-            @Override
-            public Class getColumnClass(int column) {
-                if (column == 2) {
-                    return Boolean.class;
-                }
-                return Object.class;
-            }
-            
-            @Override
-            public void setValueAt(Object value, int row, int col){
-                int permissaoId = (int) tabela.getValueAt(row, 0);
-                new PermissaoBotaoDAO().atualizarPorTabela(permissaoId, (Boolean) value);
-                fireTableCellUpdated(row, col);
-            }
-        });
+        tabela.setModel(new ModelTablePermissaoController(getCabecalho(), dadosTabela, this.permissaoBotaoDAO));
+
 
         // permite seleção de apenas uma linha da tabela
         tabela.setSelectionMode(0);

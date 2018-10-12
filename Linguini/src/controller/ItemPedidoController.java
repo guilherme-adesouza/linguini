@@ -33,12 +33,23 @@ public class ItemPedidoController implements Controller<ItemPedido> {
 
     @Override
     public MensagemRetorno salvar(ItemPedido itemPedido) {
-        return this.itemPedidoDAO.salvar(itemPedido);
+        MensagemRetorno msg = consultarPedidoProduto(itemPedido.getPedidoId(), itemPedido.getProdutoId());
+        //já tem no pedido
+        if (msg.isSucesso()) {
+            //aumenta quantidade
+            ItemPedido item = ((ItemPedido) msg.getObjeto());
+            itemPedido.setId( item.getId() );
+            itemPedido.setQuantidade(itemPedido.getQuantidade() + item.getQuantidade());
+            
+            return atualizar(itemPedido);
+        } else {
+            //salva novo
+            return salvarItem(itemPedido);
+        }
     }
 
     public MensagemRetorno salvarItem(ItemPedido itemPedido) {
-
-        return this.itemPedidoDAO.salvarItem(itemPedido);
+        return this.itemPedidoDAO.salvar(itemPedido);
     }
 
     public MensagemRetorno consultarPedidoProduto(Pedido pedido, Produto produto) {

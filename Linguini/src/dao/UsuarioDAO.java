@@ -58,6 +58,7 @@ public class UsuarioDAO extends GenericoDAO<Usuario> {
             retorno.setObjeto((Object) query.uniqueResult());
             retorno.setSucesso(true);
         } catch (HibernateException he) {
+            new GeradorLog(he);
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
         } finally {

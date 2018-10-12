@@ -19,7 +19,6 @@ public class ItemPedidoDAO extends GenericoDAO<ItemPedido> {
         Session sessao = null;
 
         try {
-
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
             this.setParametroSessao(sessao);

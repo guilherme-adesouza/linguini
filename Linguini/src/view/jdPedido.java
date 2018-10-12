@@ -10,7 +10,6 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.util.Date;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import model.ItemPedido;
 import model.Pedido;
@@ -18,6 +17,7 @@ import model.Pessoa;
 import model.Produto;
 import model.Usuario;
 import utils.Calendario;
+import utils.Sessao;
 
 /**
  *
@@ -844,17 +844,16 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             if (this.pedido.getId() == null) {
                 this.pedido.setDataHora(new Date());
                 this.pedido.setValor(this.tfdPrecoTotal.getValue());
-                MensagemRetorno msg = this.usuarioController.consultarPorID(1);
-                this.pedido.setAtendenteId((Usuario) msg.getObjeto());
-                this.pedido.setCaixaId((Usuario) msg.getObjeto());
+                this.pedido.setAtendenteId(Sessao.getUsuario());
+                this.pedido.setCaixaId(Sessao.getUsuario()); //SAI DEPOIS, TIRA NOT NULL DO CAIXA
 
                 ok = this.pedidoController.salvar(this.pedido);
             }
             //Preenche os campos e torna caixa ocupado
             if (ok.isSucesso()) {
-                tfdNumeroPedido.setText(this.pedido.getId() + "");
-                painelCaixa.setBackground(Color.red);
-                tfdCaixaLivre.setText("CAIXA OCUPADO");
+                this.tfdNumeroPedido.setText(this.pedido.getId() + "");
+                this.painelCaixa.setBackground(Color.red);
+                this.tfdCaixaLivre.setText("CAIXA OCUPADO");
             }
             //Preenche itempedido
             if (this.pedido.getId() != null) {
@@ -865,19 +864,13 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 this.itemPedido.setValor(this.tfdPrecoUnitario.getValue());
 
                 //Compara se é para add o item ou atualizar
-                MensagemRetorno confere = this.itemPedidoController.consultarPedidoProduto(this.pedido, this.produto);
-                if (confere.isSucesso()) {
-                    System.out.println("Achou");
-                    this.itemPedido = (ItemPedido) confere.getObjeto();
-                    this.itemPedido.setDesconto(this.tfdPrecoDesconto.getValue());
-                    this.itemPedido.setQuantidade(Integer.parseInt(this.tfdQuantidade.getText()));
-                    this.itemPedido.setValor(this.tfdPrecoUnitario.getValue());
-                    this.itemPedidoController.atualizar(this.itemPedido);
+                MensagemRetorno msg = this.itemPedidoController.salvar(this.itemPedido);
+                if(msg.isSucesso()) {
                     atualizarTabela();
-                } else {
-                    System.out.println("Nao achou");
-                    this.itemPedidoController.salvarItem(this.itemPedido);
-                    atualizarTabela();
+                    this.limpaCamposItemPedido();
+                }
+                else {
+                    System.out.println("ERROU! "+msg.getMensagem());
                 }
             }
         } else {
@@ -1003,11 +996,17 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         if (this.cliente.getNome() != null) {
             this.tfdCliente.setText(this.cliente.getNome() + "");
         }
-        
     }
 
     @Override
     public void limparCampos(int codigo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void limpaCamposItemPedido(){
+        this.txtBusca.setText("");
+        this.tfdQuantidade.setText("1");
+        this.listaProdutos.removeAll();
+        this.itemPedido = new ItemPedido();
     }
 }
