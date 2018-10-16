@@ -1,5 +1,6 @@
 package view;
 
+import controller.EntregadorController;
 import controller.ItemPedidoController;
 import controller.PedidoController;
 import controller.PessoaController;
@@ -36,6 +37,9 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     private UsuarioController usuarioController;
     private Pessoa cliente;
     private PessoaController clienteController;
+    private EntregadorController entregadorController;
+
+    private int cli_ent_ped;//cli = 1 / ped = 0 / ent = 2
 
     public static String nomeTela = "telaPedido";
 
@@ -78,15 +82,18 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         this.usuarioController = new UsuarioController();
         this.cliente = new Pessoa();
         this.clienteController = new PessoaController();
+        this.entregadorController = new EntregadorController();
 
         atualizarTabela();
         this.listaProdutos.setVisible(false);
         this.tfdNumeroPedido.setText("");
         this.tfdNumeroComanda.setText("");
         //this.labComandaNumero.setVisible(false);
+        this.checkDelivery.setEnabled(false);
         quantidade();
 
         this.tfdCaixa.setText(this.usuario.getNome());
+        this.cli_ent_ped = 0;
 
     }
 
@@ -94,6 +101,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         painelCaixa = new javax.swing.JPanel();
         tfdCaixaLivre = new javax.swing.JLabel();
@@ -111,7 +119,6 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         labComandaNumero = new javax.swing.JLabel();
         tfdNumeroComanda = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        checkComanda = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         listaProdutos = new javax.swing.JList<>();
@@ -135,32 +142,33 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         jLabel17 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jLabel23 = new javax.swing.JLabel();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        tfdEntregador = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
-        jTextField15 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        d_labCliente = new javax.swing.JLabel();
+        d_tfdCliente = new javax.swing.JTextField();
+        d_tfdTelefone = new javax.swing.JTextField();
+        d_labTelefone = new javax.swing.JLabel();
+        d_labStatusIniciado = new javax.swing.JRadioButton();
+        d_labStatus = new javax.swing.JLabel();
+        d_labStatusAguardando = new javax.swing.JRadioButton();
+        d_labStatusSaiu = new javax.swing.JRadioButton();
+        d_labStatusFinalizado = new javax.swing.JRadioButton();
+        d_labRua = new javax.swing.JLabel();
+        d_labBairro = new javax.swing.JLabel();
+        d_labNumero = new javax.swing.JLabel();
+        d_tfdRua = new javax.swing.JTextField();
+        d_labCidade = new javax.swing.JLabel();
+        d_btnCliente = new javax.swing.JButton();
+        d_labEntregador = new javax.swing.JLabel();
+        d_tfdEntregador = new javax.swing.JTextField();
+        d_tfdBairro = new javax.swing.JTextField();
+        d_tfdNumero = new javax.swing.JTextField();
+        d_tfdCidade = new javax.swing.JTextField();
+        d_btnEntregador = new javax.swing.JButton();
         tfdPrecoSubTotal = new apoio.MoedaFormatada();
         tfdPrecoDesconto = new apoio.MoedaFormatada();
         tfdPrecoTotal = new apoio.MoedaFormatada();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Pedido");
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -243,13 +251,6 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Mais Opções");
 
-        checkComanda.setText("Converter em Comanda");
-        checkComanda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkComandaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -271,10 +272,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                                 .addComponent(tfdNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(25, 25, 25))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkComanda)
-                            .addComponent(jLabel14))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel14)
+                        .addGap(0, 117, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -324,8 +323,6 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 .addGap(54, 54, 54)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkComanda)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkDelivery)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -598,110 +595,124 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("DELIVERY"));
 
-        jLabel22.setText("Cliente");
-        jLabel22.setEnabled(false);
+        d_labCliente.setText("Cliente");
+        d_labCliente.setEnabled(false);
 
-        jTextField8.setText("Não informado");
-        jTextField8.setEnabled(false);
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        d_tfdCliente.setText("Não informado");
+        d_tfdCliente.setEnabled(false);
+        d_tfdCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                d_tfdClienteMouseClicked(evt);
+            }
+        });
+        d_tfdCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                d_tfdClienteActionPerformed(evt);
             }
         });
 
-        jTextField7.setEnabled(false);
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        d_tfdTelefone.setEnabled(false);
+        d_tfdTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                d_tfdTelefoneActionPerformed(evt);
             }
         });
 
-        jLabel21.setText("Telefone");
-        jLabel21.setEnabled(false);
+        d_labTelefone.setText("Telefone");
+        d_labTelefone.setEnabled(false);
 
-        jRadioButton1.setText("Iniciado");
-        jRadioButton1.setEnabled(false);
+        buttonGroup1.add(d_labStatusIniciado);
+        d_labStatusIniciado.setText("Iniciado");
+        d_labStatusIniciado.setEnabled(false);
 
-        jLabel23.setText("Status");
-        jLabel23.setEnabled(false);
+        d_labStatus.setText("Status");
+        d_labStatus.setEnabled(false);
 
-        jRadioButton2.setText("Aguardando / Em espera");
-        jRadioButton2.setEnabled(false);
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(d_labStatusAguardando);
+        d_labStatusAguardando.setText("Aguardando / Em espera");
+        d_labStatusAguardando.setEnabled(false);
+        d_labStatusAguardando.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                d_labStatusAguardandoActionPerformed(evt);
             }
         });
 
-        jRadioButton3.setText("Saiu para Entrega");
-        jRadioButton3.setEnabled(false);
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(d_labStatusSaiu);
+        d_labStatusSaiu.setText("Saiu para Entrega");
+        d_labStatusSaiu.setEnabled(false);
+        d_labStatusSaiu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                d_labStatusSaiuActionPerformed(evt);
             }
         });
 
-        jRadioButton4.setText("Finalizado / Entregue");
-        jRadioButton4.setEnabled(false);
+        buttonGroup1.add(d_labStatusFinalizado);
+        d_labStatusFinalizado.setText("Finalizado / Entregue");
+        d_labStatusFinalizado.setEnabled(false);
 
-        jLabel1.setText("Rua");
-        jLabel1.setEnabled(false);
+        d_labRua.setText("Rua");
+        d_labRua.setEnabled(false);
 
-        jLabel2.setText("Bairro");
-        jLabel2.setEnabled(false);
+        d_labBairro.setText("Bairro");
+        d_labBairro.setEnabled(false);
 
-        jLabel3.setText("Número");
-        jLabel3.setEnabled(false);
+        d_labNumero.setText("Número");
+        d_labNumero.setEnabled(false);
 
-        jTextField9.setEnabled(false);
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        d_tfdRua.setEnabled(false);
+        d_tfdRua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+                d_tfdRuaActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Cidade");
-        jLabel4.setEnabled(false);
+        d_labCidade.setText("Cidade");
+        d_labCidade.setEnabled(false);
 
-        jButton1.setText("jButton1");
-        jButton1.setEnabled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        d_btnCliente.setText("jButton1");
+        d_btnCliente.setEnabled(false);
+        d_btnCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                d_btnClienteActionPerformed(evt);
             }
         });
 
-        jLabel11.setText("Entregador");
-        jLabel11.setEnabled(false);
+        d_labEntregador.setText("Entregador");
+        d_labEntregador.setEnabled(false);
 
-        tfdEntregador.setEnabled(false);
-
-        jTextField13.setEnabled(false);
-        jTextField13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField13ActionPerformed(evt);
+        d_tfdEntregador.setEnabled(false);
+        d_tfdEntregador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                d_tfdEntregadorMouseClicked(evt);
             }
         });
 
-        jTextField14.setEnabled(false);
-        jTextField14.addActionListener(new java.awt.event.ActionListener() {
+        d_tfdBairro.setEnabled(false);
+        d_tfdBairro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField14ActionPerformed(evt);
+                d_tfdBairroActionPerformed(evt);
             }
         });
 
-        jTextField15.setEnabled(false);
-        jTextField15.addActionListener(new java.awt.event.ActionListener() {
+        d_tfdNumero.setEnabled(false);
+        d_tfdNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField15ActionPerformed(evt);
+                d_tfdNumeroActionPerformed(evt);
             }
         });
 
-        jButton2.setText("jButton1");
-        jButton2.setEnabled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        d_tfdCidade.setEnabled(false);
+        d_tfdCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                d_tfdCidadeActionPerformed(evt);
+            }
+        });
+
+        d_btnEntregador.setText("jButton1");
+        d_btnEntregador.setEnabled(false);
+        d_btnEntregador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                d_btnEntregadorActionPerformed(evt);
             }
         });
 
@@ -714,48 +725,48 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(d_labCliente, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(d_labTelefone, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(d_labRua, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(d_labBairro, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(d_labNumero, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(d_labCidade, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(d_labEntregador, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(d_tfdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(d_tfdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(39, 39, 39))
-                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(d_btnCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField9)
-                                            .addComponent(jTextField13))
+                                            .addComponent(d_tfdRua)
+                                            .addComponent(d_tfdBairro))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField14, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField15, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(d_tfdNumero, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(d_tfdCidade, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(tfdEntregador, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(d_tfdEntregador, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(d_btnEntregador, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
-                        .addComponent(jLabel23)
+                        .addComponent(d_labStatus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton3)
-                            .addComponent(jRadioButton4))
+                            .addComponent(d_labStatusAguardando)
+                            .addComponent(d_labStatusIniciado)
+                            .addComponent(d_labStatusSaiu)
+                            .addComponent(d_labStatusFinalizado))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel5Layout.setVerticalGroup(
@@ -763,44 +774,44 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
+                    .addComponent(d_tfdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(d_labTelefone))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22)
-                    .addComponent(jButton1))
+                    .addComponent(d_tfdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(d_labCliente)
+                    .addComponent(d_btnCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(d_labRua)
+                    .addComponent(d_tfdRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(d_labBairro)
+                    .addComponent(d_tfdBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(d_labNumero)
+                    .addComponent(d_tfdNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(d_labCidade)
+                    .addComponent(d_tfdCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(tfdEntregador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(d_labEntregador)
+                    .addComponent(d_tfdEntregador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(d_btnEntregador))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jLabel23))
+                    .addComponent(d_labStatusIniciado)
+                    .addComponent(d_labStatus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton2)
+                .addComponent(d_labStatusAguardando)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton3)
+                .addComponent(d_labStatusSaiu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton4)
+                .addComponent(d_labStatusFinalizado)
                 .addGap(23, 23, 23))
         );
 
@@ -868,7 +879,9 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-
+        jdPagamento telaFormaPagamento = new jdPagamento((Frame) this.getParent(), true);
+        telaFormaPagamento.setLocationRelativeTo(telaFormaPagamento);
+        telaFormaPagamento.setVisible(true);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -876,6 +889,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        this.cli_ent_ped = 0;
         jdPesquisa pesquisa = new jdPesquisa((Frame) this.getParent(), this, true, this.pedidoController);
         pesquisa.setLocationRelativeTo(pesquisa);
         pesquisa.setVisible(true);
@@ -886,20 +900,40 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_tfdCaixaActionPerformed
 
     private void checkDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDeliveryActionPerformed
-        // TODO add your handling code here:
+        this.d_labBairro.setEnabled(true);
+        this.d_labRua.setEnabled(true);
+        this.d_labNumero.setEnabled(true);
+        this.d_labTelefone.setEnabled(true);
+        this.d_labCliente.setEnabled(true);
+        this.d_labCidade.setEnabled(true);
+        this.d_labEntregador.setEnabled(true);
+        this.d_labStatus.setEnabled(true);
+
+        this.d_tfdBairro.setEnabled(true);
+        this.d_tfdCliente.setEnabled(true);
+        this.d_tfdTelefone.setEnabled(true);
+        this.d_tfdRua.setEnabled(true);
+        this.d_tfdNumero.setEnabled(true);
+        this.d_tfdCidade.setEnabled(true);
+        this.d_tfdEntregador.setEnabled(true);
+
+        this.d_labStatusAguardando.setEnabled(true);
+        this.d_labStatusFinalizado.setEnabled(true);
+        this.d_labStatusSaiu.setEnabled(true);
+        this.d_labStatusIniciado.setEnabled(true);
     }//GEN-LAST:event_checkDeliveryActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void d_tfdTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_d_tfdTelefoneActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_d_tfdTelefoneActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void d_tfdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_d_tfdClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_d_tfdClienteActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void d_labStatusAguardandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_d_labStatusAguardandoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_d_labStatusAguardandoActionPerformed
 
     private void txtBuscatxtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscatxtBuscaActionPerformed
 
@@ -967,6 +1001,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             }
             //Preenche os campos e torna caixa ocupado
             if (ok.isSucesso()) {
+                this.checkDelivery.setEnabled(true);
                 this.tfdNumeroPedido.setText(this.pedido.getId() + "");
                 this.painelCaixa.setBackground(Color.red);
                 this.tfdCaixaLivre.setText("CAIXA OCUPADO");
@@ -981,12 +1016,11 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
 
                 //Compara se é para add o item ou atualizar
                 MensagemRetorno msg = this.itemPedidoController.salvar(this.itemPedido);
-                if(msg.isSucesso()) {
+                if (msg.isSucesso()) {
                     atualizarTabela();
                     this.limpaCamposItemPedido();
-                }
-                else {
-                    System.out.println("ERROU! "+msg.getMensagem());
+                } else {
+                    System.out.println("ERROU! " + msg.getMensagem());
                 }
             }
         } else {
@@ -1028,51 +1062,63 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         this.listaProdutos.setVisible(true);
     }//GEN-LAST:event_txtBuscaFocusGained
 
-    private void checkComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkComandaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkComandaActionPerformed
-
     private void tfdClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdClienteFocusGained
 
     }//GEN-LAST:event_tfdClienteFocusGained
 
     private void tfdClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfdClienteMouseClicked
+        this.cli_ent_ped = 1;
         jdPesquisa pesquisa = new jdPesquisa((Frame) this.getParent(), this, true, this.clienteController);
         pesquisa.setLocationRelativeTo(pesquisa);
         pesquisa.setVisible(true);
+
     }//GEN-LAST:event_tfdClienteMouseClicked
 
     private void tfdPrecoDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdPrecoDescontoFocusLost
         atualizarTotal();
     }//GEN-LAST:event_tfdPrecoDescontoFocusLost
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void d_tfdRuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_d_tfdRuaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
+    }//GEN-LAST:event_d_tfdRuaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void d_btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_d_btnClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_d_btnClienteActionPerformed
 
-    private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
+    private void d_tfdBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_d_tfdBairroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField13ActionPerformed
+    }//GEN-LAST:event_d_tfdBairroActionPerformed
 
-    private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField14ActionPerformed
+    private void d_tfdNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_d_tfdNumeroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField14ActionPerformed
+    }//GEN-LAST:event_d_tfdNumeroActionPerformed
 
-    private void jTextField15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField15ActionPerformed
+    private void d_tfdCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_d_tfdCidadeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField15ActionPerformed
+    }//GEN-LAST:event_d_tfdCidadeActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void d_btnEntregadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_d_btnEntregadorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_d_btnEntregadorActionPerformed
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+    private void d_labStatusSaiuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_d_labStatusSaiuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    }//GEN-LAST:event_d_labStatusSaiuActionPerformed
+
+    private void d_tfdClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_d_tfdClienteMouseClicked
+        this.cli_ent_ped = 1;
+        jdPesquisa pesquisa = new jdPesquisa((Frame) this.getParent(), this, true, this.clienteController);
+        pesquisa.setLocationRelativeTo(pesquisa);
+        pesquisa.setVisible(true);
+    }//GEN-LAST:event_d_tfdClienteMouseClicked
+
+    private void d_tfdEntregadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_d_tfdEntregadorMouseClicked
+        this.cli_ent_ped = 2;
+        jdPesquisa pesquisa = new jdPesquisa((Frame) this.getParent(), this, true, this.entregadorController);
+        pesquisa.setLocationRelativeTo(pesquisa);
+        pesquisa.setVisible(true);
+    }//GEN-LAST:event_d_tfdEntregadorMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
@@ -1082,25 +1128,36 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnRemoverItem;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JCheckBox checkComanda;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox checkDelivery;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JButton d_btnCliente;
+    private javax.swing.JButton d_btnEntregador;
+    private javax.swing.JLabel d_labBairro;
+    private javax.swing.JLabel d_labCidade;
+    private javax.swing.JLabel d_labCliente;
+    private javax.swing.JLabel d_labEntregador;
+    private javax.swing.JLabel d_labNumero;
+    private javax.swing.JLabel d_labRua;
+    private javax.swing.JLabel d_labStatus;
+    private javax.swing.JRadioButton d_labStatusAguardando;
+    private javax.swing.JRadioButton d_labStatusFinalizado;
+    private javax.swing.JRadioButton d_labStatusIniciado;
+    private javax.swing.JRadioButton d_labStatusSaiu;
+    private javax.swing.JLabel d_labTelefone;
+    private javax.swing.JTextField d_tfdBairro;
+    private javax.swing.JTextField d_tfdCidade;
+    private javax.swing.JTextField d_tfdCliente;
+    private javax.swing.JTextField d_tfdEntregador;
+    private javax.swing.JTextField d_tfdNumero;
+    private javax.swing.JTextField d_tfdRua;
+    private javax.swing.JTextField d_tfdTelefone;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1111,17 +1168,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel labComandaNumero;
     private javax.swing.JList<String> listaProdutos;
     private javax.swing.JPanel painelCaixa;
@@ -1130,7 +1177,6 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     private javax.swing.JTextField tfdCaixa;
     private javax.swing.JLabel tfdCaixaLivre;
     private javax.swing.JTextField tfdCliente;
-    private javax.swing.JTextField tfdEntregador;
     private javax.swing.JLabel tfdNumeroComanda;
     private javax.swing.JLabel tfdNumeroPedido;
     private javax.swing.JTextField tfdObservacao;
@@ -1145,19 +1191,36 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     @Override
     public void carregar(int codigo) {
         tfdAtendente.requestFocus();
-        MensagemRetorno retorno = this.clienteController.consultarPorID(codigo);
-        this.pedido = (Pedido) retorno.getObjeto();
-        if (this.cliente.getNome() != null) {
-            this.tfdCliente.setText(this.cliente.getNome() + "");
+        if (this.cli_ent_ped == 0) {
+            MensagemRetorno retorno = this.pedidoController.consultarPorID(codigo);
+            this.pedido = (Pedido) retorno.getObjeto();
+            atualizarTabela();
         }
+        if (this.cli_ent_ped == 1) {
+            MensagemRetorno retorno = this.clienteController.consultarPorID(codigo);
+            this.cliente = (Pessoa) retorno.getObjeto();
+            if (this.cliente.getNome() != null) {
+                this.tfdCliente.setText(this.cliente.getNome() + "");
+                this.d_tfdCliente.setText(this.cliente.getNome() + "");
+            }
+
+        }
+        if (this.cli_ent_ped == 2) {
+            MensagemRetorno retorno = this.entregadorController.consultarPorID(codigo);
+            this.cliente = (Pessoa) retorno.getObjeto();
+            if (this.cliente.getNome() != null) {
+                this.d_labEntregador.setText(this.cliente.getNome() + "");
+            }
+        }
+
     }
 
     @Override
     public void limparCampos(int codigo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public void limpaCamposItemPedido(){
+
+    public void limpaCamposItemPedido() {
         this.txtBusca.setText("");
         this.tfdQuantidade.setText("1");
         this.listaProdutos.removeAll();
