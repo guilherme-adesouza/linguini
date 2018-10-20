@@ -2,8 +2,11 @@ package controller;
 
 import dao.MensagemRetorno;
 import dao.PedidoDAO;
+import java.awt.Checkbox;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -12,15 +15,15 @@ import model.Pedido;
 /**
  * @author guilherme-souza
  */
-public class PedidoController implements Controller<Pedido>{
+public class PedidoController implements Controller<Pedido> {
 
     PedidoDAO pedidoDAO;
     String tabela = "Pedido";
-    
-    public PedidoController(){
+
+    public PedidoController() {
         this.pedidoDAO = new PedidoDAO();
     }
-    
+
     @Override
     public MensagemRetorno salvar(Pedido pedido) {
         return this.pedidoDAO.salvar(pedido);
@@ -123,6 +126,21 @@ public class PedidoController implements Controller<Pedido>{
         return this.pedidoDAO.consultarTodos(this.tabela);
     }
 
+//    public MensagemRetorno consultarComanda() {
+//        MensagemRetorno ms = this.pedidoDAO.consultarComandas();
+//        Checkbox check = new Checkbox();
+//         for (Object o : ms.getLista()) {
+//                Pedido p = (Pedido) o;
+//                check.add(p.getMesa());
+//                dadosTabela[lin][1] = p.getValor();
+//                lin++;
+//            }
+//        for Object p : 
+//    }
+    public void popularCombo(JComboBox combo) {
+        this.pedidoDAO.popularCombo("Pedido", combo);
+    }
+    
     @Override
     public MensagemRetorno consultarPorID(int id) {
         return this.pedidoDAO.consultarPorId(id, this.tabela);
@@ -133,15 +151,17 @@ public class PedidoController implements Controller<Pedido>{
         List campos = new ArrayList();
         campos.add(new CampoOrdenavel("ID", "id"));
         campos.add(new CampoOrdenavel("Valor Total", "valor"));
-        return campos;}
+        return campos;
+    }
 
     private String[] getCabecalho() {
         String[] cabecalho = {"Código", "Valor Total"};
         return cabecalho;
     }
+
     private String[] getCamposPesquisaveis() {
-        String[] campos = {"CAST(id AS text)", "bairro"};       
+        String[] campos = {"CAST(id AS text)", "bairro"};
         return campos;
     }
-    
+
 }

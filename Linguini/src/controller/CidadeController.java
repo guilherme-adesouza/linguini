@@ -3,6 +3,8 @@ package controller;
 import dao.CidadeDAO;
 import dao.EstadoDAO;
 import dao.MensagemRetorno;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -14,7 +16,7 @@ import model.Estado;
  *
  * @author VitinNote
  */
-public class CidadeController {
+public class CidadeController implements Controller<Cidade>{
 
     CidadeDAO cidadeDao;
     private final EstadoDAO estadoDao;
@@ -23,11 +25,11 @@ public class CidadeController {
         this.cidadeDao = new CidadeDAO();
         this.estadoDao = new EstadoDAO();
     }
-
+    @Override
     public MensagemRetorno salvar(Cidade cidade) {
         return cidadeDao.salvar(cidade);
     }
-
+    @Override
     public MensagemRetorno excluir(Cidade cidade) {
         return cidadeDao.excluir(cidade);
     }
@@ -49,8 +51,49 @@ public class CidadeController {
     public MensagemRetorno pesquisarTodos() {
         return this.cidadeDao.consultarTodos("Cidade");
     }
+    
+        
+    public void popularCombo(JComboBox combo){
+        this.cidadeDao.popularCombo("Cidade", combo);
+    }
 
-    public void popularTabela(JTable tabela, String criterio) {
+    
+    @Override
+    public MensagemRetorno consultarTodos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public MensagemRetorno consultarPorID(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private String[] getCabecalho(){
+        String[] cabecalho = {"Código", "Nome"};
+        return cabecalho;
+    }
+    
+    private String[] getCamposPesquisaveis(){
+        String[] campos = {"CAST(id AS text)", "nome"};
+        return campos;
+    }
+
+    @Override
+    public List<CampoOrdenavel> getOrdenacao() {
+        List campos = new ArrayList();
+        campos.add(new CampoOrdenavel("ID", "cod_cidade"));
+        campos.add(new CampoOrdenavel("Nome", "nome"));
+        return campos;
+    }
+
+    @Override
+    public MensagemRetorno excluir(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void popularTabela(JTable tabela, String criterio, String ordenacao) {
+    //public void popularTabela(JTable tabela, String criterio) {
         // dados da tabela
         Object[][] dadosTabela = null;
 
@@ -157,8 +200,6 @@ public class CidadeController {
 //            }
 //        });
     }
-    
-    public void popularCombo(JComboBox combo){
-        this.cidadeDao.popularCombo("Cidade", combo);
-    }
+
+   
 }
