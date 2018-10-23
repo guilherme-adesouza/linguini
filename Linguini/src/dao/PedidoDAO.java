@@ -42,7 +42,8 @@ public class PedidoDAO extends GenericoDAO<Pedido> {
     }
 
     public void popularCombo(String tabela, JComboBox combo) {
-
+        
+        combo.addItem("Selecione");
         combo.addItem(1);
         combo.addItem(2);
         combo.addItem(3);
