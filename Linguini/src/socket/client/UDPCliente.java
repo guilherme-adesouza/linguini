@@ -6,6 +6,8 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UDPCliente {
     
@@ -18,17 +20,48 @@ public class UDPCliente {
     public static void main(String[] args) {
 //        File file = new File(UDPCliente.DOWNLOAD_FOLDER+"/file.txt");
 //        UDPCliente.uploadArquivo(file);
-        
-        UDPCliente.downloadArquivo("upload.txt");
+            
+//        UDPCliente.downloadArquivo("upload.txt");
 
 //        try {
-//            enviarPacote(clientSocket, "teste".getBytes());
+//            DatagramSocket clientSocket = new DatagramSocket(UDPCliente.PORTA_CLIENTE);
+//            enviarPacote(clientSocket, "list".getBytes());
 //            byte[] resposta = receberPacote(clientSocket);
 //            System.out.println("Resposta: " + new String(resposta));
 //            clientSocket.close();
 //        } catch(SocketException e) {
 //            System.err.print(e);
 //        }        
+    }
+    
+    public static MensagemRetorno downloadArquivo(String nomeArquivo) {
+        return UDPCliente.downloadArquivo(UDPCliente.DOWNLOAD_FOLDER, nomeArquivo);
+    }
+    
+    public static MensagemRetorno listaArquivos(){
+        MensagemRetorno msg = new MensagemRetorno();
+        try {
+                DatagramSocket clientSocket = new DatagramSocket(UDPCliente.PORTA_CLIENTE);
+
+                //enviar acao para servidor UDP
+                UDPCliente.enviarPacote(clientSocket, "list".getBytes());
+                String arquivos = new String(UDPCliente.receberPacote(clientSocket));
+                List<Object> listArquivos = new ArrayList<>();
+                for (String string : arquivos.split(";")) {
+                    if(string != null && !string.trim().isEmpty()) {
+                        listArquivos.add(string.trim());
+                    }
+                }
+                msg.setSucesso(true);
+                msg.setLista(listArquivos);
+                clientSocket.close();
+        }
+        catch(Exception e) {        
+            System.err.print(e);
+            msg.setSucesso(false);
+            msg.setMensagem(e.getMessage());            
+        }
+        return msg;
     }
     
     public static MensagemRetorno uploadArquivo(File arquivo) {
@@ -100,34 +133,31 @@ public class UDPCliente {
         return msg;
     }
     
-    public static MensagemRetorno downloadArquivo(String nomeArquivo) {
+    public static MensagemRetorno downloadArquivo(String downloadFolder, String nomeArquivo) {
         MensagemRetorno msg = new MensagemRetorno();
         try {
-            DatagramSocket clientSocket = new DatagramSocket(UDPCliente.PORTA_CLIENTE);
+            byte[] bufferEntrada;
             //enviar acao para servidor UDP
-            UDPCliente.enviarPacote(clientSocket, "download".getBytes());
-
-            //enviar nome do arquivo para servidor UDP
-            UDPCliente.enviarPacote(clientSocket, nomeArquivo.trim().getBytes());
-            
-            byte[] bufferEntrada = UDPCliente.receberPacote(clientSocket);
-
-            FileOutputStream out = new FileOutputStream(UDPCliente.DOWNLOAD_FOLDER + nomeArquivo.trim(), true);
-
-            while (bufferEntrada != null && !(new String(bufferEntrada)).trim().equals("finish")) {
-                out.write(bufferEntrada);
-                
-                //enviar para receber próximo pacote
-                UDPCliente.enviarPacote(clientSocket, "next".getBytes());
-                //receber resposta do servidor
+            try (DatagramSocket clientSocket = new DatagramSocket(UDPCliente.PORTA_CLIENTE)) {
+                //enviar acao para servidor UDP
+                UDPCliente.enviarPacote(clientSocket, "download".getBytes());
+                //enviar nome do arquivo para servidor UDP
+                UDPCliente.enviarPacote(clientSocket, nomeArquivo.trim().getBytes());
+             
+                bufferEntrada = UDPCliente.receberPacote(clientSocket);
+                FileOutputStream out = new FileOutputStream(downloadFolder + nomeArquivo.trim(), false);
+                while (bufferEntrada != null && !(new String(bufferEntrada)).trim().equals("finish")) {
+                    out.write(bufferEntrada);
+                    
+                    //enviar para receber próximo pacote
+                    UDPCliente.enviarPacote(clientSocket, "next".getBytes());
+                    //receber resposta do servidor
+                    bufferEntrada = UDPCliente.receberPacote(clientSocket);
+                }   
+                out.close();
+                //caminho do arquivo recebido do servidor para salvar no BD
                 bufferEntrada = UDPCliente.receberPacote(clientSocket);
             }
-            out.close();
-
-            //caminho do arquivo recebido do servidor para salvar no BD
-            bufferEntrada = UDPCliente.receberPacote(clientSocket);
-
-            clientSocket.close();
             
             msg.setSucesso(true);
             msg.setMensagem(new String(bufferEntrada));
