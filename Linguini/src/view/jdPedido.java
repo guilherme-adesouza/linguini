@@ -95,7 +95,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         this.tfdCliente.setEnabled(true);
         comboNumComanda.setEnabled(true);
         comboNumComanda.setEditable(true);
-        this.checkDelivery.setEnabled(true);
+        //this.checkDelivery.setEnabled(true);
         //this.checkComanda.setEnabled(true);
         this.tfdNumeroPedido.setText(this.pedido.getId() + "");
         this.painelCaixa.setBackground(Color.red);
@@ -837,7 +837,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(cmbEntregador, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(d_tfdCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 33, Short.MAX_VALUE)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -934,7 +934,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -950,9 +950,9 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                                 .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(tfdPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(14, 14, 14))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -980,11 +980,10 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        if(this.pedido.getId() == null) {
+        if (this.pedido.getId() == null) {
             this.limparCampos(0);
-        }
-        else {
-            this.limparCampos( this.pedido.getId().intValue() );
+        } else {
+            this.limparCampos(this.pedido.getId().intValue());
         }
     }//GEN-LAST:event_btnNovoActionPerformed
 
@@ -1019,6 +1018,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         this.cli_ent_ped = 0;
+        this.comboNumComanda.setEnabled(false);
+        this.comboNumComanda.removeAllItems();
         jdPesquisa pesquisa = new jdPesquisa((Frame) this.getParent(), this, true, this.pedidoController);
         pesquisa.setLocationRelativeTo(pesquisa);
         pesquisa.setVisible(true);
@@ -1107,6 +1108,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             }
             //Preenche os campos e torna caixa ocupado
             if (ok.isSucesso()) {
+                this.checkDelivery.setEnabled(true);
                 carregarPedidoOk();
             }
             //Preenche itempedido
@@ -1235,7 +1237,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
 
             this.comboNumComanda.setEnabled(false);
             this.pedido.setMesa(null);
-            if(!d_labStatusFinalizado.isSelected()){
+            if (!d_labStatusFinalizado.isSelected()) {
                 this.btnSalvar.setEnabled(false);
             }
         } else if (!checkDelivery.isSelected()) {
@@ -1286,8 +1288,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
 
     private void comboNumComandaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboNumComandaItemStateChanged
         if (comboNumComanda.getSelectedIndex() == 0) {
-            this.pedido.setMesa(null);
-        } else {
+            //this.pedido.setMesa(null);
+        } else if (this.comboNumComanda.isEnabled()) {
             this.pedido.setMesa(Integer.parseInt(comboNumComanda.getSelectedItem().toString()));
             this.pedido.setStatus('C');
             this.pedido.setSituacao(true);
@@ -1396,18 +1398,27 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             }
             if (this.pedido.getPessoaId() != null) {
                 this.tfdCliente.setText(this.pedido.getPessoaId().getNome() + "");
-            }else{
+            } else {
                 this.tfdCliente.setText("");
             }
+
+            this.comboNumComanda.removeAllItems();
+            this.pedidoController.popularCombo(this.comboNumComanda);
+            this.tfdNumeroComanda.setVisible(true);
             if (this.pedido.getMesa() != null) {
-                this.tfdNumeroComanda.setVisible(true);
                 this.tfdNumeroComanda.setText(this.pedido.getMesa() + "");
                 this.comboNumComanda.addItem(this.pedido.getMesa() + "");
+                this.comboNumComanda.setEnabled(true);
+                this.checkDelivery.setEnabled(false);
+            } else {
+                this.tfdNumeroComanda.setText("");
+                this.comboNumComanda.setEnabled(true);
+                this.checkDelivery.setEnabled(true);
             }
             if (this.pedido.getStatus() == 'I' || this.pedido.getStatus() == 'A' || this.pedido.getStatus() == 'S' || this.pedido.getStatus() == 'F') {
                 this.checkDelivery.setEnabled(true);
             }
-            this.checkDelivery.setEnabled(false);
+
             this.tfdObservacao.setText(this.pedido.getObservacao());
             atualizarTabela();
             carregarPedidoOk();
