@@ -700,7 +700,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("DELIVERY"));
 
-        d_labCliente.setText("Telefone");
+        d_labCliente.setText("Telefone*");
         d_labCliente.setEnabled(false);
 
         d_tfdCliente.setEditable(false);
@@ -717,12 +717,22 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             }
         });
 
-        d_labTelefone.setText("Cliente");
+        d_labTelefone.setText("Cliente*");
         d_labTelefone.setEnabled(false);
 
         buttonGroup1.add(d_labStatusIniciado);
         d_labStatusIniciado.setText("Iniciado");
         d_labStatusIniciado.setEnabled(false);
+        d_labStatusIniciado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                d_labStatusIniciadoItemStateChanged(evt);
+            }
+        });
+        d_labStatusIniciado.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                d_labStatusIniciadoStateChanged(evt);
+            }
+        });
 
         d_labStatus.setText("Status");
         d_labStatus.setEnabled(false);
@@ -749,13 +759,13 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         d_labStatusFinalizado.setText("Finalizado / Entregue");
         d_labStatusFinalizado.setEnabled(false);
 
-        d_labRua.setText("Rua");
+        d_labRua.setText("Rua*");
         d_labRua.setEnabled(false);
 
-        d_labBairro.setText("Bairro");
+        d_labBairro.setText("Bairro*");
         d_labBairro.setEnabled(false);
 
-        d_labNumero.setText("Número");
+        d_labNumero.setText("Número*");
         d_labNumero.setEnabled(false);
 
         d_tfdRua.setEnabled(false);
@@ -765,10 +775,10 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             }
         });
 
-        d_labCidade.setText("Cidade");
+        d_labCidade.setText("Cidade*");
         d_labCidade.setEnabled(false);
 
-        d_labEntregador.setText("Entregador");
+        d_labEntregador.setText("Entregador*");
         d_labEntregador.setEnabled(false);
 
         d_tfdBairro.setEnabled(false);
@@ -933,12 +943,11 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
+                                .addGap(23, 23, 23)
                                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tfdPrecoSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -952,7 +961,10 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                                 .addComponent(tfdPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14))))
+                        .addGap(14, 14, 14))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -960,8 +972,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -972,8 +983,10 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                             .addComponent(tfdPrecoSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfdPrecoDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfdPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 3, Short.MAX_VALUE))))
         );
 
         pack();
@@ -1312,6 +1325,23 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         this.pedido.setObservacao(this.tfdObservacao.getText());
     }//GEN-LAST:event_tfdObservacaoFocusLost
 
+    private void d_labStatusIniciadoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_d_labStatusIniciadoStateChanged
+
+    }//GEN-LAST:event_d_labStatusIniciadoStateChanged
+
+    private void d_labStatusIniciadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_d_labStatusIniciadoItemStateChanged
+        if (d_labStatusIniciado.isSelected() && validar()) {
+            //atualizaGrupoBotoes();
+            if (JOptionPane.showConfirmDialog(null, "Confirma Delivery ? Status: INICIADO") == JOptionPane.YES_OPTION) {
+                this.pedido.setStatus('I');
+                this.pedidoController.salvar(this.pedido);
+                dispose();
+            }
+        } else {
+            this.d_labStatusIniciado.setSelected(false);
+        }
+    }//GEN-LAST:event_d_labStatusIniciadoItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnExcluir;
@@ -1383,6 +1413,16 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
 
+    public boolean validar() {
+        if (d_labBairro.getText().equals("") || d_labRua.getText().equals("")) {
+            JOptionPane.showConfirmDialog(null, "Favor preencher todos campos obrigatórios.");
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
     @Override
     public void carregar(int codigo) {
         //carrega pedido
@@ -1416,7 +1456,17 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 this.checkDelivery.setEnabled(true);
             }
             if (this.pedido.getStatus() == 'I' || this.pedido.getStatus() == 'A' || this.pedido.getStatus() == 'S' || this.pedido.getStatus() == 'F') {
-                this.checkDelivery.setEnabled(true);
+                this.d_tfdCliente.setText(this.pedido.getPessoaId().getNome()+"");
+                this.d_tffTelefone.setText(this.pedido.getPessoaId().getTelefone1()+"");
+                this.d_tfdBairro.setText(this.pedido.getPessoaId().getBairro()+"");
+                this.d_tfdRua.setText(this.pedido.getPessoaId().getLogradouro()+"");
+                this.d_tfdNumero.setText(this.pedido.getPessoaId().getNumero()+"");
+                this.d_tfdCidade.setText(this.pedido.getPessoaId().getCidadeId().getNome()+"");
+                this.checkDelivery.setSelected(true);
+                this.jPanel5.setVisible(true);
+                this.comboNumComanda.setEnabled(false);
+            }else{
+                this.jPanel5.setVisible(false);
             }
 
             this.tfdObservacao.setText(this.pedido.getObservacao());
