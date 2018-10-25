@@ -53,6 +53,7 @@ public class Home extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         menuFornecedor = new javax.swing.JMenuItem();
         jmiPessoas = new javax.swing.JMenuItem();
+        menuEmail = new javax.swing.JMenuItem();
         jmeCaixa = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jmeProduto = new javax.swing.JMenu();
@@ -260,7 +261,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(btnCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHistorico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSair)
                 .addContainerGap())
         );
@@ -276,7 +277,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(btnCliente)
                     .addComponent(btnHistorico)
                     .addComponent(btnSair))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -351,6 +352,14 @@ public class Home extends javax.swing.JFrame {
             }
         });
         jmePessoas.add(jmiPessoas);
+
+        menuEmail.setText("Email");
+        menuEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEmailActionPerformed(evt);
+            }
+        });
+        jmePessoas.add(menuEmail);
 
         jMenuBar1.add(jmePessoas);
 
@@ -450,7 +459,7 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 917, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jDesktopPane1)
         );
@@ -651,6 +660,12 @@ public class Home extends javax.swing.JFrame {
         telaAuditoria.setVisible(true);
     }//GEN-LAST:event_jmiArquivarAuditoriaActionPerformed
 
+    private void menuEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEmailActionPerformed
+        JdEmail telaEmail = new JdEmail(this,true);
+        telaEmail.setLocationRelativeTo(telaEmail);
+        telaEmail.setVisible(true);
+    }//GEN-LAST:event_menuEmailActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCaixa;
     private javax.swing.JButton btnCliente;
@@ -684,6 +699,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiTela;
     private javax.swing.JMenuItem jmiTelefones;
     private javax.swing.JMenuItem jmiUsuario;
+    private javax.swing.JMenuItem menuEmail;
     private javax.swing.JMenuItem menuFornecedor;
     // End of variables declaration//GEN-END:variables
 }
