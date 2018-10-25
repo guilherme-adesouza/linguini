@@ -68,6 +68,9 @@ public class Home extends javax.swing.JFrame {
         jmiGrupo = new javax.swing.JMenuItem();
         jmiTela = new javax.swing.JMenuItem();
         jmiUsuario = new javax.swing.JMenuItem();
+        jmeSocket = new javax.swing.JMenu();
+        jmeSocketArquivo = new javax.swing.JMenuItem();
+        jmiSocketMensagem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Linguini");
@@ -277,7 +280,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(btnCliente)
                     .addComponent(btnHistorico)
                     .addComponent(btnSair))
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -453,13 +456,33 @@ public class Home extends javax.swing.JFrame {
 
         jMenuBar1.add(jmeMais);
 
+        jmeSocket.setText("Socket");
+
+        jmeSocketArquivo.setText("Troca de Arquivos");
+        jmeSocketArquivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmeSocketArquivoActionPerformed(evt);
+            }
+        });
+        jmeSocket.add(jmeSocketArquivo);
+
+        jmiSocketMensagem.setText("Enviar Mensagem");
+        jmiSocketMensagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSocketMensagemActionPerformed(evt);
+            }
+        });
+        jmeSocket.add(jmiSocketMensagem);
+
+        jMenuBar1.add(jmeSocket);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 917, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jDesktopPane1)
         );
@@ -666,6 +689,16 @@ public class Home extends javax.swing.JFrame {
         telaEmail.setVisible(true);
     }//GEN-LAST:event_menuEmailActionPerformed
 
+    private void jmiSocketMensagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSocketMensagemActionPerformed
+        jdEnvioMensagem telaSocketMensagem = new jdEnvioMensagem(this, false);
+        telaSocketMensagem.setVisible(true);
+    }//GEN-LAST:event_jmiSocketMensagemActionPerformed
+
+    private void jmeSocketArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmeSocketArquivoActionPerformed
+        jdUploadFotos telaSocketArquivo = new jdUploadFotos(this, false);
+        telaSocketArquivo.setVisible(true);
+    }//GEN-LAST:event_jmeSocketArquivoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCaixa;
     private javax.swing.JButton btnCliente;
@@ -689,6 +722,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenu jmePessoas;
     private javax.swing.JMenu jmeProduto;
     private javax.swing.JMenu jmeRelatorio;
+    private javax.swing.JMenu jmeSocket;
+    private javax.swing.JMenuItem jmeSocketArquivo;
     private javax.swing.JMenu jmeVendas;
     private javax.swing.JMenuItem jmiArquivarAuditoria;
     private javax.swing.JMenuItem jmiBotao;
@@ -696,6 +731,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiGrupo;
     private javax.swing.JMenuItem jmiPessoas;
     private javax.swing.JMenuItem jmiProduto;
+    private javax.swing.JMenuItem jmiSocketMensagem;
     private javax.swing.JMenuItem jmiTela;
     private javax.swing.JMenuItem jmiTelefones;
     private javax.swing.JMenuItem jmiUsuario;

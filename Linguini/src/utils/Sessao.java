@@ -1,6 +1,7 @@
 package utils;
 
 import model.Usuario;
+import socket.client.UDPClienteListener;
 
 /**
  * @author guilherme-souza
@@ -13,6 +14,7 @@ public class Sessao {
     }
 
     public static void setUsuario(Usuario usuario) {
+        new UDPClienteListener().start();
         Sessao.usuario = usuario;
     }
 }

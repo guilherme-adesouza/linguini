@@ -14,7 +14,7 @@ public class UDPCliente {
     public static final String IP_SERVIDOR = "127.0.0.1";
     public static final int PORTA_SERVER = 5000;
     public static final int PORTA_CLIENTE = 6060;
-    public static final int TAM_BUFFER = 4096;
+    protected static final int TAM_BUFFER = 4096;
     public static final String DOWNLOAD_FOLDER = "downloads/";
     
     public static void main(String[] args) {
@@ -36,6 +36,30 @@ public class UDPCliente {
     
     public static MensagemRetorno downloadArquivo(String nomeArquivo) {
         return UDPCliente.downloadArquivo(UDPCliente.DOWNLOAD_FOLDER, nomeArquivo);
+    }
+    
+    public static MensagemRetorno enviarMensagemParaTodos(String mensagem) {
+        MensagemRetorno msg = new MensagemRetorno();
+        try {
+            byte[] bufferEntrada;
+            //enviar acao para servidor UDP
+            try (DatagramSocket clientSocket = new DatagramSocket(UDPCliente.PORTA_CLIENTE)) {
+                //enviar acao para servidor UDP
+                UDPCliente.enviarPacote(clientSocket, "message".getBytes());
+                bufferEntrada = UDPCliente.receberPacote(clientSocket);
+                System.out.println("Resposta servidor: "+new String(bufferEntrada));
+                //enviar mesangem para servidor UDP
+                UDPCliente.enviarPacote(clientSocket, mensagem.trim().getBytes());
+                msg.setSucesso(true);
+            }
+            
+        }
+        catch (IOException e){
+            System.err.print(e);
+            msg.setSucesso(false);
+            msg.setMensagem(e.getMessage());
+        }
+        return msg;
     }
     
     public static MensagemRetorno listaArquivos(){
@@ -170,7 +194,7 @@ public class UDPCliente {
         return msg;
     }
     
-    private static boolean enviarPacote(DatagramSocket clientSocket, byte[] conteudo){
+    protected static boolean enviarPacote(DatagramSocket clientSocket, byte[] conteudo){
         try {
             InetAddress ipServidor = InetAddress.getByName(UDPCliente.IP_SERVIDOR);
             byte[] bufferSaida = new byte[TAM_BUFFER];
@@ -185,7 +209,7 @@ public class UDPCliente {
         }
     } 
     
-    private static byte[] receberPacote(DatagramSocket clientSocket ){
+    protected static byte[] receberPacote(DatagramSocket clientSocket ){
         try {
             byte[] bufferEntrada = new byte[TAM_BUFFER];
             
