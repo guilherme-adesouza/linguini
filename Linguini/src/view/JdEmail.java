@@ -1,6 +1,7 @@
 package view;
 
 import controller.PessoaController;
+import dao.MensagemRetorno;
 import java.awt.Frame;
 import java.io.File;
 import java.util.Properties;
@@ -24,8 +25,8 @@ import model.Pessoa;
  *
  * @author
  */
-public class JdEmail extends javax.swing.JDialog implements Pesquisavel {
-
+public class JdEmail extends javax.swing.JFrame implements Pesquisavel {
+    
     private PessoaController clienteController;
     private Pessoa pessoa;
     File[] Anexo;
@@ -41,7 +42,7 @@ public class JdEmail extends javax.swing.JDialog implements Pesquisavel {
         EnderecoAnexo.setEditable(false);
         this.emailok.setVisible(false);
         this.total.setVisible(false);
-
+        
     }
 
     /**
@@ -67,12 +68,15 @@ public class JdEmail extends javax.swing.JDialog implements Pesquisavel {
         jLabel6 = new javax.swing.JLabel();
         total = new javax.swing.JLabel();
         emailok = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel9 = new javax.swing.JPanel();
         btnNovo6 = new javax.swing.JButton();
         btnFechar6 = new javax.swing.JButton();
         btnPesquisar6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Email");
 
         jPanel3.setPreferredSize(new java.awt.Dimension(786, 543));
 
@@ -142,6 +146,15 @@ public class JdEmail extends javax.swing.JDialog implements Pesquisavel {
         emailok.setForeground(new java.awt.Color(0, 153, 51));
         emailok.setText("Email enviado com sucesso. Total:");
 
+        jLabel8.setText("Selecionar todos clientes?");
+
+        jCheckBox1.setText("Sim");
+        jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox1ItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -150,50 +163,67 @@ public class JdEmail extends javax.swing.JDialog implements Pesquisavel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(BotaoAnexo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(EnderecoAnexo, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BotaoExcluir))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel10))
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Assunto)
-                            .addComponent(Destinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(NomeRemetente, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(emailok)
+                                .addComponent(BotaoAnexo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(32, Short.MAX_VALUE))
+                                .addComponent(EnderecoAnexo, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BotaoExcluir))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(93, 93, 93)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel10))
+                                .addGap(23, 23, 23)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(NomeRemetente, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                                        .addComponent(emailok)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(Destinatario, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                                            .addComponent(Assunto))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBox1)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(NomeRemetente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(total)
-                        .addComponent(emailok)))
+                        .addComponent(emailok))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10)
+                        .addComponent(NomeRemetente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jCheckBox1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(Destinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(Assunto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotaoAnexo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(EnderecoAnexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -253,11 +283,10 @@ public class JdEmail extends javax.swing.JDialog implements Pesquisavel {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(btnNovo6, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
-                .addComponent(btnPesquisar6, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnFechar6, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(btnPesquisar6, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73)
+                .addComponent(btnFechar6, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,10 +301,9 @@ public class JdEmail extends javax.swing.JDialog implements Pesquisavel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 8, Short.MAX_VALUE))
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,7 +319,7 @@ public class JdEmail extends javax.swing.JDialog implements Pesquisavel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoAnexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAnexoActionPerformed
-
+        
         JFileChooser file = new JFileChooser();
         file.setMultiSelectionEnabled(true);
         file.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -301,7 +329,7 @@ public class JdEmail extends javax.swing.JDialog implements Pesquisavel {
             Anexo = null;
         } else {
             Anexo = file.getSelectedFiles();
-
+            
             String SomaAnexo1 = "";
             String SomaAnexo2 = "";
             for (File enderec : Anexo) {
@@ -309,7 +337,7 @@ public class JdEmail extends javax.swing.JDialog implements Pesquisavel {
                 SomaAnexo1 = EnderecoAnexo.getText();
                 SomaAnexo2 = SomaAnexo2 + SomaAnexo1 + ";";
                 EnderecoAnexo.setText(SomaAnexo2);
-
+                
             }
         }
 
@@ -343,12 +371,12 @@ public class JdEmail extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_NomeRemetenteActionPerformed
 
     private void btnNovo6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovo6ActionPerformed
-String[] dest = Destinatario.getText().split(",");
+        String[] dest = Destinatario.getText().split(",");
         for (int i = 0; i < dest.length; i++) {
             this.Destinatarios = dest[i];
             EmailAnexo();
             this.total.setText(dest.length + "");
-        }        
+        }
     }//GEN-LAST:event_btnNovo6ActionPerformed
 
     private void btnFechar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechar6ActionPerformed
@@ -356,8 +384,24 @@ String[] dest = Destinatario.getText().split(",");
     }//GEN-LAST:event_btnFechar6ActionPerformed
 
     private void btnPesquisar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisar6ActionPerformed
-       
+
     }//GEN-LAST:event_btnPesquisar6ActionPerformed
+
+    private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
+        if (jCheckBox1.isSelected()) {
+            this.Destinatario.setText("");
+            this.Destinatario.setEnabled(false);
+            MensagemRetorno msg = this.clienteController.consultarTodosEmail();
+            for (Object percorrer : msg.getLista()) {
+                Pessoa p = (Pessoa) percorrer;
+                if (p.getObservacao() != null) {
+                    this.Destinatario.setText(this.Destinatario.getText() + p.getObservacao() + ",");
+                }
+            }            
+        } else {
+            this.Destinatario.setEnabled(true);
+        }        
+    }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Assunto;
@@ -367,50 +411,16 @@ String[] dest = Destinatario.getText().split(",");
     private javax.swing.JTextField EnderecoAnexo;
     private javax.swing.JTextArea Mensagem;
     private javax.swing.JTextField NomeRemetente;
-    private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnExcluir1;
-    private javax.swing.JButton btnExcluir2;
-    private javax.swing.JButton btnExcluir3;
-    private javax.swing.JButton btnExcluir4;
-    private javax.swing.JButton btnExcluir5;
-    private javax.swing.JButton btnFechar;
-    private javax.swing.JButton btnFechar1;
-    private javax.swing.JButton btnFechar2;
-    private javax.swing.JButton btnFechar3;
-    private javax.swing.JButton btnFechar4;
-    private javax.swing.JButton btnFechar5;
     private javax.swing.JButton btnFechar6;
-    private javax.swing.JButton btnNovo;
-    private javax.swing.JButton btnNovo1;
-    private javax.swing.JButton btnNovo2;
-    private javax.swing.JButton btnNovo3;
-    private javax.swing.JButton btnNovo4;
-    private javax.swing.JButton btnNovo5;
     private javax.swing.JButton btnNovo6;
-    private javax.swing.JButton btnPesquisar;
-    private javax.swing.JButton btnPesquisar1;
-    private javax.swing.JButton btnPesquisar2;
-    private javax.swing.JButton btnPesquisar3;
-    private javax.swing.JButton btnPesquisar4;
-    private javax.swing.JButton btnPesquisar5;
     private javax.swing.JButton btnPesquisar6;
-    private javax.swing.JButton btnSalvar;
-    private javax.swing.JButton btnSalvar1;
-    private javax.swing.JButton btnSalvar2;
-    private javax.swing.JButton btnSalvar3;
-    private javax.swing.JButton btnSalvar4;
-    private javax.swing.JButton btnSalvar5;
     private javax.swing.JLabel emailok;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel total;
@@ -442,7 +452,7 @@ String[] dest = Destinatario.getText().split(",");
 
             //eh necessario autenticar
             Session mailSession = Session.getInstance(mailProps, new Authenticator() {
-
+                
                 public PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(usuario, senha);
                 }
@@ -466,11 +476,11 @@ String[] dest = Destinatario.getText().split(",");
 //			partes do email
             Multipart mp = new MimeMultipart();
             mp.addBodyPart(mbpMensagem);
-
+            
             String Endereco_Anexo = "";
             if (Anexo != null) { // se tiver alguma coisa anexada ela inicializar o comando abaixo
                 for (File element : Anexo) {
-
+                    
                     Endereco_Anexo = element.getPath();
                     String imagem = Endereco_Anexo;
                     File Arquivo = new File(imagem);
@@ -497,12 +507,12 @@ String[] dest = Destinatario.getText().split(",");
             JOptionPane.showMessageDialog(null, "Houve um erro no Envio !\n" + e);
         }
     }
-
+    
     @Override
     public void carregar(int codigo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void limparCampos(int codigo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
