@@ -5,7 +5,6 @@ import java.io.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +40,7 @@ public class UDPCliente {
     public static MensagemRetorno enviarMensagemParaTodos(String mensagem) {
         MensagemRetorno msg = new MensagemRetorno();
         try {
-            byte[] bufferEntrada;
+            byte[] bufferEntrada = new byte[TAM_BUFFER];
             //enviar acao para servidor UDP
             try (DatagramSocket clientSocket = new DatagramSocket(UDPCliente.PORTA_CLIENTE)) {
                 //enviar acao para servidor UDP

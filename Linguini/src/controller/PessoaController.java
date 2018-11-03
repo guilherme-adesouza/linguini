@@ -22,6 +22,7 @@ public class PessoaController implements Controller<Pessoa>{
     
     @Override
     public MensagemRetorno salvar(Pessoa pessoa){
+        pessoa.setSituacao(true);
         return pessoaDAO.salvar(pessoa);
     }
 

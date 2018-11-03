@@ -475,7 +475,10 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
             this.pessoa.setComplemento(this.tfdComplemento.getText());
             this.pessoa.setLogradouro(this.tfdLogradouro.getText());
             this.pessoa.setObservacao(this.tfaObservacao.getText());
+            this.pessoa.setTelefone1(this.ftfTelefone1.getText());
+            this.pessoa.setTelefone2(this.ftfTelefone2.getText());
             this.pessoa.setSituacao(true);
+            
             if(!this.tfdNumero.getText().isEmpty()){
                 this.pessoa.setNumero(Integer.parseInt(this.tfdNumero.getText()));
             }
