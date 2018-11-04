@@ -8,7 +8,6 @@ package view;
 import controller.ClassificacaoController;
 import controller.FornecedorController;
 import controller.ProdutoController;
-import dao.GeradorLog;
 import dao.MensagemRetorno;
 import java.awt.Frame;
 import java.awt.event.ItemEvent;
@@ -717,7 +716,6 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
                 } else {
                     JOptionPane.showMessageDialog(null, "Problemas ao atualizar registro!\n\n"
                             + "Mensagem técnica: \n" + msg.getMensagem());
-                    new GeradorLog(msg.getMensagem());
                     clearFields();
                 }
             } else {
@@ -738,7 +736,6 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
                 } else {
                     JOptionPane.showMessageDialog(null, "Problemas ao salvar registro!\n\n"
                             + "Mensagem técnica: \n" + msg.getMensagem());
-                    new GeradorLog(msg.getMensagem());
                     clearFields();
                 }
             }
@@ -761,7 +758,6 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
             } else {
                 JOptionPane.showMessageDialog(null, "Problemas ao excluir registro!\n\n"
                         + "Mensagem técnica: \n" + msg.getMensagem());
-                new GeradorLog(msg.getMensagem());
                 clearFields();
             }
         } else {

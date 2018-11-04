@@ -6,7 +6,6 @@
 package view;
 
 import controller.FornecedorController;
-import dao.GeradorLog;
 import dao.MensagemRetorno;
 import java.awt.Frame;
 import javax.swing.JOptionPane;

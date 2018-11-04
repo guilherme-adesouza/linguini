@@ -81,7 +81,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="NomeRemetente" min="-2" pref="49" max="-2" attributes="1"/>
-                                          <EmptySpace pref="116" max="32767" attributes="0"/>
+                                          <EmptySpace pref="79" max="32767" attributes="0"/>
                                           <Component id="emailok" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="total" min="-2" pref="23" max="-2" attributes="0"/>

@@ -62,6 +62,7 @@ public class GenericoDAO<Object> {
             retorno.setSucesso(true);
             retorno.setMensagem("Registro excluído com sucesso!");
         } catch (HibernateException he) {
+            new GeradorLog(he);
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
         } finally {
@@ -86,6 +87,7 @@ public class GenericoDAO<Object> {
             retorno.setSucesso(true);
             retorno.setMensagem("Registro excluído com sucesso!");
         } catch (HibernateException he) {
+            new GeradorLog(he);
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
         } finally {
@@ -108,6 +110,7 @@ public class GenericoDAO<Object> {
             retorno.setLista((List) query.list());
             retorno.setSucesso(true);
         } catch (HibernateException he) {
+            new GeradorLog(he);
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
         } finally {
@@ -133,6 +136,7 @@ public class GenericoDAO<Object> {
             retorno.setSucesso(true);
 
         } catch (HibernateException he) {
+            new GeradorLog(he);
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
         } finally {
@@ -159,6 +163,7 @@ public class GenericoDAO<Object> {
             retorno.setObjeto((Object) query.uniqueResult());
             retorno.setSucesso(true);
         } catch (HibernateException he) {
+            new GeradorLog(he);
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
         }finally {
@@ -186,6 +191,7 @@ public class GenericoDAO<Object> {
             retorno.setLista((List) q.list());
             retorno.setSucesso(true);
         } catch (HibernateException he) {
+            new GeradorLog(he);
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
         }finally{
@@ -224,6 +230,7 @@ public class GenericoDAO<Object> {
             retorno.setLista((List) q.list());
             retorno.setSucesso(true);
         } catch (HibernateException he) {
+            new GeradorLog(he);
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
         }finally{
@@ -263,6 +270,7 @@ public class GenericoDAO<Object> {
             retorno.setLista((List) q.list());
             retorno.setSucesso(true);
         } catch (HibernateException he) {
+            new GeradorLog(he);
             retorno.setMensagem(he.getMessage());
             he.printStackTrace();
         }finally{

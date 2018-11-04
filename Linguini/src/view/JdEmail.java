@@ -391,7 +391,7 @@ public class JdEmail extends javax.swing.JFrame implements Pesquisavel {
         if (jCheckBox1.isSelected()) {
             this.Destinatario.setText("");
             this.Destinatario.setEnabled(false);
-            MensagemRetorno msg = this.clienteController.consultarTodosEmail();
+            MensagemRetorno msg = new MensagemRetorno();//this.clienteController.consultarTodosEmail();
             for (Object percorrer : msg.getLista()) {
                 Pessoa p = (Pessoa) percorrer;
                 if (p.getObservacao() != null) {
