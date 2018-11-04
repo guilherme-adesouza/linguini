@@ -19,7 +19,7 @@ public class PrevisaoTempoAPI {
     
     public static void main(String[] args) throws IOException {
         PrevisaoTempoAPI previsao = new PrevisaoTempoAPI();
-            previsao.proximos5Dias();
+            previsao.atual();
     }
     
     public MensagemRetorno atual() throws IOException {
@@ -87,6 +87,7 @@ public class PrevisaoTempoAPI {
     private PrevisaoTempo JSONtoObject(JSONObject json){
         PrevisaoTempo previsaoTempo = new PrevisaoTempo();
             
+        previsaoTempo.setCidade(json.getString("name"));
         previsaoTempo.setTempo(this.getDescription(json));
         previsaoTempo.setTemperatura(this.getTemperatura(json));
         previsaoTempo.setTemperaturaMaxima(this.getTemperaturaMinima(json));

@@ -5,7 +5,10 @@
  */
 package view;
 
-import controller.GrupoController;
+import api.PrevisaoTempo;
+import controller.PrevisaoTempoController;
+import dao.MensagemRetorno;
+import java.io.IOException;
 
 /**
  * @author VitinNote
@@ -16,13 +19,24 @@ public class Home extends javax.swing.JFrame {
     
     /**
      * Creates new form Hello
+     * @throws java.io.IOException
      */
-    public Home() {
+    public Home() throws IOException {
         initComponents();
         //new GrupoController().popularPermissoes();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.jMenuBar1.requestFocus();
-
+        PrevisaoTempoController previsaoController = new PrevisaoTempoController();
+        MensagemRetorno msg = previsaoController.consultarAgora();
+        if(msg.isSucesso()) {
+            PrevisaoTempo p = (PrevisaoTempo) msg.getObjeto();
+            this.txtCelcius.setText((int) p.getTemperatura()+"");
+            this.txtPrevisao.setText(p.getTempo());
+            this.txtPrevisaoCidade.setText(p.getCidade());
+        }
+        else {
+            this.pnlWeather.setVisible(false);
+        }
     }
 
     /**
@@ -47,6 +61,11 @@ public class Home extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel3 = new javax.swing.JPanel();
+        pnlWeather = new javax.swing.JPanel();
+        txtCelcius = new javax.swing.JLabel();
+        txtPrevisao = new javax.swing.JLabel();
+        txtCelcius1 = new javax.swing.JLabel();
+        txtPrevisaoCidade = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmeVendas = new javax.swing.JMenu();
         jmePessoas = new javax.swing.JMenu();
@@ -264,7 +283,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(btnCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHistorico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addComponent(btnSair)
                 .addContainerGap())
         );
@@ -305,16 +324,74 @@ public class Home extends javax.swing.JFrame {
         );
 
         jPanel3.setBackground(new java.awt.Color(209, 210, 210));
+        jPanel3.setForeground(new java.awt.Color(255, 255, 255));
+
+        pnlWeather.setBackground(new java.awt.Color(0, 174, 239));
+
+        txtCelcius.setFont(new java.awt.Font("Noto Sans", 1, 24)); // NOI18N
+        txtCelcius.setForeground(new java.awt.Color(255, 255, 255));
+        txtCelcius.setText("45 ");
+
+        txtPrevisao.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        txtPrevisao.setForeground(new java.awt.Color(255, 255, 255));
+        txtPrevisao.setText("TUDO AZUL");
+
+        txtCelcius1.setFont(new java.awt.Font("Noto Sans", 1, 24)); // NOI18N
+        txtCelcius1.setForeground(new java.awt.Color(255, 255, 255));
+        txtCelcius1.setText("°C");
+
+        txtPrevisaoCidade.setFont(new java.awt.Font("Noto Sans", 1, 12)); // NOI18N
+        txtPrevisaoCidade.setForeground(new java.awt.Color(254, 254, 254));
+        txtPrevisaoCidade.setText("Lajeado");
+
+        javax.swing.GroupLayout pnlWeatherLayout = new javax.swing.GroupLayout(pnlWeather);
+        pnlWeather.setLayout(pnlWeatherLayout);
+        pnlWeatherLayout.setHorizontalGroup(
+            pnlWeatherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlWeatherLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(txtCelcius)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCelcius1)
+                .addGroup(pnlWeatherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlWeatherLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(txtPrevisao)
+                        .addGap(29, 29, 29))
+                    .addGroup(pnlWeatherLayout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(txtPrevisaoCidade)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        pnlWeatherLayout.setVerticalGroup(
+            pnlWeatherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlWeatherLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlWeatherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCelcius)
+                    .addComponent(txtCelcius1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pnlWeatherLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtPrevisao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPrevisaoCidade)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(pnlWeather, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 558, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 492, Short.MAX_VALUE)
+                .addComponent(pnlWeather, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jDesktopPane1.setLayer(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -737,5 +814,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiUsuario;
     private javax.swing.JMenuItem menuEmail;
     private javax.swing.JMenuItem menuFornecedor;
+    private javax.swing.JPanel pnlWeather;
+    private javax.swing.JLabel txtCelcius;
+    private javax.swing.JLabel txtCelcius1;
+    private javax.swing.JLabel txtPrevisao;
+    private javax.swing.JLabel txtPrevisaoCidade;
     // End of variables declaration//GEN-END:variables
 }
