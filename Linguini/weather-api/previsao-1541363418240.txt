@@ -1,0 +1,9 @@
+{ 
+"cidade": Lajeado,
+ "tempo": "céu claro",
+"dia": 1541363418240,
+"dia-extenso": Sun Nov 04 18:30:18 BRST 2018,
+"temperatura": 20.7,
+"temperaturaMaxima": 20.7,
+"temperaturaMinima": 20.7
+ }
