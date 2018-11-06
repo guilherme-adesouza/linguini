@@ -15,7 +15,7 @@ public class PrevisaoTempoController {
     
     public static void main(String[] args) throws IOException {
         PrevisaoTempoController c = new PrevisaoTempoController();
-        c.consultarAgora();
+        c.consultar5Dias();
     }
     
     public PrevisaoTempoController() {
