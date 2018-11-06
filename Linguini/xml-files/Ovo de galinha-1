@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<produto>
+    <cozinha>false</cozinha>
+    <descricao>Ovo de galinha</descricao>
+    <estoqueMinimo>0</estoqueMinimo>
+    <id>1</id>
+    <insumo>false</insumo>
+    <quantidade>60</quantidade>
+    <situacao>true</situacao>
+    <tempoPreparo>0</tempoPreparo>
+</produto>
