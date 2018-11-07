@@ -19,7 +19,7 @@ public class PrevisaoTempoAPI {
     
     public static void main(String[] args) throws IOException {
         PrevisaoTempoAPI previsao = new PrevisaoTempoAPI();
-            previsao.atual();
+        previsao.proximos5Dias();
     }
     
     public MensagemRetorno atual() throws IOException {

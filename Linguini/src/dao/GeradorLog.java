@@ -75,6 +75,5 @@ public class GeradorLog {
         } catch (IOException er) {
             System.exit(0);
         }
-
     }
 }
