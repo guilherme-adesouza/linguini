@@ -39,8 +39,8 @@ public class GraficoController {
         int outubro = 0;
         int novembro = 0;
         int dezembro = 0;
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
         //msg = pedidoController.consultarTodos();
         dpd = new DefaultPieDataset();
