@@ -1,7 +1,15 @@
 package view;
 
 import apoio.MoedaFormatada;
+import controller.ContasReceberController;
+import controller.FormaPagamentoController;
+import controller.PedidoController;
+import dao.MensagemRetorno;
 import java.math.BigDecimal;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import model.ContasReceber;
+import model.FormaPagamento;
 import model.Pedido;
 
 /**
@@ -11,8 +19,12 @@ import model.Pedido;
 public class jdPagamento extends javax.swing.JDialog {
 
     private Pedido pedido;
-   
-    
+    private PedidoController pedidoController;
+    private ContasReceber contaReceber;
+    private ContasReceberController contaReceberController;
+    private FormaPagamento formaPagamento;
+    private FormaPagamentoController formaPagamentoController;
+
     public static String nomeTela = "telaPagamento";
 
     /**
@@ -21,14 +33,18 @@ public class jdPagamento extends javax.swing.JDialog {
     public jdPagamento(java.awt.Frame parent, boolean modal, Pedido pedido) {
         super(parent, modal);
         initComponents();
+        this.pedidoController = new PedidoController();
+        this.contaReceber = new ContasReceber();
+        this.contaReceberController = new ContasReceberController();
+        this.formaPagamento = new FormaPagamento();
+        this.formaPagamentoController = new FormaPagamentoController();
+
         this.pedido = new Pedido();
         this.pedido = pedido;
-        
-        this.labTotalaPagar.setText(this.pedido.getValor()+"");
-        this.labTotalFaltante.setText(this.pedido.getValor()+"");
+
+        this.labTotalaPagar.setText(this.pedido.getValor() + "");
+        this.labTotalFaltante.setText(this.pedido.getValor() + "");
         this.labTotalPago.setText("0");
-                
-        
 
     }
 
@@ -224,14 +240,13 @@ public class jdPagamento extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
                         .addComponent(labTotalFaltante))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -253,28 +268,34 @@ public class jdPagamento extends javax.swing.JDialog {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(labTotalaPagar)
-                    .addComponent(jLabel8)
-                    .addComponent(tfdPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(labTotalPago)
-                    .addComponent(jLabel10)
-                    .addComponent(tfdPrecoTotal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(labTotalFaltante))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfdPrecoTotal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labTotalaPagar)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(labTotalPago))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(labTotalFaltante)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(tfdPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(tfdPrecoTotal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfdPrecoTotal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -303,44 +324,74 @@ public class jdPagamento extends javax.swing.JDialog {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        
+
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
+        //Ainda falta separa o valor dinheiro/credito/debito
+        MensagemRetorno formaPag = this.formaPagamentoController.consultarPorID(1);
+        if (formaPag.isSucesso()) {
+            this.formaPagamento = (FormaPagamento) formaPag.getObjeto();
+        }
+
+        if (this.labTotalFaltante.getText().equals("0") || this.labTotalFaltante.equals("0.00")) {
+            this.contaReceber.setDataPagamento(new Date());
+            this.contaReceber.setDataPrevista(new Date());
+            this.contaReceber.setPedidoId(this.pedido);
+            this.contaReceber.setValorFinal(this.pedido.getValor());
+            this.contaReceber.setFormaPagamentoId(this.formaPagamento);
+            //this.contaReceber.setAcrescimo(BigDecimal.ZERO);
+            //this.contaReceber.setDesconto(BigDecimal.ZERO);
+
+            MensagemRetorno msg = this.contaReceberController.salvar(this.contaReceber);
+
+            if (msg.isSucesso()) {
+                this.pedido.setSituacao(true);
+                this.pedido.setStatus('O');
+                this.pedidoController.salvar(this.pedido);
+                JOptionPane.showMessageDialog(rootPane, msg.getMensagem());
+            } else {
+                JOptionPane.showMessageDialog(this, msg.getMensagem(), "ERRO!", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Valor faltante", "ERRO!", JOptionPane.WARNING_MESSAGE);
+
+        }
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void tfdPrecoTotalCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfdPrecoTotalCaretUpdate
-        
+
     }//GEN-LAST:event_tfdPrecoTotalCaretUpdate
 
     private void tfdPrecoTotalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdPrecoTotalFocusLost
         BigDecimal total = this.tfdPrecoTotal.getValue().add(this.tfdPrecoTotal1.getValue().add(this.tfdPrecoTotal2.getValue()));
         BigDecimal faltante = this.pedido.getValor().subtract(total);
-        this.labTotalFaltante.setText(faltante+"");
-        this.labTotalPago.setText(total+"");
+
+        this.labTotalFaltante.setText(faltante + "");
+        this.labTotalPago.setText(total + "");
     }//GEN-LAST:event_tfdPrecoTotalFocusLost
 
     private void tfdPrecoTotal1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdPrecoTotal1FocusLost
-                BigDecimal total = this.tfdPrecoTotal.getValue().add(this.tfdPrecoTotal1.getValue().add(this.tfdPrecoTotal2.getValue()));
+        BigDecimal total = this.tfdPrecoTotal.getValue().add(this.tfdPrecoTotal1.getValue().add(this.tfdPrecoTotal2.getValue()));
         BigDecimal faltante = this.pedido.getValor().subtract(total);
-        this.labTotalFaltante.setText(faltante+"");
-        this.labTotalPago.setText(total+"");
+        this.labTotalFaltante.setText(faltante + "");
+        this.labTotalPago.setText(total + "");
     }//GEN-LAST:event_tfdPrecoTotal1FocusLost
 
     private void tfdPrecoTotal2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdPrecoTotal2FocusLost
-                BigDecimal total = this.tfdPrecoTotal.getValue().add(this.tfdPrecoTotal1.getValue().add(this.tfdPrecoTotal2.getValue()));
+        BigDecimal total = this.tfdPrecoTotal.getValue().add(this.tfdPrecoTotal1.getValue().add(this.tfdPrecoTotal2.getValue()));
         BigDecimal faltante = this.pedido.getValor().subtract(total);
-        this.labTotalFaltante.setText(faltante+"");
-        this.labTotalPago.setText(total+"");
+        this.labTotalFaltante.setText(faltante + "");
+        this.labTotalPago.setText(total + "");
     }//GEN-LAST:event_tfdPrecoTotal2FocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
