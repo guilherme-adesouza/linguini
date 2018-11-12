@@ -50,7 +50,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     private CidadeController cidadeController;
     private Cidade cidade;
 
-    //Status : P = PENDENDE / C = COMANDA
+    //Status : P = PENDENDE / C = COMANDA / O = PAGO
     //I = INICIDO DELIVERY / A = AGUARDADNO DELIVERY
     //S = SAIU PARA ENTREGAR DELIVERY / F = FINALIZADO DELIVERY
     private int cli_ent_ped;//cli = 1 / ped = 0 / ent = 2 / cidade = 3 / deli = 4
@@ -614,7 +614,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         btnSalvar.setBackground(new java.awt.Color(51, 102, 255));
         btnSalvar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-salvar-48.png"))); // NOI18N
-        btnSalvar.setText("Finalizar");
+        btnSalvar.setText("Salvar");
         btnSalvar.setBorderPainted(false);
         btnSalvar.setContentAreaFilled(false);
         btnSalvar.setEnabled(false);
