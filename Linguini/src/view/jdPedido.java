@@ -1055,8 +1055,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             this.pedidoController.salvar(this.pedido);
             JOptionPane.showMessageDialog(this, "Esta venda ficará disponível em Delivery!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
         }
         if (!this.checkDelivery.isSelected()) {

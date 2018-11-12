@@ -1,6 +1,7 @@
 package view;
 
 import apoio.MoedaFormatada;
+import java.math.BigDecimal;
 import model.Pedido;
 
 /**
@@ -9,6 +10,9 @@ import model.Pedido;
  */
 public class jdPagamento extends javax.swing.JDialog {
 
+    private Pedido pedido;
+   
+    
     public static String nomeTela = "telaPagamento";
 
     /**
@@ -17,6 +21,14 @@ public class jdPagamento extends javax.swing.JDialog {
     public jdPagamento(java.awt.Frame parent, boolean modal, Pedido pedido) {
         super(parent, modal);
         initComponents();
+        this.pedido = new Pedido();
+        this.pedido = pedido;
+        
+        this.labTotalaPagar.setText(this.pedido.getValor()+"");
+        this.labTotalFaltante.setText(this.pedido.getValor()+"");
+        this.labTotalPago.setText("0");
+                
+        
 
     }
 
@@ -39,9 +51,9 @@ public class jdPagamento extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        labTotalaPagar = new javax.swing.JLabel();
+        labTotalPago = new javax.swing.JLabel();
+        labTotalFaltante = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -158,31 +170,54 @@ public class jdPagamento extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Dinheiro");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 153, 255));
         jLabel4.setText("TOTAL PAGO");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 51, 51));
         jLabel5.setText("TOTAL FALTANTE");
 
-        jLabel1.setText("jLabel1");
+        labTotalaPagar.setText("jLabel1");
 
-        jLabel6.setText("jLabel1");
+        labTotalPago.setText("jLabel1");
 
-        jLabel7.setText("jLabel1");
+        labTotalFaltante.setText("jLabel1");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("TOTAL A PAGAR");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Cartão Débito");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Cartão Crédito");
+
+        tfdPrecoTotal.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                tfdPrecoTotalCaretUpdate(evt);
+            }
+        });
+        tfdPrecoTotal.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfdPrecoTotalFocusLost(evt);
+            }
+        });
+
+        tfdPrecoTotal1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfdPrecoTotal1FocusLost(evt);
+            }
+        });
+
+        tfdPrecoTotal2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfdPrecoTotal2FocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -194,7 +229,7 @@ public class jdPagamento extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel7))
+                        .addComponent(labTotalFaltante))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,8 +237,8 @@ public class jdPagamento extends javax.swing.JDialog {
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(labTotalPago, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labTotalaPagar, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -222,24 +257,24 @@ public class jdPagamento extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1)
+                    .addComponent(labTotalaPagar)
                     .addComponent(jLabel8)
                     .addComponent(tfdPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel6)
+                    .addComponent(labTotalPago)
                     .addComponent(jLabel10)
                     .addComponent(tfdPrecoTotal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
-                        .addComponent(jLabel7))
+                        .addComponent(labTotalFaltante))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tfdPrecoTotal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -283,23 +318,48 @@ public class jdPagamento extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
+    private void tfdPrecoTotalCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfdPrecoTotalCaretUpdate
+        
+    }//GEN-LAST:event_tfdPrecoTotalCaretUpdate
+
+    private void tfdPrecoTotalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdPrecoTotalFocusLost
+        BigDecimal total = this.tfdPrecoTotal.getValue().add(this.tfdPrecoTotal1.getValue().add(this.tfdPrecoTotal2.getValue()));
+        BigDecimal faltante = this.pedido.getValor().subtract(total);
+        this.labTotalFaltante.setText(faltante+"");
+        this.labTotalPago.setText(total+"");
+    }//GEN-LAST:event_tfdPrecoTotalFocusLost
+
+    private void tfdPrecoTotal1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdPrecoTotal1FocusLost
+                BigDecimal total = this.tfdPrecoTotal.getValue().add(this.tfdPrecoTotal1.getValue().add(this.tfdPrecoTotal2.getValue()));
+        BigDecimal faltante = this.pedido.getValor().subtract(total);
+        this.labTotalFaltante.setText(faltante+"");
+        this.labTotalPago.setText(total+"");
+    }//GEN-LAST:event_tfdPrecoTotal1FocusLost
+
+    private void tfdPrecoTotal2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdPrecoTotal2FocusLost
+                BigDecimal total = this.tfdPrecoTotal.getValue().add(this.tfdPrecoTotal1.getValue().add(this.tfdPrecoTotal2.getValue()));
+        BigDecimal faltante = this.pedido.getValor().subtract(total);
+        this.labTotalFaltante.setText(faltante+"");
+        this.labTotalPago.setText(total+"");
+    }//GEN-LAST:event_tfdPrecoTotal2FocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel labTotalFaltante;
+    private javax.swing.JLabel labTotalPago;
+    private javax.swing.JLabel labTotalaPagar;
     private apoio.MoedaFormatada tfdPrecoTotal;
     private apoio.MoedaFormatada tfdPrecoTotal1;
     private apoio.MoedaFormatada tfdPrecoTotal2;
