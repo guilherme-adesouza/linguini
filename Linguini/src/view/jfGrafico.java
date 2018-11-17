@@ -22,8 +22,8 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
-import utils.Calendario;
-import utils.Formatacao;
+import utils.view.Calendario;
+import utils.view.Formatacao;
 
 /**
  *

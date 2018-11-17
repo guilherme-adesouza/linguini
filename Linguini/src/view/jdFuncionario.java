@@ -1,5 +1,6 @@
 package view;
 
+import utils.view.Pesquisavel;
 import controller.FuncionarioController;
 import controller.PessoaController;
 import dao.MensagemRetorno;
@@ -8,8 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.Funcionario;
 import model.Pessoa;
-import utils.Formatacao;
-import utils.Validacao;
+import utils.view.Formatacao;
+import utils.controller.Validacao;
 
 /**
  *

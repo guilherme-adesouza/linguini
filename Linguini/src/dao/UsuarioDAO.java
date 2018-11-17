@@ -1,12 +1,13 @@
 package dao;
 
+import utils.controller.GeradorLog;
 import model.Usuario;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import persistence.HibernateUtil;
-import utils.Criptografia;
+import utils.controller.Criptografia;
 
 /**
  * @author guilherme-souza

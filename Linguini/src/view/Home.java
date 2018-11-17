@@ -70,9 +70,9 @@ public class Home extends javax.swing.JFrame {
         jmeVendas = new javax.swing.JMenu();
         jmePessoas = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        menuEmail = new javax.swing.JMenuItem();
         menuFornecedor = new javax.swing.JMenuItem();
         jmiPessoas = new javax.swing.JMenuItem();
-        menuEmail = new javax.swing.JMenuItem();
         jmeCaixa = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jmeProduto = new javax.swing.JMenu();
@@ -88,8 +88,10 @@ public class Home extends javax.swing.JFrame {
         jmiTela = new javax.swing.JMenuItem();
         jmiUsuario = new javax.swing.JMenuItem();
         jmeSocket = new javax.swing.JMenu();
-        jmeSocketArquivo = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jmiSocketMensagem = new javax.swing.JMenuItem();
+        jmeSocketArquivo = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Linguini");
@@ -417,6 +419,14 @@ public class Home extends javax.swing.JFrame {
         jMenuItem2.setText("Cliente");
         jmePessoas.add(jMenuItem2);
 
+        menuEmail.setText("Email");
+        menuEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEmailActionPerformed(evt);
+            }
+        });
+        jmePessoas.add(menuEmail);
+
         menuFornecedor.setText("Fornecedor");
         menuFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -433,17 +443,10 @@ public class Home extends javax.swing.JFrame {
         });
         jmePessoas.add(jmiPessoas);
 
-        menuEmail.setText("Email");
-        menuEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuEmailActionPerformed(evt);
-            }
-        });
-        jmePessoas.add(menuEmail);
-
         jMenuBar1.add(jmePessoas);
 
         jmeCaixa.setText("Caixa");
+        jmeCaixa.setEnabled(false);
 
         jMenuItem1.setText("Abrir e Fechar Caixa");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -533,7 +536,23 @@ public class Home extends javax.swing.JFrame {
 
         jMenuBar1.add(jmeMais);
 
-        jmeSocket.setText("Socket");
+        jmeSocket.setText("Mais");
+        jmeSocket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmeSocketActionPerformed(evt);
+            }
+        });
+
+        jMenuItem3.setText("Backup");
+        jmeSocket.add(jMenuItem3);
+
+        jmiSocketMensagem.setText("Enviar Mensagem");
+        jmiSocketMensagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSocketMensagemActionPerformed(evt);
+            }
+        });
+        jmeSocket.add(jmiSocketMensagem);
 
         jmeSocketArquivo.setText("Troca de Arquivos");
         jmeSocketArquivo.addActionListener(new java.awt.event.ActionListener() {
@@ -543,13 +562,8 @@ public class Home extends javax.swing.JFrame {
         });
         jmeSocket.add(jmeSocketArquivo);
 
-        jmiSocketMensagem.setText("Enviar Mensagem");
-        jmiSocketMensagem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiSocketMensagemActionPerformed(evt);
-            }
-        });
-        jmeSocket.add(jmiSocketMensagem);
+        jMenuItem4.setText("Restaurar Backup");
+        jmeSocket.add(jMenuItem4);
 
         jMenuBar1.add(jmeSocket);
 
@@ -766,6 +780,11 @@ public class Home extends javax.swing.JFrame {
         telaEmail.setVisible(true);
     }//GEN-LAST:event_menuEmailActionPerformed
 
+    private void jmeSocketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmeSocketActionPerformed
+        jdBackup telaBackup = new jdBackup(this, false);
+        telaBackup.setVisible(true);
+    }//GEN-LAST:event_jmeSocketActionPerformed
+
     private void jmiSocketMensagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSocketMensagemActionPerformed
         jdEnvioMensagem telaSocketMensagem = new jdEnvioMensagem(this, false);
         telaSocketMensagem.setVisible(true);
@@ -790,6 +809,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

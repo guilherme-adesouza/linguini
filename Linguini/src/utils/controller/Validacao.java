@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package utils.controller;
 
+import utils.view.Formatacao;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.event.KeyEvent;

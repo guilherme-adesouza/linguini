@@ -1,4 +1,4 @@
-package utils;
+package utils.view;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -7,7 +7,6 @@ package utils;
  */
 
 
-import apoio.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;

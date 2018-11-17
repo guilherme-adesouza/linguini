@@ -1,4 +1,4 @@
-package view;
+package utils.view;
 
 public class ComboItens {
     private int codigo;

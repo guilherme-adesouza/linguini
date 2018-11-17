@@ -1,5 +1,6 @@
 package view;
 
+import utils.view.CustomJOption;
 import controller.CozinhaController;
 import dao.MensagemRetorno;
 import javax.swing.JOptionPane;

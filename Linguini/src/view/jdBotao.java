@@ -5,6 +5,8 @@
  */
 package view;
 
+import utils.view.ComboItens;
+import utils.view.Pesquisavel;
 import controller.BotaoController;
 import controller.TelaController;
 import dao.MensagemRetorno;
@@ -14,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.Botoes;
 import model.Telas;
-import utils.Validacao;
+import utils.controller.Validacao;
 
 /**
  *

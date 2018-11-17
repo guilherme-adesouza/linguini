@@ -5,13 +5,14 @@
  */
 package view;
 
+import utils.view.Pesquisavel;
 import controller.TelaController;
 import dao.MensagemRetorno;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.Telas;
-import utils.Validacao;
+import utils.controller.Validacao;
 
 /**
  *

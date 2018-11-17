@@ -5,12 +5,13 @@
  */
 package view;
 
+import utils.view.CustomJOption;
 import com.toedter.calendar.JDateChooser;
 import controller.AuditoriaController;
 import dao.MensagemRetorno;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import utils.Validacao;
+import utils.controller.Validacao;
 
 /**
  *

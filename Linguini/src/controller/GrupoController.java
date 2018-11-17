@@ -13,7 +13,7 @@ import model.Grupo;
 import model.Permissao;
 import model.PermissaoBotao;
 import model.Telas;
-import view.ComboItens;
+import utils.view.ComboItens;
 
 /**
  * @author guilherme-souza

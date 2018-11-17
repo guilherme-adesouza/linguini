@@ -5,14 +5,15 @@
  */
 package view;
 
+import utils.view.Pesquisavel;
 import controller.FornecedorController;
 import dao.MensagemRetorno;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.Fornecedor;
-import utils.Formatacao;
-import utils.Validacao;
+import utils.view.Formatacao;
+import utils.controller.Validacao;
 
 /**
  *

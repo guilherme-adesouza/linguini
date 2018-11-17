@@ -12,7 +12,7 @@ import model.ItemPedido;
 import model.Pedido;
 import model.Produto;
 import model.Usuario;
-import utils.Sessao;
+import utils.controller.Sessao;
 
 /**
  * @author vitor-olavo

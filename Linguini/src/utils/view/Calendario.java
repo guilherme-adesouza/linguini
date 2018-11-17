@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package utils.view;
 
 import java.text.DateFormat;
 import java.text.ParseException;

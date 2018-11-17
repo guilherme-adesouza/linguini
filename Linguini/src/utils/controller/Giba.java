@@ -1,5 +1,6 @@
-package utils;
+package utils.controller;
 
+import utils.controller.Sessao;
 import controller.TelaController;
 import javax.swing.JButton;
 import javax.swing.JDialog;

@@ -5,6 +5,7 @@
  */
 package dao;
 
+import utils.controller.GeradorLog;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.jdbc.Work;
 import persistence.HibernateUtil;
-import utils.Sessao;
+import utils.controller.Sessao;
 
 /**
  * @author guilherme-souza

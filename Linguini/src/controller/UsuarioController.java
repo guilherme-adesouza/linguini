@@ -8,7 +8,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import model.Usuario;
-import utils.Criptografia;
+import utils.controller.Criptografia;
 
 /**
  * @author guilherme-souza

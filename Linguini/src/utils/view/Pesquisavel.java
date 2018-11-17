@@ -1,4 +1,4 @@
-package view;
+package utils.view;
 
 /**
  * @author guilherme-souza

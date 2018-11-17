@@ -5,6 +5,8 @@
  */
 package view;
 
+import utils.view.ComboItens;
+import utils.view.Pesquisavel;
 import controller.ClassificacaoController;
 import controller.FornecedorController;
 import controller.ProdutoController;
@@ -20,11 +22,11 @@ import javax.swing.JTextField;
 import model.Classificacao;
 import model.Fornecedor;
 import model.Produto;
-import utils.Calendario;
-import utils.ControlarEntradaNumero;
-import utils.Formatacao;
-import utils.Giba;
-import utils.Validacao;
+import utils.view.Calendario;
+import utils.view.ControlarEntradaNumero;
+import utils.view.Formatacao;
+import utils.controller.Giba;
+import utils.controller.Validacao;
 
 /**
  *
@@ -112,11 +114,11 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         rUnidade = new javax.swing.JRadioButton();
         rKilo = new javax.swing.JRadioButton();
         comboCategoria = new javax.swing.JComboBox<>();
-        tffPrecoCusto = new apoio.MoedaFormatada();
+        tffPrecoCusto = new utils.view.MoedaFormatada();
         rLitro = new javax.swing.JRadioButton();
         comboFornecedor = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
-        tffPrecoVenda = new apoio.MoedaFormatada();
+        tffPrecoVenda = new utils.view.MoedaFormatada();
         jtabMais = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -133,7 +135,7 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         jLabel17 = new javax.swing.JLabel();
         tfdEstoqueMinimo = new javax.swing.JFormattedTextField();
         jPanel5 = new javax.swing.JPanel();
-        tffPrecoPromocao = new apoio.MoedaFormatada();
+        tffPrecoPromocao = new utils.view.MoedaFormatada();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         tffDataFimPromocao = new javax.swing.JFormattedTextField();
@@ -1029,9 +1031,9 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
     private javax.swing.JTextField tfdNome;
     private javax.swing.JFormattedTextField tfdTempoPreparo;
     private javax.swing.JFormattedTextField tffDataFimPromocao;
-    private apoio.MoedaFormatada tffPrecoCusto;
-    private apoio.MoedaFormatada tffPrecoPromocao;
-    private apoio.MoedaFormatada tffPrecoVenda;
+    private utils.view.MoedaFormatada tffPrecoCusto;
+    private utils.view.MoedaFormatada tffPrecoPromocao;
+    private utils.view.MoedaFormatada tffPrecoVenda;
     // End of variables declaration//GEN-END:variables
 
     private JTextField[] camposObrigatorios() {

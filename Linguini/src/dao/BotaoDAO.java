@@ -7,7 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import persistence.HibernateUtil;
-import view.ComboItens;
+import utils.view.ComboItens;
 
 /**
  * @author guilherme-souza

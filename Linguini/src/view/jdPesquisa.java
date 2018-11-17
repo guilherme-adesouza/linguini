@@ -1,5 +1,6 @@
 package view;
 
+import utils.view.Pesquisavel;
 import controller.CampoOrdenavel;
 import controller.Controller;
 import dao.MensagemRetorno;

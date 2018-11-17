@@ -2,7 +2,7 @@ package dao;
 
 import javax.swing.JComboBox;
 import model.Grupo;
-import view.ComboItens;
+import utils.view.ComboItens;
 
 /**
  * @author guilherme-souza

@@ -1,5 +1,6 @@
 package view;
 
+import utils.view.Pesquisavel;
 import controller.PessoaController;
 import dao.MensagemRetorno;
 import java.awt.Frame;

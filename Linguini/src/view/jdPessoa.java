@@ -5,6 +5,8 @@
  */
 package view;
 
+import utils.view.ComboItens;
+import utils.view.Pesquisavel;
 import controller.EntregadorController;
 import controller.PessoaController;
 import controller.CidadeController;
@@ -16,8 +18,8 @@ import javax.swing.JTextField;
 import model.Cidade;
 import model.Entregador;
 import model.Pessoa;
-import utils.Formatacao;
-import utils.Validacao;
+import utils.view.Formatacao;
+import utils.controller.Validacao;
 
 /**
  *

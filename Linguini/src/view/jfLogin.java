@@ -6,16 +6,20 @@
 package view;
 
 import controller.UsuarioController;
+import utils.controller.GeradorLog;
 import dao.MensagemRetorno;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import model.Usuario;
-import utils.Sessao;
+import utils.controller.Sessao;
 
 /**
  *
@@ -195,11 +199,14 @@ public class jfLogin extends javax.swing.JFrame {
 
             MensagemRetorno msg = this.usuarioController.autenticar(usuario);
             if(msg.isSucesso()){
-                Sessao.setUsuario((Usuario) msg.getObjeto());
-                
-                Home home = new Home();
-                home.setVisible(true);
-                this.dispose();
+                try {
+                    Sessao.setUsuario((Usuario) msg.getObjeto());
+                    Home home = new Home();
+                    home.setVisible(true);
+                    this.dispose();
+                } catch (IOException ex) {
+                    new GeradorLog(ex);
+                }
             }
             else {
                 JOptionPane.showMessageDialog(this, msg.getMensagem(), "Dados inválidos", JOptionPane.WARNING_MESSAGE);

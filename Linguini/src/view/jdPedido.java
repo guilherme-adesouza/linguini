@@ -1,5 +1,7 @@
 package view;
 
+import utils.view.ComboItens;
+import utils.view.Pesquisavel;
 import controller.CidadeController;
 import controller.EntregadorController;
 import controller.ItemPedidoController;
@@ -22,11 +24,11 @@ import model.Pedido;
 import model.Pessoa;
 import model.Produto;
 import model.Usuario;
-import utils.Calendario;
-import utils.ControlarEntradaNumero;
-import utils.Formatacao;
-import utils.Sessao;
-import utils.Validacao;
+import utils.view.Calendario;
+import utils.view.ControlarEntradaNumero;
+import utils.view.Formatacao;
+import utils.controller.Sessao;
+import utils.controller.Validacao;
 
 /**
  *
@@ -180,7 +182,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         jLabel26 = new javax.swing.JLabel();
         btnAdicionar = new javax.swing.JButton();
         btnRemoverItem = new javax.swing.JButton();
-        tfdPrecoUnitario = new apoio.MoedaFormatada();
+        tfdPrecoUnitario = new utils.view.MoedaFormatada();
         jPanel2 = new javax.swing.JPanel();
         btnNovo = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
@@ -211,9 +213,9 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         cmbEntregador = new javax.swing.JComboBox<>();
         d_tfdCidade = new javax.swing.JTextField();
         d_btnAdicionar = new javax.swing.JButton();
-        tfdPrecoSubTotal = new apoio.MoedaFormatada();
-        tfdPrecoDesconto = new apoio.MoedaFormatada();
-        tfdPrecoTotal = new apoio.MoedaFormatada();
+        tfdPrecoSubTotal = new utils.view.MoedaFormatada();
+        tfdPrecoDesconto = new utils.view.MoedaFormatada();
+        tfdPrecoTotal = new utils.view.MoedaFormatada();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pedido");
@@ -1465,10 +1467,10 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     private javax.swing.JLabel tfdNumeroComanda;
     private javax.swing.JLabel tfdNumeroPedido;
     private javax.swing.JTextField tfdObservacao;
-    private apoio.MoedaFormatada tfdPrecoDesconto;
-    private apoio.MoedaFormatada tfdPrecoSubTotal;
-    private apoio.MoedaFormatada tfdPrecoTotal;
-    private apoio.MoedaFormatada tfdPrecoUnitario;
+    private utils.view.MoedaFormatada tfdPrecoDesconto;
+    private utils.view.MoedaFormatada tfdPrecoSubTotal;
+    private utils.view.MoedaFormatada tfdPrecoTotal;
+    private utils.view.MoedaFormatada tfdPrecoUnitario;
     private javax.swing.JTextField tfdQuantidade;
     private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables

@@ -1,5 +1,7 @@
 package view;
 
+import utils.view.ComboItens;
+import utils.view.Pesquisavel;
 import controller.BotaoController;
 import controller.GrupoController;
 import controller.PermissaoBotaoController;
@@ -15,7 +17,7 @@ import model.Grupo;
 import model.Permissao;
 import model.PermissaoBotao;
 import model.Telas;
-import utils.Validacao;
+import utils.controller.Validacao;
 
 /**
  * @author guilherme-souza

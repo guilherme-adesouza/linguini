@@ -3,7 +3,7 @@ package dao;
 import java.sql.ResultSet;
 import javax.swing.JComboBox;
 import model.Cidade;
-import view.ComboItens;
+import utils.view.ComboItens;
 
 /**
  *

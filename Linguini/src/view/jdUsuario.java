@@ -1,5 +1,7 @@
 package view;
 
+import utils.view.ComboItens;
+import utils.view.Pesquisavel;
 import controller.GrupoController;
 import controller.UsuarioController;
 import dao.MensagemRetorno;
@@ -9,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.Grupo;
 import model.Usuario;
-import utils.Validacao;
+import utils.controller.Validacao;
 
 /**
  *

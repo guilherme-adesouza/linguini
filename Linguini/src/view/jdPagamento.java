@@ -1,6 +1,6 @@
 package view;
 
-import apoio.MoedaFormatada;
+import utils.view.MoedaFormatada;
 import controller.ContasReceberController;
 import controller.FormaPagamentoController;
 import controller.PedidoController;
@@ -73,9 +73,9 @@ public class jdPagamento extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        tfdPrecoTotal = new apoio.MoedaFormatada();
-        tfdPrecoTotal1 = new apoio.MoedaFormatada();
-        tfdPrecoTotal2 = new apoio.MoedaFormatada();
+        tfdPrecoTotal = new utils.view.MoedaFormatada();
+        tfdPrecoTotal1 = new utils.view.MoedaFormatada();
+        tfdPrecoTotal2 = new utils.view.MoedaFormatada();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fornecedor");
@@ -411,9 +411,9 @@ public class jdPagamento extends javax.swing.JDialog {
     private javax.swing.JLabel labTotalFaltante;
     private javax.swing.JLabel labTotalPago;
     private javax.swing.JLabel labTotalaPagar;
-    private apoio.MoedaFormatada tfdPrecoTotal;
-    private apoio.MoedaFormatada tfdPrecoTotal1;
-    private apoio.MoedaFormatada tfdPrecoTotal2;
+    private utils.view.MoedaFormatada tfdPrecoTotal;
+    private utils.view.MoedaFormatada tfdPrecoTotal1;
+    private utils.view.MoedaFormatada tfdPrecoTotal2;
     // End of variables declaration//GEN-END:variables
 
 }

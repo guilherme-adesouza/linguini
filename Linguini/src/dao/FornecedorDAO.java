@@ -5,6 +5,7 @@
  */
 package dao;
 
+import utils.controller.GeradorLog;
 import javax.swing.JComboBox;
 import model.Fornecedor;
 import org.hibernate.HibernateException;
@@ -12,7 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import persistence.HibernateUtil;
-import view.ComboItens;
+import utils.view.ComboItens;
 
 /**
  * @author VitinNote

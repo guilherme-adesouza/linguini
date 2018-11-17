@@ -1,6 +1,5 @@
-package utils;
+package utils.controller;
 
-import dao.GeradorLog;
 import dao.MensagemRetorno;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -8,6 +7,7 @@ import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import model.Classificacao;
 import model.Produto;
 
 /**
@@ -24,8 +24,13 @@ public class GeradorXML<T> {
         p.setDescricao("Ovo de galinha");
         p.setQuantidade(60);
         p.setSituacao(true);
+        Classificacao c = new Classificacao();
+        c.setId((long) 1);
+        c.setClassificacao("Insumo");
+        c.setSituacao(true);
+        p.setClassificacaoId(c);
         GeradorXML geradorXML = new GeradorXML();
-        geradorXML.gerar(p, p.getDescricao()+"-"+p.getId());
+        geradorXML.gerar(p, p.getDescricao()+"-0"+p.getId());
     }
     
     private MensagemRetorno gerar(T Objeto, String nomeArquivo) throws FileNotFoundException {
