@@ -14,12 +14,12 @@ import utils.controller.Backup;
  *
  * @author guilherme-souza
  */
-public class jdBackup extends javax.swing.JDialog {
+public class jdRestaurarBackup extends javax.swing.JDialog {
 
     /**
      * Creates new form jdBackup
      */
-    public jdBackup(java.awt.Frame parent, boolean modal) {
+    public jdRestaurarBackup(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -39,13 +39,13 @@ public class jdBackup extends javax.swing.JDialog {
         cmbAplicacao = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnIniciarBackup = new javax.swing.JButton();
+        btnIniciarRestore = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtLocalBackup = new javax.swing.JTextField();
         btnSelecionarArquivo = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Backup");
+        setTitle("Restauração de Backup");
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -104,17 +104,17 @@ public class jdBackup extends javax.swing.JDialog {
         });
 
         jLabel1.setFont(new java.awt.Font("Noto Sans", 2, 12)); // NOI18N
-        jLabel1.setText("Realiza backup dos dados inseridos no sistema");
+        jLabel1.setText("Restaura backup dos dados inseridos no sistema");
 
         jLabel2.setFont(new java.awt.Font("Noto Sans", 2, 12)); // NOI18N
-        jLabel2.setText("Realiza backup APENAS do sistema instalado");
+        jLabel2.setText("Restaura backup APENAS do sistema instalado");
 
-        btnIniciarBackup.setText("Iniciar Backup");
-        btnIniciarBackup.setEnabled(false);
-        btnIniciarBackup.setName("btnBackup"); // NOI18N
-        btnIniciarBackup.addActionListener(new java.awt.event.ActionListener() {
+        btnIniciarRestore.setText("Iniciar Restauração");
+        btnIniciarRestore.setEnabled(false);
+        btnIniciarRestore.setName("btnBackup"); // NOI18N
+        btnIniciarRestore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIniciarBackupActionPerformed(evt);
+                btnIniciarRestoreActionPerformed(evt);
             }
         });
 
@@ -156,7 +156,7 @@ public class jdBackup extends javax.swing.JDialog {
                             .addComponent(cmbBanco)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIniciarBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnIniciarRestore, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -177,7 +177,7 @@ public class jdBackup extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(2, 2, 2)
-                .addComponent(btnIniciarBackup)
+                .addComponent(btnIniciarRestore)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -188,24 +188,24 @@ public class jdBackup extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
 
-    private void btnIniciarBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarBackupActionPerformed
+    private void btnIniciarRestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarRestoreActionPerformed
         if(this.txtLocalBackup.getText().isEmpty()){
-            JOptionPane.showMessageDialog(rootPane, "Selecione uma pasta como local do arquivo de backup", "Aviso", JOptionPane.WARNING_MESSAGE);      
+            JOptionPane.showMessageDialog(rootPane, "Selecione um arquivo para restauração do backup", "Aviso", JOptionPane.WARNING_MESSAGE);      
         } else if(this.cmbAplicacao.isSelected() || this.cmbBanco.isSelected() ) {
-            this.executarBackup(this.txtLocalBackup.getText());
+            this.executarRestore(this.txtLocalBackup.getText());
         }
-    }//GEN-LAST:event_btnIniciarBackupActionPerformed
+    }//GEN-LAST:event_btnIniciarRestoreActionPerformed
 
     private void btnSelecionarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarArquivoActionPerformed
         final JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int returnVal = fc.showOpenDialog(this);
         
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             if(fc.getSelectedFile().isDirectory()) {
-                this.txtLocalBackup.setText(fc.getSelectedFile().getAbsolutePath());
+                JOptionPane.showMessageDialog(rootPane, "Selecione um arquivo para restauração do backup", "Aviso", JOptionPane.WARNING_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Selecione uma pasta como local do arquivo de backup", "Aviso", JOptionPane.WARNING_MESSAGE);
+                this.executarRestore(this.txtLocalBackup.getText());            
             }
         } else {
             //nenhum arquivo selecionado
@@ -219,37 +219,37 @@ public class jdBackup extends javax.swing.JDialog {
     }//GEN-LAST:event_cmbAplicacaoStateChanged
 
     private void cmbBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBancoActionPerformed
-        this.btnIniciarBackup.setEnabled(this.cmbBanco.isSelected() || this.cmbAplicacao.isSelected());
+        this.btnIniciarRestore.setEnabled(this.cmbBanco.isSelected() || this.cmbAplicacao.isSelected());
     }//GEN-LAST:event_cmbBancoActionPerformed
 
     private void cmbAplicacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAplicacaoActionPerformed
-        this.btnIniciarBackup.setEnabled(this.cmbBanco.isSelected() || this.cmbAplicacao.isSelected());
+        this.btnIniciarRestore.setEnabled(this.cmbBanco.isSelected() || this.cmbAplicacao.isSelected());
     }//GEN-LAST:event_cmbAplicacaoActionPerformed
 
-    private void executarBackup(String localBackup) {
+    private void executarRestore(String localBackup) {
         if(this.cmbAplicacao.isSelected()) {
             //faz backup da aplicação
             MensagemRetorno msg = Backup.aplicacao(localBackup);
             if(msg.isSucesso()) {
-                JOptionPane.showMessageDialog(this, msg.getMensagem(), "Backup da Aplicação - Sucesso", JOptionPane.INFORMATION_MESSAGE);      
+                JOptionPane.showMessageDialog(this, msg.getMensagem(), "Restauração de Backup da Aplicação - Sucesso", JOptionPane.INFORMATION_MESSAGE);      
             } else {
-                JOptionPane.showMessageDialog(this, msg.getMensagem(), "Backup da Aplicação - Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, msg.getMensagem(), "Restauração de Backup da Aplicação - Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
         if(this.cmbBanco.isSelected()){
             //faz backup do banco
             MensagemRetorno msg = Backup.bancoDeDados(localBackup);
             if(msg.isSucesso()) {
-                JOptionPane.showMessageDialog(this, msg.getMensagem(), "Backup do Banco - Sucesso", JOptionPane.INFORMATION_MESSAGE);      
+                JOptionPane.showMessageDialog(this, msg.getMensagem(), "Restauração de Backup do Banco - Sucesso", JOptionPane.INFORMATION_MESSAGE);      
             } else {
-                JOptionPane.showMessageDialog(this, msg.getMensagem(), "Backup do Banco - Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, msg.getMensagem(), "Restauração de Backup do Banco - Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;
-    private javax.swing.JButton btnIniciarBackup;
+    private javax.swing.JButton btnIniciarRestore;
     private javax.swing.JToggleButton btnSelecionarArquivo;
     private javax.swing.JCheckBox cmbAplicacao;
     private javax.swing.JCheckBox cmbBanco;

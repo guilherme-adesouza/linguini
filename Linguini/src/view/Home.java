@@ -88,10 +88,10 @@ public class Home extends javax.swing.JFrame {
         jmiTela = new javax.swing.JMenuItem();
         jmiUsuario = new javax.swing.JMenuItem();
         jmeSocket = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jmiBackup = new javax.swing.JMenuItem();
         jmiSocketMensagem = new javax.swing.JMenuItem();
         jmeSocketArquivo = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jmiRestaurarBackup = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Linguini");
@@ -543,8 +543,13 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem3.setText("Backup");
-        jmeSocket.add(jMenuItem3);
+        jmiBackup.setText("Backup");
+        jmiBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiBackupActionPerformed(evt);
+            }
+        });
+        jmeSocket.add(jmiBackup);
 
         jmiSocketMensagem.setText("Enviar Mensagem");
         jmiSocketMensagem.addActionListener(new java.awt.event.ActionListener() {
@@ -562,8 +567,13 @@ public class Home extends javax.swing.JFrame {
         });
         jmeSocket.add(jmeSocketArquivo);
 
-        jMenuItem4.setText("Restaurar Backup");
-        jmeSocket.add(jMenuItem4);
+        jmiRestaurarBackup.setText("Restaurar Backup");
+        jmiRestaurarBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRestaurarBackupActionPerformed(evt);
+            }
+        });
+        jmeSocket.add(jmiRestaurarBackup);
 
         jMenuBar1.add(jmeSocket);
 
@@ -781,19 +791,32 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_menuEmailActionPerformed
 
     private void jmeSocketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmeSocketActionPerformed
-        jdBackup telaBackup = new jdBackup(this, false);
-        telaBackup.setVisible(true);
+        
     }//GEN-LAST:event_jmeSocketActionPerformed
 
     private void jmiSocketMensagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSocketMensagemActionPerformed
         jdEnvioMensagem telaSocketMensagem = new jdEnvioMensagem(this, false);
+        telaSocketMensagem.setLocationRelativeTo(telaSocketMensagem);
         telaSocketMensagem.setVisible(true);
     }//GEN-LAST:event_jmiSocketMensagemActionPerformed
 
     private void jmeSocketArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmeSocketArquivoActionPerformed
         jdUploadFotos telaSocketArquivo = new jdUploadFotos(this, false);
+        telaSocketArquivo.setLocationRelativeTo(telaSocketArquivo);
         telaSocketArquivo.setVisible(true);
     }//GEN-LAST:event_jmeSocketArquivoActionPerformed
+
+    private void jmiBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBackupActionPerformed
+        jdBackup telaBackup = new jdBackup(this, false);
+        telaBackup.setLocationRelativeTo(telaBackup);
+        telaBackup.setVisible(true);
+    }//GEN-LAST:event_jmiBackupActionPerformed
+
+    private void jmiRestaurarBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRestaurarBackupActionPerformed
+        jdRestaurarBackup telaRestaurarBackup = new jdRestaurarBackup(this, false);
+        telaRestaurarBackup.setLocationRelativeTo(telaRestaurarBackup);
+        telaRestaurarBackup.setVisible(true);
+    }//GEN-LAST:event_jmiRestaurarBackupActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCaixa;
@@ -809,8 +832,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -824,11 +845,13 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmeSocketArquivo;
     private javax.swing.JMenu jmeVendas;
     private javax.swing.JMenuItem jmiArquivarAuditoria;
+    private javax.swing.JMenuItem jmiBackup;
     private javax.swing.JMenuItem jmiBotao;
     private javax.swing.JMenuItem jmiConfiguracoes;
     private javax.swing.JMenuItem jmiGrupo;
     private javax.swing.JMenuItem jmiPessoas;
     private javax.swing.JMenuItem jmiProduto;
+    private javax.swing.JMenuItem jmiRestaurarBackup;
     private javax.swing.JMenuItem jmiSocketMensagem;
     private javax.swing.JMenuItem jmiTela;
     private javax.swing.JMenuItem jmiTelefones;
