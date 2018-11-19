@@ -27,7 +27,7 @@ public class PrevisaoTempoController {
         if(msg.isSucesso()) {
             for (Object object : msg.getLista()) {
                 PrevisaoTempo p = (PrevisaoTempo) object;
-                GeradorPrevisaoTempo.gerarArquivo(p);
+                //GeradorPrevisaoTempo.gerarArquivo(p);
             }
         }
         return msg;
@@ -37,7 +37,7 @@ public class PrevisaoTempoController {
         MensagemRetorno msg = api.atual();
         if(msg.isSucesso()) {
             PrevisaoTempo p = (PrevisaoTempo) msg.getObjeto();
-            GeradorPrevisaoTempo.gerarArquivo(p);
+            //GeradorPrevisaoTempo.gerarArquivo(p);
         }
         return msg;
     }

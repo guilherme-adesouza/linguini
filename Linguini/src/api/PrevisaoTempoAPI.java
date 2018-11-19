@@ -25,7 +25,6 @@ public class PrevisaoTempoAPI {
     public MensagemRetorno atual() throws IOException {
         String finalUrl = url+"/weather?id="+cidade+"&lang="+lang+"&APPID="+apiKey+"&units=metric";
         String resposta = api.get(finalUrl, ApiRepository.JSON, null);
-        System.out.println(resposta);
         MensagemRetorno msg = new MensagemRetorno();
         
         try {

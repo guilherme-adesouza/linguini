@@ -14,7 +14,7 @@ public class MensagemRetorno {
     private Object objeto;
     
     public MensagemRetorno(){
-        this.mensagem = "";
+        this.mensagem = "Não implementado";
         this.sucesso = false;
         this.lista = new ArrayList<>();
         this.objeto = null;

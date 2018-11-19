@@ -135,8 +135,11 @@ public class jdRestaurarBackup extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnIniciarRestore, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,10 +156,7 @@ public class jdRestaurarBackup extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
                                 .addComponent(jLabel2))
-                            .addComponent(cmbBanco)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIniciarRestore, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cmbBanco))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -205,7 +205,7 @@ public class jdRestaurarBackup extends javax.swing.JDialog {
             if(fc.getSelectedFile().isDirectory()) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione um arquivo para restauração do backup", "Aviso", JOptionPane.WARNING_MESSAGE);
             } else {
-                this.executarRestore(this.txtLocalBackup.getText());            
+                this.txtLocalBackup.setText(fc.getSelectedFile().getAbsolutePath());            
             }
         } else {
             //nenhum arquivo selecionado
@@ -229,7 +229,7 @@ public class jdRestaurarBackup extends javax.swing.JDialog {
     private void executarRestore(String localBackup) {
         if(this.cmbAplicacao.isSelected()) {
             //faz backup da aplicação
-            MensagemRetorno msg = Backup.aplicacao(localBackup);
+            MensagemRetorno msg = Backup.restaurarAplicacao(localBackup);
             if(msg.isSucesso()) {
                 JOptionPane.showMessageDialog(this, msg.getMensagem(), "Restauração de Backup da Aplicação - Sucesso", JOptionPane.INFORMATION_MESSAGE);      
             } else {
@@ -238,7 +238,7 @@ public class jdRestaurarBackup extends javax.swing.JDialog {
         }
         if(this.cmbBanco.isSelected()){
             //faz backup do banco
-            MensagemRetorno msg = Backup.bancoDeDados(localBackup);
+            MensagemRetorno msg = Backup.restaurarBancoDeDados(localBackup);
             if(msg.isSucesso()) {
                 JOptionPane.showMessageDialog(this, msg.getMensagem(), "Restauração de Backup do Banco - Sucesso", JOptionPane.INFORMATION_MESSAGE);      
             } else {

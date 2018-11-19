@@ -5,25 +5,12 @@
  */
 package view;
 
-import com.sun.org.apache.xml.internal.serializer.utils.MsgKey;
 import controller.GraficoBarraController;
 import controller.GraficoController;
 import controller.PedidoController;
 import dao.MensagemRetorno;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import model.Pedido;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.general.DefaultPieDataset;
-import utils.view.Calendario;
-import utils.view.Formatacao;
 
 /**
  *
