@@ -6,7 +6,6 @@
 package view;
 
 import controller.UsuarioController;
-import utils.controller.GeradorLog;
 import dao.MensagemRetorno;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -19,7 +18,9 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import model.Usuario;
+import utils.Licenca;
 import utils.controller.Sessao;
+import utils.controller.Validacao;
 
 /**
  *
@@ -29,33 +30,34 @@ public class jfLogin extends javax.swing.JFrame {
 
     private UsuarioController usuarioController;
     private Usuario usuario;
+    private Licenca licenca;
+
     /**
      * Creates new form jfLogin
      */
     public jfLogin() {
         initComponents();
-        
+        this.licenca = new Licenca();
+
         this.btnLogin.setName("btnLogin");
-        
+
         this.usuarioController = new UsuarioController();
         this.usuario = new Usuario();
         this.tfdUsuario.requestFocus();
         this.setLocationRelativeTo(null);
-        
+
         InputMap inputMap = this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "forward");
         this.getRootPane().setInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW, inputMap);
-        this.getRootPane().getActionMap().put("forward", new AbstractAction()
-        {
+        this.getRootPane().getActionMap().put("forward", new AbstractAction() {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void actionPerformed(ActionEvent arg0)
-            {
+            public void actionPerformed(ActionEvent arg0) {
                 btnLogin.doClick();
             }
         });
-        
+
     }
 
     /**
@@ -190,25 +192,30 @@ public class jfLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        if(this.tfdUsuario.getText().trim().isEmpty() || this.pfdSenha.getText().trim().isEmpty()) {
+        if (this.tfdUsuario.getText().trim().isEmpty() || this.pfdSenha.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos necessários", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-        }        
-        else {
+        } else {
             this.usuario.setNome(this.tfdUsuario.getText().trim());
             this.usuario.setSenha(this.pfdSenha.getText().trim());
 
             MensagemRetorno msg = this.usuarioController.autenticar(usuario);
-            if(msg.isSucesso()){
-                try {
-                    Sessao.setUsuario((Usuario) msg.getObjeto());
-                    Home home = new Home();
-                    home.setVisible(true);
-                    this.dispose();
-                } catch (IOException ex) {
-                    new GeradorLog(ex);
+            if (msg.isSucesso()) {
+                Sessao.setUsuario((Usuario) msg.getObjeto());
+
+                if (licenca.validaLicenca()) {
+                    Home home;
+                    try {
+                        home = new Home();
+                        home.setVisible(true);
+                        this.dispose();
+                    } catch (IOException ex) {
+                        Logger.getLogger(jfLogin.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    //nao valida
                 }
-            }
-            else {
+
+            } else {
                 JOptionPane.showMessageDialog(this, msg.getMensagem(), "Dados inválidos", JOptionPane.WARNING_MESSAGE);
             }
         }
