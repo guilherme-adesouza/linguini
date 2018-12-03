@@ -18,9 +18,8 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import model.Usuario;
-import utils.Licenca;
+import utils.controller.Licenca;
 import utils.controller.Sessao;
-import utils.controller.Validacao;
 
 /**
  *
@@ -212,7 +211,8 @@ public class jfLogin extends javax.swing.JFrame {
                         Logger.getLogger(jfLogin.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    //nao valida
+                    JOptionPane.showMessageDialog(this, msg.getMensagem(), "Licença vencida - contate suporte", JOptionPane.WARNING_MESSAGE);
+           
                 }
 
             } else {

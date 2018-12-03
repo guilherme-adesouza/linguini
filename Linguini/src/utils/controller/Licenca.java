@@ -1,4 +1,4 @@
-package utils;
+package utils.controller;
 
 import controller.UsuarioController;
 import dao.MensagemRetorno;
@@ -49,7 +49,7 @@ public class Licenca {
         String[] textoSeparado = textoStringDecodificado.split(" - ");
 
         try {
-            dataFinal = sdf2.parse(textoSeparado[1]+"23:59");
+            dataFinal = sdf2.parse(textoSeparado[1]+" 23:59");
         } catch (ParseException ex) {
             Logger.getLogger(Licenca.class.getName()).log(Level.SEVERE, null, ex);
         }
