@@ -9,6 +9,8 @@ import api.PrevisaoTempo;
 import controller.PrevisaoTempoController;
 import dao.MensagemRetorno;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author VitinNote
@@ -16,9 +18,10 @@ import java.io.IOException;
 public class Home extends javax.swing.JFrame {
 
     public static String nomeTela = "telaPrincipal";
-    
+
     /**
      * Creates new form Hello
+     *
      * @throws java.io.IOException
      */
     public Home() throws IOException {
@@ -26,17 +29,17 @@ public class Home extends javax.swing.JFrame {
         //new GrupoController().popularPermissoes();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.jMenuBar1.requestFocus();
-        PrevisaoTempoController previsaoController = new PrevisaoTempoController();
-        MensagemRetorno msg = previsaoController.consultarAgora();
-        if(msg.isSucesso()) {
-            PrevisaoTempo p = (PrevisaoTempo) msg.getObjeto();
-            this.txtCelcius.setText((int) p.getTemperatura()+"");
-            this.txtPrevisao.setText(p.getTempo());
-            this.txtPrevisaoCidade.setText(p.getCidade());
-        }
-        else {
-            this.pnlWeather.setVisible(false);
-        }
+//        PrevisaoTempoController previsaoController = new PrevisaoTempoController();
+//        MensagemRetorno msg = previsaoController.consultarAgora();
+//        if(msg.isSucesso()) {
+//            PrevisaoTempo p = (PrevisaoTempo) msg.getObjeto();
+//            this.txtCelcius.setText((int) p.getTemperatura()+"");
+//            this.txtPrevisao.setText(p.getTempo());
+//            this.txtPrevisaoCidade.setText(p.getCidade());
+//        }
+//        else {
+//            this.pnlWeather.setVisible(false);
+//        }
     }
 
     /**
@@ -80,6 +83,7 @@ public class Home extends javax.swing.JFrame {
         jmiProduto = new javax.swing.JMenuItem();
         jmeFinanceiro = new javax.swing.JMenu();
         jmeRelatorio = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jmeMais = new javax.swing.JMenu();
         jmiArquivarAuditoria = new javax.swing.JMenuItem();
         jmiBotao = new javax.swing.JMenuItem();
@@ -285,7 +289,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(btnCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHistorico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSair)
                 .addContainerGap())
         );
@@ -301,7 +305,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(btnCliente)
                     .addComponent(btnHistorico)
                     .addComponent(btnSair))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -482,6 +486,15 @@ public class Home extends javax.swing.JFrame {
         jMenuBar1.add(jmeFinanceiro);
 
         jmeRelatorio.setText("Relatório");
+
+        jMenuItem3.setText("Gráfico");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jmeRelatorio.add(jMenuItem3);
+
         jMenuBar1.add(jmeRelatorio);
 
         jmeMais.setText("Administrador");
@@ -583,7 +596,7 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 917, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jDesktopPane1)
         );
@@ -779,19 +792,19 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiProdutoActionPerformed
 
     private void jmiArquivarAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiArquivarAuditoriaActionPerformed
-        jdAuditoria telaAuditoria = new jdAuditoria(this,true);
+        jdAuditoria telaAuditoria = new jdAuditoria(this, true);
         telaAuditoria.setLocationRelativeTo(telaAuditoria);
         telaAuditoria.setVisible(true);
     }//GEN-LAST:event_jmiArquivarAuditoriaActionPerformed
 
     private void menuEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEmailActionPerformed
-        JdEmail telaEmail = new JdEmail(this,true);
+        JdEmail telaEmail = new JdEmail(this, true);
         telaEmail.setLocationRelativeTo(telaEmail);
         telaEmail.setVisible(true);
     }//GEN-LAST:event_menuEmailActionPerformed
 
     private void jmeSocketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmeSocketActionPerformed
-        
+
     }//GEN-LAST:event_jmeSocketActionPerformed
 
     private void jmiSocketMensagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSocketMensagemActionPerformed
@@ -818,6 +831,17 @@ public class Home extends javax.swing.JFrame {
         telaRestaurarBackup.setVisible(true);
     }//GEN-LAST:event_jmiRestaurarBackupActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        jfGrafico telagrafico;
+        try {
+            telagrafico = new jfGrafico();
+            telagrafico.setLocationRelativeTo(telagrafico);
+            telagrafico.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCaixa;
     private javax.swing.JButton btnCliente;
@@ -832,6 +856,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
