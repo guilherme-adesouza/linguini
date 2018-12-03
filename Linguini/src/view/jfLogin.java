@@ -18,6 +18,7 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import model.Usuario;
+import utils.controller.GeradorLog;
 import utils.controller.Licenca;
 import utils.controller.Sessao;
 
@@ -208,13 +209,11 @@ public class jfLogin extends javax.swing.JFrame {
                         home.setVisible(true);
                         this.dispose();
                     } catch (IOException ex) {
-                        Logger.getLogger(jfLogin.class.getName()).log(Level.SEVERE, null, ex);
+                        new GeradorLog(ex);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, msg.getMensagem(), "Licença vencida - contate suporte", JOptionPane.WARNING_MESSAGE);
-           
+                    JOptionPane.showMessageDialog(this, "Sua licença está expirada, favor contatar o suporte no número: (51) 7070-7070", "Licença vencida", JOptionPane.WARNING_MESSAGE);
                 }
-
             } else {
                 JOptionPane.showMessageDialog(this, msg.getMensagem(), "Dados inválidos", JOptionPane.WARNING_MESSAGE);
             }
