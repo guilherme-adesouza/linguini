@@ -11,12 +11,7 @@ import java.io.IOException;
  */
 public class PrevisaoTempoController {
     
-    private PrevisaoTempoAPI api;
-    
-    public static void main(String[] args) throws IOException {
-        PrevisaoTempoController c = new PrevisaoTempoController();
-        c.consultar5Dias();
-    }
+    private final PrevisaoTempoAPI api;
     
     public PrevisaoTempoController() {
         this.api = new PrevisaoTempoAPI();
@@ -25,10 +20,9 @@ public class PrevisaoTempoController {
     public MensagemRetorno consultar5Dias() throws IOException {
         MensagemRetorno msg = api.proximos5Dias();
         if(msg.isSucesso()) {
-            for (Object object : msg.getLista()) {
-                PrevisaoTempo p = (PrevisaoTempo) object;
-                //GeradorPrevisaoTempo.gerarArquivo(p);
-            }
+            msg.getLista().forEach((object) -> {
+                //GeradorPrevisaoTempo.gerarArquivo((PrevisaoTempo) object);
+            });
         }
         return msg;
     }
