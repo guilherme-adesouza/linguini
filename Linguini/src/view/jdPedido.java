@@ -84,14 +84,19 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     }
 
     private void atualizaGrupoBotoes() {
-        if (buttonGroup1.getSelection() == this.d_labStatusIniciado);
-        this.pedido.setStatus('I');
-        if (buttonGroup1.getSelection() == this.d_labStatusAguardando);
-        this.pedido.setStatus('A');
-        if (buttonGroup1.getSelection() == this.d_labStatusSaiu);
-        this.pedido.setStatus('S');
-        if (buttonGroup1.getSelection() == this.d_labStatusFinalizado);
-        this.pedido.setStatus('F');
+        if(d_labStatusIniciado.isSelected()){
+            this.pedido.setStatus('I');
+        }
+        if (d_labStatusAguardando.isSelected()) {
+            this.pedido.setStatus('A');
+        }
+        if (d_labStatusSaiu.isSelected()) {
+            this.pedido.setStatus('S');
+        }
+        if (d_labStatusFinalizado.isSelected()) {
+            this.pedido.setStatus('F');
+        }
+        System.out.println("Grupo " + this.pedido.getStatus());
     }
 
     private void carregarPedidoOk() {
@@ -559,9 +564,9 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                                 .addComponent(tfdQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel26)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdPrecoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfdPrecoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnAdicionar)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -951,25 +956,6 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 .addGap(23, 23, 23))
         );
 
-        tfdPrecoDesconto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tfdPrecoDescontoFocusLost(evt);
-            }
-        });
-
-        tfdPrecoTotal.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                tfdPrecoTotalCaretUpdate(evt);
-            }
-        });
-        tfdPrecoTotal.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                tfdPrecoTotalCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -985,15 +971,15 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                                 .addGap(23, 23, 23)
                                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdPrecoSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
+                                .addComponent(tfdPrecoSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdPrecoDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
+                                .addComponent(tfdPrecoDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(49, 49, 49)
                                 .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfdPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tfdPrecoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14))
@@ -1037,7 +1023,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         this.pedidoController.salvar(this.pedido);
-        if (checkDelivery.isSelected() && Validacao.camposPreenchidos(camposObrigatorios()) && this.cliente != null) {
+        if (checkDelivery.isSelected() && Validacao.camposPreenchidos(camposObrigatorios()) && this.cliente.getNome() != null) {
             this.pedido.setBairro(this.d_tfdBairro.getText());
             this.pedido.setLogradouro(this.d_tfdRua.getText());
             this.pedido.setNumero(Integer.parseInt(this.d_tfdNumero.getText()));
@@ -1050,10 +1036,9 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             this.pedido.setPessoaId(this.cliente);
             this.pedido.setSituacao(true);
             this.pedido.setComplemento(this.d_tfdCidade.getText());
-            //this.pedido.setTempoDeslocamento();
 
             //Atualiza status do pedido
-            //atualizaGrupoBotoes();
+            atualizaGrupoBotoes();
             this.pedidoController.salvar(this.pedido);
             JOptionPane.showMessageDialog(this, "Esta venda ficará disponível em Delivery!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             dispose();
@@ -1375,9 +1360,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_d_labStatusIniciadoStateChanged
 
     private void d_labStatusIniciadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_d_labStatusIniciadoItemStateChanged
-        if (d_labStatusIniciado.isSelected()) {
-            this.pedido.setStatus('I');
-        }
+        
     }//GEN-LAST:event_d_labStatusIniciadoItemStateChanged
 
     private void d_tfdClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_d_tfdClienteFocusLost
@@ -1498,6 +1481,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         if (this.cli_ent_ped == 0) {
             MensagemRetorno retorno = this.pedidoController.consultarPorID(codigo);
             this.pedido = (Pedido) retorno.getObjeto();
+            System.out.println(this.pedido.getStatus()+" STATUS RECEBIDO 1");
             this.tfdNumeroPedido.setVisible(true);
             this.tfdNumeroPedido.setText(this.pedido.getId() + "");
             if (this.pedido.getAtendenteId() != null) {
@@ -1538,8 +1522,18 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 this.checkDelivery.setSelected(true);
                 this.jPanel5.setVisible(true);
                 this.comboNumComanda.setEnabled(false);
+                System.out.println(this.pedido.getStatus()+" STATUS RECEBIDO 2");
                 if (this.pedido.getStatus() == 'I') {
                     this.d_labStatusIniciado.setSelected(true);
+                }
+                if (this.pedido.getStatus() == 'A') {
+                    this.d_labStatusAguardando.setSelected(true);
+                }
+                if (this.pedido.getStatus() == 'S') {
+                    this.d_labStatusSaiu.setSelected(true);
+                }
+                if (this.pedido.getStatus() == 'F') {
+                    this.d_labStatusFinalizado.setSelected(true);
                 }
             } else {
                 this.jPanel5.setVisible(false);

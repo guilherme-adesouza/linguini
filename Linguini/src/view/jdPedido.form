@@ -39,15 +39,15 @@
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="jLabel15" min="-2" pref="54" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tfdPrecoSubTotal" min="-2" pref="70" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="tfdPrecoSubTotal" min="-2" pref="74" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="jLabel17" min="-2" pref="54" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tfdPrecoDesconto" min="-2" pref="92" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="tfdPrecoDesconto" min="-2" pref="77" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                               <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="tfdPrecoTotal" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="tfdPrecoTotal" min="-2" pref="83" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="32767" attributes="0"/>
@@ -439,9 +439,9 @@
                                   <Component id="tfdQuantidade" min="-2" pref="36" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="tfdPrecoUnitario" min="-2" pref="63" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="tfdPrecoUnitario" min="-2" pref="73" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btnAdicionar" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -599,7 +599,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoverItembtnAdicionarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="apoio.MoedaFormatada" name="tfdPrecoUnitario">
+        <Component class="utils.view.MoedaFormatada" name="tfdPrecoUnitario">
         </Component>
       </SubComponents>
     </Container>
@@ -1068,18 +1068,11 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="apoio.MoedaFormatada" name="tfdPrecoSubTotal">
+    <Component class="utils.view.MoedaFormatada" name="tfdPrecoSubTotal">
     </Component>
-    <Component class="apoio.MoedaFormatada" name="tfdPrecoDesconto">
-      <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfdPrecoDescontoFocusLost"/>
-      </Events>
+    <Component class="utils.view.MoedaFormatada" name="tfdPrecoDesconto">
     </Component>
-    <Component class="apoio.MoedaFormatada" name="tfdPrecoTotal">
-      <Events>
-        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="tfdPrecoTotalCaretUpdate"/>
-        <EventHandler event="caretPositionChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="tfdPrecoTotalCaretPositionChanged"/>
-      </Events>
+    <Component class="utils.view.MoedaFormatada" name="tfdPrecoTotal">
     </Component>
   </SubComponents>
 </Form>
