@@ -697,7 +697,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeliveryMouseExited
 
     private void btnDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeliveryActionPerformed
-        jdPedido telaPedido = new jdPedido(this, true);
+        jdPedido telaPedido = new jdPedido(this, true,true);
         telaPedido.setLocationRelativeTo(telaPedido);
         telaPedido.setVisible(true);
     }//GEN-LAST:event_btnDeliveryActionPerformed
@@ -711,7 +711,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPedidoMouseExited
 
     private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
-        jdPedido telaPedido = new jdPedido(this, true);
+        jdPedido telaPedido = new jdPedido(this, true,false);
         telaPedido.setLocationRelativeTo(telaPedido);
         telaPedido.setVisible(true);
     }//GEN-LAST:event_btnPedidoActionPerformed

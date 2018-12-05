@@ -3,6 +3,7 @@ package controller;
 import dao.EntregadorDAO;
 import dao.MensagemRetorno;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -18,6 +19,10 @@ public class EntregadorController implements Controller<Entregador>{
     
     public EntregadorController(){
         this.entregadorDAO = new EntregadorDAO();
+    }
+    
+    public void popularCombo(JComboBox combo) {
+        this.entregadorDAO.popularCombo("Entregador", combo);
     }
     
     @Override

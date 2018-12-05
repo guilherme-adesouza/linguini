@@ -52,6 +52,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     private CidadeController cidadeController;
     private Cidade cidade;
 
+    //FAZER ADICIONAR VALIDAR / VALIDAR CLIENTE EM DELIVERY / FRASE REPETIDA EM COMANDAMESA / AO FINALIZAR DELIVERY PAGAR CONTA
+    //Carregar cidade no delivery, carregar telefone no delivery
     //Status : P = PENDENDE / C = COMANDA / O = PAGO
     //I = INICIDO DELIVERY / A = AGUARDADNO DELIVERY
     //S = SAIU PARA ENTREGAR DELIVERY / F = FINALIZADO DELIVERY
@@ -84,7 +86,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     }
 
     private void atualizaGrupoBotoes() {
-        if(d_labStatusIniciado.isSelected()){
+        if (d_labStatusIniciado.isSelected()) {
             this.pedido.setStatus('I');
         }
         if (d_labStatusAguardando.isSelected()) {
@@ -114,7 +116,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     /**
      * Creates new form jdPedido
      */
-    public jdPedido(java.awt.Frame parent, boolean modal) {
+    public jdPedido(java.awt.Frame parent, boolean modal, boolean Delivery) {
         super(parent, modal);
         initComponents();
         this.calendario = new Calendario();
@@ -142,11 +144,18 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         this.cli_ent_ped = 0;
 
         this.pedidoController.popularCombo(this.comboNumComanda);
+        this.entregadorController.popularCombo(this.cmbEntregador);
 
         Formatacao.formatarTelefone(this.d_tffTelefone);
         d_tfdNumero.setDocument(new ControlarEntradaNumero(5));
 
-        this.jPanel5.setVisible(false);
+        if(!Delivery){
+           this.jPanel5.setVisible(false); 
+        }else{
+            this.jPanel5.setVisible(true);
+            this.checkDelivery.setSelected(true);
+        }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -1023,7 +1032,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         this.pedidoController.salvar(this.pedido);
-        if (checkDelivery.isSelected() && Validacao.camposPreenchidos(camposObrigatorios()) && this.cliente.getNome() != null) {
+        if (checkDelivery.isSelected() && Validacao.camposPreenchidos(camposObrigatorios()) && validarClienteDelivery()
+                && validarCidadeDelivery() && validarTelefoneDelivery()) {
             this.pedido.setBairro(this.d_tfdBairro.getText());
             this.pedido.setLogradouro(this.d_tfdRua.getText());
             this.pedido.setNumero(Integer.parseInt(this.d_tfdNumero.getText()));
@@ -1032,19 +1042,26 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             //this.pedido.setDataHora();
             //this.pedido.setDataHoraFechado(null);
             this.pedido.setMesa(null);
-            //this.pedido.setNumero(Integer.parseInt(d_tfdNumero.getText()));
             this.pedido.setPessoaId(this.cliente);
             this.pedido.setSituacao(true);
             this.pedido.setComplemento(this.d_tfdCidade.getText());
 
-            //Atualiza status do pedido
+            //Atualiza/Salva status do pedido
             atualizaGrupoBotoes();
-            this.pedidoController.salvar(this.pedido);
-            JOptionPane.showMessageDialog(this, "Esta venda ficará disponível em Delivery!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
+            MensagemRetorno ms = this.pedidoController.salvar(this.pedido);
+            if (ms.isSucesso()) {
+                this.cliente.setTelefone1(this.d_tffTelefone.getText());
+                this.cliente.setCidadeId(this.cidade);
+                this.clienteController.salvar(this.cliente);
+                JOptionPane.showMessageDialog(this, "Esta venda ficará disponível em Delivery!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao salvar delivery", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
 //        } else {
 //            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-
         }
         if (!this.checkDelivery.isSelected()) {
 
@@ -1172,7 +1189,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Problemas ao adicionar Item!\n"
-                    + "Mensagem técnica: " + ok.getMensagem());
+                    + "Mensagem técnica: " + "Nenhum item selecionado");
         }
     }//GEN-LAST:event_btnAdicionarbtnAdicionarActionPerformed
 
@@ -1302,7 +1319,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             int cod = ((ComboItens) cmbEntregador.getSelectedItem()).getCodigo();
             if (cod != 0) {
-                this.entregador = (Entregador) entregadorController.consultarPorID(cod).getObjeto();
+                //this.entregador.(Entregador) entregadorController.consultarPorID(cod).getObjeto();
+                this.cliente.setEntregador((Entregador) entregadorController.consultarPorID(cod).getObjeto());
             }
         }
     }//GEN-LAST:event_cmbEntregadorItemStateChanged
@@ -1330,9 +1348,10 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_btn_removerClienteActionPerformed
 
     private void comboNumComandaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboNumComandaItemStateChanged
-        if (comboNumComanda.getSelectedIndex() == 0) {
-            //this.pedido.setMesa(null);
-        } else if (this.comboNumComanda.isEnabled()) {
+        //if (comboNumComanda.getSelectedIndex() == 0) {
+        //this.pedido.setMesa(null);
+        //} else 
+        if (this.comboNumComanda.isEnabled()) {
             this.pedido.setMesa(Integer.parseInt(comboNumComanda.getSelectedItem().toString()));
             this.pedido.setStatus('C');
             this.pedido.setSituacao(true);
@@ -1360,7 +1379,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     }//GEN-LAST:event_d_labStatusIniciadoStateChanged
 
     private void d_labStatusIniciadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_d_labStatusIniciadoItemStateChanged
-        
+
     }//GEN-LAST:event_d_labStatusIniciadoItemStateChanged
 
     private void d_tfdClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_d_tfdClienteFocusLost
@@ -1458,19 +1477,41 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     private javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
 
-    public boolean validar() {
-        if (d_tfdCliente.getText().equals("Não informado")) {
+    public boolean validarClienteDelivery() {
+        if (d_tfdCliente.getText().equals("Não informado") || this.cliente == null || this.cliente.equals(null)) {
             //JOptionPane.showMessageDialog(null, "Favor preencher todos campos obrigatórios.");
             d_tfdCliente.setBackground(Color.yellow);
             return false;
         } else {
-            //this.btnSalvar.setEnabled(true);
-
             return true;
         }
     }
 
+    public boolean validarCidadeDelivery() {
+        if (d_tfdCidade.getText().equals("Não informado") || this.cidade == null || this.cidade.equals(null)) {
+            d_tfdCidade.setBackground(Color.yellow);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean validarTelefoneDelivery() {
+        String cont = Formatacao.removerFormatacao(d_tffTelefone.getText());
+        String replace = cont.replace(' ', 'a');
+        System.out.println(cont + " aaaataa" + cont.length() + " " + replace);
+        if (replace.charAt(0) != 'a') {
+            return true;
+        } else {
+            d_tffTelefone.setBackground(Color.yellow);
+            return false;
+        }
+    }
+
     private JTextField[] camposObrigatorios() {
+        validarClienteDelivery();
+        validarCidadeDelivery();
+        validarTelefoneDelivery();
         JTextField[] campos = {this.d_tfdBairro, this.d_tfdNumero, this.d_tfdRua};
         return campos;
     }
@@ -1481,7 +1522,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         if (this.cli_ent_ped == 0) {
             MensagemRetorno retorno = this.pedidoController.consultarPorID(codigo);
             this.pedido = (Pedido) retorno.getObjeto();
-            System.out.println(this.pedido.getStatus()+" STATUS RECEBIDO 1");
+            System.out.println(this.pedido.getStatus() + " STATUS RECEBIDO 1");
             this.tfdNumeroPedido.setVisible(true);
             this.tfdNumeroPedido.setText(this.pedido.getId() + "");
             if (this.pedido.getAtendenteId() != null) {
@@ -1514,15 +1555,19 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             //se a venda resgatada for delivery
             if (this.pedido.getStatus() == 'I' || this.pedido.getStatus() == 'A' || this.pedido.getStatus() == 'S' || this.pedido.getStatus() == 'F') {
                 this.d_tfdCliente.setText(this.pedido.getPessoaId().getNome() + "");
-                this.d_tffTelefone.setText(this.pedido.getTempoDeslocamento() + "");
+                this.d_tffTelefone.setText(this.pedido.getPessoaId().getTelefone1() + "");
+                if (this.pedido.getPessoaId().getCidadeId() != null) {
+                    this.d_tfdCidade.setText(this.pedido.getPessoaId().getCidadeId().getNome() + "");
+                    this.cidade = this.pedido.getPessoaId().getCidadeId();
+                }
                 this.d_tfdBairro.setText(this.pedido.getBairro() + "");
                 this.d_tfdRua.setText(this.pedido.getLogradouro() + "");
                 this.d_tfdNumero.setText(this.pedido.getNumero() + "");
-//                this.d_tfdCidade.setText(this.pedido.getPessoaId().getCidadeId().getNome() + "");
+//                
                 this.checkDelivery.setSelected(true);
                 this.jPanel5.setVisible(true);
                 this.comboNumComanda.setEnabled(false);
-                System.out.println(this.pedido.getStatus()+" STATUS RECEBIDO 2");
+                System.out.println(this.pedido.getStatus() + " STATUS RECEBIDO 2");
                 if (this.pedido.getStatus() == 'I') {
                     this.d_labStatusIniciado.setSelected(true);
                 }
@@ -1556,6 +1601,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 this.d_tffTelefone.setText(this.cliente.getTelefone1() + "");
                 if (this.cliente.getCidadeId() != null) {
                     this.d_tfdCidade.setText(this.cliente.getCidadeId().getNome() + "");
+                    this.cidade = this.cliente.getCidadeId();
                 }
             }
 
