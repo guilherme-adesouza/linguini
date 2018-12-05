@@ -303,43 +303,48 @@ public class jdFornecedor extends javax.swing.JDialog implements Pesquisavel {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (Validacao.camposPreenchidos(camposObrigatorios())) {
-            if (!tfdCodigo.getText().equals("")) {
-                this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
-                this.fornecedor.setNomeFantasia(tfdNomeFantasia.getText());
-                this.fornecedor.setRazaoSocial(tfdRazaoSocial.getText());
-                this.fornecedor.setTelefone(Formatacao.removerFormatacao(tffTelefone.getText()));
+            
+            if(this.tffCNPJ.getText().isEmpty() || Validacao.validarCNPJ(this.tffCNPJ.getText())) {
+               
+                if (!tfdCodigo.getText().equals("")) {
+                    this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
+                    this.fornecedor.setNomeFantasia(tfdNomeFantasia.getText());
+                    this.fornecedor.setRazaoSocial(tfdRazaoSocial.getText());
+                    this.fornecedor.setTelefone(Formatacao.removerFormatacao(tffTelefone.getText()));
 
-                MensagemRetorno msg = this.fornecedorController.atualizar(this.fornecedor);
-                if (msg.isSucesso()) {
-                    msg.setMensagem("Atualizado com sucesso!");
-                    JOptionPane.showMessageDialog(null, msg.getMensagem());
-                    clearFields();
+                    MensagemRetorno msg = this.fornecedorController.atualizar(this.fornecedor);
+                    if (msg.isSucesso()) {
+                        msg.setMensagem("Atualizado com sucesso!");
+                        JOptionPane.showMessageDialog(null, msg.getMensagem());
+                        clearFields();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Problemas ao atualizar registro!\n\n"
+                                + "Mensagem técnica: \n" + msg.getMensagem());
+                        clearFields();
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Problemas ao atualizar registro!\n\n"
-                            + "Mensagem técnica: \n" + msg.getMensagem());
-                    clearFields();
-                }
+                    this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
+                    this.fornecedor.setNomeFantasia(tfdNomeFantasia.getText());
+                    this.fornecedor.setRazaoSocial(tfdRazaoSocial.getText());
+                    this.fornecedor.setSituacao(true);
+                    this.fornecedor.setTelefone(Formatacao.removerFormatacao(tffTelefone.getText()));
+
+                    MensagemRetorno msg = this.fornecedorController.salvar(this.fornecedor);
+                    if (msg.isSucesso()) {
+                        JOptionPane.showMessageDialog(null, msg.getMensagem());
+                        clearFields();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Problemas ao salvar registro!\n\n"
+                                + "Mensagem técnica: \n" + msg.getMensagem());
+                        clearFields();
+                    }
+                } 
             } else {
-                this.fornecedor.setCnpj(Formatacao.removerFormatacao(tffCNPJ.getText()));
-                this.fornecedor.setNomeFantasia(tfdNomeFantasia.getText());
-                this.fornecedor.setRazaoSocial(tfdRazaoSocial.getText());
-                this.fornecedor.setSituacao(true);
-                this.fornecedor.setTelefone(Formatacao.removerFormatacao(tffTelefone.getText()));
-
-                MensagemRetorno msg = this.fornecedorController.salvar(this.fornecedor);
-                if (msg.isSucesso()) {
-                    JOptionPane.showMessageDialog(null, msg.getMensagem());
-                    clearFields();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Problemas ao salvar registro!\n\n"
-                            + "Mensagem técnica: \n" + msg.getMensagem());
-                    clearFields();
-                }
-            }
+                JOptionPane.showMessageDialog(this, "CNPJ "+this.tffCNPJ.getText()+" inválido", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            }            
 
         } else {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

@@ -321,6 +321,7 @@ public class jdUsuario extends javax.swing.JDialog implements Pesquisavel{
         MensagemRetorno retorno = this.usuarioController.consultarPorID(codigo);
         this.usuario = (Usuario) retorno.getObjeto();
         this.tfdCodigo.setText(this.usuario.getId()+"");
+        this.tfdUsuario.setText(this.usuario.getNome());
         this.pfdSenha.setEnabled(false);
         ComboItens comboGrupo = new ComboItens(this.usuario.getGrupoId().getId(),this.usuario.getGrupoId().getNome());
         this.grupoController.definirItemCombo(cmbGrupo, comboGrupo);        

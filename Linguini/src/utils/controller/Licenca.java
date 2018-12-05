@@ -9,8 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Usuario;
 
 /**
@@ -32,7 +30,6 @@ public class Licenca {
         Date data = new Date();
         SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try {
-
             BufferedReader br = new BufferedReader(new FileReader("Licenca.txt"));
             while (br.ready()) {
                 linha = br.readLine();
@@ -40,10 +37,20 @@ public class Licenca {
             }
             br.close();
         } catch (IOException ioe) {
+            new GeradorLog(ioe);
             ioe.printStackTrace();
+            return false;
         }
+        
         criaLicenca();
-        this.arrayBytesDecodificado = Base64.getDecoder().decode(linha);
+        
+        try {
+            this.arrayBytesDecodificado = Base64.getDecoder().decode(linha);            
+        } catch (Exception e) {
+            new GeradorLog(e);
+            System.err.print(e);
+            return false;
+        }
         this.textoStringDecodificado = new String(arrayBytesDecodificado);
         System.out.println("Texto decodificado " + textoStringDecodificado);
         String[] textoSeparado = textoStringDecodificado.split(" - ");
@@ -51,7 +58,8 @@ public class Licenca {
         try {
             dataFinal = sdf2.parse(textoSeparado[1]+" 23:59");
         } catch (ParseException ex) {
-            Logger.getLogger(Licenca.class.getName()).log(Level.SEVERE, null, ex);
+            new GeradorLog(ex);
+            return false;
         }
 
         MensagemRetorno msg = this.userCtr.consultarPorID(1);
@@ -66,13 +74,11 @@ public class Licenca {
             criaLicenca();
             System.out.println(dataFinal + "f erro nd" + data);
             return false;
-
         }
-
     }
 
     public void criaLicenca() {
-        String texto = "a - 02/12/2018";
+        String texto = "teste - 04/12/2018";
         String codificado = Base64.getEncoder().encodeToString(texto.getBytes());
         System.out.println("texto codificado = " + codificado);
     }

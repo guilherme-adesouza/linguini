@@ -608,20 +608,20 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
         MensagemRetorno retorno = this.pessoaController.consultarPorID(codigo);
         this.pessoa = (Pessoa) retorno.getObjeto();
         this.tfdCodigo.setText(this.pessoa.getId()+"");
-        this.tfdNome.setText(this.pessoa.getNome()+"");
-        this.ftfTelefone1.setText(this.pessoa.getTelefone1()+"");
-        this.ftfTelefone2.setText(this.pessoa.getTelefone2()+"");
-        this.tfdLogradouro.setText(this.pessoa.getLogradouro()+"");
-        this.tfdComplemento.setText(this.pessoa.getComplemento()+"");
+        this.tfdNome.setText(this.pessoa.getNome());
+        this.ftfTelefone1.setText(this.pessoa.getTelefone1());
+        this.ftfTelefone2.setText(this.pessoa.getTelefone2());
+        this.tfdLogradouro.setText(this.pessoa.getLogradouro());
+        this.tfdComplemento.setText(this.pessoa.getComplemento());
         if(this.pessoa.getNumero() != null){
             this.tfdNumero.setText(this.pessoa.getNumero()+"");
         }
         else {
             this.tfdNumero.setText("");
         }    
-        this.tfdBairro.setText(this.pessoa.getBairro()+"");
+        this.tfdBairro.setText(this.pessoa.getBairro());
         if(this.pessoa.getObservacao() != null){
-            this.tfaObservacao.setText(this.pessoa.getObservacao()+"");
+            this.tfaObservacao.setText(this.pessoa.getObservacao());
         }
         else {
             this.tfaObservacao.setText("");
@@ -641,8 +641,8 @@ public class jdPessoa extends javax.swing.JDialog implements Pesquisavel {
             this.pessoa = new Pessoa();
             this.tfdCodigo.setText("");
             this.tfdNome.setText(this.pessoa.getNome());
-            this.ftfTelefone1.setText(this.pessoa.getTelefone1()+"");
-            this.ftfTelefone2.setText(this.pessoa.getTelefone2()+"");
+            this.ftfTelefone1.setText(this.pessoa.getTelefone1());
+            this.ftfTelefone2.setText(this.pessoa.getTelefone2());
             this.tfdLogradouro.setText(this.pessoa.getLogradouro());
             this.cmbCidade.setSelectedIndex(0);
             this.tfdBairro.setText(this.pessoa.getBairro());
