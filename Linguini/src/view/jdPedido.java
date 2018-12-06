@@ -52,9 +52,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     private CidadeController cidadeController;
     private Cidade cidade;
 
-    //FAZER ADICIONAR VALIDAR / VALIDAR CLIENTE EM DELIVERY / FRASE REPETIDA EM COMANDAMESA / AO FINALIZAR DELIVERY PAGAR CONTA
     //Carregar cidade no delivery, carregar telefone no delivery
-    //Status : P = PENDENDE / C = COMANDA / O = PAGO
+    //Status : P = PENDENDE / C = COMANDA / O = PAGODELIVERY / U = PAGONORMAL
     //I = INICIDO DELIVERY / A = AGUARDADNO DELIVERY
     //S = SAIU PARA ENTREGAR DELIVERY / F = FINALIZADO DELIVERY
     private int cli_ent_ped;//cli = 1 / ped = 0 / ent = 2 / cidade = 3 / deli = 4
@@ -149,13 +148,13 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         Formatacao.formatarTelefone(this.d_tffTelefone);
         d_tfdNumero.setDocument(new ControlarEntradaNumero(5));
 
-        if(!Delivery){
-           this.jPanel5.setVisible(false); 
-        }else{
+        if (!Delivery) {
+            this.jPanel5.setVisible(false);
+        } else {
             this.jPanel5.setVisible(true);
             this.checkDelivery.setSelected(true);
         }
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -1049,12 +1048,19 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             //Atualiza/Salva status do pedido
             atualizaGrupoBotoes();
             MensagemRetorno ms = this.pedidoController.salvar(this.pedido);
-            if (ms.isSucesso()) {
+            if (ms.isSucesso() && !d_labStatusFinalizado.isSelected()) {
                 this.cliente.setTelefone1(this.d_tffTelefone.getText());
                 this.cliente.setCidadeId(this.cidade);
                 this.clienteController.salvar(this.cliente);
                 JOptionPane.showMessageDialog(this, "Esta venda ficará disponível em Delivery!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
+            } else if (ms.isSucesso() && d_labStatusFinalizado.isSelected()) {
+                jdPagamento telaFormaPagamento = new jdPagamento((Frame) this.getParent(), true, this.pedido);
+                telaFormaPagamento.setLocationRelativeTo(telaFormaPagamento);
+                telaFormaPagamento.setVisible(true);
+                if (telaFormaPagamento.retornoPagamento()) {
+                    dispose();
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao salvar delivery", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 
@@ -1553,7 +1559,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 this.checkDelivery.setEnabled(true);
             }
             //se a venda resgatada for delivery
-            if (this.pedido.getStatus() == 'I' || this.pedido.getStatus() == 'A' || this.pedido.getStatus() == 'S' || this.pedido.getStatus() == 'F') {
+            if (this.pedido.getStatus() == 'O' || this.pedido.getStatus() == 'I' || this.pedido.getStatus() == 'A' || this.pedido.getStatus() == 'S' || this.pedido.getStatus() == 'F') {
                 this.d_tfdCliente.setText(this.pedido.getPessoaId().getNome() + "");
                 this.d_tffTelefone.setText(this.pedido.getPessoaId().getTelefone1() + "");
                 if (this.pedido.getPessoaId().getCidadeId() != null) {
@@ -1577,7 +1583,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 if (this.pedido.getStatus() == 'S') {
                     this.d_labStatusSaiu.setSelected(true);
                 }
-                if (this.pedido.getStatus() == 'F') {
+                if (this.pedido.getStatus() == 'F' || this.pedido.getStatus() == 'O') {
                     this.d_labStatusFinalizado.setSelected(true);
                 }
             } else {

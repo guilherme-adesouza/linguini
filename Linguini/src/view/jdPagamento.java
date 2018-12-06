@@ -26,6 +26,15 @@ public class jdPagamento extends javax.swing.JDialog {
     private FormaPagamentoController formaPagamentoController;
 
     public static String nomeTela = "telaPagamento";
+    public int ret = 0;
+
+    public boolean retornoPagamento() {
+        if (this.ret == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     /**
      * Creates new form jdFormaPagamento
@@ -347,15 +356,28 @@ public class jdPagamento extends javax.swing.JDialog {
 
             if (msg.isSucesso()) {
                 this.pedido.setSituacao(true);
-                this.pedido.setStatus('O');
-                this.pedidoController.salvar(this.pedido);
-                JOptionPane.showMessageDialog(rootPane, msg.getMensagem());
-            } else {
-                JOptionPane.showMessageDialog(this, msg.getMensagem(), "ERRO!", JOptionPane.WARNING_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Valor faltante", "ERRO!", JOptionPane.WARNING_MESSAGE);
+                if (this.pedido.getStatus() == 'F') {
+                    this.pedido.setStatus('O');
+                    this.pedidoController.salvar(this.pedido);
+                    JOptionPane.showMessageDialog(rootPane, msg.getMensagem());
+                    this.ret = 1;
+                    dispose();
+                } else if (this.pedido.getStatus() != 'F') {
+                    this.pedido.setStatus('U');
+                    this.pedidoController.salvar(this.pedido);
+                    JOptionPane.showMessageDialog(rootPane, msg.getMensagem());
+                    this.ret = 1;
+                    dispose();
+                } else {
+                    this.ret = 0;
+                    JOptionPane.showMessageDialog(this, msg.getMensagem(), "ERRO!", JOptionPane.WARNING_MESSAGE);
 
+                }
+            } else {
+                this.ret = 0;
+                JOptionPane.showMessageDialog(this, "Valor faltante", "ERRO!", JOptionPane.WARNING_MESSAGE);
+
+            }
         }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
