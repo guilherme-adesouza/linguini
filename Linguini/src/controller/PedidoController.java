@@ -4,13 +4,16 @@ import dao.MensagemRetorno;
 import dao.PedidoDAO;
 import java.awt.Checkbox;
 import java.awt.event.ItemListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import model.Pedido;
+import utils.view.Calendario;
 
 /**
  * @author guilherme-souza
@@ -19,6 +22,8 @@ public class PedidoController implements Controller<Pedido> {
 
     PedidoDAO pedidoDAO;
     String tabela = "Pedido";
+    SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    Calendario calen = new Calendario();
 
     public PedidoController() {
         this.pedidoDAO = new PedidoDAO();
@@ -69,6 +74,7 @@ public class PedidoController implements Controller<Pedido> {
                 Pedido p = (Pedido) o;
                 dadosTabela[lin][0] = p.getId();
                 dadosTabela[lin][1] = p.getValor();
+                dadosTabela[lin][2] = calen.getDataHoraDeDate(p.getDataHora());
                 lin++;
             }
 
@@ -79,7 +85,7 @@ public class PedidoController implements Controller<Pedido> {
 //                    dadosTabela[lin][2] = new ImageIcon(getClass().getClassLoader().getResource("Interface/imagens/status_inativo.png"));
 //                }
         } catch (Exception e) {
-            System.out.println("problemas para popular tabela Fornecedor...");
+            System.out.println("problemas para popular tabela PedidoController...");
             System.out.println(e);
         }
 
@@ -140,7 +146,7 @@ public class PedidoController implements Controller<Pedido> {
     public void popularCombo(JComboBox combo) {
         this.pedidoDAO.popularCombo("Pedido", combo);
     }
-    
+
     @Override
     public MensagemRetorno consultarPorID(int id) {
         return this.pedidoDAO.consultarPorId(id, this.tabela);
@@ -151,11 +157,12 @@ public class PedidoController implements Controller<Pedido> {
         List campos = new ArrayList();
         campos.add(new CampoOrdenavel("ID", "id"));
         campos.add(new CampoOrdenavel("Valor Total", "valor"));
+        campos.add(new CampoOrdenavel("Data", "data_hora"));
         return campos;
     }
 
     private String[] getCabecalho() {
-        String[] cabecalho = {"Código", "Valor Total"};
+        String[] cabecalho = {"Código", "Valor Total", "Data"};
         return cabecalho;
     }
 

@@ -62,4 +62,12 @@ public class Calendario {
         return dataHoje;
 
     }
+    public String getDataHoraDeDate(Date data) {
+        // ESTOU USANDO
+        DateFormat dfe = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String dataHoje = dfe.format(data);
+
+        return dataHoje;
+
+    }
 }

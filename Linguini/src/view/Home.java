@@ -173,11 +173,11 @@ public class Home extends javax.swing.JFrame {
         btnPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnPedido.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnPedidoMouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnPedidoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnPedidoMouseExited(evt);
             }
         });
         btnPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -189,7 +189,7 @@ public class Home extends javax.swing.JFrame {
         btnComandas.setBackground(new java.awt.Color(153, 153, 153));
         btnComandas.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         btnComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-lista-de-verificação-48.png"))); // NOI18N
-        btnComandas.setText("Comandas");
+        btnComandas.setText("Pedidos");
         btnComandas.setBorderPainted(false);
         btnComandas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnComandas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -725,7 +725,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnComandasMouseExited
 
     private void btnComandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComandasActionPerformed
-        // TODO add your handling code here:
+        jdPedidosAberto telaPedidos = new jdPedidosAberto(this, true);
+        telaPedidos.setLocationRelativeTo(telaPedidos);
+        telaPedidos.setVisible(true);
     }//GEN-LAST:event_btnComandasActionPerformed
 
     private void btnClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClienteMouseEntered
