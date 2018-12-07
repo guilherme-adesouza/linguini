@@ -358,12 +358,14 @@ public class jdPagamento extends javax.swing.JDialog {
                 this.pedido.setSituacao(true);
                 if (this.pedido.getStatus() == 'F') {
                     this.pedido.setStatus('O');
+                    this.pedido.setDataHoraFechado(new Date());
                     this.pedidoController.salvar(this.pedido);
                     JOptionPane.showMessageDialog(rootPane, msg.getMensagem());
                     this.ret = 1;
                     dispose();
                 } else if (this.pedido.getStatus() != 'F') {
                     this.pedido.setStatus('U');
+                    this.pedido.setDataHoraFechado(new Date());
                     this.pedidoController.salvar(this.pedido);
                     JOptionPane.showMessageDialog(rootPane, msg.getMensagem());
                     this.ret = 1;

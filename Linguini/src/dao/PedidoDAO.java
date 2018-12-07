@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import persistence.HibernateUtil;
+import utils.controller.GeradorLog;
 import utils.view.ComboItens;
 
 /**
@@ -42,7 +43,7 @@ public class PedidoDAO extends GenericoDAO<Pedido> {
     }
 
     public void popularCombo(String tabela, JComboBox combo) {
-        
+
         combo.addItem("Selecione");
         combo.addItem(1);
         combo.addItem(2);
@@ -87,6 +88,42 @@ public class PedidoDAO extends GenericoDAO<Pedido> {
         item.setCodigo(0);
         item.setDescricao("Selecione");
         return item;
+    }
+
+    public MensagemRetorno consultarAtivosComCriterioAberto(String tabela, String[] camposPesquisa, String valor, String orderBy) {
+
+        MensagemRetorno retorno = new MensagemRetorno(false);
+        Session sessao = null;
+
+        try {
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+            String order = " id";
+
+            if (orderBy != null && !orderBy.isEmpty()) {
+                order = orderBy;
+            }
+            if (valor.equals("Delivery")) {
+                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE data_hora_fechado is null and entregador_pessoa_id is not null and situacao=true ORDER BY " + order);
+                retorno.setLista((List) q.list());
+            } else if (valor.equals("mesa")) {
+                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE data_hora_fechado is null and mesa is not null and situacao=true ORDER BY " + order);
+                retorno.setLista((List) q.list());
+            } else {
+                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE data_hora_fechado is null and situacao=true ORDER BY " + order);
+                retorno.setLista((List) q.list());
+            }
+            //retorno.setLista((List) q.list());
+            retorno.setSucesso(true);
+        } catch (HibernateException he) {
+            new GeradorLog(he);
+            retorno.setMensagem(he.getMessage());
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return retorno;
     }
 
 }

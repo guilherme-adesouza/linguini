@@ -1,6 +1,9 @@
 package view;
 
+import controller.CampoOrdenavel;
+import controller.Controller;
 import controller.PedidoController;
+import java.util.List;
 import model.Pedido;
 
 /**
@@ -10,20 +13,25 @@ public class jdPedidosAberto extends javax.swing.JDialog {
 
     private Pedido pedido;
     private PedidoController pedidoController;
+    private Controller controller;
 
     public static String nomeTela = "telaPedidosAbertos";
 
     public jdPedidosAberto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.btnEditar.setName("btnEditar");
-        this.btnExcluir.setName("btnExcluir");
         this.btnPesquisar.setName("btnPesquisar");
-        
+
         this.pedido = new Pedido();
         this.pedidoController = new PedidoController();
-        this.pedidoController.popularTabela(this.tblPesquisar, "","");
-       
+        this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", "");
+
+        this.cmbFiltros.addItem("ID");
+        this.cmbFiltros.addItem("Cliente");
+        this.cmbFiltros.addItem("Mesa");
+        this.cmbFiltros.addItem("Status");
+        this.cmbFiltros.addItem("Valor");
+        this.cmbFiltros.setSelectedIndex(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -32,9 +40,7 @@ public class jdPedidosAberto extends javax.swing.JDialog {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
-        btnEditar = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
         cmbFiltros = new javax.swing.JComboBox<>();
         btnPesquisar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -42,30 +48,15 @@ public class jdPedidosAberto extends javax.swing.JDialog {
         tblPesquisar = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        rbDelivery = new javax.swing.JRadioButton();
+        rbComandas = new javax.swing.JRadioButton();
+        rbAmbos = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Pesquisa");
+        setTitle("Pedidos Abertos");
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        btnEditar.setBackground(new java.awt.Color(51, 102, 255));
-        btnEditar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        btnEditar.setForeground(new java.awt.Color(254, 254, 254));
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-editar-48.png"))); // NOI18N
-        btnEditar.setText("Editar");
-        btnEditar.setBorderPainted(false);
-        btnEditar.setContentAreaFilled(false);
-        btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
 
         btnFechar.setBackground(new java.awt.Color(51, 102, 255));
         btnFechar.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -81,31 +72,12 @@ public class jdPedidosAberto extends javax.swing.JDialog {
             }
         });
 
-        btnExcluir.setBackground(new java.awt.Color(51, 102, 255));
-        btnExcluir.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        btnExcluir.setForeground(new java.awt.Color(254, 254, 254));
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-excluir-48.png"))); // NOI18N
-        btnExcluir.setText("Excluir");
-        btnExcluir.setBorderPainted(false);
-        btnExcluir.setContentAreaFilled(false);
-        btnExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 798, Short.MAX_VALUE)
                 .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -113,10 +85,7 @@ public class jdPedidosAberto extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnExcluir)
-                    .addComponent(btnFechar)
-                    .addComponent(btnEditar))
+                .addComponent(btnFechar)
                 .addGap(0, 0, 0))
         );
 
@@ -148,7 +117,7 @@ public class jdPedidosAberto extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 873, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,14 +128,14 @@ public class jdPedidosAberto extends javax.swing.JDialog {
 
         jLabel2.setText("Ordenar por");
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Delivery");
+        buttonGroup1.add(rbDelivery);
+        rbDelivery.setText("Delivery");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Comandas");
+        buttonGroup1.add(rbComandas);
+        rbComandas.setText("Comandas");
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("Ambos");
+        buttonGroup1.add(rbAmbos);
+        rbAmbos.setText("Ambos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,11 +149,11 @@ public class jdPedidosAberto extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton1)
+                        .addComponent(rbDelivery)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton2)
+                        .addComponent(rbComandas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton3)
+                        .addComponent(rbAmbos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -203,9 +172,9 @@ public class jdPedidosAberto extends javax.swing.JDialog {
                     .addComponent(btnPesquisar)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3))
+                    .addComponent(rbDelivery)
+                    .addComponent(rbComandas)
+                    .addComponent(rbAmbos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -215,25 +184,42 @@ public class jdPedidosAberto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-
+        String aux = "";
+        if (rbAmbos.isSelected()) {
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", "");
+        }
+        if (rbDelivery.isSelected()) {
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "Delivery", "");
+            aux="Delivery";
+        }
+        if (rbComandas.isSelected()) {
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "mesa", "");
+            aux="mesa";
+        }
+        if(cmbFiltros.getSelectedIndex()==0){
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, "ID");
+        }
+        if(cmbFiltros.getSelectedIndex()==1){
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, "pessoa_id");
+        }
+        if(cmbFiltros.getSelectedIndex()==2){
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, "mesa");
+        }
+        if(cmbFiltros.getSelectedIndex()==3){
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, "status");
+        }
+        if(cmbFiltros.getSelectedIndex()==4){
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, "valor");
+        }
+        
     }//GEN-LAST:event_btnPesquisarActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-
-    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
 
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -242,10 +228,10 @@ public class jdPedidosAberto extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rbAmbos;
+    private javax.swing.JRadioButton rbComandas;
+    private javax.swing.JRadioButton rbDelivery;
     private javax.swing.JTable tblPesquisar;
     // End of variables declaration//GEN-END:variables
 }

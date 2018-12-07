@@ -58,7 +58,7 @@ public class PedidoController implements Controller<Pedido> {
             if (ms.isSucesso()) {
                 dadosTabela = new Object[ms.getLista().size()][cabecalho.length];
             }
-            dadosTabela = new Object[ms.getLista().size()][4];
+            dadosTabela = new Object[ms.getLista().size()][7];
 
         } catch (Exception e) {
             System.out.println("Erro ao consultar Fornecedor: " + e);
@@ -75,6 +75,159 @@ public class PedidoController implements Controller<Pedido> {
                 dadosTabela[lin][0] = p.getId();
                 dadosTabela[lin][1] = p.getValor();
                 dadosTabela[lin][2] = calen.getDataHoraDeDate(p.getDataHora());
+                dadosTabela[lin][3] = p.getMesa();
+                if (p.getStatus() == 'A') {
+                    dadosTabela[lin][4] = "Em preparo";
+                }
+                if (p.getStatus() == 'I') {
+                    dadosTabela[lin][4] = "Iniciado";
+                }
+                if (p.getStatus() == 'S') {
+                    dadosTabela[lin][4] = "Saiu para entregar";
+                }
+                if (p.getStatus() == 'F') {
+                    dadosTabela[lin][4] = "Finalizado";
+                }
+                if (p.getStatus() == 'P') {
+                    dadosTabela[lin][4] = "Pendente";
+                }
+                if (p.getStatus() == 'C') {
+                    dadosTabela[lin][4] = "Em preparo";
+                }
+                if (p.getStatus() == 'D') {
+                    dadosTabela[lin][4] = "Servido";
+                }
+                if (p.getStatus() == 'O') {
+                    dadosTabela[lin][4] = "Finalizado";
+                }
+                if (p.getStatus() == 'U') {
+                    dadosTabela[lin][4] = "Finalizado";
+                }
+                if (p.getPessoaId() != null) {
+                    dadosTabela[lin][5] = p.getPessoaId().getNome();
+                }
+                if (p.getDataHoraFechado() == null) {
+                    dadosTabela[lin][6] = "Em aberto";
+                }
+                if (p.getDataHoraFechado() != null) {
+                    dadosTabela[lin][6] = "Pago";
+                }
+                lin++;
+            }
+
+            // caso a coluna precise exibir uma imagem
+//                if (resultadoQ.getBoolean("Situacao")) {
+//                    dadosTabela[lin][2] = new ImageIcon(getClass().getClassLoader().getResource("Interface/imagens/status_ativo.png"));
+//                } else {
+//                    dadosTabela[lin][2] = new ImageIcon(getClass().getClassLoader().getResource("Interface/imagens/status_inativo.png"));
+//                }
+        } catch (Exception e) {
+            System.out.println("problemas para popular tabela PedidoController...");
+            System.out.println(e);
+        }
+
+        // configuracoes adicionais no componente tabela
+        tabela.setModel(new DefaultTableModel(dadosTabela, cabecalho) {
+            @Override
+            // quando retorno for FALSE, a tabela nao é editavel
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+            // alteracao no metodo que determina a coluna em que o objeto ImageIcon devera aparecer
+            @Override
+            public Class
+                    getColumnClass(int column) {
+
+                if (column == 2) {
+                    //return ImageIcon.class;
+                }
+                return Object.class;
+            }
+        });
+
+        // permite seleção de apenas uma linha da tabela
+        tabela.setSelectionMode(0);
+
+        // redimensiona as colunas de uma tabela
+        TableColumn column = null;
+        for (int i = 0; i < tabela.getColumnCount(); i++) {
+            column = tabela.getColumnModel().getColumn(i);
+            switch (i) {
+                case 0:
+                    column.setPreferredWidth(17);
+                    break;
+                case 1:
+                    column.setPreferredWidth(140);
+                    break;
+            }
+        }
+    }
+
+    public void popularTabelaAbertos(JTable tabela, String criterio, String ordenacao) {
+// dados da tabela
+        Object[][] dadosTabela = null;
+
+        // cabecalho da tabela
+        String[] cabecalho = this.getCabecalho();
+
+        // cria matriz de acordo com nº de registros da tabela
+        try {
+            MensagemRetorno ms = this.pedidoDAO.consultarAtivosComCriterioAberto(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
+            if (ms.isSucesso()) {
+                dadosTabela = new Object[ms.getLista().size()][cabecalho.length];
+            }
+            dadosTabela = new Object[ms.getLista().size()][7];
+
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar Fornecedor: " + e);
+        }
+
+        int lin = 0;
+
+        // efetua consulta na tabela
+        try {
+            MensagemRetorno ms = this.pedidoDAO.consultarAtivosComCriterioAberto(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
+
+            for (Object o : ms.getLista()) {
+                Pedido p = (Pedido) o;
+               
+                    dadosTabela[lin][0] = p.getId();
+                    dadosTabela[lin][1] = p.getValor();
+                    dadosTabela[lin][2] = calen.getDataHoraDeDate(p.getDataHora());
+                    dadosTabela[lin][3] = p.getMesa();
+                    if (p.getStatus() == 'A') {
+                        dadosTabela[lin][4] = "Em preparo";
+                    }
+                    if (p.getStatus() == 'I') {
+                        dadosTabela[lin][4] = "Iniciado";
+                    }
+                    if (p.getStatus() == 'S') {
+                        dadosTabela[lin][4] = "Saiu para entregar";
+                    }
+                    if (p.getStatus() == 'F') {
+                        dadosTabela[lin][4] = "Finalizado";
+                    }
+                    if (p.getStatus() == 'P') {
+                        dadosTabela[lin][4] = "Pendente";
+                    }
+                    if (p.getStatus() == 'C') {
+                        dadosTabela[lin][4] = "Em preparo";
+                    }
+                    if (p.getStatus() == 'D') {
+                        dadosTabela[lin][4] = "Servido";
+                    }
+                    if (p.getPessoaId() != null) {
+                        dadosTabela[lin][5] = p.getPessoaId().getNome();
+                    }
+                    if (p.getPessoaId() != null) {
+                        dadosTabela[lin][5] = p.getPessoaId().getNome();
+                    }
+                    if (p.getDataHoraFechado() == null) {
+                        dadosTabela[lin][6] = "Em aberto";
+                    }
+
+                
                 lin++;
             }
 
@@ -158,11 +311,15 @@ public class PedidoController implements Controller<Pedido> {
         campos.add(new CampoOrdenavel("ID", "id"));
         campos.add(new CampoOrdenavel("Valor Total", "valor"));
         campos.add(new CampoOrdenavel("Data", "data_hora"));
+        campos.add(new CampoOrdenavel("Mesa", "mesa"));
+        campos.add(new CampoOrdenavel("Status", "status"));
+        campos.add(new CampoOrdenavel("Cliente", "pessoa_id"));
+        campos.add(new CampoOrdenavel("Situação", "data_hora_fechado"));
         return campos;
     }
 
     private String[] getCabecalho() {
-        String[] cabecalho = {"Código", "Valor Total", "Data"};
+        String[] cabecalho = {"Código", "Valor Total", "Data", "Mesa", "Status", "Cliente", "Situação"};
         return cabecalho;
     }
 
