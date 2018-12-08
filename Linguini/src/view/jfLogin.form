@@ -191,4 +191,6 @@
         <Property name="name" type="java.lang.String" value="btnLogin" noResource="true"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
- 
+    </Component>
+  </SubComponents>
+</Form> 
