@@ -29,17 +29,17 @@ public class Home extends javax.swing.JFrame {
         //new GrupoController().popularPermissoes();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.jMenuBar1.requestFocus();
-//        PrevisaoTempoController previsaoController = new PrevisaoTempoController();
-//        MensagemRetorno msg = previsaoController.consultarAgora();
-//        if(msg.isSucesso()) {
-//            PrevisaoTempo p = (PrevisaoTempo) msg.getObjeto();
-//            this.txtCelcius.setText((int) p.getTemperatura()+"");
-//            this.txtPrevisao.setText(p.getTempo());
-//            this.txtPrevisaoCidade.setText(p.getCidade());
-//        }
-//        else {
-//            this.pnlWeather.setVisible(false);
-//        }
+        PrevisaoTempoController previsaoController = new PrevisaoTempoController();
+        MensagemRetorno msg = previsaoController.consultarAgora();
+        if(msg.isSucesso()) {
+            PrevisaoTempo p = (PrevisaoTempo) msg.getObjeto();
+            this.txtCelcius.setText((int) p.getTemperatura()+"");
+            this.txtPrevisao.setText(p.getTempo());
+            this.txtPrevisaoCidade.setText(p.getCidade());
+        }
+        else {
+            this.pnlWeather.setVisible(false);
+        }
     }
 
     /**
