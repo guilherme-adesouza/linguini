@@ -1,5 +1,6 @@
 package socket.client;
 
+import controller.PedidoController;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import utils.controller.Sessao;
@@ -31,6 +32,8 @@ public class UDPClienteListener extends Thread {
         }
     }
     
+    //padrão da mensagem
+    // mensagem/id
     private void rotinaListener(byte[] bytes){
         String msg = new String(bytes);
         int idPedido = Integer.parseInt(msg.split("/")[1]);
@@ -40,9 +43,9 @@ public class UDPClienteListener extends Thread {
                 tela.pedidoRecebido(idPedido);
             }
         } else if(msg.contains("recebido")) {
-            //rotina pedido foi pra cozinha
+            new PedidoController().atualizarStatus(idPedido, PedidoController.ADICIONADO);
         } else if(msg.contains("finalizado")) {
-            //rotina finalizar
+            new PedidoController().atualizarStatus(idPedido, PedidoController.FINALIZADO);
         }
     }
     

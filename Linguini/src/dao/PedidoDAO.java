@@ -14,6 +14,32 @@ import utils.view.ComboItens;
  * @author guilherme-souza
  */
 public class PedidoDAO extends GenericoDAO<Pedido> {
+    
+    public MensagemRetorno consultarPorStatus(char status) {
+        MensagemRetorno retorno = new MensagemRetorno(false);
+        Session sessao = null;
+
+        try {
+
+            sessao = HibernateUtil.getSessionFactory().openSession();
+
+            sessao.beginTransaction();
+
+            Query query = sessao.createQuery("FROM Ṕedido p WHERE status = :status");
+
+            query.setInteger("status", status);
+            retorno.setLista((List) query.list());
+            if (retorno.getObjeto() != null) {
+                retorno.setSucesso(true);
+            }
+        } catch (HibernateException he) {
+            retorno.setMensagem(he.getMessage());
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return retorno;
+    }
 
     public MensagemRetorno consultarComandas(String tabela) {
 

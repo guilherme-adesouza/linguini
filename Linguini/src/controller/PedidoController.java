@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import model.ItemPedido;
 import model.Pedido;
 import utils.view.Calendario;
 
@@ -24,9 +25,35 @@ public class PedidoController implements Controller<Pedido> {
     String tabela = "Pedido";
     SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     Calendario calen = new Calendario();
-
+    
+    public static final char ADICIONADO = 'C';
+    public static final char FINALIZADO = 'D';
+    
     public PedidoController() {
         this.pedidoDAO = new PedidoDAO();
+    }
+    
+    public String produtos(Pedido p){
+        String produtos = "";
+        for (ItemPedido itemPedido : p.getItemPedidoList()) {
+            produtos += "("+itemPedido.getQuantidade()+")"+" "+""+itemPedido.getProdutoId().getDescricao();
+            produtos += " + ";
+        }
+        return produtos;
+    }
+    
+    public MensagemRetorno consultarPorStatus(char status){
+        return pedidoDAO.consultarPorStatus(status);
+    }
+    
+    public MensagemRetorno atualizarStatus(int idPedido, char status){
+        MensagemRetorno msg = this.consultarPorID(idPedido);
+        if(msg.isSucesso()){
+            Pedido p = (Pedido) msg.getObjeto();
+            p.setStatus(status);
+            msg = this.salvar(p);
+        }
+        return msg;
     }
 
     @Override

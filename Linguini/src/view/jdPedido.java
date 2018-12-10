@@ -76,14 +76,6 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         }
     }
     
-    public void retornoPedidoAdicionado() {
-        this.pedido.setStatus('C');
-    }
-    
-    public void retornoPedidoFinalizado() {
-        this.pedido.setStatus('D');
-    }
-    
     private void atualizarTotal() {
         if (this.tfdPrecoDesconto.isFocusable()) {
             this.tfdPrecoTotal.setValue(this.tfdPrecoSubTotal.getValue().subtract(this.tfdPrecoDesconto.getValue()));

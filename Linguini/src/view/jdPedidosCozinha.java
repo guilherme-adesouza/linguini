@@ -5,6 +5,13 @@
  */
 package view;
 
+import controller.PedidoController;
+import dao.MensagemRetorno;
+import java.util.List;
+import model.ItemPedido;
+import model.Pedido;
+import socket.client.UDPCliente;
+
 /**
  *
  * @author guilherme-souza
@@ -82,11 +89,11 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
         tablePreparo.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         tablePreparo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"0021", "(1) X Salada"},
-                {"0020", "(2) Coca 2L + (2) X Tudo"}
+                {},
+                {}
             },
             new String [] {
-                "Nº Pedido", "Pedido"
+
             }
         ));
         tablePreparo.setPreferredSize(new java.awt.Dimension(150, 360));
@@ -109,14 +116,14 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRecebido1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRecebido1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -124,7 +131,7 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRecebido1)
                 .addContainerGap())
@@ -141,9 +148,9 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(161, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,11 +163,11 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
         tableNovo.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         tableNovo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"2", "X Salada"},
-                {"1", null}
+                {},
+                {}
             },
             new String [] {
-                "Quantidade", "Produto"
+
             }
         ));
         tableNovo.setPreferredSize(new java.awt.Dimension(150, 360));
@@ -171,7 +178,7 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
         jLabel2.setText("Nº ");
 
         txtIdPedido.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
-        txtIdPedido.setText("000022");
+        txtIdPedido.setText("000000");
 
         btnRecebido.setBackground(new java.awt.Color(0, 174, 239));
         btnRecebido.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
@@ -179,27 +186,31 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
         btnRecebido.setText("ADICIONAR");
         btnRecebido.setBorderPainted(false);
         btnRecebido.setOpaque(true);
+        btnRecebido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecebidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(179, 179, 179)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(txtIdPedido))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -229,12 +240,41 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
     private void btnRecebido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecebido1ActionPerformed
         int row = this.tablePreparo.getSelectedRow();
         if(row != -1){
-            
+            int idPedido = (int) this.tablePreparo.getValueAt(row, 0);
+            UDPCliente.enviarMensagemParaTodos("finalizado/"+idPedido);
         }
     }//GEN-LAST:event_btnRecebido1ActionPerformed
 
+    private void btnRecebidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecebidoActionPerformed
+        UDPCliente.enviarMensagemParaTodos("recebido/"+this.txtIdPedido.getText());
+        this.txtIdPedido.setText("");
+        this.tableNovo.setVisible(false);
+        this.popularTabela();
+    }//GEN-LAST:event_btnRecebidoActionPerformed
+
     public void pedidoRecebido(int idPedido){
         System.out.println("PEDIDO: "+idPedido);
+        MensagemRetorno msg = new PedidoController().consultarPorID(idPedido);
+        if(msg.isSucesso()) {
+            Pedido p = (Pedido) msg.getObjeto();
+            this.txtIdPedido.setText(p.getId()+"");
+            for (int i = 0; i < p.getItemPedidoList().size(); i++) {
+                ItemPedido itemPedido = p.getItemPedidoList().get(i);
+                this.tableNovo.setValueAt(itemPedido.getQuantidade(), i, 0);
+                this.tableNovo.setValueAt(itemPedido.getProdutoId().getDescricao(), i, 1);
+            }
+            this.tableNovo.setVisible(true);
+            this.popularTabela();
+        }
+    }
+    
+    private void popularTabela(){
+        List<Object> pedidos = new PedidoController().consultarPorStatus(PedidoController.ADICIONADO).getLista();
+        for (int i = 0; i < pedidos.size(); i++) {
+            Pedido pedido = (Pedido) pedidos.get(i);
+            this.tableNovo.setValueAt(pedido.getId(), i, 0);
+            this.tableNovo.setValueAt(new PedidoController().produtos(pedido), i, 1);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
