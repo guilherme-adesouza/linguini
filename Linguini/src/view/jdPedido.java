@@ -228,6 +228,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         cmbEntregador = new javax.swing.JComboBox<>();
         d_tfdCidade = new javax.swing.JTextField();
         d_btnAdicionar = new javax.swing.JButton();
+        d_ValorFrete = new utils.view.MoedaFormatada();
+        d_labEntregador1 = new javax.swing.JLabel();
         tfdPrecoSubTotal = new utils.view.MoedaFormatada();
         tfdPrecoDesconto = new utils.view.MoedaFormatada();
         tfdPrecoTotal = new utils.view.MoedaFormatada();
@@ -872,6 +874,9 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             }
         });
 
+        d_labEntregador1.setText("Frete");
+        d_labEntregador1.setEnabled(false);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -887,7 +892,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                             .addComponent(d_labBairro, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(d_labNumero, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(d_labCidade, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(d_labEntregador, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(d_labEntregador, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(d_labEntregador1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -896,7 +902,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(cmbEntregador, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(d_tfdCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(d_tfdCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(d_ValorFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -953,7 +960,11 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(d_labEntregador)
                     .addComponent(cmbEntregador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(d_ValorFrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(d_labEntregador1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(d_labStatusIniciado)
                     .addComponent(d_labStatus))
@@ -1039,7 +1050,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             this.pedido.setLogradouro(this.d_tfdRua.getText());
             this.pedido.setNumero(Integer.parseInt(this.d_tfdNumero.getText()));
             this.pedido.setEntregadorPessoaId(this.entregador);
-            //this.pedido.setTempoDeslocamento(Integer.parseInt(Formatacao.removerFormatacao(this.d_tffTelefone.getText())));
+            this.pedido.setTempoDeslocamento(this.d_ValorFrete.getValue().intValue());
             //this.pedido.setDataHora();
             //this.pedido.setDataHoraFechado(null);
             this.pedido.setMesa(null);
@@ -1363,7 +1374,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             this.pedido.setStatus('C');
             this.pedido.setSituacao(true);
             this.pedidoController.salvar(this.pedido);
-            JOptionPane.showMessageDialog(null, "Esta venda ficará disponível em Comandas!");
+            JOptionPane.showMessageDialog(null, "Esta venda ficará disponível em pedidos!");
             dispose();
 
         }
@@ -1426,11 +1437,13 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     private javax.swing.JCheckBox checkDelivery;
     private javax.swing.JComboBox<String> cmbEntregador;
     private javax.swing.JComboBox<String> comboNumComanda;
+    private utils.view.MoedaFormatada d_ValorFrete;
     private javax.swing.JButton d_btnAdicionar;
     private javax.swing.JLabel d_labBairro;
     private javax.swing.JLabel d_labCidade;
     private javax.swing.JLabel d_labCliente;
     private javax.swing.JLabel d_labEntregador;
+    private javax.swing.JLabel d_labEntregador1;
     private javax.swing.JLabel d_labNumero;
     private javax.swing.JLabel d_labRua;
     private javax.swing.JLabel d_labStatus;
@@ -1586,6 +1599,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 this.d_tfdBairro.setText(this.pedido.getBairro() + "");
                 this.d_tfdRua.setText(this.pedido.getLogradouro() + "");
                 this.d_tfdNumero.setText(this.pedido.getNumero() + "");
+                this.d_ValorFrete.setText(this.pedido.getTempoDeslocamento()+"");
 //                
                 this.checkDelivery.setSelected(true);
                 this.jPanel5.setVisible(true);
