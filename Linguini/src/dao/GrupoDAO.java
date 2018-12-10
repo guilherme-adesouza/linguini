@@ -1,7 +1,13 @@
 package dao;
 
+import java.util.Date;
+import java.util.List;
 import javax.swing.JComboBox;
 import model.Grupo;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import persistence.HibernateUtil;
 import utils.view.ComboItens;
 
 /**
@@ -48,5 +54,28 @@ public class GrupoDAO extends GenericoDAO<Grupo>{
         item.setCodigo(0);
         item.setDescricao("Selecione");
         return item;
+    }
+    
+    public MensagemRetorno consultarPorNome(String nome){
+        MensagemRetorno retorno = new MensagemRetorno();
+        Session sessao = null;
+
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao.beginTransaction();
+
+            Query query = sessao.createQuery("FROM Grupo g "
+                                           + "WHERE g.nome = :nome");
+
+            query.setString("nome", nome);
+            retorno.setObjeto(query.uniqueResult());
+            retorno.setSucesso(true);
+        } catch (HibernateException he) {
+            retorno.setMensagem(he.getMessage());
+            he.printStackTrace();
+        }finally {
+            sessao.close();
+        }        
+        return retorno;
     }
 }

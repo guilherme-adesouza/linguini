@@ -4,11 +4,14 @@ import dao.MensagemRetorno;
 import dao.UsuarioDAO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import model.Grupo;
 import model.Usuario;
 import utils.controller.Criptografia;
+import utils.controller.Sessao;
 
 /**
  * @author guilherme-souza
@@ -166,4 +169,15 @@ public class UsuarioController implements Controller<Usuario> {
         campos.add(new CampoOrdenavel("Usuário", "nome"));
         return campos;
     }
+    
+    public boolean grupoCozinha(){
+        MensagemRetorno msg = new GrupoController().consultarPorNome("Cozinha");
+        if(msg.isSucesso()){
+            Grupo g = (Grupo) msg.getObjeto();
+            if(g != null) {
+                return Objects.equals(Sessao.getUsuario().getGrupoId().getId(), g.getId());            
+            }
+        }
+        return false;
+    } 
 }

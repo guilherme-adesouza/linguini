@@ -6,6 +6,7 @@
 package view;
 
 import api.PrevisaoTempo;
+import controller.GrupoController;
 import controller.PrevisaoTempoController;
 import dao.MensagemRetorno;
 import java.io.IOException;
@@ -52,7 +53,6 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        btnCaixa = new javax.swing.JButton();
         btnProduto = new javax.swing.JButton();
         btnDelivery = new javax.swing.JButton();
         btnPedido = new javax.swing.JButton();
@@ -71,19 +71,19 @@ public class Home extends javax.swing.JFrame {
         txtPrevisaoCidade = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmeVendas = new javax.swing.JMenu();
+        jmeDelivery = new javax.swing.JMenuItem();
+        jmePedido = new javax.swing.JMenuItem();
+        jmeComandas = new javax.swing.JMenuItem();
         jmePessoas = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         menuEmail = new javax.swing.JMenuItem();
         menuFornecedor = new javax.swing.JMenuItem();
         jmiPessoas = new javax.swing.JMenuItem();
-        jmeCaixa = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jmeProduto = new javax.swing.JMenu();
         jmiTelefones = new javax.swing.JMenuItem();
         jmiProduto = new javax.swing.JMenuItem();
-        jmeFinanceiro = new javax.swing.JMenu();
         jmeRelatorio = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jmeGrafico = new javax.swing.JMenuItem();
         jmeMais = new javax.swing.JMenu();
         jmiArquivarAuditoria = new javax.swing.JMenuItem();
         jmiBotao = new javax.swing.JMenuItem();
@@ -101,27 +101,6 @@ public class Home extends javax.swing.JFrame {
         setTitle("Linguini");
 
         jPanel2.setPreferredSize(new java.awt.Dimension(1200, 800));
-
-        btnCaixa.setBackground(new java.awt.Color(153, 153, 153));
-        btnCaixa.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        btnCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icons8-fluxo-de-caixa-48.png"))); // NOI18N
-        btnCaixa.setText("Caixa");
-        btnCaixa.setBorderPainted(false);
-        btnCaixa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnCaixa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCaixaMouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCaixaMouseEntered(evt);
-            }
-        });
-        btnCaixa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCaixaActionPerformed(evt);
-            }
-        });
 
         btnProduto.setBackground(new java.awt.Color(153, 153, 153));
         btnProduto.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -194,11 +173,11 @@ public class Home extends javax.swing.JFrame {
         btnComandas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnComandas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnComandas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnComandasMouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnComandasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnComandasMouseExited(evt);
             }
         });
         btnComandas.addActionListener(new java.awt.event.ActionListener() {
@@ -276,20 +255,18 @@ public class Home extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnCaixa)
-                .addGap(43, 43, 43)
                 .addComponent(btnDelivery)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnPedido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnComandas)
-                .addGap(44, 44, 44)
+                .addGap(131, 131, 131)
                 .addComponent(btnProduto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHistorico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                 .addComponent(btnSair)
                 .addContainerGap())
         );
@@ -297,7 +274,6 @@ public class Home extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCaixa)
                     .addComponent(btnProduto)
                     .addComponent(btnDelivery)
                     .addComponent(btnPedido)
@@ -305,7 +281,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(btnCliente)
                     .addComponent(btnHistorico)
                     .addComponent(btnSair))
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -416,6 +392,36 @@ public class Home extends javax.swing.JFrame {
         jMenuBar1.setPreferredSize(new java.awt.Dimension(267, 28));
 
         jmeVendas.setText("Vendas");
+        jmeVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmeVendasActionPerformed(evt);
+            }
+        });
+
+        jmeDelivery.setText("Novo Delivery");
+        jmeDelivery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmeDeliveryActionPerformed(evt);
+            }
+        });
+        jmeVendas.add(jmeDelivery);
+
+        jmePedido.setText("Novo Pedido");
+        jmePedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmePedidoActionPerformed(evt);
+            }
+        });
+        jmeVendas.add(jmePedido);
+
+        jmeComandas.setText("Pedidos");
+        jmeComandas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmeComandasActionPerformed(evt);
+            }
+        });
+        jmeVendas.add(jmeComandas);
+
         jMenuBar1.add(jmeVendas);
 
         jmePessoas.setText("Pessoas");
@@ -449,19 +455,6 @@ public class Home extends javax.swing.JFrame {
 
         jMenuBar1.add(jmePessoas);
 
-        jmeCaixa.setText("Caixa");
-        jmeCaixa.setEnabled(false);
-
-        jMenuItem1.setText("Abrir e Fechar Caixa");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jmeCaixa.add(jMenuItem1);
-
-        jMenuBar1.add(jmeCaixa);
-
         jmeProduto.setText("Produto");
 
         jmiTelefones.setText("Classificação");
@@ -482,18 +475,15 @@ public class Home extends javax.swing.JFrame {
 
         jMenuBar1.add(jmeProduto);
 
-        jmeFinanceiro.setText("Financeiro");
-        jMenuBar1.add(jmeFinanceiro);
-
         jmeRelatorio.setText("Relatório");
 
-        jMenuItem3.setText("Gráfico");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jmeGrafico.setText("Gráfico");
+        jmeGrafico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jmeGraficoActionPerformed(evt);
             }
         });
-        jmeRelatorio.add(jMenuItem3);
+        jmeRelatorio.add(jmeGrafico);
 
         jMenuBar1.add(jmeRelatorio);
 
@@ -596,7 +586,7 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 917, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jDesktopPane1)
         );
@@ -612,13 +602,6 @@ public class Home extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        jdCaixa telaCaixa = new jdCaixa(this, true);
-        telaCaixa.setLocationRelativeTo(telaCaixa);
-        telaCaixa.setVisible(true);
-
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jmiTelefonesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiTelefonesActionPerformed
     {//GEN-HEADEREND:event_jmiTelefonesActionPerformed
@@ -650,20 +633,6 @@ public class Home extends javax.swing.JFrame {
         telaUsuario.setLocationRelativeTo(telaUsuario);
         telaUsuario.setVisible(true);
     }//GEN-LAST:event_jmiUsuarioActionPerformed
-
-    private void btnCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaixaActionPerformed
-        jdCaixa telaCaixa = new jdCaixa(this, true);
-        telaCaixa.setLocationRelativeTo(telaCaixa);
-        telaCaixa.setVisible(true);
-    }//GEN-LAST:event_btnCaixaActionPerformed
-
-    private void btnCaixaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixaMouseEntered
-        this.btnCaixa.setBorderPainted(true);
-    }//GEN-LAST:event_btnCaixaMouseEntered
-
-    private void btnCaixaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCaixaMouseExited
-        this.btnCaixa.setBorderPainted(false);
-    }//GEN-LAST:event_btnCaixaMouseExited
 
     private void btnProdutoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdutoMouseEntered
         this.btnProduto.setBorderPainted(true);
@@ -833,7 +802,7 @@ public class Home extends javax.swing.JFrame {
         telaRestaurarBackup.setVisible(true);
     }//GEN-LAST:event_jmiRestaurarBackupActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jmeGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmeGraficoActionPerformed
         jfGrafico telagrafico;
         try {
             telagrafico = new jfGrafico();
@@ -842,10 +811,31 @@ public class Home extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jmeGraficoActionPerformed
+
+    private void jmeVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmeVendasActionPerformed
+        //
+    }//GEN-LAST:event_jmeVendasActionPerformed
+
+    private void jmeDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmeDeliveryActionPerformed
+        jdPedido telaPedido = new jdPedido(this, true,true);
+        telaPedido.setLocationRelativeTo(telaPedido);
+        telaPedido.setVisible(true);
+    }//GEN-LAST:event_jmeDeliveryActionPerformed
+        
+    private void jmePedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmePedidoActionPerformed
+        jdPedido telaPedido = new jdPedido(this, true,false);
+        telaPedido.setLocationRelativeTo(telaPedido);
+        telaPedido.setVisible(true);
+    }//GEN-LAST:event_jmePedidoActionPerformed
+
+    private void jmeComandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmeComandasActionPerformed
+        jdPedidosAberto telaPedidos = new jdPedidosAberto(this, true);
+        telaPedidos.setLocationRelativeTo(telaPedidos);
+        telaPedidos.setVisible(true);
+    }//GEN-LAST:event_jmeComandasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCaixa;
     private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnComandas;
     private javax.swing.JButton btnDelivery;
@@ -856,15 +846,15 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JMenu jmeCaixa;
-    private javax.swing.JMenu jmeFinanceiro;
+    private javax.swing.JMenuItem jmeComandas;
+    private javax.swing.JMenuItem jmeDelivery;
+    private javax.swing.JMenuItem jmeGrafico;
     private javax.swing.JMenu jmeMais;
+    private javax.swing.JMenuItem jmePedido;
     private javax.swing.JMenu jmePessoas;
     private javax.swing.JMenu jmeProduto;
     private javax.swing.JMenu jmeRelatorio;

@@ -311,6 +311,17 @@ CREATE TABLE  "cozinha" (
   "capacidade" INT NOT NULL,
   PRIMARY KEY ("id"));
 
+-- -----------------------------------------------------
+-- Table "release"
+-- -----------------------------------------------------
+CREATE TABLE  "release" (
+  "id" BIGINT NOT NULL ,
+  "data" DATE,
+  "versao" TEXT,
+  "descricao" TEXT,
+  "lido" BOOLEAN NOT NULL,
+  PRIMARY KEY ("id"));
+
 
 DROP SEQUENCE IF EXISTS "estado_cod_estado_sequence";
 CREATE SEQUENCE  "estado_cod_estado_sequence";

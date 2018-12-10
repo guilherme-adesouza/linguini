@@ -10,6 +10,8 @@ import dao.MensagemRetorno;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
@@ -199,16 +201,21 @@ public class jfLogin extends javax.swing.JFrame {
             MensagemRetorno msg = this.usuarioController.autenticar(usuario);
             if (msg.isSucesso()) {
                 Sessao.setUsuario((Usuario) msg.getObjeto());
-
+                
                 if (licenca.validaLicenca()) {
-                    Home home;
-                    try {
-                        home = new Home();
-                        home.setVisible(true);
-                        this.dispose();
-                    } catch (IOException ex) {
-                        new GeradorLog(ex);
+                    if(this.usuarioController.grupoCozinha()) {
+                        jdPedidosCozinha cozinha = new jdPedidosCozinha();
+                        cozinha.setVisible(true);
+                    } else {
+                        Home home;
+                        try {
+                            home = new Home();
+                            home.setVisible(true);
+                        } catch (IOException ex) {
+                            new GeradorLog(ex);
+                        }
                     }
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Sua licença está expirada, favor contatar o suporte no número: (51) 7070-7070", "Licença vencida", JOptionPane.WARNING_MESSAGE);
                 }

@@ -62,4 +62,5 @@ Contributor(s):
   <table-filter match-name="funcionario"/>
   <table-filter match-name="caixa"/>
   <table-filter match-name="cidade"/>
+  <table-filter match-name="release"/>
 </hibernate-reverse-engineering>

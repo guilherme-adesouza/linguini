@@ -73,5 +73,6 @@ Contributor(s):
     <mapping class="model.Permissao"/>
     <mapping class="model.PermissaoBotao"/>
     <mapping class="model.Auditoria"/>
+    <mapping class="model.Release"/>
   </session-factory>
 </hibernate-configuration>

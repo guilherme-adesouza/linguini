@@ -77,8 +77,7 @@ public class Backup {
         String dbUser = "postgres";
         /*NOTE: Creating Path Constraints for backup saving*/
         /*NOTE: Here the backup is saved in a folder called backup with the name backup.sql*/
-        Date d = new Date();
-        String fileName = d.getTime()+"-linguini-backup-bd.tar";
+        String fileName = Backup.agora()+"-linguini-backup-bd.tar";
         String savePath = localBackup + "/" + fileName ;
         /*NOTE: Used to create a cmd command*/
         String[] executeCmd = {"pg_dump","--username",dbUser,"-w","--format","tar","--file",savePath,dbName};
@@ -128,12 +127,17 @@ public class Backup {
         return ziparArquivos(localArquivo, arquivos);
     }
     
+    private static String agora(){
+        Date hoje = new Date();
+        return hoje.getDay()+"-"+hoje.getMonth()+"-"+hoje.getYear()+"-"+hoje.getHours()+":"+hoje.getMinutes()+":"+hoje.getSeconds();
+    }
+    
     
     private static MensagemRetorno ziparArquivos(String localArquivo, ArrayList<String> arquivos) {
         MensagemRetorno msg = new MensagemRetorno();
         try {
             // let's create a ZIP file to write data
-            FileOutputStream fos = new FileOutputStream(localArquivo+"/"+new Date().getTime() + "-linguini.zip");
+            FileOutputStream fos = new FileOutputStream(localArquivo+"/"+Backup.agora()+ "-linguini.zip");
             ZipOutputStream zipOS = new ZipOutputStream(fos);
             for(String arquivo : arquivos){
                 writeToZipFile(arquivo, zipOS);                

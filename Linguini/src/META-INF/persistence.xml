@@ -23,8 +23,9 @@
     <class>model.Produto</class>
     <class>model.Estado</class>
     <class>model.ContasReceber</class>
-    <class>model.Auditoria</class>    
+    <class>model.Auditoria</class>
     <class>model.AuditoriaArquivada</class>
+    <class>model.Release</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/linguini"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>

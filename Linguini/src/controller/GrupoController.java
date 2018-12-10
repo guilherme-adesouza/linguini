@@ -179,4 +179,8 @@ public class GrupoController implements Controller<Grupo> {
             }
         }
     }
+    
+    public MensagemRetorno consultarPorNome(String nome){
+        return grupoDAO.consultarPorNome(nome);
+    }
 }

@@ -9,15 +9,15 @@ package view;
  *
  * @author guilherme-souza
  */
-public class jdPedidosCozinha extends javax.swing.JDialog {
-
+public class jdPedidosCozinha extends javax.swing.JFrame {
+    
+    public static String nomeTela = "telaPedidosCozinha";
+    
     /**
      * Creates new form jdPedidosCozinha
      */
-    public jdPedidosCozinha(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public jdPedidosCozinha() {
         initComponents();
-        
     }
 
     /**
@@ -33,11 +33,12 @@ public class jdPedidosCozinha extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         btnFechar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablePreparo = new javax.swing.JTable();
+        btnRecebido1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableNovo = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnRecebido = new javax.swing.JButton();
@@ -78,8 +79,8 @@ public class jdPedidosCozinha extends javax.swing.JDialog {
             .addComponent(btnFechar)
         );
 
-        jTable2.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablePreparo.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+        tablePreparo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"0021", "(1) X Salada"},
                 {"0020", "(2) Coca 2L + (2) X Tudo"}
@@ -88,9 +89,21 @@ public class jdPedidosCozinha extends javax.swing.JDialog {
                 "Nº Pedido", "Pedido"
             }
         ));
-        jTable2.setPreferredSize(new java.awt.Dimension(150, 360));
-        jTable2.setRowHeight(50);
-        jScrollPane2.setViewportView(jTable2);
+        tablePreparo.setPreferredSize(new java.awt.Dimension(150, 360));
+        tablePreparo.setRowHeight(50);
+        jScrollPane2.setViewportView(tablePreparo);
+
+        btnRecebido1.setBackground(new java.awt.Color(0, 174, 239));
+        btnRecebido1.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        btnRecebido1.setForeground(new java.awt.Color(254, 254, 254));
+        btnRecebido1.setText("FINALIZAR");
+        btnRecebido1.setBorderPainted(false);
+        btnRecebido1.setOpaque(true);
+        btnRecebido1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecebido1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,14 +114,20 @@ public class jdPedidosCozinha extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRecebido1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnRecebido1)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 174, 239));
@@ -134,8 +153,8 @@ public class jdPedidosCozinha extends javax.swing.JDialog {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        jTable1.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableNovo.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+        tableNovo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"2", "X Salada"},
                 {"1", null}
@@ -144,9 +163,9 @@ public class jdPedidosCozinha extends javax.swing.JDialog {
                 "Quantidade", "Produto"
             }
         ));
-        jTable1.setPreferredSize(new java.awt.Dimension(150, 360));
-        jTable1.setRowHeight(50);
-        jScrollPane1.setViewportView(jTable1);
+        tableNovo.setPreferredSize(new java.awt.Dimension(150, 360));
+        tableNovo.setRowHeight(50);
+        jScrollPane1.setViewportView(tableNovo);
 
         jLabel2.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         jLabel2.setText("Nº ");
@@ -204,12 +223,18 @@ public class jdPedidosCozinha extends javax.swing.JDialog {
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         dispose();
+        System.exit(0);
     }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void btnRecebido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecebido1ActionPerformed
+        System.out.println(this.tableNovo.getSelectedRow());
+    }//GEN-LAST:event_btnRecebido1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnRecebido;
+    private javax.swing.JButton btnRecebido1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -218,7 +243,7 @@ public class jdPedidosCozinha extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tableNovo;
+    private javax.swing.JTable tablePreparo;
     // End of variables declaration//GEN-END:variables
 }
