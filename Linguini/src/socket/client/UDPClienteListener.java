@@ -2,7 +2,9 @@ package socket.client;
 
 import java.net.DatagramSocket;
 import java.net.SocketException;
+import utils.controller.Sessao;
 import view.jdMensagem;
+import view.jdPedidosCozinha;
 
 /**
  * @author guilherme-souza
@@ -30,7 +32,23 @@ public class UDPClienteListener extends Thread {
     }
     
     private void rotinaListener(byte[] bytes){
-        jdMensagem telaMensagem = new jdMensagem(null, true, new String(bytes));
+        String msg = new String(bytes);
+        int idPedido = Integer.parseInt(msg.split("/")[1]);
+        if(msg.contains("pedido")){
+            jdPedidosCozinha tela = Sessao.getTela();
+            if(tela != null) {
+                tela.pedidoRecebido(idPedido);
+            }
+        } else if(msg.contains("recebido")) {
+            //rotina pedido foi pra cozinha
+        } else if(msg.contains("finalizado")) {
+            //rotina finalizar
+        }
+    }
+    
+    private void rotinaTeste(byte[] bytes){
+        String msg = new String(bytes);
+        jdMensagem telaMensagem = new jdMensagem(null, true, msg);
         telaMensagem.setVisible(true);
     }
 }

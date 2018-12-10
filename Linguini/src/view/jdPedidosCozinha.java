@@ -40,7 +40,7 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableNovo = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        txtIdPedido = new javax.swing.JLabel();
         btnRecebido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -125,7 +125,7 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRecebido1)
                 .addContainerGap())
         );
@@ -170,8 +170,8 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         jLabel2.setText("Nº ");
 
-        jLabel3.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
-        jLabel3.setText("0022");
+        txtIdPedido.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
+        txtIdPedido.setText("000022");
 
         btnRecebido.setBackground(new java.awt.Color(0, 174, 239));
         btnRecebido.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
@@ -191,7 +191,7 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
                         .addGap(179, 179, 179)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel3))
+                        .addComponent(txtIdPedido))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -210,7 +210,7 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(txtIdPedido))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -227,9 +227,15 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnRecebido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecebido1ActionPerformed
-        System.out.println(this.tableNovo.getSelectedRow());
+        int row = this.tablePreparo.getSelectedRow();
+        if(row != -1){
+            
+        }
     }//GEN-LAST:event_btnRecebido1ActionPerformed
 
+    public void pedidoRecebido(int idPedido){
+        System.out.println("PEDIDO: "+idPedido);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;
@@ -237,7 +243,6 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
     private javax.swing.JButton btnRecebido1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -245,5 +250,6 @@ public class jdPedidosCozinha extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableNovo;
     private javax.swing.JTable tablePreparo;
+    private javax.swing.JLabel txtIdPedido;
     // End of variables declaration//GEN-END:variables
 }
