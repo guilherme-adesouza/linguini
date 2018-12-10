@@ -722,7 +722,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHistoricoMouseExited
 
     private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoActionPerformed
-        // TODO add your handling code here:
+        jdPedidosHistorico telaPedidosHistorico = new jdPedidosHistorico(this, true);
+        telaPedidosHistorico.setLocationRelativeTo(telaPedidosHistorico);
+        telaPedidosHistorico.setVisible(true);
     }//GEN-LAST:event_btnHistoricoActionPerformed
 
     private void btnSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseEntered

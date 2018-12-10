@@ -77,7 +77,7 @@ public class PedidoController implements Controller<Pedido> {
                 dadosTabela[lin][2] = calen.getDataHoraDeDate(p.getDataHora());
                 dadosTabela[lin][3] = "Venda direta";
                 if (p.getMesa() != null) {
-                    dadosTabela[lin][3] = "Comanda n. "+p.getMesa();
+                    dadosTabela[lin][3] = "Comanda n. " + p.getMesa();
                 }
                 if (p.getStatus() == 'A') {
                     dadosTabela[lin][4] = "Em preparo";
@@ -103,10 +103,10 @@ public class PedidoController implements Controller<Pedido> {
                     dadosTabela[lin][4] = "Pendente";
                 }
                 if (p.getStatus() == 'C') {
-                    dadosTabela[lin][4] = "Em preparo";
+                    dadosTabela[lin][4] = "Aguardando";
                 }
                 if (p.getStatus() == 'B') {
-                    dadosTabela[lin][4] = "Em preparo";
+                    dadosTabela[lin][4] = "Aguardando";
                 }
                 if (p.getStatus() == 'D') {
                     dadosTabela[lin][4] = "Servido";
@@ -210,7 +210,7 @@ public class PedidoController implements Controller<Pedido> {
                 dadosTabela[lin][2] = calen.getDataHoraDeDate(p.getDataHora());
                 dadosTabela[lin][3] = "Venda direta";
                 if (p.getMesa() != null) {
-                    dadosTabela[lin][3] = "Comanda n. "+p.getMesa();
+                    dadosTabela[lin][3] = "Comanda n. " + p.getMesa();
                 }
                 if (p.getStatus() == 'A') {
                     dadosTabela[lin][4] = "Em preparo";
@@ -239,7 +239,7 @@ public class PedidoController implements Controller<Pedido> {
                     dadosTabela[lin][4] = "Em preparo";
                 }
                 if (p.getStatus() == 'B') {
-                    dadosTabela[lin][4] = "Em preparo";
+                    dadosTabela[lin][4] = "Aguardando";
                 }
                 if (p.getStatus() == 'D') {
                     dadosTabela[lin][4] = "Servido";
