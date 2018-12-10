@@ -90,7 +90,7 @@ public class PedidoDAO extends GenericoDAO<Pedido> {
         return item;
     }
 
-    public MensagemRetorno consultarAtivosComCriterioAberto(String tabela, String[] camposPesquisa, String valor, String orderBy) {
+    public MensagemRetorno consultarAtivosComCriterioAberto(String tabela, String[] camposPesquisa, String valor, String pago, String orderBy) {
 
         MensagemRetorno retorno = new MensagemRetorno(false);
         Session sessao = null;
@@ -100,18 +100,27 @@ public class PedidoDAO extends GenericoDAO<Pedido> {
             sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
             String order = " id";
-
+            if(pago.equals("todos")){
+                pago="situacao=true";
+            }
+            if(pago.equals("pago")){
+                pago="data_hora_fechado is not null";
+            }
+            if(pago.equals("npago")){
+                pago="data_hora_fechado is null";
+            }
+            
             if (orderBy != null && !orderBy.isEmpty()) {
                 order = orderBy;
             }
             if (valor.equals("Delivery")) {
-                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE data_hora_fechado is null and entregador_pessoa_id is not null and situacao=true ORDER BY " + order);
+                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE entregador_pessoa_id is not null and situacao=true and "+pago+" ORDER BY " + order);
                 retorno.setLista((List) q.list());
             } else if (valor.equals("mesa")) {
-                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE data_hora_fechado is null and mesa is not null and situacao=true ORDER BY " + order);
+                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE mesa is not null and situacao=true and "+pago+" ORDER BY " + order);
                 retorno.setLista((List) q.list());
             } else {
-                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE data_hora_fechado is null and situacao=true ORDER BY " + order);
+                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE situacao=true and "+pago+" ORDER BY " + order);
                 retorno.setLista((List) q.list());
             }
             //retorno.setLista((List) q.list());

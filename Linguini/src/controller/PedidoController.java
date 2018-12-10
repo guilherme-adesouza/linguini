@@ -75,18 +75,29 @@ public class PedidoController implements Controller<Pedido> {
                 dadosTabela[lin][0] = p.getId();
                 dadosTabela[lin][1] = p.getValor();
                 dadosTabela[lin][2] = calen.getDataHoraDeDate(p.getDataHora());
-                dadosTabela[lin][3] = p.getMesa();
+                dadosTabela[lin][3] = "Venda direta";
+                if (p.getMesa() != null) {
+                    dadosTabela[lin][3] = "Comanda n. "+p.getMesa();
+                }
                 if (p.getStatus() == 'A') {
                     dadosTabela[lin][4] = "Em preparo";
+                    dadosTabela[lin][3] = "Delivery";
                 }
                 if (p.getStatus() == 'I') {
                     dadosTabela[lin][4] = "Iniciado";
+                    dadosTabela[lin][3] = "Delivery";
                 }
                 if (p.getStatus() == 'S') {
                     dadosTabela[lin][4] = "Saiu para entregar";
+                    dadosTabela[lin][3] = "Delivery";
                 }
                 if (p.getStatus() == 'F') {
                     dadosTabela[lin][4] = "Finalizado";
+                    dadosTabela[lin][3] = "Delivery";
+                }
+                if (p.getStatus() == 'O') {
+                    dadosTabela[lin][4] = "Finalizado";
+                    dadosTabela[lin][3] = "Delivery";
                 }
                 if (p.getStatus() == 'P') {
                     dadosTabela[lin][4] = "Pendente";
@@ -94,14 +105,15 @@ public class PedidoController implements Controller<Pedido> {
                 if (p.getStatus() == 'C') {
                     dadosTabela[lin][4] = "Em preparo";
                 }
+                if (p.getStatus() == 'B') {
+                    dadosTabela[lin][4] = "Em preparo";
+                }
                 if (p.getStatus() == 'D') {
                     dadosTabela[lin][4] = "Servido";
                 }
-                if (p.getStatus() == 'O') {
-                    dadosTabela[lin][4] = "Finalizado";
-                }
-                if (p.getStatus() == 'U') {
-                    dadosTabela[lin][4] = "Finalizado";
+
+                if (p.getPessoaId() != null) {
+                    dadosTabela[lin][5] = p.getPessoaId().getNome();
                 }
                 if (p.getPessoaId() != null) {
                     dadosTabela[lin][5] = p.getPessoaId().getNome();
@@ -112,6 +124,7 @@ public class PedidoController implements Controller<Pedido> {
                 if (p.getDataHoraFechado() != null) {
                     dadosTabela[lin][6] = "Pago";
                 }
+
                 lin++;
             }
 
@@ -164,7 +177,7 @@ public class PedidoController implements Controller<Pedido> {
         }
     }
 
-    public void popularTabelaAbertos(JTable tabela, String criterio, String ordenacao) {
+    public void popularTabelaAbertos(JTable tabela, String criterio, String pago, String ordenacao) {
 // dados da tabela
         Object[][] dadosTabela = null;
 
@@ -173,7 +186,7 @@ public class PedidoController implements Controller<Pedido> {
 
         // cria matriz de acordo com nº de registros da tabela
         try {
-            MensagemRetorno ms = this.pedidoDAO.consultarAtivosComCriterioAberto(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
+            MensagemRetorno ms = this.pedidoDAO.consultarAtivosComCriterioAberto(this.tabela, this.getCamposPesquisaveis(), criterio, pago, ordenacao);
             if (ms.isSucesso()) {
                 dadosTabela = new Object[ms.getLista().size()][cabecalho.length];
             }
@@ -187,47 +200,64 @@ public class PedidoController implements Controller<Pedido> {
 
         // efetua consulta na tabela
         try {
-            MensagemRetorno ms = this.pedidoDAO.consultarAtivosComCriterioAberto(this.tabela, this.getCamposPesquisaveis(), criterio, ordenacao);
+            MensagemRetorno ms = this.pedidoDAO.consultarAtivosComCriterioAberto(this.tabela, this.getCamposPesquisaveis(), criterio, pago, ordenacao);
 
             for (Object o : ms.getLista()) {
                 Pedido p = (Pedido) o;
-               
-                    dadosTabela[lin][0] = p.getId();
-                    dadosTabela[lin][1] = p.getValor();
-                    dadosTabela[lin][2] = calen.getDataHoraDeDate(p.getDataHora());
-                    dadosTabela[lin][3] = p.getMesa();
-                    if (p.getStatus() == 'A') {
-                        dadosTabela[lin][4] = "Em preparo";
-                    }
-                    if (p.getStatus() == 'I') {
-                        dadosTabela[lin][4] = "Iniciado";
-                    }
-                    if (p.getStatus() == 'S') {
-                        dadosTabela[lin][4] = "Saiu para entregar";
-                    }
-                    if (p.getStatus() == 'F') {
-                        dadosTabela[lin][4] = "Finalizado";
-                    }
-                    if (p.getStatus() == 'P') {
-                        dadosTabela[lin][4] = "Pendente";
-                    }
-                    if (p.getStatus() == 'C') {
-                        dadosTabela[lin][4] = "Em preparo";
-                    }
-                    if (p.getStatus() == 'D') {
-                        dadosTabela[lin][4] = "Servido";
-                    }
-                    if (p.getPessoaId() != null) {
-                        dadosTabela[lin][5] = p.getPessoaId().getNome();
-                    }
-                    if (p.getPessoaId() != null) {
-                        dadosTabela[lin][5] = p.getPessoaId().getNome();
-                    }
-                    if (p.getDataHoraFechado() == null) {
-                        dadosTabela[lin][6] = "Em aberto";
-                    }
 
-                
+                dadosTabela[lin][0] = p.getId();
+                dadosTabela[lin][1] = p.getValor();
+                dadosTabela[lin][2] = calen.getDataHoraDeDate(p.getDataHora());
+                dadosTabela[lin][3] = "Venda direta";
+                if (p.getMesa() != null) {
+                    dadosTabela[lin][3] = "Comanda n. "+p.getMesa();
+                }
+                if (p.getStatus() == 'A') {
+                    dadosTabela[lin][4] = "Em preparo";
+                    dadosTabela[lin][3] = "Delivery";
+                }
+                if (p.getStatus() == 'I') {
+                    dadosTabela[lin][4] = "Iniciado";
+                    dadosTabela[lin][3] = "Delivery";
+                }
+                if (p.getStatus() == 'S') {
+                    dadosTabela[lin][4] = "Saiu para entregar";
+                    dadosTabela[lin][3] = "Delivery";
+                }
+                if (p.getStatus() == 'F') {
+                    dadosTabela[lin][4] = "Finalizado";
+                    dadosTabela[lin][3] = "Delivery";
+                }
+                if (p.getStatus() == 'O') {
+                    dadosTabela[lin][4] = "Finalizado";
+                    dadosTabela[lin][3] = "Delivery";
+                }
+                if (p.getStatus() == 'P') {
+                    dadosTabela[lin][4] = "Pendente";
+                }
+                if (p.getStatus() == 'C') {
+                    dadosTabela[lin][4] = "Em preparo";
+                }
+                if (p.getStatus() == 'B') {
+                    dadosTabela[lin][4] = "Em preparo";
+                }
+                if (p.getStatus() == 'D') {
+                    dadosTabela[lin][4] = "Servido";
+                }
+
+                if (p.getPessoaId() != null) {
+                    dadosTabela[lin][5] = p.getPessoaId().getNome();
+                }
+                if (p.getPessoaId() != null) {
+                    dadosTabela[lin][5] = p.getPessoaId().getNome();
+                }
+                if (p.getDataHoraFechado() == null) {
+                    dadosTabela[lin][6] = "Em aberto";
+                }
+                if (p.getDataHoraFechado() != null) {
+                    dadosTabela[lin][6] = "Pago";
+                }
+
                 lin++;
             }
 
@@ -311,7 +341,7 @@ public class PedidoController implements Controller<Pedido> {
         campos.add(new CampoOrdenavel("ID", "id"));
         campos.add(new CampoOrdenavel("Valor Total", "valor"));
         campos.add(new CampoOrdenavel("Data", "data_hora"));
-        campos.add(new CampoOrdenavel("Mesa", "mesa"));
+        campos.add(new CampoOrdenavel("Mesa / Pedido", "mesa"));
         campos.add(new CampoOrdenavel("Status", "status"));
         campos.add(new CampoOrdenavel("Cliente", "pessoa_id"));
         campos.add(new CampoOrdenavel("Situação", "data_hora_fechado"));

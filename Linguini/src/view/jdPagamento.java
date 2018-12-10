@@ -6,6 +6,7 @@ import controller.FormaPagamentoController;
 import controller.PedidoController;
 import dao.MensagemRetorno;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import model.ContasReceber;
@@ -364,7 +365,7 @@ public class jdPagamento extends javax.swing.JDialog {
                     this.ret = 1;
                     dispose();
                 } else if (this.pedido.getStatus() != 'F') {
-                    this.pedido.setStatus('U');
+                    this.pedido.setStatus('B');
                     this.pedido.setDataHoraFechado(new Date());
                     this.pedidoController.salvar(this.pedido);
                     JOptionPane.showMessageDialog(rootPane, msg.getMensagem());
@@ -375,12 +376,12 @@ public class jdPagamento extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, msg.getMensagem(), "ERRO!", JOptionPane.WARNING_MESSAGE);
 
                 }
-            } else {
-                this.ret = 0;
-                JOptionPane.showMessageDialog(this, "Valor faltante", "ERRO!", JOptionPane.WARNING_MESSAGE);
-
             }
+        } else {
+            this.ret = 0;
+            JOptionPane.showMessageDialog(this, "Valor faltante", "ERRO!", JOptionPane.WARNING_MESSAGE);
         }
+
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 

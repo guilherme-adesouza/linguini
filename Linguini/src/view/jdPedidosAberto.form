@@ -7,7 +7,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="Pedidos Abertos"/>
+    <Property name="title" type="java.lang.String" value="Pedidos em Aberto"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -41,6 +41,8 @@
                       <Component id="rbComandas" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="rbAmbos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                      <Component id="checkMostrarPagos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -66,6 +68,7 @@
                   <Component id="rbDelivery" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="rbComandas" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="rbAmbos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkMostrarPagos" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -91,7 +94,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="0" pref="798" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="839" max="32767" attributes="0"/>
                   <Component id="btnFechar" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               </Group>
@@ -164,7 +167,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="1" pref="873" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" alignment="1" pref="914" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -228,7 +231,12 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ambos"/>
+        <Property name="text" type="java.lang.String" value="Todos"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkMostrarPagos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mostrar somente pagos"/>
       </Properties>
     </Component>
   </SubComponents>

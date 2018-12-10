@@ -24,14 +24,16 @@ public class jdPedidosAberto extends javax.swing.JDialog {
 
         this.pedido = new Pedido();
         this.pedidoController = new PedidoController();
-        this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", "");
+        this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", "todos", "");
 
         this.cmbFiltros.addItem("ID");
         this.cmbFiltros.addItem("Cliente");
         this.cmbFiltros.addItem("Mesa");
         this.cmbFiltros.addItem("Status");
         this.cmbFiltros.addItem("Valor");
+        this.cmbFiltros.addItem("Situacao");
         this.cmbFiltros.setSelectedIndex(0);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -51,9 +53,10 @@ public class jdPedidosAberto extends javax.swing.JDialog {
         rbDelivery = new javax.swing.JRadioButton();
         rbComandas = new javax.swing.JRadioButton();
         rbAmbos = new javax.swing.JRadioButton();
+        checkMostrarPagos = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Pedidos Abertos");
+        setTitle("Pedidos em Aberto");
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -77,7 +80,7 @@ public class jdPedidosAberto extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 798, Short.MAX_VALUE)
+                .addGap(0, 839, Short.MAX_VALUE)
                 .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -117,7 +120,7 @@ public class jdPedidosAberto extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 873, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 914, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +138,9 @@ public class jdPedidosAberto extends javax.swing.JDialog {
         rbComandas.setText("Comandas");
 
         buttonGroup1.add(rbAmbos);
-        rbAmbos.setText("Ambos");
+        rbAmbos.setText("Todos");
+
+        checkMostrarPagos.setText("Mostrar somente pagos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,6 +159,8 @@ public class jdPedidosAberto extends javax.swing.JDialog {
                         .addComponent(rbComandas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rbAmbos)
+                        .addGap(78, 78, 78)
+                        .addComponent(checkMostrarPagos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -174,7 +181,8 @@ public class jdPedidosAberto extends javax.swing.JDialog {
                     .addComponent(jLabel2)
                     .addComponent(rbDelivery)
                     .addComponent(rbComandas)
-                    .addComponent(rbAmbos))
+                    .addComponent(rbAmbos)
+                    .addComponent(checkMostrarPagos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -184,34 +192,43 @@ public class jdPedidosAberto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        String pago = "npago";
+        if (checkMostrarPagos.isSelected()) {
+            pago = "pago";
+        } else {
+            pago = "todos";
+        }
         String aux = "";
         if (rbAmbos.isSelected()) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", "");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", pago, "");
         }
         if (rbDelivery.isSelected()) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "Delivery", "");
-            aux="Delivery";
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "Delivery", pago, "");
+            aux = "Delivery";
         }
         if (rbComandas.isSelected()) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "mesa", "");
-            aux="mesa";
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "mesa", pago, "");
+            aux = "mesa";
         }
-        if(cmbFiltros.getSelectedIndex()==0){
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, "ID");
+        if (cmbFiltros.getSelectedIndex() == 0) {
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "ID");
         }
-        if(cmbFiltros.getSelectedIndex()==1){
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, "pessoa_id");
+        if (cmbFiltros.getSelectedIndex() == 1) {
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "pessoa_id");
         }
-        if(cmbFiltros.getSelectedIndex()==2){
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, "mesa");
+        if (cmbFiltros.getSelectedIndex() == 2) {
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "mesa");
         }
-        if(cmbFiltros.getSelectedIndex()==3){
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, "status");
+        if (cmbFiltros.getSelectedIndex() == 3) {
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "status");
         }
-        if(cmbFiltros.getSelectedIndex()==4){
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, "valor");
+        if (cmbFiltros.getSelectedIndex() == 4) {
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "valor");
         }
-        
+        if (cmbFiltros.getSelectedIndex() == 5) {
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "Situacao");
+        }
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -223,6 +240,7 @@ public class jdPedidosAberto extends javax.swing.JDialog {
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox checkMostrarPagos;
     private javax.swing.JComboBox<String> cmbFiltros;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
