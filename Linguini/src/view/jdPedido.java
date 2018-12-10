@@ -13,7 +13,6 @@ import dao.MensagemRetorno;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.ItemEvent;
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -36,7 +35,7 @@ import utils.controller.Validacao;
  * @author vitor-olavo
  */
 public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
-    
+
     private Produto produto;
     private ProdutoController produtoController;
     private ItemPedido itemPedido;
@@ -61,13 +60,13 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
     private int cli_ent_ped;//cli = 1 / ped = 0 / ent = 2 / cidade = 3 / deli = 4
 
     public static String nomeTela = "telaPedido";
-    
+
     private void quantidade() {
         if (this.tfdQuantidade.getText().equals("")) {
             this.tfdQuantidade.setText("1");
         }
     }
-    
+
     private void atualizarTabela() {
         if (this.pedido.getId() != null) {
             this.itemPedidoController.popularTabelaItens(this.tblPesquisar, this.pedido.getId().intValue());
@@ -75,15 +74,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             atualizarTotal();
         }
     }
-    
-    public void retornoPedidoAdicionado() {
-        this.pedido.setStatus('C');
-    }
-    
-    public void retornoPedidoFinalizado() {
-        this.pedido.setStatus('D');
-    }
-    
+
     private void atualizarTotal() {
         if (this.tfdPrecoDesconto.isFocusable()) {
             this.tfdPrecoTotal.setValue(this.tfdPrecoSubTotal.getValue().subtract(this.tfdPrecoDesconto.getValue()));
@@ -94,9 +85,9 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         }
         this.pedido.setValor(this.tfdPrecoTotal.getValue().add(d_ValorFrete.getValue()));
         this.tfdPrecoTotal.setValue(this.pedido.getValor());
-        
+
     }
-    
+
     private void atualizaGrupoBotoes() {
         if (d_labStatusIniciado.isSelected()) {
             this.pedido.setStatus('I');
@@ -112,7 +103,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         }
         System.out.println("Grupo " + this.pedido.getStatus());
     }
-    
+
     private void carregarPedidoOk() {
         this.btnSalvar.setEnabled(true);
         this.tfdCliente.setEnabled(true);
@@ -145,22 +136,22 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         this.entregadorController = new EntregadorController();
         this.cidadeController = new CidadeController();
         this.cidade = new Cidade();
-        
+
         atualizarTabela();
         this.listaProdutos.setVisible(false);
         this.tfdNumeroPedido.setText("");
         this.tfdNumeroComanda.setText("");;
         quantidade();
-        
+
         this.tfdCaixa.setText(this.usuario.getNome());
         this.cli_ent_ped = 0;
-        
+
         this.pedidoController.popularCombo(this.comboNumComanda);
         this.entregadorController.popularCombo(this.cmbEntregador);
-        
+
         Formatacao.formatarTelefone(this.d_tffTelefone);
         d_tfdNumero.setDocument(new ControlarEntradaNumero(5));
-        
+
         if (!Delivery) {
             this.jPanel5.setVisible(false);
         } else {
@@ -169,9 +160,9 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         }
         this.tfdPrecoDesconto.setVisible(false);
         this.jLabel17.setVisible(false);
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1068,11 +1059,11 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         atualizarTotal();
-        
+
         this.pedidoController.salvar(this.pedido);
         if (checkDelivery.isSelected() && Validacao.camposPreenchidos(camposObrigatorios()) && validarClienteDelivery()
                 && validarCidadeDelivery() && validarTelefoneDelivery() && validarEntregadorDelivery()) {
-            
+
             this.pedido.setBairro(this.d_tfdBairro.getText());
             this.pedido.setLogradouro(this.d_tfdRua.getText());
             this.pedido.setNumero(Integer.parseInt(this.d_tfdNumero.getText()));
@@ -1103,14 +1094,14 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao salvar delivery", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                
+
             }
 
 //        } else {
 //            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
         if (!this.checkDelivery.isSelected()) {
-            
+
             jdPagamento telaFormaPagamento = new jdPagamento((Frame) this.getParent(), true, this.pedido);
             telaFormaPagamento.setLocationRelativeTo(telaFormaPagamento);
             telaFormaPagamento.setVisible(true);
@@ -1165,7 +1156,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             listModel.addElement(p.getDescricao());
         }
         this.listaProdutos.setModel(listModel);
-        
+
         if (this.listaProdutos.getModel().getSize() > 0 && this.txtBusca.getText().length() > 0) {
             this.listaProdutos.setVisible(true);
             this.listaProdutos.setSelectedIndex(0);
@@ -1204,7 +1195,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         //Cria o pedido caso ele não exista
         MensagemRetorno ok = new MensagemRetorno();
         if (!listaProdutos.isSelectionEmpty()) {
-            
+
             if (this.pedido.getId() == null) {
                 this.pedido.setDataHora(new Date());
                 this.pedido.setValor(this.tfdPrecoTotal.getValue());
@@ -1328,7 +1319,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             this.d_labCidade.setEnabled(true);
             this.d_labEntregador.setEnabled(true);
             this.d_labStatus.setEnabled(true);
-            
+
             this.d_tfdBairro.setEnabled(true);
             this.d_tfdCliente.setEnabled(true);
             this.d_tffTelefone.setEnabled(true);
@@ -1336,14 +1327,14 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             this.d_tfdNumero.setEnabled(true);
             this.d_tfdCidade.setEnabled(true);
             this.cmbEntregador.setEnabled(true);
-            
+
             this.d_labStatusAguardando.setEnabled(true);
             this.d_labStatusFinalizado.setEnabled(true);
             this.d_labStatusSaiu.setEnabled(true);
             this.d_labStatusIniciado.setEnabled(true);
             this.d_labStatusIniciado.setSelected(true);
             this.jPanel5.setVisible(true);
-            
+
             this.comboNumComanda.setEnabled(false);
             this.pedido.setMesa(null);
 //            if (!d_labStatusFinalizado.isSelected()) {
@@ -1352,9 +1343,9 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         } else if (!checkDelivery.isSelected()) {
             this.jPanel5.setVisible(false);
             this.comboNumComanda.setEnabled(true);
-            
+
         }
-        
+
 
     }//GEN-LAST:event_checkDeliveryStateChanged
 
@@ -1539,7 +1530,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             return true;
         }
     }
-    
+
     public boolean validarCidadeDelivery() {
         if (d_tfdCidade.getText().equals("Não informado") || this.cidade == null || this.cidade.equals(null)) {
             d_tfdCidade.setBackground(Color.yellow);
@@ -1548,7 +1539,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             return true;
         }
     }
-    
+
     public boolean validarEntregadorDelivery() {
         if (this.cmbEntregador.getSelectedIndex() == 0) {
             cmbEntregador.setBackground(Color.yellow);
@@ -1557,7 +1548,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             return true;
         }
     }
-    
+
     public boolean validarTelefoneDelivery() {
         String cont = Formatacao.removerFormatacao(d_tffTelefone.getText());
         String replace = cont.replace(' ', 'a');
@@ -1569,7 +1560,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             return false;
         }
     }
-    
+
     private JTextField[] camposObrigatorios() {
         validarClienteDelivery();
         validarCidadeDelivery();
@@ -1578,7 +1569,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
         JTextField[] campos = {this.d_tfdBairro, this.d_tfdNumero, this.d_tfdRua};
         return campos;
     }
-    
+
     @Override
     public void carregar(int codigo) {
         //carrega pedido
@@ -1601,7 +1592,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 this.tfdCliente.setText("");
                 this.cliente = null;
             }
-            
+
             this.comboNumComanda.removeAllItems();
             this.pedidoController.popularCombo(this.comboNumComanda);
             this.tfdNumeroComanda.setVisible(true);
@@ -1616,8 +1607,8 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 this.checkDelivery.setEnabled(true);
             }
             //se a venda resgatada for delivery
-            if (this.pedido.getStatus() == 'O' || this.pedido.getStatus() == 'I' || this.pedido.getStatus() == 'A' || this.pedido.getStatus() == 'S' || this.pedido.getStatus() == 'F') {
-                
+            //if (this.pedido.getStatus() == 'O' || this.pedido.getStatus() == 'I' || this.pedido.getStatus() == 'A' || this.pedido.getStatus() == 'S' || this.pedido.getStatus() == 'F') {
+            if (this.pedido.getEntregadorPessoaId() != null) {
                 this.comboNumComanda.setEnabled(false);
                 this.comboNumComanda.setEditable(false);
                 this.d_tfdCliente.setText(this.pedido.getPessoaId().getNome() + "");
@@ -1654,7 +1645,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             } else {
                 this.jPanel5.setVisible(false);
             }
-            
+
             this.tfdObservacao.setText(this.pedido.getObservacao());
             atualizarTabela();
             carregarPedidoOk();
@@ -1675,7 +1666,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                     this.cidade = this.cliente.getCidadeId();
                 }
             }
-            
+
         }
         if (this.cli_ent_ped == 1) {
             MensagemRetorno retorno = this.clienteController.consultarPorID(codigo);
@@ -1684,7 +1675,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 this.tfdCliente.setText(this.cliente.getNome() + "");
                 this.pedido.setPessoaId(this.cliente);
             }
-            
+
         }
         if (this.cli_ent_ped == 2) {
             MensagemRetorno retorno = this.entregadorController.consultarPorID(codigo);
@@ -1693,7 +1684,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 this.d_labEntregador.setText(this.entregador.getPessoa().getNome() + "");
             }
         }
-        
+
         if (this.cli_ent_ped == 3) {
             MensagemRetorno retorno = this.cidadeController.pesquisarPorId(codigo);
             this.cidade = (Cidade) retorno.getObjeto();
@@ -1701,9 +1692,9 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 this.d_tfdCidade.setText(this.cidade.getNome() + "");
             }
         }
-        
+
     }
-    
+
     @Override
     public void limparCampos(int codigo) {
         if (this.pedido.getId() == null || this.pedido.getId() == codigo) {
@@ -1730,7 +1721,7 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
             this.btnSalvar.setEnabled(false);
         }
     }
-    
+
     public void limpaCamposItemPedido() {
         this.txtBusca.setText("");
         this.tfdQuantidade.setText("1");
