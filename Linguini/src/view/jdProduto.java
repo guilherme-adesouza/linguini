@@ -82,6 +82,9 @@ public class jdProduto extends javax.swing.JDialog implements Pesquisavel {
         this.tfdEstoque.setText("0");
         this.tfdEstoqueMinimo.setText("0");
         this.tfdTempoPreparo.setText("0");
+        
+        this.comboCozinha.setVisible(false);
+        this.jLabel6.setVisible(false);
     }
 
     /**

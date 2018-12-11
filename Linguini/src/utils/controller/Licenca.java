@@ -9,7 +9,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Usuario;
+import utils.view.Calendario;
 
 /**
  *
@@ -29,6 +32,7 @@ public class Licenca {
         this.user = new Usuario();
         this.userCtr = new UsuarioController();
         Date data = new Date();
+        Calendario cal = new Calendario();
         SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try {
             BufferedReader br = new BufferedReader(new FileReader("Licenca.txt"));
@@ -67,9 +71,21 @@ public class Licenca {
         this.user = (Usuario) msg.getObjeto();
 
         if (user.getNome().equals(textoSeparado[0]) && !data.after(this.dataFinal)) {
+            String aviso = "0";
             System.out.println("ok");
             System.out.println(dataFinal + "f erro nd" + data);
-            this.rodape = (this.dataFinal.toString() + " Registrado para " + user.getNome());
+            Date dateCompara;
+            try {
+                dateCompara = sdf2.parse(cal.obterDataAtualMenos(5) + " 23:59");
+                if(data.after(dateCompara)){
+                aviso = "1";
+            }
+            
+            } catch (ParseException ex) {
+                Logger.getLogger(Licenca.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            this.rodape = (aviso+"Registrado para " + user.getNome()+" - Vencimento em: "+ textoSeparado[1]);
 
             return true;
         } else {

@@ -31,6 +31,7 @@ public class jfLogin extends javax.swing.JFrame {
     private UsuarioController usuarioController;
     private Usuario usuario;
     private Licenca licenca;
+    private Sessao sessao;
 
     /**
      * Creates new form jfLogin
@@ -201,12 +202,13 @@ public class jfLogin extends javax.swing.JFrame {
             MensagemRetorno msg = this.usuarioController.autenticar(usuario);
             if (msg.isSucesso()) {
                 Sessao.setUsuario((Usuario) msg.getObjeto());
-                
+
                 if (licenca.validaLicenca()) {
-                    if(this.usuarioController.grupoCozinha()) {
+                    if (this.usuarioController.grupoCozinha()) {
                         jdPedidosCozinha cozinha = new jdPedidosCozinha();
                         cozinha.setVisible(true);
                     } else {
+                        Sessao.setLicenca(this.licenca);
                         Home home;
                         try {
                             home = new Home();
