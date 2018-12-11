@@ -52,9 +52,9 @@ public class jdPagamento extends javax.swing.JDialog {
         this.pedido = new Pedido();
         this.pedido = pedido;
 
-        this.labTotalaPagar.setText(this.pedido.getValor() + "");
-        this.labTotalFaltante.setText(this.pedido.getValor() + "");
-        this.labTotalPago.setText("0");
+        this.labTotalaPagar.setText(this.pedido.getValor() + ".00");
+        this.labTotalFaltante.setText(this.pedido.getValor() + ".00");
+        this.labTotalPago.setText("0.00");
 
     }
 
@@ -344,7 +344,7 @@ public class jdPagamento extends javax.swing.JDialog {
             this.formaPagamento = (FormaPagamento) formaPag.getObjeto();
         }
 
-        if (this.labTotalFaltante.getText().equals("0") || this.labTotalFaltante.equals("0.00")) {
+        if (this.labTotalFaltante.getText().equals("0") || this.labTotalFaltante.getText().equals("0.00")) {
             this.contaReceber.setDataPagamento(new Date());
             this.contaReceber.setDataPrevista(new Date());
             this.contaReceber.setPedidoId(this.pedido);
@@ -379,6 +379,7 @@ public class jdPagamento extends javax.swing.JDialog {
             }
         } else {
             this.ret = 0;
+            System.out.println(this.labTotalFaltante.getText()+" Aki");
             JOptionPane.showMessageDialog(this, "Valor faltante", "ERRO!", JOptionPane.WARNING_MESSAGE);
         }
 
@@ -402,21 +403,39 @@ public class jdPagamento extends javax.swing.JDialog {
         BigDecimal faltante = this.pedido.getValor().subtract(total);
 
         this.labTotalFaltante.setText(faltante + "");
+        if (this.labTotalFaltante.getText().length() < 3) {
+            this.labTotalFaltante.setText(faltante + ".00");
+        }
         this.labTotalPago.setText(total + "");
+        if (this.labTotalPago.getText().length() < 3) {
+            this.labTotalPago.setText(total + ".00");
+        }
     }//GEN-LAST:event_tfdPrecoTotalFocusLost
 
     private void tfdPrecoTotal1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdPrecoTotal1FocusLost
         BigDecimal total = this.tfdPrecoTotal.getValue().add(this.tfdPrecoTotal1.getValue().add(this.tfdPrecoTotal2.getValue()));
         BigDecimal faltante = this.pedido.getValor().subtract(total);
         this.labTotalFaltante.setText(faltante + "");
+        if (this.labTotalFaltante.getText().length() < 3) {
+            this.labTotalFaltante.setText(faltante + ".00");
+        }
         this.labTotalPago.setText(total + "");
+        if (this.labTotalPago.getText().length() < 3) {
+            this.labTotalPago.setText(total + ".00");
+        }
     }//GEN-LAST:event_tfdPrecoTotal1FocusLost
 
     private void tfdPrecoTotal2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfdPrecoTotal2FocusLost
         BigDecimal total = this.tfdPrecoTotal.getValue().add(this.tfdPrecoTotal1.getValue().add(this.tfdPrecoTotal2.getValue()));
         BigDecimal faltante = this.pedido.getValor().subtract(total);
         this.labTotalFaltante.setText(faltante + "");
+        if (this.labTotalFaltante.getText().length() < 3) {
+           this.labTotalFaltante.setText(faltante + ".00");
+        }
         this.labTotalPago.setText(total + "");
+         if (this.labTotalPago.getText().length() < 3) {
+           this.labTotalPago.setText(total + ".00");
+        }
     }//GEN-LAST:event_tfdPrecoTotal2FocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
