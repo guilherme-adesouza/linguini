@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.List;
 import javax.swing.JComboBox;
 import model.Pedido;
@@ -15,7 +16,7 @@ import utils.view.ComboItens;
  * @author guilherme-souza
  */
 public class PedidoDAO extends GenericoDAO<Pedido> {
-    
+
     public MensagemRetorno consultarPorStatus(char status) {
         MensagemRetorno retorno = new MensagemRetorno(false);
         Session sessao = null;
@@ -117,7 +118,7 @@ public class PedidoDAO extends GenericoDAO<Pedido> {
         return item;
     }
 
-    public MensagemRetorno consultarAtivosComCriterioAberto(String tabela, String[] camposPesquisa, String valor, String pago, String orderBy) {
+    public MensagemRetorno consultarAtivosComCriterioAberto(String tabela, String[] camposPesquisa, String valor, String pago, String in, String fi, String orderBy) {
 
         MensagemRetorno retorno = new MensagemRetorno(false);
         Session sessao = null;
@@ -127,29 +128,33 @@ public class PedidoDAO extends GenericoDAO<Pedido> {
             sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
             String order = " id";
-            if(pago.equals("todos")){
-                pago="situacao=true";
+            if (pago.equals("todos")) {
+                pago = "situacao=true";
             }
-            if(pago.equals("pago")){
-                pago="data_hora_fechado is not null";
+            if (pago.equals("pago")) {
+                pago = "data_hora_fechado is not null";
             }
-            if(pago.equals("npago")){
-                pago="data_hora_fechado is null";
+            if (pago.equals("npago")) {
+                pago = "data_hora_fechado is null";
             }
-            
+
             if (orderBy != null && !orderBy.isEmpty()) {
                 order = orderBy;
             }
+
             if (valor.equals("Delivery")) {
-                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE entregador_pessoa_id is not null and situacao=true and "+pago+" ORDER BY " + order);
+                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE entregador_pessoa_id is not null and data_hora>='"+in+" 00:01' and data_hora<='"+fi+" 23:59' and situacao=true and " + pago + " ORDER BY " + order);
                 retorno.setLista((List) q.list());
+                //q.setString("idDatein", in);
+                //q.setString("idDatefi", fi);
             } else if (valor.equals("mesa")) {
-                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE mesa is not null and situacao=true and "+pago+" ORDER BY " + order);
+                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE mesa is not null and data_hora>='"+in+" 00:01' and data_hora<='"+fi+" 23:59' and situacao=true and " + pago + " ORDER BY " + order);
                 retorno.setLista((List) q.list());
             } else {
-                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE situacao=true and "+pago+" ORDER BY " + order);
+                org.hibernate.Query q = sessao.createQuery("FROM " + tabela + " WHERE data_hora>='"+in+" 00:01' and data_hora<='"+fi+" 23:59' and situacao=true and " + pago + " ORDER BY " + order);
                 retorno.setLista((List) q.list());
             }
+
             //retorno.setLista((List) q.list());
             retorno.setSucesso(true);
         } catch (HibernateException he) {
@@ -161,20 +166,20 @@ public class PedidoDAO extends GenericoDAO<Pedido> {
         }
         return retorno;
     }
-    
+
     public MensagemRetorno excluirDesativar(int id, String tabela) {
-        
+
         MensagemRetorno retorno = new MensagemRetorno(false);
         Session sessao = null;
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
             this.setParametroSessao(sessao);
-            
-            Query query = sessao.createQuery("UPDATE " + tabela+" SET situacao=false WHERE id = :idParam");
+
+            Query query = sessao.createQuery("UPDATE " + tabela + " SET situacao=false WHERE id = :idParam");
             query.setInteger("idParam", id).executeUpdate();
             t.commit();
-            
+
             retorno.setSucesso(true);
             retorno.setMensagem("Registro excluído com sucesso!");
         } catch (HibernateException he) {

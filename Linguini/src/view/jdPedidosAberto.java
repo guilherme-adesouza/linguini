@@ -3,6 +3,7 @@ package view;
 import controller.CampoOrdenavel;
 import controller.Controller;
 import controller.PedidoController;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import model.Pedido;
 
@@ -14,6 +15,10 @@ public class jdPedidosAberto extends javax.swing.JDialog {
     private Pedido pedido;
     private PedidoController pedidoController;
     private Controller controller;
+    private String in;
+    private String fi;
+    private SimpleDateFormat sdf1;
+    private SimpleDateFormat sdf2;
 
     public static String nomeTela = "telaPedidosAbertos";
 
@@ -24,7 +29,11 @@ public class jdPedidosAberto extends javax.swing.JDialog {
 
         this.pedido = new Pedido();
         this.pedidoController = new PedidoController();
-        this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", "todos", "");
+        this.sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+        this.sdf2 = new SimpleDateFormat("dd/MM/yyyy");
+        this.in = "11/12/2018";
+        this.fi = "11/12/2018";
+        this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", "todos", this.in, this.fi, "");
 
         this.cmbFiltros.addItem("ID");
         this.cmbFiltros.addItem("Cliente");
@@ -33,7 +42,7 @@ public class jdPedidosAberto extends javax.swing.JDialog {
         this.cmbFiltros.addItem("Valor");
         this.cmbFiltros.addItem("Situacao");
         this.cmbFiltros.setSelectedIndex(0);
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -192,6 +201,7 @@ public class jdPedidosAberto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        
         String pago = "npago";
         if (checkMostrarPagos.isSelected()) {
             pago = "pago";
@@ -200,33 +210,33 @@ public class jdPedidosAberto extends javax.swing.JDialog {
         }
         String aux = "";
         if (rbAmbos.isSelected()) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", pago, "");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", pago, in, fi, "");
         }
         if (rbDelivery.isSelected()) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "Delivery", pago, "");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "Delivery", pago, in, fi, "");
             aux = "Delivery";
         }
         if (rbComandas.isSelected()) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "mesa", pago, "");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "mesa", pago, in, fi, "");
             aux = "mesa";
         }
         if (cmbFiltros.getSelectedIndex() == 0) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "ID");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, in, fi, "ID");
         }
         if (cmbFiltros.getSelectedIndex() == 1) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "pessoa_id");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, in, fi, "pessoa_id");
         }
         if (cmbFiltros.getSelectedIndex() == 2) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "mesa");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, in, fi, "mesa");
         }
         if (cmbFiltros.getSelectedIndex() == 3) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "status");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, in, fi, "status");
         }
         if (cmbFiltros.getSelectedIndex() == 4) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "valor");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, in, fi, "valor");
         }
         if (cmbFiltros.getSelectedIndex() == 5) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "Situacao");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, in, fi, "Situacao");
         }
 
     }//GEN-LAST:event_btnPesquisarActionPerformed

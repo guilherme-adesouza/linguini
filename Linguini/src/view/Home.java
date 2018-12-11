@@ -45,9 +45,9 @@ public class Home extends javax.swing.JFrame {
             this.pnlWeather.setVisible(false);
         }
         System.out.println(Sessao.getLicenca().getLicencaRodape().charAt(0));
-        if (Sessao.getLicenca().getLicencaRodape().charAt(0)=='1') {
+        if (Sessao.getLicenca().getLicencaRodape().charAt(0) == '1') {
             String[] textoSeparado = Sessao.getLicenca().getLicencaRodape().split(":");
-            JOptionPane.showMessageDialog(this, "Sua licença vai expirar em, " + textoSeparado[1] + ". Favor contatar o suporte no número: (51) 7070-7070", "Licença vencida", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sua licença vai expirar em: " + textoSeparado[1] + ". Favor contatar o suporte no número: (51) 7070-7070", "Licença", JOptionPane.WARNING_MESSAGE);
         }
         this.labLicenca.setText(Sessao.getLicenca().getLicencaRodape().substring(1));
 

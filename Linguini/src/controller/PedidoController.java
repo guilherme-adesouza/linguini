@@ -25,30 +25,30 @@ public class PedidoController implements Controller<Pedido> {
     String tabela = "Pedido";
     SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     Calendario calen = new Calendario();
-    
+
     public static final char ADICIONADO = 'C';
     public static final char FINALIZADO = 'D';
-    
+
     public PedidoController() {
         this.pedidoDAO = new PedidoDAO();
     }
-    
-    public String produtos(Pedido p){
+
+    public String produtos(Pedido p) {
         String produtos = "";
         for (ItemPedido itemPedido : p.getItemPedidoList()) {
-            produtos += "("+itemPedido.getQuantidade()+")"+" "+""+itemPedido.getProdutoId().getDescricao();
+            produtos += "(" + itemPedido.getQuantidade() + ")" + " " + "" + itemPedido.getProdutoId().getDescricao();
             produtos += " + ";
         }
         return produtos;
     }
-    
-    public MensagemRetorno consultarPorStatus(char status){
+
+    public MensagemRetorno consultarPorStatus(char status) {
         return pedidoDAO.consultarPorStatus(status);
     }
-    
-    public MensagemRetorno atualizarStatus(int idPedido, char status){
+
+    public MensagemRetorno atualizarStatus(int idPedido, char status) {
         MensagemRetorno msg = this.consultarPorID(idPedido);
-        if(msg.isSucesso()){
+        if (msg.isSucesso()) {
             Pedido p = (Pedido) msg.getObjeto();
             p.setStatus(status);
             msg = this.salvar(p);
@@ -204,7 +204,7 @@ public class PedidoController implements Controller<Pedido> {
         }
     }
 
-    public void popularTabelaAbertos(JTable tabela, String criterio, String pago, String ordenacao) {
+    public void popularTabelaAbertos(JTable tabela, String criterio, String pago, String in, String fi, String ordenacao) {
 // dados da tabela
         Object[][] dadosTabela = null;
 
@@ -213,7 +213,7 @@ public class PedidoController implements Controller<Pedido> {
 
         // cria matriz de acordo com nº de registros da tabela
         try {
-            MensagemRetorno ms = this.pedidoDAO.consultarAtivosComCriterioAberto(this.tabela, this.getCamposPesquisaveis(), criterio, pago, ordenacao);
+            MensagemRetorno ms = this.pedidoDAO.consultarAtivosComCriterioAberto(this.tabela, this.getCamposPesquisaveis(), criterio, pago, in, fi, ordenacao);
             if (ms.isSucesso()) {
                 dadosTabela = new Object[ms.getLista().size()][cabecalho.length];
             }
@@ -227,7 +227,7 @@ public class PedidoController implements Controller<Pedido> {
 
         // efetua consulta na tabela
         try {
-            MensagemRetorno ms = this.pedidoDAO.consultarAtivosComCriterioAberto(this.tabela, this.getCamposPesquisaveis(), criterio, pago, ordenacao);
+            MensagemRetorno ms = this.pedidoDAO.consultarAtivosComCriterioAberto(this.tabela, this.getCamposPesquisaveis(), criterio, pago, in, fi, ordenacao);
 
             for (Object o : ms.getLista()) {
                 Pedido p = (Pedido) o;

@@ -3,6 +3,7 @@ package view;
 import controller.CampoOrdenavel;
 import controller.Controller;
 import controller.PedidoController;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import model.Pedido;
 
@@ -14,7 +15,10 @@ public class jdPedidosHistorico extends javax.swing.JDialog {
     private Pedido pedido;
     private PedidoController pedidoController;
     private String pago;
-
+    private String in;
+    private String fi;
+    private SimpleDateFormat sdf1;
+    private SimpleDateFormat sdf2;
     public static String nomeTela = "telaPedidosAbertos";
 
     public jdPedidosHistorico(java.awt.Frame parent, boolean modal) {
@@ -25,7 +29,12 @@ public class jdPedidosHistorico extends javax.swing.JDialog {
 
         this.pedido = new Pedido();
         this.pedidoController = new PedidoController();
-        this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", "todos", "");
+
+        this.sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+        this.sdf2 = new SimpleDateFormat("dd/MM/yyyy");
+        this.in = "1/1/2018";
+        this.fi = "31/12/2018";
+        this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", "todos", this.in, this.fi, "");
 
         this.cmbFiltros.addItem("ID");
         this.cmbFiltros.addItem("Cliente");
@@ -131,14 +140,13 @@ public class jdPedidosHistorico extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 725, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 21, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Ordenar por");
@@ -255,13 +263,13 @@ public class jdPedidosHistorico extends javax.swing.JDialog {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnPesquisar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(cmbFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -279,16 +287,24 @@ public class jdPedidosHistorico extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnPesquisar)
                         .addGap(11, 11, 11)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        
+
+        if (!this.dataInicial.isValid()) {
+            in = sdf1.format(this.dataInicial.getDate());
+            System.out.println(in + "dataaa in");
+        }
+        if (!this.dataFinal.isValid()) {
+            fi = sdf1.format(this.dataFinal.getDate());
+            System.out.println(fi + "dataaa fi");
+        }
         if (rbPago.isSelected()) {
             pago = "pago";
         } else if (rbPagoeNao.isSelected()) {
@@ -298,34 +314,35 @@ public class jdPedidosHistorico extends javax.swing.JDialog {
         }
         String aux = "";
         if (rbAmbos.isSelected()) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", pago, "");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "", pago, in, fi, "");
         }
         if (rbDelivery.isSelected()) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "Delivery", pago, "");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "Delivery", pago, in, fi, "");
             aux = "Delivery";
         }
         if (rbComandas.isSelected()) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "mesa", pago, "");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, "mesa", pago, in, fi, "");
             aux = "mesa";
         }
         if (cmbFiltros.getSelectedIndex() == 0) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "ID");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, in, fi, "ID");
         }
         if (cmbFiltros.getSelectedIndex() == 1) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "pessoa_id");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, in, fi, "pessoa_id");
         }
         if (cmbFiltros.getSelectedIndex() == 2) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "mesa");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, in, fi, "mesa");
         }
         if (cmbFiltros.getSelectedIndex() == 3) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "status");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, in, fi, "status");
         }
         if (cmbFiltros.getSelectedIndex() == 4) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "valor");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, in, fi, "valor");
         }
         if (cmbFiltros.getSelectedIndex() == 5) {
-            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, "Situacao");
+            this.pedidoController.popularTabelaAbertos(this.tblPesquisar, aux, pago, in, fi, "Situacao");
         }
+
 
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
