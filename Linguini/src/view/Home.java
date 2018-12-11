@@ -20,7 +20,6 @@ import utils.controller.Licenca;
 public class Home extends javax.swing.JFrame {
 
     public static String nomeTela = "telaPrincipal";
-    private Licenca licenca;
 
     /**
      * Creates new form Hello
@@ -42,7 +41,6 @@ public class Home extends javax.swing.JFrame {
         } else {
             this.pnlWeather.setVisible(false);
         }
-        labLicenca.setText(this.licenca.getLicencaRodape());
     }
 
     /**

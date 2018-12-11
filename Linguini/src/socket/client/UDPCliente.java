@@ -16,22 +16,6 @@ public class UDPCliente {
     protected static final int TAM_BUFFER = 4096;
     public static final String DOWNLOAD_FOLDER = "downloads/";
     
-    public static void main(String[] args) {
-//        File file = new File(UDPCliente.DOWNLOAD_FOLDER+"/file.txt");
-//        UDPCliente.uploadArquivo(file);
-            
-//        UDPCliente.downloadArquivo("upload.txt");
-
-//        try {
-//            DatagramSocket clientSocket = new DatagramSocket(UDPCliente.PORTA_CLIENTE);
-//            enviarPacote(clientSocket, "list".getBytes());
-//            byte[] resposta = receberPacote(clientSocket);
-//            System.out.println("Resposta: " + new String(resposta));
-//            clientSocket.close();
-//        } catch(SocketException e) {
-//            System.err.print(e);
-//        }        
-    }
     
     public static MensagemRetorno downloadArquivo(String nomeArquivo) {
         return UDPCliente.downloadArquivo(UDPCliente.DOWNLOAD_FOLDER, nomeArquivo);

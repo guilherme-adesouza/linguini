@@ -1,8 +1,11 @@
 package socket.client;
 
+import controller.PedidoController;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+import utils.controller.Sessao;
 import view.jdMensagem;
+import view.jdPedidosCozinha;
 
 /**
  * @author guilherme-souza
@@ -29,8 +32,26 @@ public class UDPClienteListener extends Thread {
         }
     }
     
+    //padrão da mensagem
+    // mensagem/id
     private void rotinaListener(byte[] bytes){
-        jdMensagem telaMensagem = new jdMensagem(null, true, new String(bytes));
+        String msg = new String(bytes);
+        int idPedido = Integer.parseInt(msg.split("/")[1]);
+        if(msg.contains("pedido")){
+            jdPedidosCozinha tela = Sessao.getTela();
+            if(tela != null) {
+                tela.pedidoRecebido(idPedido);
+            }
+        } else if(msg.contains("recebido")) {
+            new PedidoController().atualizarStatus(idPedido, PedidoController.ADICIONADO);
+        } else if(msg.contains("finalizado")) {
+            new PedidoController().atualizarStatus(idPedido, PedidoController.FINALIZADO);
+        }
+    }
+    
+    private void rotinaTeste(byte[] bytes){
+        String msg = new String(bytes);
+        jdMensagem telaMensagem = new jdMensagem(null, true, msg);
         telaMensagem.setVisible(true);
     }
 }

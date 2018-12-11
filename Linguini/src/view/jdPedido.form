@@ -809,7 +809,7 @@
                                               <Component id="d_tfdCidade" min="-2" pref="171" max="-2" attributes="0"/>
                                               <Component id="d_ValorFrete" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="27" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>

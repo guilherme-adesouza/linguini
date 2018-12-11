@@ -23,6 +23,7 @@ public class Licenca {
     String textoStringDecodificado;
     byte[] arrayBytesDecodificado;
     Date dataFinal;
+    String rodape;
 
     public boolean validaLicenca() {
         this.user = new Usuario();
@@ -41,11 +42,11 @@ public class Licenca {
             ioe.printStackTrace();
             return false;
         }
-        
+
         criaLicenca();
-        
+
         try {
-            this.arrayBytesDecodificado = Base64.getDecoder().decode(linha);            
+            this.arrayBytesDecodificado = Base64.getDecoder().decode(linha);
         } catch (Exception e) {
             new GeradorLog(e);
             System.err.print(e);
@@ -56,7 +57,7 @@ public class Licenca {
         String[] textoSeparado = textoStringDecodificado.split(" - ");
 
         try {
-            dataFinal = sdf2.parse(textoSeparado[1]+" 23:59");
+            dataFinal = sdf2.parse(textoSeparado[1] + " 23:59");
         } catch (ParseException ex) {
             new GeradorLog(ex);
             return false;
@@ -64,10 +65,12 @@ public class Licenca {
 
         MensagemRetorno msg = this.userCtr.consultarPorID(1);
         this.user = (Usuario) msg.getObjeto();
-        
+
         if (user.getNome().equals(textoSeparado[0]) && !data.after(this.dataFinal)) {
             System.out.println("ok");
             System.out.println(dataFinal + "f erro nd" + data);
+            this.rodape = (this.dataFinal.toString() + " Registrado para " + user.getNome());
+
             return true;
         } else {
             System.out.println("erro");
@@ -78,9 +81,13 @@ public class Licenca {
     }
 
     public void criaLicenca() {
-        String texto = "teste - 04/12/2018";
+        String texto = "a - 15/12/2018";
         String codificado = Base64.getEncoder().encodeToString(texto.getBytes());
         System.out.println("texto codificado = " + codificado);
+    }
+
+    public String getLicencaRodape() {
+        return this.rodape;
     }
 
 }
