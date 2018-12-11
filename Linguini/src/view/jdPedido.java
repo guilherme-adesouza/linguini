@@ -24,6 +24,7 @@ import model.Pedido;
 import model.Pessoa;
 import model.Produto;
 import model.Usuario;
+import socket.client.UDPCliente;
 import utils.view.Calendario;
 import utils.view.ControlarEntradaNumero;
 import utils.view.Formatacao;
@@ -1083,6 +1084,9 @@ public class jdPedido extends javax.swing.JDialog implements Pesquisavel {
                 this.cliente.setTelefone1(this.d_tffTelefone.getText());
                 this.cliente.setCidadeId(this.cidade);
                 this.clienteController.salvar(this.cliente);
+                
+                UDPCliente.enviarMensagemParaTodos("pedido/"+this.pedido.getId());
+                        
                 JOptionPane.showMessageDialog(this, "Esta venda ficará disponível em Pedidos!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } else if (ms.isSucesso() && d_labStatusFinalizado.isSelected()) {
