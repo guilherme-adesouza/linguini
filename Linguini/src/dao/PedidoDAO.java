@@ -6,6 +6,7 @@ import model.Pedido;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import persistence.HibernateUtil;
 import utils.controller.GeradorLog;
 import utils.view.ComboItens;
@@ -151,6 +152,31 @@ public class PedidoDAO extends GenericoDAO<Pedido> {
             }
             //retorno.setLista((List) q.list());
             retorno.setSucesso(true);
+        } catch (HibernateException he) {
+            new GeradorLog(he);
+            retorno.setMensagem(he.getMessage());
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        return retorno;
+    }
+    
+    public MensagemRetorno excluirDesativar(int id, String tabela) {
+        
+        MensagemRetorno retorno = new MensagemRetorno(false);
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+            this.setParametroSessao(sessao);
+            
+            Query query = sessao.createQuery("UPDATE " + tabela+" SET situacao=false WHERE id = :idParam");
+            query.setInteger("idParam", id).executeUpdate();
+            t.commit();
+            
+            retorno.setSucesso(true);
+            retorno.setMensagem("Registro excluído com sucesso!");
         } catch (HibernateException he) {
             new GeradorLog(he);
             retorno.setMensagem(he.getMessage());

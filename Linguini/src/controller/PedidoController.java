@@ -68,7 +68,7 @@ public class PedidoController implements Controller<Pedido> {
 
     @Override
     public MensagemRetorno excluir(int id) {
-        return this.pedidoDAO.excluir(id, this.tabela);
+        return this.pedidoDAO.excluirDesativar(id, this.tabela);
     }
 
     @Override
@@ -111,7 +111,7 @@ public class PedidoController implements Controller<Pedido> {
                     dadosTabela[lin][3] = "Delivery";
                 }
                 if (p.getStatus() == 'I') {
-                    dadosTabela[lin][4] = "Iniciado";
+                    dadosTabela[lin][4] = "Enviado";
                     dadosTabela[lin][3] = "Delivery";
                 }
                 if (p.getStatus() == 'S') {
@@ -130,7 +130,7 @@ public class PedidoController implements Controller<Pedido> {
                     dadosTabela[lin][4] = "Pendente";
                 }
                 if (p.getStatus() == 'C') {
-                    dadosTabela[lin][4] = "Aguardando";
+                    dadosTabela[lin][4] = "Em Preparo";
                 }
                 if (p.getStatus() == 'B') {
                     dadosTabela[lin][4] = "Aguardando";
@@ -244,7 +244,7 @@ public class PedidoController implements Controller<Pedido> {
                     dadosTabela[lin][3] = "Delivery";
                 }
                 if (p.getStatus() == 'I') {
-                    dadosTabela[lin][4] = "Iniciado";
+                    dadosTabela[lin][4] = "Enviado";
                     dadosTabela[lin][3] = "Delivery";
                 }
                 if (p.getStatus() == 'S') {
@@ -263,7 +263,7 @@ public class PedidoController implements Controller<Pedido> {
                     dadosTabela[lin][4] = "Pendente";
                 }
                 if (p.getStatus() == 'C') {
-                    dadosTabela[lin][4] = "Em preparo";
+                    dadosTabela[lin][4] = "Em Preparo";
                 }
                 if (p.getStatus() == 'B') {
                     dadosTabela[lin][4] = "Aguardando";

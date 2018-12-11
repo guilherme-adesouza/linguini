@@ -118,7 +118,7 @@ public class GraficoBarraController {
     }
 
     public JFreeChart jFreeChart(CategoryDataset dataS) {
-        JFreeChart grafico = ChartFactory.createBarChart("Vendas por Mês", "Mês", "R$", dataS, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart grafico = ChartFactory.createBarChart("R$ por Mês", "Mês", "R$", dataS, PlotOrientation.VERTICAL, true, true, false);
         return grafico;
 
     }
